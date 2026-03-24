@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { parseSimcString } from '../lib/parser';
+import { saveLastInput, loadLastInput, clearLastInput } from '../lib/profile-store';
 import type { SimcProfile } from '../lib/types';
 
 /** Validation result — either a valid profile or an error message. */
@@ -115,6 +116,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       if (!value.trim()) {
         setResult(null);
         onProfileParsed(null);
+        clearLastInput();
         return;
       }
 
@@ -123,6 +125,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
         const r = validate(value);
         setResult(r);
         onProfileParsed(r.ok ? r.profile : null);
+        saveLastInput(value);
       }, 50);
     },
     [onProfileParsed],
@@ -138,6 +141,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
         const r = validate(value);
         setResult(r);
         onProfileParsed(r.ok ? r.profile : null);
+        saveLastInput(value);
       }, 0);
     },
     [onProfileParsed],
@@ -147,8 +151,22 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
     setInput('');
     setResult(null);
     onProfileParsed(null);
+    clearLastInput();
     textareaRef.current?.focus();
   }, [onProfileParsed]);
+
+  // Restore last session's input on mount
+  useEffect(() => {
+    loadLastInput().then((saved) => {
+      if (saved.trim()) {
+        setInput(saved);
+        const r = validate(saved);
+        setResult(r);
+        onProfileParsed(r.ok ? r.profile : null);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps — only run on mount
+  }, []);
 
   // Cleanup debounce on unmount
   useEffect(() => {
