@@ -23,14 +23,14 @@ Last updated: 2026-03-24
 | --- | --------------------------------------------------------------------------- | ------ |
 | 2.1 | App shows all gear slots as columns, each listing equipped item + bag items | ✅     |
 | 2.2 | Items show the item name in the card instead of "Item #itemId"              | ✅     |
-| 2.3 | Equipped item is pre-selected and highlighted differently from bag items    | ⬜     |
+| 2.3 | Equipped item is pre-selected and highlighted differently from bag items    | ✅     |
 | 2.4 | User can select/deselect multiple items per slot to include in comparison   | ⬜     |
 | 2.5 | Live combination counter updates as user selects items                      | ⬜     |
 | 2.6 | Warning if combinations > 200; hard block if > 1000                         | ⬜     |
 | 2.7 | "Select all" / "Deselect all" per slot                                      | ⬜     |
 | 2.8 | Items show item level, slot type, and key stats in the card                 | ⬜     |
 
-**Epic status: 🟡 1/8 stories done**
+**Epic status: 🟡 3/8 stories done**
 
 ---
 

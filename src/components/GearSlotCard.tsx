@@ -51,17 +51,33 @@ const SLOT_ICONS: Record<string, string> = {
 interface GearSlotCardProps {
   slot: string;
   items: GearItem[];
+  /** Set of selected item indices within this slot */
+  selectedIndices: Set<number>;
+  /** Called when a user toggles an item */
+  onToggle: (slot: string, index: number) => void;
   /** Stagger animation delay in ms */
   delay?: number;
 }
 
-export default function GearSlotCard({ slot, items, delay = 0 }: GearSlotCardProps) {
+export default function GearSlotCard({
+  slot,
+  items,
+  selectedIndices,
+  onToggle,
+  delay = 0,
+}: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
 
   const label = SLOT_LABELS[slot] ?? slot;
   const icon = SLOT_ICONS[slot] ?? '\u{2699}';
-  const equipped = items.filter((i) => i.isEquipped);
-  const bag = items.filter((i) => !i.isEquipped);
+
+  // Track equipped/bag items with their original indices
+  const equippedWithIdx: Array<[GearItem, number]> = [];
+  const bagWithIdx: Array<[GearItem, number]> = [];
+  items.forEach((item, idx) => {
+    if (item.isEquipped) equippedWithIdx.push([item, idx]);
+    else bagWithIdx.push([item, idx]);
+  });
 
   // Resolve item names from cache/Wowhead
   // Use a stable key (sorted item IDs) to avoid re-running on every render
@@ -83,6 +99,8 @@ export default function GearSlotCard({ slot, items, delay = 0 }: GearSlotCardPro
     return () => { cancelled = true; };
   }, [itemIdKey]);
 
+  const selectedCount = Array.from(selectedIndices).filter((i) => i < items.length).length;
+
   return (
     <div
       className="gear-card group rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden animate-in"
@@ -99,34 +117,38 @@ export default function GearSlotCard({ slot, items, delay = 0 }: GearSlotCardPro
           </h3>
         </div>
         <span className="text-[10px] tabular-nums text-zinc-600 font-medium">
-          {items.length} {items.length === 1 ? 'item' : 'items'}
+          {selectedCount}/{items.length} selected
         </span>
       </div>
 
       {/* Items list */}
       <div className="px-3.5 py-2 space-y-0.5">
         {/* Equipped items */}
-        {equipped.map((item) => (
+        {equippedWithIdx.map(([item, idx]) => (
           <ItemRow
             key={`eq-${item.id}`}
             item={item}
             cached={itemNames[item.id] ?? null}
             badge="equipped"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
           />
         ))}
 
         {/* Separator between equipped and bag items */}
-        {equipped.length > 0 && bag.length > 0 && (
+        {equippedWithIdx.length > 0 && bagWithIdx.length > 0 && (
           <div className="border-t border-zinc-800/30 my-1.5" />
         )}
 
         {/* Bag items */}
-        {bag.map((item, idx) => (
+        {bagWithIdx.map(([item, idx]) => (
           <ItemRow
             key={`bag-${item.id}-${idx}`}
             item={item}
             cached={itemNames[item.id] ?? null}
             badge="bag"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
           />
         ))}
 
@@ -147,9 +169,11 @@ interface ItemRowProps {
   item: GearItem;
   cached: CachedItem | null;
   badge: 'equipped' | 'bag';
+  selected: boolean;
+  onToggle: () => void;
 }
 
-function ItemRow({ item, cached, badge }: ItemRowProps) {
+function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
   const displayName = getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
 
@@ -157,20 +181,53 @@ function ItemRow({ item, cached, badge }: ItemRowProps) {
   const socketCount = item.gemIds.length;
 
   return (
-    <div
+    <button
+      type="button"
+      onClick={onToggle}
       className={[
-        'flex items-center gap-2 py-1.5 px-1.5 -mx-1.5 rounded-md transition-colors',
+        'w-full flex items-center gap-2 py-1.5 px-1.5 -mx-1.5 rounded-md transition-all cursor-pointer',
         'hover:bg-zinc-800/40',
-        isEquipped ? 'text-zinc-200' : 'text-zinc-400',
+        selected
+          ? isEquipped
+            ? 'text-zinc-100 bg-amber-500/5'
+            : 'text-zinc-200 bg-zinc-800/30'
+          : 'text-zinc-500 opacity-60',
       ].join(' ')}
+      aria-pressed={selected}
     >
+      {/* Checkbox */}
+      <span
+        className={[
+          'shrink-0 flex items-center justify-center w-4 h-4 rounded border transition-colors',
+          selected
+            ? isEquipped
+              ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+              : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
+            : 'border-zinc-700/50 text-transparent',
+        ].join(' ')}
+      >
+        {selected && (
+          <svg
+            className="w-2.5 h-2.5"
+            fill="none"
+            viewBox="0 0 10 10"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M2 5.5 L4 7.5 L8 3" />
+          </svg>
+        )}
+      </span>
+
       {/* Item name + details */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <span
             className={[
-              'text-sm leading-tight truncate',
-              isEquipped ? 'font-medium' : 'font-normal',
+              'text-sm leading-tight truncate text-left',
+              selected && isEquipped ? 'font-medium' : 'font-normal',
             ].join(' ')}
           >
             {displayName}
@@ -202,6 +259,6 @@ function ItemRow({ item, cached, badge }: ItemRowProps) {
       >
         {isEquipped ? 'equipped' : 'bag'}
       </span>
-    </div>
+    </button>
   );
 }

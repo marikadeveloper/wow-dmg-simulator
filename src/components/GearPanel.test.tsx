@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import GearPanel from './GearPanel';
 import type { SimcProfile } from '../lib/types';
 
@@ -46,6 +46,7 @@ function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boo
 
 describe('GearPanel', () => {
   afterEach(cleanup);
+
   it('renders a card for each slot with items', () => {
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
@@ -59,7 +60,6 @@ describe('GearPanel', () => {
 
     expect(screen.getByText('Head')).toBeInTheDocument();
     expect(screen.getByText('Trinket 1')).toBeInTheDocument();
-    // Slots with no items should not render
     expect(screen.queryByText('Neck')).not.toBeInTheDocument();
   });
 
@@ -70,10 +70,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Head slot should be present (1 card rendered)
-    const cards = screen.getAllByText('1 item');
-    expect(cards).toHaveLength(1);
-    // Slots not in the profile should not render
+    expect(screen.getByText('1/1 selected')).toBeInTheDocument();
     expect(screen.queryByText('Shoulders')).not.toBeInTheDocument();
     expect(screen.queryByText('Back')).not.toBeInTheDocument();
   });
@@ -96,7 +93,7 @@ describe('GearPanel', () => {
     expect(screen.getByText('3 bag items available to compare')).toBeInTheDocument();
   });
 
-  it('shows item count per card', () => {
+  it('shows selected count per card', () => {
     const profile = makeProfile({
       trinket1: [
         makeItem({ slot: 'trinket1', id: 1, isEquipped: true }),
@@ -107,8 +104,8 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    expect(screen.getByText('3 items')).toBeInTheDocument();
-    expect(screen.getByText('Trinket 1')).toBeInTheDocument();
+    // 1 equipped item pre-selected out of 3 total
+    expect(screen.getByText('1/3 selected')).toBeInTheDocument();
   });
 
   it('shows "equipped" and "bag" badges on items', () => {
@@ -161,8 +158,68 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={makeProfile(gear)} />);
 
-    // Each card renders the equipped badge — 16 slots = 16 equipped badges
     const equippedBadges = screen.getAllByText('equipped');
     expect(equippedBadges).toHaveLength(16);
+  });
+
+  it('pre-selects equipped items and not bag items', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const buttons = screen.getAllByRole('button');
+    // Equipped item (first) should be pressed
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    // Bag item (second) should not be pressed
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('toggles item selection on click', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const buttons = screen.getAllByRole('button');
+
+    // Bag item starts unselected
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+
+    // Click to select
+    fireEvent.click(buttons[1]);
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+
+    // Click to deselect
+    fireEvent.click(buttons[1]);
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('updates selected count when toggling items', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+        makeItem({ slot: 'head', id: 3, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.getByText('1/3 selected')).toBeInTheDocument();
+
+    // Select a bag item
+    const buttons = screen.getAllByRole('button');
+    fireEvent.click(buttons[1]);
+
+    expect(screen.getByText('2/3 selected')).toBeInTheDocument();
   });
 });

@@ -1,3 +1,4 @@
+import { useState, useCallback, useMemo } from 'react';
 import type { SimcProfile } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 
@@ -5,7 +6,51 @@ interface GearPanelProps {
   profile: SimcProfile;
 }
 
+/**
+ * Build the initial selection: all equipped items are pre-selected.
+ * Returns a Set of keys like "head:0", "trinket1:0", "trinket1:1".
+ */
+function buildInitialSelection(profile: SimcProfile): Set<string> {
+  const selected = new Set<string>();
+  for (const [slot, items] of Object.entries(profile.gear)) {
+    items.forEach((item, idx) => {
+      if (item.isEquipped) {
+        selected.add(`${slot}:${idx}`);
+      }
+    });
+  }
+  return selected;
+}
+
 export default function GearPanel({ profile }: GearPanelProps) {
+  const [selection, setSelection] = useState<Set<string>>(() =>
+    buildInitialSelection(profile),
+  );
+
+  const toggleItem = useCallback((slot: string, index: number) => {
+    setSelection((prev) => {
+      const key = `${slot}:${index}`;
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }, []);
+
+  // Build per-slot selected indices for fast lookup in children
+  const selectionBySlot = useMemo(() => {
+    const map: Record<string, Set<number>> = {};
+    for (const key of selection) {
+      const [slot, idxStr] = key.split(':');
+      if (!map[slot]) map[slot] = new Set();
+      map[slot].add(Number(idxStr));
+    }
+    return map;
+  }, [selection]);
+
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
     const items = profile.gear[slot];
@@ -38,6 +83,8 @@ export default function GearPanel({ profile }: GearPanelProps) {
             key={slot}
             slot={slot}
             items={profile.gear[slot]}
+            selectedIndices={selectionBySlot[slot] ?? new Set()}
+            onToggle={toggleItem}
             delay={index * 30}
           />
         ))}
