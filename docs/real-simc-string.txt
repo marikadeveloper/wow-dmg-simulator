@@ -1,0 +1,85 @@
+# Smarika - Frost - 2026-03-24 17:57 - EU/Nemesis
+# SimC Addon 12.0.1-02
+# WoW 12.0.1.66527, TOC 120001
+# Requires SimulationCraft 1000-01 or newer
+
+mage="Smarika"
+level=90
+race=blood_elf
+region=eu
+server=nemesis
+role=spell
+professions=herbalism=100/mining=100
+spec=frost
+# loot_spec=frost
+
+talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZswMzEzMzYmZmZWMzMjZMDEAAYmZmllZm2AAgNAAAgNA2WGzMz8AMbDjZYDAAgZ2AmBGwMYA
+
+# Saved Loadout: pvp bng
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzML2MzgZYmZmZmhZmxMzMzsMjZmlZBAAAWAAgFAAAgNA2WGzMzALGzMzYBAAAMzgBjBMwA
+# Saved Loadout: pvp
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMWmZmZBzMYeAmZMzMzmZmxMzMzsMjZmlZBAAAWAAgFAAAAAstMmZmBWmxYmZZBAAAAMYMgBA
+# Saved Loadout: R - Chimearus
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzswMzgZGjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgNA2WGzMzMMbDjZYDAAgZ2AmBGwMYA
+# Saved Loadout: R - wowhead
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmxMmZxMzMzMmBAAAmZmZZZmxGAAAAAAYDgttxMzMYWmHwYG2AAAYmFgZYMgZwA
+# Saved Loadout: M - icy veins
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA22GzMzgZbYMDbAAAMzGwMwAmBD
+# Saved Loadout: R - Lightbounded Guardian
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZswMzgZmZMzMzMLmZmxMmBAAAmZmZZZmxGAAsBAAAsAw2yYmZmHgZbYMDbAAAMzGwMwAmBD
+# Saved Loadout: R - Crown of the cosmos
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZswMzgZmZMzMzMLmZmxMmBAAAmZmZZZmxGAAsBAAAsBw2yYmZmHgZbYMDbAAAMzGwMwAmBD
+# Saved Loadout: pvp
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzMLWMzgZYmZmZmZxMzYmxMAAAwMzMLLzM2AAgFAAAgNA2WGzMzALGjZGLAAAMzCwMMGgBD
+# Saved Loadout: R - Adam
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwGAAAzsBMDMgZwA
+
+# Silvermoon Sunspire (263)
+head=,id=266429,enchant_id=7988,bonus_id=13577/12790
+# Preyseeker's Choker (263)
+neck=,id=259916,gem_id=240967,bonus_id=6652/13668/12790
+# Lightbinder Shoulderguards (263)
+shoulder=,id=258578,enchant_id=7972,bonus_id=13439/6652/13577/12699/12790
+# Defiant Defender's Drape (263)
+back=,id=260312,bonus_id=13439/40/13577/12699/12790
+# Voidbreaker's Robe (250)
+chest=,id=250063,bonus_id=12786/13333/13336/6652/13575
+# Martyr's Bindings (259)
+wrist=,id=239648,bonus_id=12214/12497/12066/8960/12384/8791/12667,crafted_stats=32/49,crafting_quality=5
+# Handwraps of the Ascended (263)
+hands=,id=151300,bonus_id=13439/6652/13577/12699/12790
+# Hara'ti Defender's Sash (246)
+waist=,id=263265,bonus_id=13577/12785
+# Commander's Faded Breeches (250)
+legs=,id=251090,enchant_id=7939,bonus_id=13439/6652/13577/12699/12786
+# Sprawling Rootpads (259)
+feet=,id=249630,enchant_id=7992,bonus_id=12793/6652/13577
+# Platinum Star Band (250)
+finger1=,id=193708,enchant_id=7964,gem_id=240892,bonus_id=13439/6652/13668/12699/12786
+# Omission of Light (250)
+finger2=,id=251093,enchant_id=7969,gem_id=240892,bonus_id=13439/6652/13668/12699/12786
+# Crucible of Erratic Energies (250)
+trinket1=,id=264507,bonus_id=12786
+# Vessel of Tortured Souls (250)
+trinket2=,id=250258,bonus_id=13439/6652/12699/12782
+# Resinous Blossomblade (250)
+main_hand=,id=249610,enchant_id=7980,bonus_id=12786/6652
+# Sigil of the Restless Heart (250)
+off_hand=,id=251094,bonus_id=13439/6652/12699/12782
+
+### Gear from Bags
+#
+# Lucky Lynx Locket (220)
+# trinket1=,id=265027,bonus_id=6652/12769/11311
+
+### Additional Character Info
+#
+# catalyst_currencies=3269:8/3378:1/2813:8/3116:8
+#
+# upgrade_currencies=c:3347:30/c:3383:310/c:3341:290/c:1792:1868/c:3345:180/i:232875:2
+#
+# slot_high_watermarks=0:263:263/1:263:263/2:263:263/3:250:250/4:246:246/5:250:250/6:259:259/7:259:259/8:263:263/9:250:250/10:250:250/11:263:263/12:240:240/13:250:250/14:0:108/15:0:98/16:250:250
+#
+# upgrade_achievements=41886/41887/61809
+
+# Checksum: 78215fd5
