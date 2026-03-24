@@ -64,9 +64,12 @@ export default function GearSlotCard({ slot, items, delay = 0 }: GearSlotCardPro
   const bag = items.filter((i) => !i.isEquipped);
 
   // Resolve item names from cache/Wowhead
+  // Use a stable key (sorted item IDs) to avoid re-running on every render
+  const itemIdKey = items.map((i) => i.id).sort().join(',');
+
   useEffect(() => {
     let cancelled = false;
-    const ids = items.map((i) => i.id);
+    const ids = itemIdKey.split(',').filter(Boolean).map(Number);
 
     Promise.all(ids.map((id) => getItemData(id))).then((results) => {
       if (cancelled) return;
@@ -78,7 +81,7 @@ export default function GearSlotCard({ slot, items, delay = 0 }: GearSlotCardPro
     });
 
     return () => { cancelled = true; };
-  }, [items]);
+  }, [itemIdKey]);
 
   return (
     <div

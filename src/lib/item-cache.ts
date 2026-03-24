@@ -78,7 +78,8 @@ export async function getItemData(id: number): Promise<CachedItem | null> {
 
     // Fall back to stale cache if fresh fetch failed to parse
     return cached ?? null;
-  } catch {
+  } catch (err) {
+    console.error(`[item-cache] getItemData(${id}) failed:`, err);
     // Fallback: return cached if available, otherwise null
     try {
       const store = await getStore();

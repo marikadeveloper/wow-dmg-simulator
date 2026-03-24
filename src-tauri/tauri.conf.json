@@ -37,14 +37,7 @@
   },
   "plugins": {
     "shell": {
-      "open": false,
-      "sidecar": true,
-      "scope": [
-        {
-          "name": "binaries/simc",
-          "sidecar": true
-        }
-      ]
+      "open": false
     }
   }
 }
