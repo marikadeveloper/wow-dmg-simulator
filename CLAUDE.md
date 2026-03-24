@@ -277,3 +277,7 @@ pnpm test                # run Vitest
 pnpm season:validate     # validate season-config.ts — run before every release
 pnpm build:item-db       # regenerate items.db from SimC source
 ```
+
+## Skills
+
+You must use the frontend-design skill when you are building the UI.
