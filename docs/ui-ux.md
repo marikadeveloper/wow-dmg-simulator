@@ -73,7 +73,30 @@ Each card expands inline to show gems and enchants for that slot.
 └──────────────────────────────────────────────────────┘
 ```
 
-### Gear Slot Card — slot with enchant options
+### Gear Slot Card — with unowned item search open
+
+```
+┌──────────────────────────────────────────────────────┐
+│ 🗡 MAIN HAND                               [2 items] │
+│ ──────────────────────────────────────────────────── │
+│ ✅ Void-Touched Longstaff   ilvl 639    [equipped]   │
+│     💎 Socket 1: [Masterful Ysemerald ▼]             │
+│ ☐  Staff of the Deep Vaults ilvl 636   [bag]        │
+│ ──────────────────────────────────────────────────── │
+│ ☐  Frozen Heartstaff        ilvl 649   [🔍 unowned] │
+│     Track: [Hero ▼]  649–665 ilvl   ☑ Add socket   │
+│ ──────────────────────────────────────────────────── │
+│ 🔍 [Search for item to compare...          ] [×]     │
+│    Staff of the S...                                 │
+│    ├ Staff of the Sunken Depths   Two-Hand  (epic)   │
+│    ├ Staff of the Blazing Path    Two-Hand  (epic)   │
+│    └ Staff of Sunken Sorrows      Two-Hand  (rare)   │
+└──────────────────────────────────────────────────────┘
+```
+
+Unowned items are displayed between bag items and the search bar.
+They show a yellow `[🔍 unowned]` badge and a track/ilvl selector row below them.
+Clicking `[×]` on the search bar collapses it without losing the unowned item.
 
 ```
 ┌──────────────────────────────────────────────────────┐

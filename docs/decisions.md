@@ -88,7 +88,21 @@ inherit the enchant_id from the currently equipped item in that slot.
 
 ---
 
-## 2026-03-23 — Use Wowhead XML API for item name resolution
+## 2026-03-24 — Gear track bonus_ids are marked TBD until confirmed from SimC source
+
+**Decision:** The `GEAR_TRACKS` array in `gear-track-presets.ts` ships with
+`bonusId: 0` placeholders. The UI shows a warning if any bonus_id is 0.
+
+**Why:** bonus_ids are expansion/season-specific and not published in player-facing
+guides. They must be sourced from SimC's `item_data.inc` or Wowhead XML at the
+start of each season. Shipping wrong bonus_ids would silently produce incorrect
+ilvl simulations, which is worse than a visible warning.
+
+**Current expansion:** Midnight Season 1 (started March 17, 2026).
+Tracks: Adventurer (224–237), Veteran (237–250), Champion (250–263),
+Hero (263–276), Myth (276–289). See `docs/item-search.md` for lookup instructions.
+
+---
 
 **Decision:** Fetch item names and ilvl from `https://www.wowhead.com/item=ID&xml`.
 Cache results in Tauri store with a 7-day TTL.

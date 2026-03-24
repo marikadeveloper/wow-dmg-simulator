@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "test": "vitest",
+    // scripts to add:
+    "season:validate": "tsx scripts/validate-season.ts",
+    "build:item-db": "tsx scripts/build-item-db.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0"
+  }
+}

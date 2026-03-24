@@ -5,6 +5,7 @@
 ⬜ Project scaffold (Tauri + React + Vite + TypeScript)
 ⬜ SimC string parser (TypeScript, frontend)
 ⬜ Gear slot UI with multi-select
+⬜ Unowned item search (items.db + Wowhead API + gear track selector)
 ⬜ Gem optimization UI + combination generation
 ⬜ Enchant optimization UI + combination generation
 ⬜ Simulation settings panel (fight style, length, enemies, iterations)
@@ -80,11 +81,20 @@ wow-topgear/
 │   └── tauri.conf.json
 ├── docs/                      ← reference docs for Claude Code sessions
 │   ├── architecture.md
+│   ├── build-item-db.md
+│   ├── decisions.md
+│   ├── extensibility.md
 │   ├── features.md            ← epics & user stories, canonical feature list
+│   ├── gem-enchant-axis.md
+│   ├── item-data.md
+│   ├── item-search.md
+│   ├── profileset-builder.md
 │   ├── simc-string-format.md
 │   ├── simc-cli-reference.md
 │   ├── simc-wiki-reference.md ← SimC wiki URLs + key options summary
-│   └── decisions.md
+│   ├── tauri-build.md
+│   ├── ui-ux.md
+│   └── updating-seasons.md
 └── .github/workflows/
     └── build.yml              ← cross-platform release builds
 ```
@@ -135,7 +145,16 @@ wow-topgear/
 - `enemy=addN` lines — number of extra enemies (default 0 = 1 total)
 - `iterations` — default 10000
 
-### Gem Optimization
+### Unowned Item Search
+
+- Bundled `items.db` SQLite (name + slot + base_ilvl only — no stats)
+- Schema and FTS5 full-text search index defined in `docs/item-search.md`
+- Search fires against local DB instantly; Wowhead API in parallel for misses
+- Unowned items need a gear track selection (Myth/Hero/Champion/Veteran/Adventurer)
+  which maps to a `bonus_id` — see `GEAR_TRACKS_TWW_S2` in `src/lib/presets/gear-track-presets.ts`
+- SimC resolves all item stats internally from `id` + `bonus_id` — we never store stats
+- `items.db` is regenerated from SimC's `item_data.inc` by `scripts/build-item-db.ts`
+- Add `rusqlite = { version = "0.31", features = ["bundled"] }` to `Cargo.toml`
 
 - Items with `gem_id` fields have sockets
 - User provides a list of gem IDs to try per socket
@@ -173,8 +192,12 @@ wow-topgear/
 - `src/lib/profileset-builder.ts` — combinations[] → .simc file string
 - `src/lib/optimization-assembler.ts` — collects OptimizationAxis[] from all UI sections
 - `src/lib/features.ts` — feature flags (check before implementing any flagged feature)
-- `src/lib/presets/gem-presets.ts` — current-patch gems (id + name + stat)
-- `src/lib/presets/enchant-presets.ts` — current-patch enchants (id + name + slot + stat)
+  ├── src/lib/presets/
+  │ ├── season-config.ts ← THE ONLY FILE to edit for a new season
+  │ └── gear-track-presets.ts ← re-exports from season-config (legacy compat)
+  ├── scripts/
+  │ ├── validate-season.ts ← run with `pnpm season:validate` before every release
+  │ └── build-item-db.ts ← regenerates src-tauri/assets/items.db from SimC source
 
 The OptimizationAxis pattern is the extensibility foundation — see `docs/extensibility.md`.
 Every optimization type (gear, gems, enchants, future features) produces OptimizationAxis[].
@@ -231,18 +254,26 @@ interface SimResult {
 
 ---
 
+## Seasonal Data — How It Works
+
+ALL season-specific constants live in ONE file: `src/lib/presets/season-config.ts`
+This includes: gear tracks + bonus_ids, ilvl ranges, socket bonus_id, gem presets,
+enchant presets, SimC branch name, current season label.
+
+To update for a new season: edit ONLY that file, then run `pnpm season:validate`.
+Full instructions are in `docs/updating-seasons.md`.
+
+Never hardcode season-specific values anywhere outside `season-config.ts`.
+If a component needs a gem list or gear track, it imports from season-config.
+
 ## Commands to Know
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Dev mode (hot reload)
-pnpm tauri dev
-
-# Production build (current platform)
-pnpm tauri build
-
-# Run frontend only (no Tauri shell)
-pnpm dev
+pnpm install             # install dependencies
+pnpm tauri dev           # dev mode (hot reload)
+pnpm tauri build         # production build (current platform)
+pnpm dev                 # frontend only (no Tauri shell)
+pnpm test                # run Vitest
+pnpm season:validate     # validate season-config.ts — run before every release
+pnpm build:item-db       # regenerate items.db from SimC source
 ```

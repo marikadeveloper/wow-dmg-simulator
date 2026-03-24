@@ -160,6 +160,30 @@ _Non-technical users can install and keep the app up to date._
 
 ---
 
+## EPIC 10 — Unowned Item Search
+
+_The user simulates gear they don't own yet to decide if it's worth farming._
+
+| #     | Story                                                                                                                                        | Priority |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 10.1  | Each gear slot card has an "+ Add item to compare" search entry point                                                                        | 🚀       |
+| 10.2  | Typing a name searches both local item DB and Wowhead API in parallel                                                                        | 🚀       |
+| 10.3  | Search results show item name, slot type, and quality color                                                                                  | 🚀       |
+| 10.4  | After selecting an unowned item, user picks the gear track (Myth/Hero/Champion/Veteran/Adventurer) which determines the simulated ilvl range | 🚀       |
+| 10.5  | Unowned items show a distinct `[unowned]` badge in the slot card                                                                             | 🚀       |
+| 10.6  | "Assume socket" checkbox available for unowned items                                                                                         | 🚀       |
+| 10.7  | Unowned items are excluded from the SimC string if deselected, like any other item                                                           | 🚀       |
+| 10.8  | Search works fully offline using the bundled `items.db` SQLite database                                                                      | 🚀       |
+| 10.9  | `items.db` is regenerated from SimC's `item_data.inc` by a CI script each release                                                            | 🚀       |
+| 10.10 | Recently searched/added unowned items are remembered across sessions                                                                         | 🔮       |
+| 10.11 | User can search by item ID directly (e.g. paste `235620`)                                                                                    | 🔮       |
+
+**Key constraint:** SimC knows all item stats internally from the item ID + bonus_ids.
+The app only needs to resolve item names for the UI. No stat DB required.
+See `docs/item-search.md` for full implementation spec.
+
+---
+
 ## OUT OF SCOPE (for now) ❌
 
 These features exist on Raidbots but are not part of this app's initial scope:
