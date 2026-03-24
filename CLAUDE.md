@@ -1,17 +1,17 @@
 # WoW Top Gear — Local SimulationCraft Desktop App
 
-## Current Status (last updated: project start)
+## Current Status (last updated: 2026-03-24)
 
-⬜ Project scaffold (Tauri + React + Vite + TypeScript)
-⬜ SimC string parser (TypeScript, frontend)
+✅ Project scaffold (Tauri + React + Vite + TypeScript)
+✅ SimC string parser (TypeScript, frontend)
 ⬜ Gear slot UI with multi-select
-⬜ Unowned item search (items.db + Wowhead API + gear track selector)
-⬜ Gem optimization UI + combination generation
-⬜ Enchant optimization UI + combination generation
+✅ Unowned item search (items.db + Wowhead API + gear track selector) — backend + scripts done, UI pending
+✅ Gem optimization UI + combination generation — combinator done, UI pending
+✅ Enchant optimization UI + combination generation — combinator done, UI pending
 ⬜ Simulation settings panel (fight style, length, enemies, iterations)
-⬜ SimC runner via ProfileSet (single process, all combos)
+✅ SimC runner via ProfileSet (single process, all combos)
 ⬜ Results ranking view with delta vs equipped
-⬜ Settings screen (SimC binary path override, thread count)
+✅ Settings screen (SimC binary path override, thread count) — backend done, UI pending
 ⬜ Cross-platform builds (GitHub Actions)
 
 ---
