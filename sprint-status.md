@@ -21,7 +21,7 @@ Last updated: 2026-03-24
 
 | #   | Story                                                                        | Status |
 | --- | ---------------------------------------------------------------------------- | ------ |
-| 2.1 | App shows all gear slots as columns, each listing equipped item + bag items  | ⬜     |
+| 2.1 | App shows all gear slots as columns, each listing equipped item + bag items  | ✅     |
 | 2.2 | Equipped item is pre-selected and highlighted differently from bag items     | ⬜     |
 | 2.3 | User can select/deselect multiple items per slot to include in comparison    | ⬜     |
 | 2.4 | Live combination counter updates as user selects items                       | ⬜     |
@@ -29,7 +29,7 @@ Last updated: 2026-03-24
 | 2.6 | "Select all" / "Deselect all" per slot                                       | ⬜     |
 | 2.7 | Items show item level, slot type, and key stats in the card                  | ⬜     |
 
-**Epic status: 🔴 0/7 stories done (types defined, UI not started)**
+**Epic status: 🟡 1/7 stories done**
 
 ---
 

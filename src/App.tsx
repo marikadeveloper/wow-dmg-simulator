@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import ProfileImport from './components/ProfileImport';
+import GearPanel from './components/GearPanel';
 import type { SimcProfile } from './lib/types';
 
 function App() {
@@ -32,12 +33,10 @@ function App() {
           <ProfileImport onProfileParsed={handleProfileParsed} />
         </section>
 
-        {/* Zone 2 — Gear & Optimization (placeholder) */}
+        {/* Zone 2 — Gear & Optimization Panel */}
         {profile && (
-          <section className="rounded-lg border border-zinc-800/60 bg-zinc-900/40 px-5 py-6">
-            <p className="text-sm text-zinc-500">
-              Gear optimization panel will appear here.
-            </p>
+          <section className="mb-8">
+            <GearPanel profile={profile} />
           </section>
         )}
       </div>
