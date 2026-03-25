@@ -47,7 +47,7 @@ export default function EnchantOptimization({
   enchantableSlotCount,
 }: EnchantOptimizationProps) {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [showQ2, setShowQ2] = useState(false);
+  const [showQ1, setShowQ1] = useState(false);
 
   // Group enchants by slot category, split into base and Q2
   const enchantsBySlot = useMemo(() => {
@@ -68,13 +68,13 @@ export default function EnchantOptimization({
   }, []);
 
   const selectedCount = selectedEnchantIds.size;
-  const hasQ2Selected = useMemo(
-    () => ENCHANT_PRESETS.some((e) => selectedEnchantIds.has(e.id) && isQ2(e)),
+  const hasQ1Selected = useMemo(
+    () => ENCHANT_PRESETS.some((e) => selectedEnchantIds.has(e.id) && !isQ2(e)),
     [selectedEnchantIds],
   );
 
-  // Auto-expand Q2 section if user has Q2 enchants selected
-  const effectiveShowQ2 = showQ2 || hasQ2Selected;
+  // Auto-expand Q1 section if user has Q1 enchants selected
+  const effectiveShowQ1 = showQ1 || hasQ1Selected;
 
   return (
     <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
@@ -155,32 +155,32 @@ export default function EnchantOptimization({
             </div>
           ) : (
             <div className="px-3.5 py-3 space-y-3">
-              {/* Base quality enchants by slot */}
+              {/* Best quality (Q2) enchants by slot — shown by default */}
               {ENCHANT_SLOT_GROUPS.map((slotGroup) => {
                 const group = enchantsBySlot.get(slotGroup.key);
-                if (!group || group.base.length === 0) return null;
+                if (!group || group.q2.length === 0) return null;
                 return (
                   <EnchantSlotSection
                     key={slotGroup.key}
                     slotGroup={slotGroup}
-                    enchants={group.base}
+                    enchants={group.q2}
                     selectedEnchantIds={selectedEnchantIds}
                     onToggleEnchant={onToggleEnchant}
                   />
                 );
               })}
 
-              {/* Q2 quality toggle */}
+              {/* Lower quality (Q1) toggle */}
               <div className="pt-1">
                 <button
                   type="button"
-                  onClick={() => setShowQ2((p) => !p)}
+                  onClick={() => setShowQ1((p) => !p)}
                   className="flex items-center gap-1.5 text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
                 >
                   <svg
                     className={[
                       'w-3 h-3 transition-transform duration-150',
-                      effectiveShowQ2 ? 'rotate-0' : '-rotate-90',
+                      effectiveShowQ1 ? 'rotate-0' : '-rotate-90',
                     ].join(' ')}
                     viewBox="0 0 16 16"
                     fill="none"
@@ -190,21 +190,21 @@ export default function EnchantOptimization({
                   >
                     <path d="M4 6L8 10L12 6" />
                   </svg>
-                  {effectiveShowQ2 ? 'Hide' : 'Show'} quality 2 variants
+                  {effectiveShowQ1 ? 'Hide' : 'Show'} lower quality (Q1) variants
                 </button>
               </div>
 
-              {/* Q2 quality enchants */}
-              {effectiveShowQ2 && (
+              {/* Lower quality (Q1) enchants */}
+              {effectiveShowQ1 && (
                 <div className="space-y-3 animate-in" style={{ animationDuration: '150ms' }}>
                   {ENCHANT_SLOT_GROUPS.map((slotGroup) => {
                     const group = enchantsBySlot.get(slotGroup.key);
-                    if (!group || group.q2.length === 0) return null;
+                    if (!group || group.base.length === 0) return null;
                     return (
                       <EnchantSlotSection
-                        key={`q2-${slotGroup.key}`}
+                        key={`q1-${slotGroup.key}`}
                         slotGroup={slotGroup}
-                        enchants={group.q2}
+                        enchants={group.base}
                         selectedEnchantIds={selectedEnchantIds}
                         onToggleEnchant={onToggleEnchant}
                         isQ2

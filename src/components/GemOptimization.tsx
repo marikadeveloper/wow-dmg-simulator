@@ -268,7 +268,7 @@ export default function GemOptimization({
                   >
                     <path d="M4 6L8 10L12 6" />
                   </svg>
-                  {effectiveShowRegular ? 'Hide' : 'Show'} regular quality gems
+                  {effectiveShowRegular ? 'Hide' : 'Show'} non-Flawless (lower quality) gems
                 </button>
               </div>
 
