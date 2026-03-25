@@ -58,7 +58,7 @@ Last updated: 2026-03-24
 | 4.2 | For enchantable slots, user can provide a list of enchant IDs to try       | ✅         |
 | 4.3 | App generates combinations trying each enchant ID on each enchantable slot | ✅         |
 | 4.4 | Enchant optimization can be combined with gear + gem optimization          | ✅         |
-| 4.5 | App ships with a preset list of current-patch enchant IDs per slot         | ✅ presets |
+| 4.5 | App ships with a preset list of current-patch enchant IDs per slot         | ✅         |
 | 4.6 | "No enchant" is always an option (enchant_id omitted)                      | ✅ backend |
 
 **Epic status: 🟡 Combinator + presets done, all UI pending**
