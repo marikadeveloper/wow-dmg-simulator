@@ -63,14 +63,22 @@ export function buildEnchantAxes(
 
     if (relevantEnchantIds.length === 0) continue;
 
-    const options: OptimizationOption[] = relevantEnchantIds.map((enchantId) => {
-      const preset = ENCHANT_BY_ID.get(enchantId);
-      return {
-        id: `enchant_${enchantId}`,
-        label: preset?.name ?? `Enchant #${enchantId}`,
-        simcLines: [], // enchant is merged into item lines by profileset builder
-      };
-    });
+    const options: OptimizationOption[] = [
+      // "No enchant" / keep current — always first option
+      {
+        id: 'enchant_none',
+        label: 'No enchant',
+        simcLines: [], // signals to omit enchant_id from the item line
+      },
+      ...relevantEnchantIds.map((enchantId) => {
+        const preset = ENCHANT_BY_ID.get(enchantId);
+        return {
+          id: `enchant_${enchantId}`,
+          label: preset?.name ?? `Enchant #${enchantId}`,
+          simcLines: [], // enchant is merged into item lines by profileset builder
+        };
+      }),
+    ];
 
     axes.push({
       id: `enchant:${slot}`,
