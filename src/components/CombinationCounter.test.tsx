@@ -167,6 +167,37 @@ describe('CombinationCounter', () => {
     expect(BLOCK_THRESHOLD).toBe(1000);
   });
 
+  it('shows enchant axis count in breakdown', () => {
+    const axes: OptimizationAxis[] = [
+      {
+        id: 'slot:trinket1',
+        label: 'Trinket 1',
+        options: [
+          { id: 'item_100', label: 'A', simcLines: [] },
+          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+        ],
+      },
+      {
+        id: 'enchant:finger1',
+        label: 'Ring 1 Enchant',
+        options: [
+          { id: 'enchant_7340', label: 'Crit', simcLines: [] },
+          { id: 'enchant_7341', label: 'Mastery', simcLines: [] },
+        ],
+      },
+      {
+        id: 'enchant:finger2',
+        label: 'Ring 2 Enchant',
+        options: [
+          { id: 'enchant_7340', label: 'Crit', simcLines: [] },
+          { id: 'enchant_7341', label: 'Mastery', simcLines: [] },
+        ],
+      },
+    ];
+    render(<CombinationCounter axes={axes} />);
+    expect(screen.getByText(/2 enchants/)).toBeInTheDocument();
+  });
+
   it('does not show warning for idle/green urgency', () => {
     render(<CombinationCounter axes={[]} />);
     expect(screen.queryByText('May take a while')).not.toBeInTheDocument();

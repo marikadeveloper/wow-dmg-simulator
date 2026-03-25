@@ -88,6 +88,44 @@ describe('countCombinations', () => {
     ];
     expect(countCombinations(axes)).toBe(2);
   });
+
+  it('counts gear + gem + enchant axes correctly', () => {
+    const axes: OptimizationAxis[] = [
+      // Gear axis: 2 items for head slot (one with socket, one without)
+      {
+        id: 'slot:head',
+        label: 'Head',
+        options: [
+          { id: 'item_100', label: 'Item A (1 socket)', simcLines: [] },
+          { id: 'item_200', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
+        ],
+      },
+      // Conditional gem axis: 3 gems for item A's socket
+      {
+        id: 'gem:head:100:socket_0',
+        label: 'Head socket 1 (Item A)',
+        parentItemId: 100,
+        parentSlot: 'head',
+        options: [
+          { id: 'gem_1', label: 'Mastery', simcLines: [] },
+          { id: 'gem_2', label: 'Haste', simcLines: [] },
+          { id: 'gem_3', label: 'Crit', simcLines: [] },
+        ],
+      },
+      // Enchant axis: 2 enchants for finger1
+      {
+        id: 'enchant:finger1',
+        label: 'Ring 1 Enchant',
+        options: [
+          { id: 'enchant_7340', label: 'Crit', simcLines: [] },
+          { id: 'enchant_7341', label: 'Mastery', simcLines: [] },
+        ],
+      },
+    ];
+    // Item A: 3 gem options, Item B: 1 → slot contributes (3 + 1) = 4
+    // × 2 enchant options = 8
+    expect(countCombinations(axes)).toBe(8);
+  });
 });
 
 describe('generateCombinations', () => {
@@ -195,6 +233,62 @@ describe('generateCombinations', () => {
     );
     expect(itemBCombos).toHaveLength(1);
     expect(itemBCombos[0].axes['gem:head:100:socket_0']).toBeUndefined();
+  });
+
+  it('generates gear + gem + enchant combinations correctly', () => {
+    const axes: OptimizationAxis[] = [
+      {
+        id: 'slot:head',
+        label: 'Head',
+        options: [
+          { id: 'item_100', label: 'Item A (1 socket)', simcLines: [] },
+          { id: 'item_200', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
+        ],
+      },
+      {
+        id: 'gem:head:100:socket_0',
+        label: 'Head socket 1 (Item A)',
+        parentItemId: 100,
+        parentSlot: 'head',
+        options: [
+          { id: 'gem_1', label: 'Mastery', simcLines: [] },
+          { id: 'gem_2', label: 'Haste', simcLines: [] },
+        ],
+      },
+      {
+        id: 'enchant:finger1',
+        label: 'Ring 1 Enchant',
+        options: [
+          { id: 'enchant_7340', label: 'Crit', simcLines: [] },
+          { id: 'enchant_7341', label: 'Mastery', simcLines: [] },
+        ],
+      },
+    ];
+
+    const combos = generateCombinations(axes);
+    // Item A: 2 gem options × 2 enchant options = 4
+    // Item B: 1 (no gems) × 2 enchant options = 2
+    // Total: 6
+    expect(combos).toHaveLength(6);
+
+    // Verify all combos have an enchant axis selection
+    for (const combo of combos) {
+      expect(combo.axes['enchant:finger1']).toBeDefined();
+    }
+
+    // Item A combos should have gem selections
+    const itemACombos = combos.filter((c) => c.axes['slot:head'] === 'item_100');
+    expect(itemACombos).toHaveLength(4);
+    for (const combo of itemACombos) {
+      expect(combo.axes['gem:head:100:socket_0']).toBeDefined();
+    }
+
+    // Item B combos should NOT have gem selections
+    const itemBCombos = combos.filter((c) => c.axes['slot:head'] === 'item_200');
+    expect(itemBCombos).toHaveLength(2);
+    for (const combo of itemBCombos) {
+      expect(combo.axes['gem:head:100:socket_0']).toBeUndefined();
+    }
   });
 
   it('throws CombinationCapExceededError when count exceeds cap', () => {

@@ -91,6 +91,8 @@ export default function CombinationCounter({ axes, onBlockedChange }: Combinatio
   const activeSlotCount = axes.filter((a) => a.id.startsWith('slot:')).length;
   // Count gem axes for display
   const gemAxisCount = axes.filter((a) => a.id.startsWith('gem:')).length;
+  // Count enchant axes with >1 option (actual enchant comparisons)
+  const enchantAxisCount = axes.filter((a) => a.id.startsWith('enchant:') && a.options.length > 1).length;
 
   return (
     <div
@@ -137,11 +139,13 @@ export default function CombinationCounter({ axes, onBlockedChange }: Combinatio
             <span className="text-xs text-zinc-400">
               {count === 1 ? 'combination' : 'combinations'}
             </span>
-            {(activeSlotCount > 0 || gemAxisCount > 0) && (
+            {(activeSlotCount > 0 || gemAxisCount > 0 || enchantAxisCount > 0) && (
               <span className="text-[10px] text-zinc-600">
                 {activeSlotCount > 0 && `${activeSlotCount} ${activeSlotCount === 1 ? 'slot' : 'slots'}`}
-                {activeSlotCount > 0 && gemAxisCount > 0 && ' + '}
+                {activeSlotCount > 0 && (gemAxisCount > 0 || enchantAxisCount > 0) && ' + '}
                 {gemAxisCount > 0 && `${gemAxisCount} ${gemAxisCount === 1 ? 'socket' : 'sockets'}`}
+                {gemAxisCount > 0 && enchantAxisCount > 0 && ' + '}
+                {enchantAxisCount > 0 && `${enchantAxisCount} ${enchantAxisCount === 1 ? 'enchant' : 'enchants'}`}
               </span>
             )}
           </div>
