@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { SimcProfile } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
+import CombinationCounter from './CombinationCounter';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -100,6 +101,11 @@ export default function GearPanel({ profile }: GearPanelProps) {
             delay={index * 30}
           />
         ))}
+      </div>
+
+      {/* Live combination counter */}
+      <div className="mt-4">
+        <CombinationCounter profile={profile} selection={selection} />
       </div>
     </div>
   );
