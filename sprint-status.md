@@ -69,7 +69,7 @@ Last updated: 2026-03-24
 
 | #   | Story                                                                  | Status     |
 | --- | ---------------------------------------------------------------------- | ---------- |
-| 5.1 | Fight Style dropdown                                                   | ✅ backend |
+| 5.1 | Fight Style dropdown                                                   | ✅         |
 | 5.2 | Fight Length input (max_time)                                          | ✅ backend |
 | 5.3 | Fight Length Variance input (vary_combat_length)                       | ✅ backend |
 | 5.4 | Number of enemies input                                                | ✅ backend |
@@ -160,3 +160,9 @@ Last updated: 2026-03-24
 | 10.11 | User can search by item ID directly                                            | ⬜         |
 
 **Epic status: 🟡 Backend search + item cache + build script done, UI not started**
+
+## EPIC 11 - Nice to Have
+
+| #    | Story                                                                  | Status |
+| ---- | ---------------------------------------------------------------------- | ------ |
+| 11.1 | The user can simulate item upgrades with the crests that the user owns | ⬜     |

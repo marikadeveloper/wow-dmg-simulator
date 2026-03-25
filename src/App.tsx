@@ -1,10 +1,15 @@
 import { useState, useCallback } from 'react';
 import ProfileImport from './components/ProfileImport';
 import GearPanel from './components/GearPanel';
+import SimSettingsPanel from './components/SimSettingsPanel';
+import type { SimSettingsValues } from './components/SimSettingsPanel';
 import type { SimcProfile } from './lib/types';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
+  const [simSettings, setSimSettings] = useState<SimSettingsValues>({
+    fightStyle: 'Patchwerk',
+  });
 
   const handleProfileParsed = useCallback((p: SimcProfile | null) => {
     setProfile(p);
@@ -37,6 +42,16 @@ function App() {
         {profile && (
           <section className="mb-8">
             <GearPanel profile={profile} />
+          </section>
+        )}
+
+        {/* Zone 3 — Simulation Settings + Run Controls */}
+        {profile && (
+          <section className="mb-8">
+            <SimSettingsPanel
+              settings={simSettings}
+              onSettingsChange={setSimSettings}
+            />
           </section>
         )}
       </div>
