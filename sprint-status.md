@@ -88,10 +88,10 @@ Last updated: 2026-03-24
 | 6.1 | "Run Top Gear" button starts the simulation run                   | ✅ backend |
 | 6.2 | Progress bar shows X / N combinations completed                   | ⬜         |
 | 6.3 | Simulationcraft logs show on the page                             | ⬜         |
-| 6.3 | Results appear incrementally as each sim finishes                 | ⬜         |
-| 6.4 | User can cancel an in-progress run                                | ⬜         |
-| 6.5 | Estimated time remaining shown during run                         | ⬜         |
-| 6.6 | Each completed sim shows its DPS immediately in the results table | ⬜         |
+| 6.4 | Results appear incrementally as each sim finishes                 | ⬜         |
+| 6.5 | User can cancel an in-progress run                                | ⬜         |
+| 6.6 | Estimated time remaining shown during run                         | ⬜         |
+| 6.7 | Each completed sim shows its DPS immediately in the results table | ⬜         |
 
 **Epic status: 🟡 Tauri run_simc command done, UI not started**
 
