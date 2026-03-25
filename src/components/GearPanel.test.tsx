@@ -135,7 +135,7 @@ describe('GearPanel', () => {
     expect(bagBadges.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renders gem icons for items with gems', () => {
+  it('renders gem icons with name and stat tooltip', () => {
     const profile = makeProfile({
       head: [
         {
@@ -150,9 +150,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Gems shown as icons with name in title tooltip
-    expect(screen.getByTitle('Flawless Masterful Peridot')).toBeInTheDocument();
-    expect(screen.getByTitle('Flawless Deadly Garnet')).toBeInTheDocument();
+    // Gems shown as icons with name + stat in title tooltip
+    expect(screen.getByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s)).toBeInTheDocument();
+    expect(screen.getByTitle(/Flawless Deadly Garnet.*Crit/s)).toBeInTheDocument();
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -454,7 +454,7 @@ describe('GearPanel', () => {
     expect(itemName.className).toContain('text-purple-400');
   });
 
-  it('shows enchant name when item has a known enchantId', () => {
+  it('shows enchant name with stat tooltip for known enchantId', () => {
     // 7964 = Amani Mastery, stat: Mastery
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7964 })],
@@ -462,9 +462,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const enchantLabel = screen.getByText('Mastery');
+    const enchantLabel = screen.getByText('Amani Mastery');
     expect(enchantLabel).toBeInTheDocument();
-    expect(enchantLabel).toHaveAttribute('title', 'Amani Mastery');
+    expect(enchantLabel).toHaveAttribute('title', 'Mastery');
   });
 
   it('shows fallback label for unknown enchant IDs', () => {
@@ -477,20 +477,20 @@ describe('GearPanel', () => {
     expect(screen.getByText('Enchant #9999')).toBeInTheDocument();
   });
 
-  it('shows gem icon with name tooltip for known gem IDs', () => {
+  it('shows gem icon with name and stat tooltip for known gem IDs', () => {
     const profile = makeProfile({
       head: [{
         slot: 'head',
         id: 1,
         bonusIds: [10355],
-        gemIds: [240892], // Flawless Masterful Peridot
+        gemIds: [240892], // Flawless Masterful Peridot = Haste + Mastery
         isEquipped: true,
       }],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const gemIcon = screen.getByTitle('Flawless Masterful Peridot');
+    const gemIcon = screen.getByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s);
     expect(gemIcon).toBeInTheDocument();
   });
 

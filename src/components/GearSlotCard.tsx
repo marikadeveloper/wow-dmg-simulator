@@ -24,14 +24,23 @@ function getGemIconUrl(id: number): string {
   return `${WOWHEAD_ICON_URL}/${icon}.jpg`;
 }
 
-/** Get a short display name for an enchant ID. Returns stat name or "Enchant #ID". */
-function getEnchantLabel(id: number): string {
-  return ENCHANT_BY_ID.get(id)?.stat ?? `Enchant #${id}`;
+/** Get the enchant display name. Returns full name or "Enchant #ID". */
+function getEnchantDisplayName(id: number): string {
+  return ENCHANT_BY_ID.get(id)?.name ?? `Enchant #${id}`;
 }
 
-/** Get the full enchant name for tooltip. */
-function getEnchantFullName(id: number): string {
-  return ENCHANT_BY_ID.get(id)?.name ?? `Enchant ID: ${id}`;
+/** Get the enchant tooltip (stat it provides). */
+function getEnchantTooltip(id: number): string {
+  const preset = ENCHANT_BY_ID.get(id);
+  if (!preset) return `Enchant ID: ${id}`;
+  return preset.stat;
+}
+
+/** Get the gem tooltip (name + stat). */
+function getGemTooltip(id: number): string {
+  const preset = GEM_BY_ID.get(id);
+  if (!preset) return `Gem ID: ${id}`;
+  return `${preset.name}\n${preset.stat}`;
 }
 
 /** Canonical slot display order matching the WoW paper doll. */
@@ -356,17 +365,17 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
             </span>
           )}
 
-          {/* Enchant name (green, like Raidbots) */}
+          {/* Enchant name (green, tooltip shows stat) */}
           {hasEnchant && (
             <span
               className="text-[11px] text-emerald-400/90 truncate"
-              title={getEnchantFullName(item.enchantId!)}
+              title={getEnchantTooltip(item.enchantId!)}
             >
-              {getEnchantLabel(item.enchantId!)}
+              {getEnchantDisplayName(item.enchantId!)}
             </span>
           )}
 
-          {/* Gem icons (actual Wowhead item icons) */}
+          {/* Gem icons (tooltip shows name + stat) */}
           {socketCount > 0 && (
             <span className="flex items-center gap-0.5 shrink-0">
               {item.gemIds.map((gemId, i) => (
@@ -374,7 +383,7 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
                   key={i}
                   src={getGemIconUrl(gemId)}
                   alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
-                  title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
+                  title={getGemTooltip(gemId)}
                   width={16}
                   height={16}
                   className="rounded-sm"
