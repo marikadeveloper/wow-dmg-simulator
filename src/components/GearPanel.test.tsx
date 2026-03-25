@@ -142,7 +142,7 @@ describe('GearPanel', () => {
           slot: 'head',
           id: 1,
           bonusIds: [10355],
-          gemIds: [213743, 213744],
+          gemIds: [240892, 240904],
           isEquipped: true,
         },
       ],
@@ -150,9 +150,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Gem presets: 213743 = Mastery, 213744 = Haste
-    expect(screen.getByText('Mastery')).toBeInTheDocument();
-    expect(screen.getByText('Haste')).toBeInTheDocument();
+    // Gem presets: 240892 = Haste + Mastery, 240904 = Crit
+    expect(screen.getByText('Haste + Mastery')).toBeInTheDocument();
+    expect(screen.getByText('Crit')).toBeInTheDocument();
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -455,16 +455,16 @@ describe('GearPanel', () => {
   });
 
   it('shows enchant name when item has a known enchantId', () => {
-    // 7340 = Enchant Ring – Cursed Devotion, stat: Crit
+    // 7964 = Amani Mastery, stat: Mastery
     const profile = makeProfile({
-      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7340 })],
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7964 })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const enchantLabel = screen.getByText('Crit');
+    const enchantLabel = screen.getByText('Mastery');
     expect(enchantLabel).toBeInTheDocument();
-    expect(enchantLabel).toHaveAttribute('title', 'Enchant Ring – Cursed Devotion');
+    expect(enchantLabel).toHaveAttribute('title', 'Amani Mastery');
   });
 
   it('shows fallback label for unknown enchant IDs', () => {
@@ -483,16 +483,16 @@ describe('GearPanel', () => {
         slot: 'head',
         id: 1,
         bonusIds: [10355],
-        gemIds: [213743], // Masterful Ysemerald = Mastery
+        gemIds: [240892], // Flawless Masterful Peridot = Haste + Mastery
         isEquipped: true,
       }],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const gemLabel = screen.getByTitle('Masterful Ysemerald');
+    const gemLabel = screen.getByTitle('Flawless Masterful Peridot');
     expect(gemLabel).toBeInTheDocument();
-    expect(screen.getByText('Mastery')).toBeInTheDocument();
+    expect(screen.getByText('Haste + Mastery')).toBeInTheDocument();
   });
 
   it('shows fallback label for unknown gem IDs', () => {
