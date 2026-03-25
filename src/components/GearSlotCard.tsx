@@ -425,17 +425,9 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
           </div>
         )}
 
-        {/* Row 3: enchant + gems */}
+        {/* Row 3: gems + enchant */}
         {(hasEnchant || socketCount > 0) && (
           <div className="flex items-center gap-1.5 mt-0.5">
-            {hasEnchant && (
-              <span
-                className="text-[11px] text-emerald-400/90 truncate"
-                title={getEnchantTooltip(item.enchantId!)}
-              >
-                {getEnchantDisplayName(item.enchantId!)}
-              </span>
-            )}
             {socketCount > 0 && (
               <span className="flex items-center gap-0.5 shrink-0">
                 {item.gemIds.map((gemId, i) => (
@@ -449,6 +441,14 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
                     className="rounded-sm"
                   />
                 ))}
+              </span>
+            )}
+            {hasEnchant && (
+              <span
+                className="text-[11px] text-emerald-400/90 truncate"
+                title={getEnchantTooltip(item.enchantId!)}
+              >
+                {getEnchantDisplayName(item.enchantId!)}
               </span>
             )}
           </div>
