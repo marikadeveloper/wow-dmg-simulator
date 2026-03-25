@@ -48,11 +48,16 @@ function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boo
   };
 }
 
-/** Get only the item-toggle buttons (those with aria-pressed) */
+/** Get only the item-toggle buttons inside gear cards (those with aria-pressed) */
 function getItemButtons() {
-  return screen.getAllByRole('button').filter(
-    (btn) => btn.hasAttribute('aria-pressed'),
-  );
+  const gearCards = document.querySelectorAll('.gear-card');
+  const buttons: HTMLElement[] = [];
+  gearCards.forEach((card) => {
+    card.querySelectorAll<HTMLElement>('button[aria-pressed]').forEach((btn) => {
+      buttons.push(btn);
+    });
+  });
+  return buttons;
 }
 
 describe('GearPanel', () => {
@@ -67,11 +72,12 @@ describe('GearPanel', () => {
       ],
     });
 
-    render(<GearPanel profile={profile} />);
+    const { container } = render(<GearPanel profile={profile} />);
 
-    expect(screen.getByText('Head')).toBeInTheDocument();
+    // Check gear cards specifically (not optimization panel labels)
+    const gearCards = container.querySelectorAll('.gear-card');
+    expect(gearCards).toHaveLength(2);
     expect(screen.getByText('Trinket 1')).toBeInTheDocument();
-    expect(screen.queryByText('Neck')).not.toBeInTheDocument();
   });
 
   it('does not render empty slots', () => {
@@ -79,11 +85,12 @@ describe('GearPanel', () => {
       head: [makeItem({ slot: 'head', id: 1 })],
     });
 
-    render(<GearPanel profile={profile} />);
+    const { container } = render(<GearPanel profile={profile} />);
 
     expect(screen.getByText('1/1 selected')).toBeInTheDocument();
-    expect(screen.queryByText('Shoulders')).not.toBeInTheDocument();
-    expect(screen.queryByText('Back')).not.toBeInTheDocument();
+    // Only 1 gear card rendered (head), not shoulders or back
+    const gearCards = container.querySelectorAll('.gear-card');
+    expect(gearCards).toHaveLength(1);
   });
 
   it('shows bag item count summary', () => {
@@ -462,9 +469,12 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const enchantLabel = screen.getByText('Amani Mastery');
-    expect(enchantLabel).toBeInTheDocument();
-    expect(enchantLabel).toHaveAttribute('title', 'Mastery');
+    // The enchant name appears both in the item row (with title=stat) and in the
+    // enchant optimization panel (as a chip). Find the one in the item row by its title.
+    const enchantLabels = screen.getAllByText('Amani Mastery');
+    expect(enchantLabels.length).toBeGreaterThanOrEqual(1);
+    const itemRowLabel = enchantLabels.find((el) => el.getAttribute('title') === 'Mastery');
+    expect(itemRowLabel).toBeDefined();
   });
 
   it('shows fallback label for unknown enchant IDs', () => {
@@ -510,14 +520,16 @@ describe('GearPanel', () => {
     expect(screen.getByTitle('Gem ID: 999999')).toBeInTheDocument();
   });
 
-  it('does not show enchant or gem details when item has neither', () => {
+  it('does not show enchant or gem details on item row when item has neither', () => {
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    expect(screen.queryByText(/Enchant/)).not.toBeInTheDocument();
+    // No enchant label should appear inside gear card item rows
+    // (the "Enchant Optimization" header is separate and expected)
+    expect(screen.queryByText(/Enchant #/)).not.toBeInTheDocument();
     // Gem icons use title attributes, not text
     expect(screen.queryByTitle(/Gem ID/)).not.toBeInTheDocument();
   });

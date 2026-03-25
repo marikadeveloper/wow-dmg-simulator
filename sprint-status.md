@@ -55,7 +55,7 @@ Last updated: 2026-03-24
 | #   | Story                                                                      | Status     |
 | --- | -------------------------------------------------------------------------- | ---------- |
 | 4.1 | App detects which slots support enchanting                                 | ✅         |
-| 4.2 | For enchantable slots, user can provide a list of enchant IDs to try       | ✅ backend |
+| 4.2 | For enchantable slots, user can provide a list of enchant IDs to try       | ✅         |
 | 4.3 | App generates combinations trying each enchant ID on each enchantable slot | ✅ backend |
 | 4.4 | Enchant optimization can be combined with gear + gem optimization          | ✅ backend |
 | 4.5 | App ships with a preset list of current-patch enchant IDs per slot         | ✅ presets |

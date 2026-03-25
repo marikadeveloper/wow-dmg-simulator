@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 import type { SimcProfile } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
+import EnchantOptimization from './EnchantOptimization';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
@@ -34,6 +35,7 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     buildInitialSelection(profile),
   );
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
+  const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
 
   const toggleItem = useCallback((slot: string, index: number) => {
     setSelection((prev) => {
@@ -97,6 +99,18 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     });
   }, []);
 
+  const toggleEnchant = useCallback((enchantId: number) => {
+    setSelectedEnchantIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(enchantId)) {
+        next.delete(enchantId);
+      } else {
+        next.add(enchantId);
+      }
+      return next;
+    });
+  }, []);
+
   // Build per-slot selected indices for fast lookup in children
   const selectionBySlot = useMemo(() => {
     const map: Record<string, Set<number>> = {};
@@ -120,6 +134,14 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     }
     return count;
   }, [profile, selection]);
+
+  // Count enchantable slots that have gear equipped/selected
+  const enchantableSlotCount = useMemo(() => {
+    return (ENCHANTABLE_SLOTS as readonly string[]).filter((slot) => {
+      const items = profile.gear[slot];
+      return items && items.length > 0;
+    }).length;
+  }, [profile]);
 
   // Assemble all optimization axes (gear + gems + future: enchants)
   const allAxes = useMemo(() => {
@@ -188,6 +210,17 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
             selectedGemIds={selectedGemIds}
             onToggleGem={toggleGem}
             totalSockets={totalSockets}
+          />
+        </div>
+      )}
+
+      {/* Enchant optimization — inline between gem optimization and combination counter */}
+      {FEATURES.ENCHANT_OPTIMIZATION && (
+        <div className="mt-4">
+          <EnchantOptimization
+            selectedEnchantIds={selectedEnchantIds}
+            onToggleEnchant={toggleEnchant}
+            enchantableSlotCount={enchantableSlotCount}
           />
         </div>
       )}
