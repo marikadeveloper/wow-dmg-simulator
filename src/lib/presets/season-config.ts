@@ -80,54 +80,66 @@ export interface GemPreset {
   name: string;
   stat: string; // primary stat it gives
   color: 'prismatic';
+  icon: string; // Wowhead icon filename (without extension)
 }
+
+// Icon name shortcuts for gem families
+const IC_DIAMOND_EPIC = 'inv_12_profession_jewelcrafting_epic_gem_cut_orange';
+const IC_PERIDOT_RARE = 'inv_12_profession_jewelcrafting_rare_gem_cut_nature_green';
+const IC_AMETHYST_RARE = 'inv_12_profession_jewelcrafting_rare_gem_cut_void_purple';
+const IC_GARNET_RARE = 'inv_12_profession_jewelcrafting_rare_gem_cut_fire_red';
+const IC_LAPIS_RARE = 'inv_12_profession_jewelcrafting_rare_gem_cut_frost_blue';
+const IC_PERIDOT = 'inv_12_profession_jewelcrafting_uncommon_gem_cut_nature_green';
+const IC_AMETHYST = 'inv_12_profession_jewelcrafting_uncommon_gem_cut_void_purple';
+const IC_GARNET = 'inv_12_profession_jewelcrafting_uncommon_gem_cut_fire_red';
+const IC_LAPIS = 'inv_12_profession_jewelcrafting_uncommon_gem_cut_frost_blue';
 
 export const GEM_PRESETS: GemPreset[] = [
   // ── Eversong Diamond (meta/primary — Unique-Equipped) ──
-  { id: 240983, name: 'Indecipherable Eversong Diamond', stat: 'Primary', color: 'prismatic' },
-  { id: 240967, name: 'Powerful Eversong Diamond', stat: 'Primary + Crit', color: 'prismatic' },
-  { id: 240971, name: 'Stoic Eversong Diamond', stat: 'Primary + Speed', color: 'prismatic' },
-  { id: 240969, name: 'Telluric Eversong Diamond', stat: 'Primary + Mana', color: 'prismatic' },
+  { id: 240983, name: 'Indecipherable Eversong Diamond', stat: 'Primary', color: 'prismatic', icon: IC_DIAMOND_EPIC },
+  { id: 240967, name: 'Powerful Eversong Diamond', stat: 'Primary + Crit', color: 'prismatic', icon: IC_DIAMOND_EPIC },
+  { id: 240971, name: 'Stoic Eversong Diamond', stat: 'Primary + Speed', color: 'prismatic', icon: IC_DIAMOND_EPIC },
+  { id: 240969, name: 'Telluric Eversong Diamond', stat: 'Primary + Mana', color: 'prismatic', icon: IC_DIAMOND_EPIC },
   // ── Flawless Peridot (Haste-primary) ──
-  { id: 240888, name: 'Flawless Quick Peridot', stat: 'Haste', color: 'prismatic' },
-  { id: 240890, name: 'Flawless Deadly Peridot', stat: 'Haste + Crit', color: 'prismatic' },
-  { id: 240892, name: 'Flawless Masterful Peridot', stat: 'Haste + Mastery', color: 'prismatic' },
-  { id: 240894, name: 'Flawless Versatile Peridot', stat: 'Haste + Vers', color: 'prismatic' },
+  { id: 240888, name: 'Flawless Quick Peridot', stat: 'Haste', color: 'prismatic', icon: IC_PERIDOT_RARE },
+  { id: 240890, name: 'Flawless Deadly Peridot', stat: 'Haste + Crit', color: 'prismatic', icon: IC_PERIDOT_RARE },
+  { id: 240892, name: 'Flawless Masterful Peridot', stat: 'Haste + Mastery', color: 'prismatic', icon: IC_PERIDOT_RARE },
+  { id: 240894, name: 'Flawless Versatile Peridot', stat: 'Haste + Vers', color: 'prismatic', icon: IC_PERIDOT_RARE },
   // ── Flawless Amethyst (Mastery-primary) ──
-  { id: 240896, name: 'Flawless Masterful Amethyst', stat: 'Mastery', color: 'prismatic' },
-  { id: 240898, name: 'Flawless Deadly Amethyst', stat: 'Mastery + Crit', color: 'prismatic' },
-  { id: 240900, name: 'Flawless Quick Amethyst', stat: 'Mastery + Haste', color: 'prismatic' },
-  { id: 240902, name: 'Flawless Versatile Amethyst', stat: 'Mastery + Vers', color: 'prismatic' },
+  { id: 240896, name: 'Flawless Masterful Amethyst', stat: 'Mastery', color: 'prismatic', icon: IC_AMETHYST_RARE },
+  { id: 240898, name: 'Flawless Deadly Amethyst', stat: 'Mastery + Crit', color: 'prismatic', icon: IC_AMETHYST_RARE },
+  { id: 240900, name: 'Flawless Quick Amethyst', stat: 'Mastery + Haste', color: 'prismatic', icon: IC_AMETHYST_RARE },
+  { id: 240902, name: 'Flawless Versatile Amethyst', stat: 'Mastery + Vers', color: 'prismatic', icon: IC_AMETHYST_RARE },
   // ── Flawless Garnet (Crit-primary) ──
-  { id: 240904, name: 'Flawless Deadly Garnet', stat: 'Crit', color: 'prismatic' },
-  { id: 240906, name: 'Flawless Quick Garnet', stat: 'Crit + Haste', color: 'prismatic' },
-  { id: 240908, name: 'Flawless Masterful Garnet', stat: 'Crit + Mastery', color: 'prismatic' },
-  { id: 240910, name: 'Flawless Versatile Garnet', stat: 'Crit + Vers', color: 'prismatic' },
+  { id: 240904, name: 'Flawless Deadly Garnet', stat: 'Crit', color: 'prismatic', icon: IC_GARNET_RARE },
+  { id: 240906, name: 'Flawless Quick Garnet', stat: 'Crit + Haste', color: 'prismatic', icon: IC_GARNET_RARE },
+  { id: 240908, name: 'Flawless Masterful Garnet', stat: 'Crit + Mastery', color: 'prismatic', icon: IC_GARNET_RARE },
+  { id: 240910, name: 'Flawless Versatile Garnet', stat: 'Crit + Vers', color: 'prismatic', icon: IC_GARNET_RARE },
   // ── Flawless Lapis (Versatility-primary) ──
-  { id: 240912, name: 'Flawless Versatile Lapis', stat: 'Versatility', color: 'prismatic' },
-  { id: 240914, name: 'Flawless Deadly Lapis', stat: 'Vers + Crit', color: 'prismatic' },
-  { id: 240916, name: 'Flawless Quick Lapis', stat: 'Vers + Haste', color: 'prismatic' },
-  { id: 240918, name: 'Flawless Masterful Lapis', stat: 'Vers + Mastery', color: 'prismatic' },
+  { id: 240912, name: 'Flawless Versatile Lapis', stat: 'Versatility', color: 'prismatic', icon: IC_LAPIS_RARE },
+  { id: 240914, name: 'Flawless Deadly Lapis', stat: 'Vers + Crit', color: 'prismatic', icon: IC_LAPIS_RARE },
+  { id: 240916, name: 'Flawless Quick Lapis', stat: 'Vers + Haste', color: 'prismatic', icon: IC_LAPIS_RARE },
+  { id: 240918, name: 'Flawless Masterful Lapis', stat: 'Vers + Mastery', color: 'prismatic', icon: IC_LAPIS_RARE },
   // ── Regular quality Peridot ──
-  { id: 240856, name: 'Quick Peridot', stat: 'Haste', color: 'prismatic' },
-  { id: 240858, name: 'Deadly Peridot', stat: 'Haste + Crit', color: 'prismatic' },
-  { id: 240860, name: 'Masterful Peridot', stat: 'Haste + Mastery', color: 'prismatic' },
-  { id: 240862, name: 'Versatile Peridot', stat: 'Haste + Vers', color: 'prismatic' },
+  { id: 240856, name: 'Quick Peridot', stat: 'Haste', color: 'prismatic', icon: IC_PERIDOT },
+  { id: 240858, name: 'Deadly Peridot', stat: 'Haste + Crit', color: 'prismatic', icon: IC_PERIDOT },
+  { id: 240860, name: 'Masterful Peridot', stat: 'Haste + Mastery', color: 'prismatic', icon: IC_PERIDOT },
+  { id: 240862, name: 'Versatile Peridot', stat: 'Haste + Vers', color: 'prismatic', icon: IC_PERIDOT },
   // ── Regular quality Amethyst ──
-  { id: 240864, name: 'Masterful Amethyst', stat: 'Mastery', color: 'prismatic' },
-  { id: 240866, name: 'Deadly Amethyst', stat: 'Mastery + Crit', color: 'prismatic' },
-  { id: 240868, name: 'Quick Amethyst', stat: 'Mastery + Haste', color: 'prismatic' },
-  { id: 240870, name: 'Versatile Amethyst', stat: 'Mastery + Vers', color: 'prismatic' },
+  { id: 240864, name: 'Masterful Amethyst', stat: 'Mastery', color: 'prismatic', icon: IC_AMETHYST },
+  { id: 240866, name: 'Deadly Amethyst', stat: 'Mastery + Crit', color: 'prismatic', icon: IC_AMETHYST },
+  { id: 240868, name: 'Quick Amethyst', stat: 'Mastery + Haste', color: 'prismatic', icon: IC_AMETHYST },
+  { id: 240870, name: 'Versatile Amethyst', stat: 'Mastery + Vers', color: 'prismatic', icon: IC_AMETHYST },
   // ── Regular quality Garnet ──
-  { id: 240872, name: 'Deadly Garnet', stat: 'Crit', color: 'prismatic' },
-  { id: 240874, name: 'Quick Garnet', stat: 'Crit + Haste', color: 'prismatic' },
-  { id: 240876, name: 'Masterful Garnet', stat: 'Crit + Mastery', color: 'prismatic' },
-  { id: 240878, name: 'Versatile Garnet', stat: 'Crit + Vers', color: 'prismatic' },
+  { id: 240872, name: 'Deadly Garnet', stat: 'Crit', color: 'prismatic', icon: IC_GARNET },
+  { id: 240874, name: 'Quick Garnet', stat: 'Crit + Haste', color: 'prismatic', icon: IC_GARNET },
+  { id: 240876, name: 'Masterful Garnet', stat: 'Crit + Mastery', color: 'prismatic', icon: IC_GARNET },
+  { id: 240878, name: 'Versatile Garnet', stat: 'Crit + Vers', color: 'prismatic', icon: IC_GARNET },
   // ── Regular quality Lapis ──
-  { id: 240880, name: 'Versatile Lapis', stat: 'Versatility', color: 'prismatic' },
-  { id: 240882, name: 'Deadly Lapis', stat: 'Vers + Crit', color: 'prismatic' },
-  { id: 240884, name: 'Quick Lapis', stat: 'Vers + Haste', color: 'prismatic' },
-  { id: 240886, name: 'Masterful Lapis', stat: 'Vers + Mastery', color: 'prismatic' },
+  { id: 240880, name: 'Versatile Lapis', stat: 'Versatility', color: 'prismatic', icon: IC_LAPIS },
+  { id: 240882, name: 'Deadly Lapis', stat: 'Vers + Crit', color: 'prismatic', icon: IC_LAPIS },
+  { id: 240884, name: 'Quick Lapis', stat: 'Vers + Haste', color: 'prismatic', icon: IC_LAPIS },
+  { id: 240886, name: 'Masterful Lapis', stat: 'Vers + Mastery', color: 'prismatic', icon: IC_LAPIS },
 ];
 
 // ── Enchant presets ──────────────────────────────────────────────────────────

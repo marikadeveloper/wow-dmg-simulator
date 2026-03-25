@@ -12,20 +12,16 @@ function getGemLabel(id: number): string {
   return GEM_BY_ID.get(id)?.stat ?? `Gem #${id}`;
 }
 
-/**
- * Gem color based on gem family name.
- * Peridot = green, Amethyst = purple, Garnet = red, Lapis = blue,
- * Eversong Diamond = gold, unknown = grey.
- */
-function getGemColor(id: number): { bg: string; ring: string } {
-  const name = GEM_BY_ID.get(id)?.name ?? '';
-  if (name.includes('Peridot'))   return { bg: 'bg-emerald-500/60', ring: 'ring-emerald-400/40' };
-  if (name.includes('Amethyst'))  return { bg: 'bg-purple-500/60', ring: 'ring-purple-400/40' };
-  if (name.includes('Garnet'))    return { bg: 'bg-red-500/60', ring: 'ring-red-400/40' };
-  if (name.includes('Lapis'))     return { bg: 'bg-blue-500/60', ring: 'ring-blue-400/40' };
-  if (name.includes('Eversong') || name.includes('Diamond'))
-    return { bg: 'bg-amber-400/70', ring: 'ring-amber-300/50' };
-  return { bg: 'bg-zinc-500/50', ring: 'ring-zinc-400/30' };
+/** Wowhead icon CDN base URL. */
+const WOWHEAD_ICON_URL = 'https://wow.zamimg.com/images/wow/icons/small';
+
+/** Default gem icon for unknown gems. */
+const DEFAULT_GEM_ICON = 'inv_misc_gem_01';
+
+/** Get the icon URL for a gem ID. */
+function getGemIconUrl(id: number): string {
+  const icon = GEM_BY_ID.get(id)?.icon ?? DEFAULT_GEM_ICON;
+  return `${WOWHEAD_ICON_URL}/${icon}.jpg`;
 }
 
 /** Get a short display name for an enchant ID. Returns stat name or "Enchant #ID". */
@@ -370,19 +366,20 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
             </span>
           )}
 
-          {/* Gem icons (colored diamonds by gem family) */}
+          {/* Gem icons (actual Wowhead item icons) */}
           {socketCount > 0 && (
-            <span className="flex items-center gap-1 shrink-0">
-              {item.gemIds.map((gemId, i) => {
-                const color = getGemColor(gemId);
-                return (
-                  <span
-                    key={i}
-                    className={`inline-block w-2.5 h-2.5 rounded-sm ring-1 rotate-45 ${color.bg} ${color.ring}`}
-                    title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
-                  />
-                );
-              })}
+            <span className="flex items-center gap-0.5 shrink-0">
+              {item.gemIds.map((gemId, i) => (
+                <img
+                  key={i}
+                  src={getGemIconUrl(gemId)}
+                  alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
+                  title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
+                  width={16}
+                  height={16}
+                  className="rounded-sm"
+                />
+              ))}
             </span>
           )}
         </div>
