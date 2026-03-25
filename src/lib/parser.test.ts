@@ -185,6 +185,20 @@ describe('parseSimcString', () => {
       const head = profile.gear.head?.[0];
       expect(head?.bonusIds).toEqual([]);
     });
+
+    it('parses crafting_quality on crafted items', () => {
+      const simpleProfile = `shaman="Test"\nlevel=80\nrace=orc\nregion=us\nserver=test\nspec=enhancement\ntalents=AAAA\nwrist=,id=239648,bonus_id=12214/12497,crafted_stats=32/49,crafting_quality=5`;
+      const profile = parseSimcString(simpleProfile);
+      const wrist = profile.gear.wrist?.[0];
+      expect(wrist?.craftingQuality).toBe(5);
+    });
+
+    it('omits craftingQuality for non-crafted items', () => {
+      const simpleProfile = `shaman="Test"\nlevel=80\nrace=orc\nregion=us\nserver=test\nspec=enhancement\ntalents=AAAA\nhead=,id=266429,bonus_id=13577/12790`;
+      const profile = parseSimcString(simpleProfile);
+      const head = profile.gear.head?.[0];
+      expect(head?.craftingQuality).toBeUndefined();
+    });
   });
 
   describe('rawLines preservation', () => {

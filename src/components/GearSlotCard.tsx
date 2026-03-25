@@ -327,8 +327,12 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
   // Item level — prefer parsed ilvl from SimC string, fall back to Wowhead cache
   const ilvl = item.ilvl ?? cached?.ilvl ?? null;
 
-  // Gear track info from bonus_ids
-  const trackInfo = item.bonusIds.length > 0 ? getGearTrackFromBonusIds(item.bonusIds) : null;
+  // Crafted item detection
+  const isCrafted = item.craftingQuality != null;
+  const isMaxCraftingQuality = item.craftingQuality === 5;
+
+  // Gear track info from bonus_ids (not shown for crafted items)
+  const trackInfo = !isCrafted && item.bonusIds.length > 0 ? getGearTrackFromBonusIds(item.bonusIds) : null;
   const trackColor = trackInfo ? (TRACK_COLORS[trackInfo.trackName] ?? 'text-zinc-400') : '';
 
   // Show green upgrade arrow if this item's track is higher than equipped
@@ -408,16 +412,36 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
           )}
         </div>
 
-        {/* Row 2: ilvl + gear track */}
-        {(ilvl != null || trackInfo) && (
+        {/* Row 2: ilvl + gear track (or "Crafted" for crafted items) */}
+        {(ilvl != null || trackInfo || isCrafted) && (
           <div
             className="flex items-center gap-1.5 mt-0.5 text-[11px] tabular-nums font-semibold"
-            title={trackInfo ? `${trackInfo.trackName} ${trackInfo.rank}/${trackInfo.maxRank} — ilvl ${ilvl}` : `Item Level ${ilvl}`}
+            title={
+              isCrafted
+                ? `Crafted (Quality ${item.craftingQuality}/5)${ilvl != null ? ` — ilvl ${ilvl}` : ''}`
+                : trackInfo
+                  ? `${trackInfo.trackName} ${trackInfo.rank}/${trackInfo.maxRank} — ilvl ${ilvl}`
+                  : `Item Level ${ilvl}`
+            }
           >
             {ilvl != null && (
               <span className="text-zinc-400">{ilvl}</span>
             )}
-            {trackInfo && (
+            {isCrafted ? (
+              <span className="flex items-center gap-1 text-amber-400/90">
+                Crafted
+                {isMaxCraftingQuality && (
+                  <svg
+                    className="w-3 h-3 text-amber-400"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                    aria-label="Max crafting quality"
+                  >
+                    <path d="M6 0.5L7.6 4.1L11.5 4.5L8.6 7.1L9.4 11L6 9.1L2.6 11L3.4 7.1L0.5 4.5L4.4 4.1Z" />
+                  </svg>
+                )}
+              </span>
+            ) : trackInfo && (
               <span className={trackColor}>
                 {trackInfo.trackName} {trackInfo.rank}/{trackInfo.maxRank}
               </span>

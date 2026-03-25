@@ -38,6 +38,8 @@ export interface GearItem {
   name?: string;
   /** Item level parsed from the SimC comment (e.g. "# Helm of Valor (639)") */
   ilvl?: number;
+  /** Crafting quality (1–5), present only for crafted items */
+  craftingQuality?: number;
   /** true = currently equipped, false = in bag or unowned */
   isEquipped: boolean;
   /** true = item is from the Great Vault (Weekly Reward Choices) */
