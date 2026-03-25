@@ -143,11 +143,12 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     }).length;
   }, [profile]);
 
-  // Assemble all optimization axes (gear + gems + future: enchants)
+  // Assemble all optimization axes (gear + gems + enchants)
   const allAxes = useMemo(() => {
     const gemIds = FEATURES.GEM_OPTIMIZATION ? Array.from(selectedGemIds) : [];
-    return assembleAxes(profile, selection, gemIds);
-  }, [profile, selection, selectedGemIds]);
+    const enchantIds = FEATURES.ENCHANT_OPTIMIZATION ? Array.from(selectedEnchantIds) : [];
+    return assembleAxes(profile, selection, gemIds, enchantIds);
+  }, [profile, selection, selectedGemIds, selectedEnchantIds]);
 
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
