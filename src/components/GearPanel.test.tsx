@@ -135,7 +135,7 @@ describe('GearPanel', () => {
     expect(bagBadges.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renders gem socket dots for items with gems', () => {
+  it('renders gem labels for items with gems', () => {
     const profile = makeProfile({
       head: [
         {
@@ -150,8 +150,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const socketDots = screen.getAllByTitle(/Socket \d/);
-    expect(socketDots).toHaveLength(2);
+    // Gem presets: 213743 = Mastery, 213744 = Haste
+    expect(screen.getByText('Mastery')).toBeInTheDocument();
+    expect(screen.getByText('Haste')).toBeInTheDocument();
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -453,25 +454,71 @@ describe('GearPanel', () => {
     expect(itemName.className).toContain('text-purple-400');
   });
 
-  it('shows enchant indicator when item has enchantId', () => {
+  it('shows enchant name when item has a known enchantId', () => {
+    // 7340 = Enchant Ring – Cursed Devotion, stat: Crit
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7340 })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const enchantBadge = screen.getByText('ench');
-    expect(enchantBadge).toBeInTheDocument();
-    expect(enchantBadge).toHaveAttribute('title', 'Enchant ID: 7340');
+    const enchantLabel = screen.getByText('Crit');
+    expect(enchantLabel).toBeInTheDocument();
+    expect(enchantLabel).toHaveAttribute('title', 'Enchant Ring – Cursed Devotion');
   });
 
-  it('does not show enchant indicator when item has no enchant', () => {
+  it('shows fallback label for unknown enchant IDs', () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 9999 })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.getByText('Enchant #9999')).toBeInTheDocument();
+  });
+
+  it('shows gem stat labels for known gem IDs', () => {
+    const profile = makeProfile({
+      head: [{
+        slot: 'head',
+        id: 1,
+        bonusIds: [10355],
+        gemIds: [213743], // Masterful Ysemerald = Mastery
+        isEquipped: true,
+      }],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const gemLabel = screen.getByTitle('Masterful Ysemerald');
+    expect(gemLabel).toBeInTheDocument();
+    expect(screen.getByText('Mastery')).toBeInTheDocument();
+  });
+
+  it('shows fallback label for unknown gem IDs', () => {
+    const profile = makeProfile({
+      head: [{
+        slot: 'head',
+        id: 1,
+        bonusIds: [10355],
+        gemIds: [999999],
+        isEquipped: true,
+      }],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.getByText('Gem #999999')).toBeInTheDocument();
+  });
+
+  it('does not show enchant or gem details when item has neither', () => {
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    expect(screen.queryByText('ench')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Enchant/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Gem #/)).not.toBeInTheDocument();
   });
 });

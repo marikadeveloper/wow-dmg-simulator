@@ -1,6 +1,26 @@
 import { useState, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
 import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-cache';
+import { GEM_PRESETS, ENCHANT_PRESETS } from '../lib/presets/season-config';
+
+/** Lookup maps built once from season presets. */
+const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
+const ENCHANT_BY_ID = new Map(ENCHANT_PRESETS.map((e) => [e.id, e]));
+
+/** Get a short display name for a gem ID. Returns stat name or "Gem #ID". */
+function getGemLabel(id: number): string {
+  return GEM_BY_ID.get(id)?.stat ?? `Gem #${id}`;
+}
+
+/** Get a short display name for an enchant ID. Returns stat name or "Enchant #ID". */
+function getEnchantLabel(id: number): string {
+  return ENCHANT_BY_ID.get(id)?.stat ?? `Enchant #${id}`;
+}
+
+/** Get the full enchant name for tooltip. */
+function getEnchantFullName(id: number): string {
+  return ENCHANT_BY_ID.get(id)?.name ?? `Enchant ID: ${id}`;
+}
 
 /** Canonical slot display order matching the WoW paper doll. */
 export const SLOT_ORDER = [
@@ -299,6 +319,7 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
 
       {/* Item name + details */}
       <div className="flex-1 min-w-0">
+        {/* Primary line: name + ilvl */}
         <div className="flex items-center gap-1.5">
           <span
             className={[
@@ -319,30 +340,34 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
               {ilvl}
             </span>
           )}
-
-          {/* Socket dots */}
-          {socketCount > 0 && (
-            <span className="flex items-center gap-0.5 shrink-0">
-              {Array.from({ length: socketCount }).map((_, i) => (
-                <span
-                  key={i}
-                  className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500/50 ring-1 ring-amber-500/20"
-                  title={`Socket ${i + 1}`}
-                />
-              ))}
-            </span>
-          )}
-
-          {/* Enchant indicator */}
-          {hasEnchant && (
-            <span
-              className="shrink-0 text-[9px] text-emerald-500/70 font-medium uppercase tracking-wider"
-              title={`Enchant ID: ${item.enchantId}`}
-            >
-              ench
-            </span>
-          )}
         </div>
+
+        {/* Secondary line: gems + enchant */}
+        {(socketCount > 0 || hasEnchant) && (
+          <div className="flex items-center gap-1.5 mt-0.5">
+            {/* Gem labels */}
+            {item.gemIds.map((gemId, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-0.5 text-[10px] text-amber-400/70"
+                title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500/50 ring-1 ring-amber-500/20" />
+                {getGemLabel(gemId)}
+              </span>
+            ))}
+
+            {/* Enchant label */}
+            {hasEnchant && (
+              <span
+                className="text-[10px] text-emerald-500/70"
+                title={getEnchantFullName(item.enchantId!)}
+              >
+                {getEnchantLabel(item.enchantId!)}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Badge */}
