@@ -1,6 +1,5 @@
 import { useMemo, useEffect } from 'react';
-import type { SimcProfile, OptimizationAxis } from '../lib/types';
-import { buildGearAxes } from '../lib/gear-axes';
+import type { OptimizationAxis } from '../lib/types';
 import { countCombinations } from '../lib/combinator';
 
 /** Urgency thresholds — exported for tests */
@@ -8,8 +7,8 @@ export const WARN_THRESHOLD = 200;
 export const BLOCK_THRESHOLD = 1000;
 
 interface CombinationCounterProps {
-  profile: SimcProfile;
-  selection: Set<string>;
+  /** Pre-assembled axes from the optimization assembler (gear + gems + enchants). */
+  axes: OptimizationAxis[];
   /** Called whenever the blocked state changes (count > 1000). */
   onBlockedChange?: (blocked: boolean) => void;
 }
@@ -75,14 +74,8 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
   },
 };
 
-export default function CombinationCounter({ profile, selection, onBlockedChange }: CombinationCounterProps) {
-  const { count, axes } = useMemo(() => {
-    const gearAxes: OptimizationAxis[] = buildGearAxes(profile, selection);
-    // Future: concat gem axes, enchant axes here
-    const allAxes = gearAxes;
-    const n = countCombinations(allAxes);
-    return { count: n, axes: allAxes };
-  }, [profile, selection]);
+export default function CombinationCounter({ axes, onBlockedChange }: CombinationCounterProps) {
+  const count = useMemo(() => countCombinations(axes), [axes]);
 
   const urgency = getUrgency(count);
   const styles = URGENCY_STYLES[urgency];
@@ -95,7 +88,9 @@ export default function CombinationCounter({ profile, selection, onBlockedChange
   }, [isBlocked, onBlockedChange]);
 
   // Count how many slots have >1 selected item (active comparison slots)
-  const activeSlotCount = axes.length;
+  const activeSlotCount = axes.filter((a) => a.id.startsWith('slot:')).length;
+  // Count gem axes for display
+  const gemAxisCount = axes.filter((a) => a.id.startsWith('gem:')).length;
 
   return (
     <div
@@ -142,9 +137,11 @@ export default function CombinationCounter({ profile, selection, onBlockedChange
             <span className="text-xs text-zinc-400">
               {count === 1 ? 'combination' : 'combinations'}
             </span>
-            {activeSlotCount > 0 && (
+            {(activeSlotCount > 0 || gemAxisCount > 0) && (
               <span className="text-[10px] text-zinc-600">
-                {activeSlotCount} {activeSlotCount === 1 ? 'slot' : 'slots'} comparing
+                {activeSlotCount > 0 && `${activeSlotCount} ${activeSlotCount === 1 ? 'slot' : 'slots'}`}
+                {activeSlotCount > 0 && gemAxisCount > 0 && ' + '}
+                {gemAxisCount > 0 && `${gemAxisCount} ${gemAxisCount === 1 ? 'socket' : 'sockets'}`}
               </span>
             )}
           </div>

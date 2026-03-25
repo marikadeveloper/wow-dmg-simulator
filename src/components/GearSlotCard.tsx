@@ -7,11 +7,6 @@ import { GEM_PRESETS, ENCHANT_PRESETS } from '../lib/presets/season-config';
 const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
 const ENCHANT_BY_ID = new Map(ENCHANT_PRESETS.map((e) => [e.id, e]));
 
-/** Get a short display name for a gem ID. Returns stat name or "Gem #ID". */
-function getGemLabel(id: number): string {
-  return GEM_BY_ID.get(id)?.stat ?? `Gem #${id}`;
-}
-
 /** Wowhead icon CDN base URL. */
 const WOWHEAD_ICON_URL = 'https://wow.zamimg.com/images/wow/icons/small';
 

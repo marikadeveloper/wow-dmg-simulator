@@ -1,7 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { SimcProfile } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
+import GemOptimization from './GemOptimization';
 import CombinationCounter from './CombinationCounter';
+import { assembleAxes } from '../lib/optimization-assembler';
+import { FEATURES } from '../lib/features';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -29,6 +32,7 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
   );
+  const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
 
   const toggleItem = useCallback((slot: string, index: number) => {
     setSelection((prev) => {
@@ -80,6 +84,18 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     });
   }, [profile]);
 
+  const toggleGem = useCallback((gemId: number) => {
+    setSelectedGemIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(gemId)) {
+        next.delete(gemId);
+      } else {
+        next.add(gemId);
+      }
+      return next;
+    });
+  }, []);
+
   // Build per-slot selected indices for fast lookup in children
   const selectionBySlot = useMemo(() => {
     const map: Record<string, Set<number>> = {};
@@ -90,6 +106,25 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     }
     return map;
   }, [selection]);
+
+  // Count total gem sockets across all selected items
+  const totalSockets = useMemo(() => {
+    let count = 0;
+    for (const key of selection) {
+      const [slot, idxStr] = key.split(':');
+      const idx = Number(idxStr);
+      const items = profile.gear[slot];
+      if (!items || idx >= items.length) continue;
+      count += items[idx].gemIds.length;
+    }
+    return count;
+  }, [profile, selection]);
+
+  // Assemble all optimization axes (gear + gems + future: enchants)
+  const allAxes = useMemo(() => {
+    const gemIds = FEATURES.GEM_OPTIMIZATION ? Array.from(selectedGemIds) : [];
+    return assembleAxes(profile, selection, gemIds);
+  }, [profile, selection, selectedGemIds]);
 
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
@@ -144,9 +179,20 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
         ))}
       </div>
 
+      {/* Gem optimization — inline between gear grid and combination counter */}
+      {FEATURES.GEM_OPTIMIZATION && (
+        <div className="mt-4">
+          <GemOptimization
+            selectedGemIds={selectedGemIds}
+            onToggleGem={toggleGem}
+            totalSockets={totalSockets}
+          />
+        </div>
+      )}
+
       {/* Live combination counter */}
       <div className="mt-4">
-        <CombinationCounter profile={profile} selection={selection} onBlockedChange={onBlockedChange} />
+        <CombinationCounter axes={allAxes} onBlockedChange={onBlockedChange} />
       </div>
     </div>
   );

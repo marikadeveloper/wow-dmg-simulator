@@ -38,15 +38,15 @@ Last updated: 2026-03-24
 
 ## EPIC 3 — Gem Optimization
 
-| #   | Story                                                                             | Status     |
-| --- | --------------------------------------------------------------------------------- | ---------- |
-| 3.1 | App detects which equipped/selected items have gem sockets                        | ✅ backend |
-| 3.2 | User can provide a list of gem IDs to try (manual input, comma-separated)         | ✅ backend |
-| 3.3 | App generates combinations with every permutation of provided gems across sockets | ✅ backend |
-| 3.4 | Gem optimization can be combined with gear slot selection in one run              | ✅ backend |
-| 3.5 | App ships with a preset list of current-patch gem IDs for convenience             | ✅ presets |
+| #   | Story                                                                             | Status |
+| --- | --------------------------------------------------------------------------------- | ------ |
+| 3.1 | App detects which equipped/selected items have gem sockets                        | ✅     |
+| 3.2 | User can provide a list of gem IDs to try (preset picker + multi-select)          | ✅     |
+| 3.3 | App generates combinations with every permutation of provided gems across sockets | ✅     |
+| 3.4 | Gem optimization can be combined with gear slot selection in one run              | ✅     |
+| 3.5 | App ships with a preset list of current-patch gem IDs for convenience             | ✅     |
 
-**Epic status: 🟡 Combinator + presets done, all UI pending**
+**Epic status: ✅ 5/5 stories done**
 
 ---
 

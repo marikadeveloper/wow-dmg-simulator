@@ -150,9 +150,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Gems shown as icons with name + stat in title tooltip
-    expect(screen.getByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s)).toBeInTheDocument();
-    expect(screen.getByTitle(/Flawless Deadly Garnet.*Crit/s)).toBeInTheDocument();
+    // Gems shown as icons with name + stat in title tooltip (may appear in both item row and gem picker)
+    expect(screen.getAllByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByTitle(/Flawless Deadly Garnet.*Crit/s).length).toBeGreaterThanOrEqual(1);
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -490,8 +490,8 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const gemIcon = screen.getByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s);
-    expect(gemIcon).toBeInTheDocument();
+    const gemIcons = screen.getAllByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s);
+    expect(gemIcons.length).toBeGreaterThanOrEqual(1);
   });
 
   it('shows gem icon with fallback tooltip for unknown gem IDs', () => {
