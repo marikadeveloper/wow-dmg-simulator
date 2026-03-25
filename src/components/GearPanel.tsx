@@ -5,6 +5,8 @@ import CombinationCounter from './CombinationCounter';
 
 interface GearPanelProps {
   profile: SimcProfile;
+  /** Called when the combination count exceeds / drops below the hard block threshold (1000). */
+  onBlockedChange?: (blocked: boolean) => void;
 }
 
 /**
@@ -23,7 +25,7 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) {
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
   );
@@ -113,7 +115,7 @@ export default function GearPanel({ profile }: GearPanelProps) {
 
       {/* Live combination counter */}
       <div className="mt-4">
-        <CombinationCounter profile={profile} selection={selection} />
+        <CombinationCounter profile={profile} selection={selection} onBlockedChange={onBlockedChange} />
       </div>
     </div>
   );

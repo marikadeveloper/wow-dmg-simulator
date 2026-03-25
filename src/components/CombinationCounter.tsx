@@ -1,11 +1,17 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import type { SimcProfile, OptimizationAxis } from '../lib/types';
 import { buildGearAxes } from '../lib/gear-axes';
 import { countCombinations } from '../lib/combinator';
 
+/** Urgency thresholds — exported for tests */
+export const WARN_THRESHOLD = 200;
+export const BLOCK_THRESHOLD = 1000;
+
 interface CombinationCounterProps {
   profile: SimcProfile;
   selection: Set<string>;
+  /** Called whenever the blocked state changes (count > 1000). */
+  onBlockedChange?: (blocked: boolean) => void;
 }
 
 type Urgency = 'idle' | 'green' | 'yellow' | 'orange' | 'red' | 'blocked';
@@ -69,7 +75,7 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
   },
 };
 
-export default function CombinationCounter({ profile, selection }: CombinationCounterProps) {
+export default function CombinationCounter({ profile, selection, onBlockedChange }: CombinationCounterProps) {
   const { count, axes } = useMemo(() => {
     const gearAxes: OptimizationAxis[] = buildGearAxes(profile, selection);
     // Future: concat gem axes, enchant axes here
@@ -81,16 +87,24 @@ export default function CombinationCounter({ profile, selection }: CombinationCo
   const urgency = getUrgency(count);
   const styles = URGENCY_STYLES[urgency];
   const warning = getUrgencyLabel(urgency);
+  const isBlocked = urgency === 'blocked';
+
+  // Notify parent of blocked state changes
+  useEffect(() => {
+    onBlockedChange?.(isBlocked);
+  }, [isBlocked, onBlockedChange]);
 
   // Count how many slots have >1 selected item (active comparison slots)
   const activeSlotCount = axes.length;
 
   return (
     <div
+      data-urgency={urgency}
       className={[
         'relative rounded-lg border overflow-hidden transition-all duration-300',
         'border-zinc-800/60 bg-zinc-900/50',
         styles.glow,
+        isBlocked ? 'animate-pulse-slow' : '',
       ].join(' ')}
     >
       {/* Subtle colored bar at top */}
@@ -139,6 +153,7 @@ export default function CombinationCounter({ profile, selection }: CombinationCo
         {/* Right: urgency warning */}
         {warning && (
           <span
+            {...(isBlocked ? { role: 'alert' } : {})}
             className={[
               'text-xs font-medium flex items-center gap-1.5 transition-colors duration-200',
               styles.text,
