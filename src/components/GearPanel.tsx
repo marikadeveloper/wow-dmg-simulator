@@ -32,7 +32,15 @@ export default function GearPanel({ profile }: GearPanelProps) {
     setSelection((prev) => {
       const key = `${slot}:${index}`;
       const next = new Set(prev);
+
       if (next.has(key)) {
+        // Guard: at least 1 item must remain selected per slot.
+        // Count how many items are currently selected in this slot.
+        const slotSelectedCount = Array.from(next).filter(
+          (k) => k.startsWith(`${slot}:`),
+        ).length;
+        if (slotSelectedCount <= 1) return prev; // can't deselect the last one
+
         next.delete(key);
       } else {
         next.add(key);

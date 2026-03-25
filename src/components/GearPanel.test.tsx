@@ -249,6 +249,53 @@ describe('GearPanel', () => {
     expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
   });
 
+  it('prevents deselecting the last selected item in a slot', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const buttons = screen.getAllByRole('button');
+
+    // Equipped item is the only selected item
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+
+    // Try to deselect the only selected item — should be a no-op
+    fireEvent.click(buttons[0]);
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByText('1/2 selected')).toBeInTheDocument();
+  });
+
+  it('allows deselecting when multiple items are selected in a slot', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const buttons = screen.getAllByRole('button');
+
+    // Select the bag item too
+    fireEvent.click(buttons[1]);
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByText('2/2 selected')).toBeInTheDocument();
+
+    // Now deselecting one should work (2 → 1)
+    fireEvent.click(buttons[0]);
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'false');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByText('1/2 selected')).toBeInTheDocument();
+  });
+
   it('updates selected count when toggling items', () => {
     const profile = makeProfile({
       head: [
