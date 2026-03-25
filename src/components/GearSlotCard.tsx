@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
 import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-cache';
-import { GEM_PRESETS, ENCHANT_PRESETS } from '../lib/presets/season-config';
+import { GEM_PRESETS, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
 
 /** Lookup maps built once from season presets. */
 const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
@@ -270,6 +270,15 @@ const QUALITY_COLORS: Record<number, string> = {
   5: 'text-orange-400',     // Legendary
 };
 
+/** CSS classes for gear track badges. */
+const TRACK_COLORS: Record<string, string> = {
+  Myth: 'text-orange-400',
+  Hero: 'text-purple-400',
+  Champion: 'text-blue-400',
+  Veteran: 'text-green-400',
+  Adventurer: 'text-zinc-400',
+};
+
 // ── Item Row ────────────────────────────────────────────────────────────────
 
 interface ItemRowProps {
@@ -295,6 +304,10 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
 
   // Item level — prefer parsed ilvl from SimC string, fall back to Wowhead cache
   const ilvl = item.ilvl ?? cached?.ilvl ?? null;
+
+  // Gear track info from bonus_ids
+  const trackInfo = item.bonusIds.length > 0 ? getGearTrackFromBonusIds(item.bonusIds) : null;
+  const trackColor = trackInfo ? (TRACK_COLORS[trackInfo.trackName] ?? 'text-zinc-400') : '';
 
   // Enchant
   const hasEnchant = item.enchantId != null && item.enchantId > 0;
@@ -361,13 +374,18 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
 
         {/* Detail line: ilvl + enchant name + gem icons */}
         <div className="flex items-center gap-1.5 mt-0.5">
-          {/* Item level */}
+          {/* Item level + gear track */}
           {ilvl != null && (
             <span
-              className="shrink-0 text-[11px] tabular-nums text-zinc-400 font-semibold"
-              title="Item Level"
+              className="shrink-0 text-[11px] tabular-nums font-semibold flex items-center gap-1"
+              title={trackInfo ? `${trackInfo.trackName} ${trackInfo.rank}/${trackInfo.maxRank} — ilvl ${ilvl}` : `Item Level ${ilvl}`}
             >
-              {ilvl}
+              <span className="text-zinc-400">{ilvl}</span>
+              {trackInfo && (
+                <span className={trackColor}>
+                  {trackInfo.trackName} {trackInfo.rank}/{trackInfo.maxRank}
+                </span>
+              )}
             </span>
           )}
 

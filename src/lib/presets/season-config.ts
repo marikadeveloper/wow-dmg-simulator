@@ -248,6 +248,58 @@ export const ENCHANT_PRESETS: EnchantPreset[] = [
   { id: 8041, name: 'Arcane Mastery (Q2)', slot: 'main_hand', stat: 'Mastery proc' },
 ];
 
+// ── Gear track detection from bonus_ids ────────────────────────────────────
+//
+// Each track uses 6 consecutive bonus_ids (one per upgrade rank), with a
+// 2-id gap between tracks. Pattern confirmed from Wowhead tooltip data:
+//   Adventurer: 12769–12774
+//   Veteran:    12777–12782
+//   Champion:   12785–12790
+//   Hero:       12793–12798
+//   Myth:       12801–12806
+
+/** Number of upgrade ranks per track (Midnight S1: all tracks have 6). */
+const UPGRADE_RANKS = 6;
+
+interface TrackBonusRange {
+  name: string;
+  startBonusId: number; // bonus_id for rank 1
+}
+
+const TRACK_BONUS_RANGES: TrackBonusRange[] = [
+  { name: 'Adventurer', startBonusId: 12769 },
+  { name: 'Veteran',    startBonusId: 12777 },
+  { name: 'Champion',   startBonusId: 12785 },
+  { name: 'Hero',       startBonusId: 12793 },
+  { name: 'Myth',       startBonusId: 12801 },
+];
+
+export interface GearTrackInfo {
+  trackName: string;
+  rank: number;      // 1-based
+  maxRank: number;   // always 6 for Midnight S1
+}
+
+/**
+ * Determine the gear track and upgrade rank from an item's bonus_ids.
+ * Returns null if no track bonus_id is found.
+ */
+export function getGearTrackFromBonusIds(bonusIds: number[]): GearTrackInfo | null {
+  for (const bonusId of bonusIds) {
+    for (const track of TRACK_BONUS_RANGES) {
+      const offset = bonusId - track.startBonusId;
+      if (offset >= 0 && offset < UPGRADE_RANKS) {
+        return {
+          trackName: track.name,
+          rank: offset + 1,
+          maxRank: UPGRADE_RANKS,
+        };
+      }
+    }
+  }
+  return null;
+}
+
 /** Slots that can be enchanted in Midnight S1. */
 export const ENCHANTABLE_SLOTS = [
   'head',

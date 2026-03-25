@@ -34,11 +34,11 @@ function makeProfile(gear: SimcProfile['gear']): SimcProfile {
   };
 }
 
-function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean; enchantId: number; ilvl: number; name: string }>) {
+function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean; enchantId: number; ilvl: number; name: string; bonusIds: number[] }>) {
   return {
     slot: overrides.slot ?? 'head',
     id: overrides.id ?? 100,
-    bonusIds: [10355],
+    bonusIds: overrides.bonusIds ?? [10355],
     gemIds: [],
     isEquipped: overrides.isEquipped ?? true,
     ...(overrides.isVault && { isVault: true }),
@@ -438,15 +438,17 @@ describe('GearPanel', () => {
     expect(screen.getByLabelText('Deselect all Head items')).toBeDisabled();
   });
 
-  it('shows item level from parsed SimC data', () => {
+  it('shows item level and gear track from parsed SimC data', () => {
+    // bonus_id 12790 = Champion 6/6
     const profile = makeProfile({
-      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, ilvl: 263 })],
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, ilvl: 263, bonusIds: [12790] })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const ilvl = screen.getByTitle('Item Level');
+    const ilvl = screen.getByTitle('Champion 6/6 — ilvl 263');
     expect(ilvl).toHaveTextContent('263');
+    expect(ilvl).toHaveTextContent('Champion 6/6');
   });
 
   it('colors item name by quality', async () => {
