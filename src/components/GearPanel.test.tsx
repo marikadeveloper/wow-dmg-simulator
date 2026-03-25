@@ -34,7 +34,7 @@ function makeProfile(gear: SimcProfile['gear']): SimcProfile {
   };
 }
 
-function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean; enchantId: number }>) {
+function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean; enchantId: number; ilvl: number; name: string }>) {
   return {
     slot: overrides.slot ?? 'head',
     id: overrides.id ?? 100,
@@ -43,6 +43,8 @@ function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boo
     isEquipped: overrides.isEquipped ?? true,
     ...(overrides.isVault && { isVault: true }),
     ...(overrides.enchantId != null && { enchantId: overrides.enchantId }),
+    ...(overrides.ilvl != null && { ilvl: overrides.ilvl }),
+    ...(overrides.name != null && { name: overrides.name }),
   };
 }
 
@@ -428,16 +430,15 @@ describe('GearPanel', () => {
     expect(screen.getByLabelText('Deselect all Head items')).toBeDisabled();
   });
 
-  it('shows item level from cached data', async () => {
+  it('shows item level from parsed SimC data', () => {
     const profile = makeProfile({
-      head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, ilvl: 263 })],
     });
 
     render(<GearPanel profile={profile} />);
 
-    // The mock returns ilvl 639 — wait for async item cache resolution
-    const ilvl = await screen.findByTitle('Item Level');
-    expect(ilvl).toHaveTextContent('639');
+    const ilvl = screen.getByTitle('Item Level');
+    expect(ilvl).toHaveTextContent('263');
   });
 
   it('colors item name by quality', async () => {

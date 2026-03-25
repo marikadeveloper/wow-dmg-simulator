@@ -234,7 +234,8 @@ interface ItemRowProps {
 }
 
 function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
-  const displayName = getItemDisplayName(item.id, cached);
+  // Prefer parsed name from SimC string, then cached Wowhead name, then fallback
+  const displayName = item.name ?? getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
   const isVault = badge === 'vault';
 
@@ -245,8 +246,8 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
   const quality = cached?.quality ?? 1;
   const qualityColor = QUALITY_COLORS[quality] ?? QUALITY_COLORS[1];
 
-  // Item level
-  const ilvl = cached?.ilvl ?? null;
+  // Item level — prefer parsed ilvl from SimC string, fall back to Wowhead cache
+  const ilvl = item.ilvl ?? cached?.ilvl ?? null;
 
   // Enchant
   const hasEnchant = item.enchantId != null && item.enchantId > 0;

@@ -36,6 +36,8 @@ export interface GearItem {
   enchantId?: number;
   /** Item name (from tooltip lookup, optional) */
   name?: string;
+  /** Item level parsed from the SimC comment (e.g. "# Helm of Valor (639)") */
+  ilvl?: number;
   /** true = currently equipped, false = in bag or unowned */
   isEquipped: boolean;
   /** true = item is from the Great Vault (Weekly Reward Choices) */

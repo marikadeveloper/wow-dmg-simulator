@@ -44,6 +44,8 @@ export function parseSimcString(input: string): SimcProfile {
   };
 
   let inVaultSection = false;
+  // Tracks the most recent "# Item Name (ilvl)" comment for attaching to the next gear line
+  let pendingItemMeta: { name: string; ilvl: number } | null = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
@@ -73,10 +75,22 @@ export function parseSimcString(input: string): SimcProfile {
 
       // Try to parse as a bag/vault item line: "# slot=,id=..."
       const bagContent = trimmed.slice(1).trim();
-      // Skip item name comments (e.g. "# Helm of Valor (639)")
-      if (!bagContent.includes('=')) continue;
+      // Check for item name comment: "# Item Name (639)"
+      if (!bagContent.includes('=')) {
+        const metaMatch = bagContent.match(/^(.+?)\s*\((\d+)\)\s*$/);
+        if (metaMatch) {
+          pendingItemMeta = { name: metaMatch[1].trim(), ilvl: parseInt(metaMatch[2], 10) };
+        }
+        continue;
+      }
       const bagItem = tryParseGearLine(bagContent, false, inVaultSection);
       if (bagItem) {
+        // Attach pending name/ilvl from the preceding comment
+        if (pendingItemMeta) {
+          bagItem.name = pendingItemMeta.name;
+          bagItem.ilvl = pendingItemMeta.ilvl;
+          pendingItemMeta = null;
+        }
         if (!profile.gear[bagItem.slot]) {
           profile.gear[bagItem.slot] = [];
         }
@@ -129,6 +143,12 @@ export function parseSimcString(input: string): SimcProfile {
     if (GEAR_SLOTS.has(key)) {
       const gearItem = tryParseGearLine(trimmed, true);
       if (gearItem) {
+        // Attach pending name/ilvl from the preceding comment
+        if (pendingItemMeta) {
+          gearItem.name = pendingItemMeta.name;
+          gearItem.ilvl = pendingItemMeta.ilvl;
+          pendingItemMeta = null;
+        }
         if (!profile.gear[gearItem.slot]) {
           profile.gear[gearItem.slot] = [];
         }

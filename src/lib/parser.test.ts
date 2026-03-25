@@ -286,4 +286,39 @@ head=,id=235602,bonus_id=10355/10257/1498/8767/10271
       expect(Object.keys(profile.gear)).toHaveLength(0);
     });
   });
+
+  describe('item name and ilvl from comments', () => {
+    it('parses name and ilvl from preceding comment for equipped items', () => {
+      const input = `mage="Test"\nlevel=80\nrace=human\nregion=us\nserver=test\nspec=frost\ntalents=AAAA\n# Handwraps of the Ascended (263)\nhands=,id=151300,bonus_id=13439/6652/13577/12699/12790`;
+      const profile = parseSimcString(input);
+      const item = profile.gear.hands[0];
+      expect(item.name).toBe('Handwraps of the Ascended');
+      expect(item.ilvl).toBe(263);
+    });
+
+    it('parses name and ilvl from preceding comment for bag items', () => {
+      const input = `mage="Test"\nlevel=80\nrace=human\nregion=us\nserver=test\nspec=frost\ntalents=AAAA\nhands=,id=100\n# Experimental Safety Gloves (246)\n# hands=,id=193713,bonus_id=12785`;
+      const profile = parseSimcString(input);
+      const bagItem = profile.gear.hands.find((i) => i.id === 193713);
+      expect(bagItem?.name).toBe('Experimental Safety Gloves');
+      expect(bagItem?.ilvl).toBe(246);
+    });
+
+    it('parses name and ilvl for vault items', () => {
+      const input = `mage="Test"\nlevel=80\nrace=human\nregion=us\nserver=test\nspec=frost\ntalents=AAAA\nhead=,id=100\n### Weekly Reward Choices\n# Voidbreaker's Veil (259)\n# head=,id=250060,bonus_id=13338/6652\n### End of Weekly Reward Choices`;
+      const profile = parseSimcString(input);
+      const vaultItem = profile.gear.head.find((i) => i.id === 250060);
+      expect(vaultItem?.name).toBe("Voidbreaker's Veil");
+      expect(vaultItem?.ilvl).toBe(259);
+      expect(vaultItem?.isVault).toBe(true);
+    });
+
+    it('does not set name/ilvl when no preceding comment exists', () => {
+      const input = `mage="Test"\nlevel=80\nrace=human\nregion=us\nserver=test\nspec=frost\ntalents=AAAA\nhands=,id=151300,bonus_id=13439`;
+      const profile = parseSimcString(input);
+      const item = profile.gear.hands[0];
+      expect(item.name).toBeUndefined();
+      expect(item.ilvl).toBeUndefined();
+    });
+  });
 });
