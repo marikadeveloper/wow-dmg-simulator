@@ -19,6 +19,9 @@ const IGNORE_PREFIXES = [
   '# Build:',
 ];
 
+const VAULT_SECTION_START = '### Weekly Reward Choices';
+const VAULT_SECTION_END = '### End of Weekly Reward Choices';
+
 /**
  * Parse a SimC addon export string into a structured SimcProfile.
  *
@@ -40,6 +43,8 @@ export function parseSimcString(input: string): SimcProfile {
     rawLines: [],
   };
 
+  let inVaultSection = false;
+
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
     rawLines.push(line);
@@ -51,12 +56,26 @@ export function parseSimcString(input: string): SimcProfile {
 
     // Check for bag item lines (commented gear: "# slot=,id=...")
     if (trimmed.startsWith('#')) {
+      // Track vault section boundaries
+      if (trimmed.startsWith(VAULT_SECTION_START)) {
+        inVaultSection = true;
+        continue;
+      }
+      if (trimmed.startsWith(VAULT_SECTION_END)) {
+        inVaultSection = false;
+        continue;
+      }
+
       // Check if this is an ignorable comment
       if (IGNORE_PREFIXES.some((prefix) => trimmed.startsWith(prefix))) continue;
+      // Skip section headers (### Gear from Bags, etc.)
+      if (trimmed.startsWith('###')) continue;
 
-      // Try to parse as a bag item line: "# slot=,id=..."
+      // Try to parse as a bag/vault item line: "# slot=,id=..."
       const bagContent = trimmed.slice(1).trim();
-      const bagItem = tryParseGearLine(bagContent, false);
+      // Skip item name comments (e.g. "# Helm of Valor (639)")
+      if (!bagContent.includes('=')) continue;
+      const bagItem = tryParseGearLine(bagContent, false, inVaultSection);
       if (bagItem) {
         if (!profile.gear[bagItem.slot]) {
           profile.gear[bagItem.slot] = [];
@@ -127,7 +146,7 @@ export function parseSimcString(input: string): SimcProfile {
  * Try to parse a line as a gear item.
  * Format: slot=,id=N[,bonus_id=N/N/N][,gem_id=N/N][,enchant_id=N]
  */
-function tryParseGearLine(line: string, isEquipped: boolean): GearItem | null {
+function tryParseGearLine(line: string, isEquipped: boolean, isVault = false): GearItem | null {
   const eqIndex = line.indexOf('=');
   if (eqIndex === -1) return null;
 
@@ -176,5 +195,6 @@ function tryParseGearLine(line: string, isEquipped: boolean): GearItem | null {
     gemIds,
     enchantId,
     isEquipped,
+    ...(isVault && { isVault: true }),
   };
 }

@@ -58,7 +58,12 @@ export default function GearPanel({ profile }: GearPanelProps) {
   });
 
   const totalBag = Object.values(profile.gear).reduce(
-    (sum, items) => sum + items.filter((i) => !i.isEquipped).length,
+    (sum, items) => sum + items.filter((i) => !i.isEquipped && !i.isVault).length,
+    0,
+  );
+
+  const totalVault = Object.values(profile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => i.isVault).length,
     0,
   );
 
@@ -69,11 +74,18 @@ export default function GearPanel({ profile }: GearPanelProps) {
         <h2 className="text-sm font-semibold text-zinc-300 tracking-tight">
           Gear Slots
         </h2>
-        {totalBag > 0 && (
-          <span className="text-[11px] text-zinc-600">
-            {totalBag} bag {totalBag === 1 ? 'item' : 'items'} available to compare
-          </span>
-        )}
+        <span className="text-[11px] text-zinc-600 flex items-center gap-2">
+          {totalVault > 0 && (
+            <span className="text-violet-500/70">
+              {totalVault} vault {totalVault === 1 ? 'item' : 'items'}
+            </span>
+          )}
+          {totalBag > 0 && (
+            <span>
+              {totalBag} bag {totalBag === 1 ? 'item' : 'items'} available to compare
+            </span>
+          )}
+        </span>
       </div>
 
       {/* Slot grid — responsive: 1 col mobile, 2 col tablet, 3 col desktop */}

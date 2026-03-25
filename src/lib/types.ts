@@ -38,6 +38,8 @@ export interface GearItem {
   name?: string;
   /** true = currently equipped, false = in bag or unowned */
   isEquipped: boolean;
+  /** true = item is from the Great Vault (Weekly Reward Choices) */
+  isVault?: boolean;
 }
 
 /** The fully parsed SimC addon export string. */

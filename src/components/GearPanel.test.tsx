@@ -34,13 +34,14 @@ function makeProfile(gear: SimcProfile['gear']): SimcProfile {
   };
 }
 
-function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean }>) {
+function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean }>) {
   return {
     slot: overrides.slot ?? 'head',
     id: overrides.id ?? 100,
     bonusIds: [10355],
     gemIds: [],
     isEquipped: overrides.isEquipped ?? true,
+    ...(overrides.isVault && { isVault: true }),
   };
 }
 
@@ -200,6 +201,51 @@ describe('GearPanel', () => {
 
     // Click to deselect
     fireEvent.click(buttons[1]);
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('shows "vault" badge for vault items', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false, isVault: true }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const vaultBadges = screen.getAllByText('vault');
+    expect(vaultBadges.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('shows vault item count in header', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false, isVault: true }),
+        makeItem({ slot: 'head', id: 3, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.getByText('1 vault item')).toBeInTheDocument();
+    expect(screen.getByText('1 bag item available to compare')).toBeInTheDocument();
+  });
+
+  it('does not pre-select vault items', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false, isVault: true }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const buttons = screen.getAllByRole('button');
+    // Equipped = selected, vault = not selected
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
   });
 

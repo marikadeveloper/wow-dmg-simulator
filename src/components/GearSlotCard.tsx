@@ -71,11 +71,13 @@ export default function GearSlotCard({
   const label = SLOT_LABELS[slot] ?? slot;
   const icon = SLOT_ICONS[slot] ?? '\u{2699}';
 
-  // Track equipped/bag items with their original indices
+  // Track equipped/vault/bag items with their original indices
   const equippedWithIdx: Array<[GearItem, number]> = [];
+  const vaultWithIdx: Array<[GearItem, number]> = [];
   const bagWithIdx: Array<[GearItem, number]> = [];
   items.forEach((item, idx) => {
     if (item.isEquipped) equippedWithIdx.push([item, idx]);
+    else if (item.isVault) vaultWithIdx.push([item, idx]);
     else bagWithIdx.push([item, idx]);
   });
 
@@ -135,8 +137,25 @@ export default function GearSlotCard({
           />
         ))}
 
-        {/* Separator between equipped and bag items */}
-        {equippedWithIdx.length > 0 && bagWithIdx.length > 0 && (
+        {/* Separator between equipped and vault/bag items */}
+        {equippedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
+          <div className="border-t border-zinc-800/30 my-1.5" />
+        )}
+
+        {/* Vault items */}
+        {vaultWithIdx.map(([item, idx]) => (
+          <ItemRow
+            key={`vault-${item.id}-${idx}`}
+            item={item}
+            cached={itemNames[item.id] ?? null}
+            badge="vault"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
+          />
+        ))}
+
+        {/* Separator between vault and bag items */}
+        {vaultWithIdx.length > 0 && bagWithIdx.length > 0 && (
           <div className="border-t border-zinc-800/30 my-1.5" />
         )}
 
@@ -168,7 +187,7 @@ export default function GearSlotCard({
 interface ItemRowProps {
   item: GearItem;
   cached: CachedItem | null;
-  badge: 'equipped' | 'bag';
+  badge: 'equipped' | 'bag' | 'vault';
   selected: boolean;
   onToggle: () => void;
 }
@@ -176,6 +195,7 @@ interface ItemRowProps {
 function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
   const displayName = getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
+  const isVault = badge === 'vault';
 
   // Gem socket indicators
   const socketCount = item.gemIds.length;
@@ -190,7 +210,9 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
         selected
           ? isEquipped
             ? 'text-zinc-100 bg-amber-500/5'
-            : 'text-zinc-200 bg-zinc-800/30'
+            : isVault
+              ? 'text-zinc-100 bg-violet-500/5'
+              : 'text-zinc-200 bg-zinc-800/30'
           : 'text-zinc-500 opacity-60',
       ].join(' ')}
       aria-pressed={selected}
@@ -202,7 +224,9 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           selected
             ? isEquipped
               ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
-              : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
+              : isVault
+                ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
+                : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
             : 'border-zinc-700/50 text-transparent',
         ].join(' ')}
       >
@@ -227,7 +251,7 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           <span
             className={[
               'text-sm leading-tight truncate text-left',
-              selected && isEquipped ? 'font-medium' : 'font-normal',
+              selected && (isEquipped || isVault) ? 'font-medium' : 'font-normal',
             ].join(' ')}
           >
             {displayName}
@@ -254,10 +278,12 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           'shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded',
           isEquipped
             ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
-            : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+            : isVault
+              ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
+              : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
         ].join(' ')}
       >
-        {isEquipped ? 'equipped' : 'bag'}
+        {isEquipped ? 'equipped' : isVault ? 'vault' : 'bag'}
       </span>
     </button>
   );

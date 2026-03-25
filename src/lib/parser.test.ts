@@ -214,6 +214,65 @@ describe('parseSimcString', () => {
     });
   });
 
+  describe('vault item parsing', () => {
+    const VAULT_EXPORT = `shaman="Thrall"
+level=80
+race=orc
+region=eu
+server=draenor
+spec=enhancement
+talents=AAAA
+
+head=,id=235602,bonus_id=10355/10257/1498/8767/10271
+
+# head=,id=229379,bonus_id=10390/10257/1498/8767/10271
+
+### Weekly Reward Choices
+# Helm of Valor (639)
+# head=,id=230001,bonus_id=10355/10257/1498/8767/10271
+# trinket1=,id=230002,bonus_id=10355/10257/1498/8767/10271
+### End of Weekly Reward Choices
+
+# trinket1=,id=225652,bonus_id=10390/10257/1498/8767/10271`;
+
+    it('parses vault items with isVault: true', () => {
+      const profile = parseSimcString(VAULT_EXPORT);
+      const vaultHeads = profile.gear.head.filter((i) => i.isVault);
+      expect(vaultHeads).toHaveLength(1);
+      expect(vaultHeads[0].id).toBe(230001);
+      expect(vaultHeads[0].isVault).toBe(true);
+      expect(vaultHeads[0].isEquipped).toBe(false);
+    });
+
+    it('parses multiple vault items across slots', () => {
+      const profile = parseSimcString(VAULT_EXPORT);
+      const vaultTrinkets = profile.gear.trinket1.filter((i) => i.isVault);
+      expect(vaultTrinkets).toHaveLength(1);
+      expect(vaultTrinkets[0].id).toBe(230002);
+    });
+
+    it('does not mark bag items outside vault section as vault', () => {
+      const profile = parseSimcString(VAULT_EXPORT);
+      const bagHeads = profile.gear.head.filter((i) => !i.isEquipped && !i.isVault);
+      expect(bagHeads).toHaveLength(1);
+      expect(bagHeads[0].id).toBe(229379);
+    });
+
+    it('does not mark items after vault end marker as vault', () => {
+      const profile = parseSimcString(VAULT_EXPORT);
+      const bagTrinkets = profile.gear.trinket1.filter((i) => !i.isEquipped && !i.isVault);
+      expect(bagTrinkets).toHaveLength(1);
+      expect(bagTrinkets[0].id).toBe(225652);
+    });
+
+    it('skips item name comments inside vault section', () => {
+      const profile = parseSimcString(VAULT_EXPORT);
+      // "Helm of Valor (639)" should not produce a gear item
+      const allHeads = profile.gear.head;
+      expect(allHeads).toHaveLength(3); // equipped + bag + vault
+    });
+  });
+
   describe('edge cases', () => {
     it('handles realm= as alias for server=', () => {
       const input = `shaman="Test"\nlevel=80\nrace=orc\nregion=us\nrealm=testrealm\nspec=enhancement\ntalents=AAAA\nhead=,id=12345`;
