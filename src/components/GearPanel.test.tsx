@@ -135,7 +135,7 @@ describe('GearPanel', () => {
     expect(bagBadges.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renders gem labels for items with gems', () => {
+  it('renders gem icons for items with gems', () => {
     const profile = makeProfile({
       head: [
         {
@@ -150,9 +150,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Gem presets: 240892 = Haste + Mastery, 240904 = Crit
-    expect(screen.getByText('Haste + Mastery')).toBeInTheDocument();
-    expect(screen.getByText('Crit')).toBeInTheDocument();
+    // Gems shown as icons with name in title tooltip
+    expect(screen.getByTitle('Flawless Masterful Peridot')).toBeInTheDocument();
+    expect(screen.getByTitle('Flawless Deadly Garnet')).toBeInTheDocument();
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -477,25 +477,24 @@ describe('GearPanel', () => {
     expect(screen.getByText('Enchant #9999')).toBeInTheDocument();
   });
 
-  it('shows gem stat labels for known gem IDs', () => {
+  it('shows gem icon with name tooltip for known gem IDs', () => {
     const profile = makeProfile({
       head: [{
         slot: 'head',
         id: 1,
         bonusIds: [10355],
-        gemIds: [240892], // Flawless Masterful Peridot = Haste + Mastery
+        gemIds: [240892], // Flawless Masterful Peridot
         isEquipped: true,
       }],
     });
 
     render(<GearPanel profile={profile} />);
 
-    const gemLabel = screen.getByTitle('Flawless Masterful Peridot');
-    expect(gemLabel).toBeInTheDocument();
-    expect(screen.getByText('Haste + Mastery')).toBeInTheDocument();
+    const gemIcon = screen.getByTitle('Flawless Masterful Peridot');
+    expect(gemIcon).toBeInTheDocument();
   });
 
-  it('shows fallback label for unknown gem IDs', () => {
+  it('shows gem icon with fallback tooltip for unknown gem IDs', () => {
     const profile = makeProfile({
       head: [{
         slot: 'head',
@@ -508,7 +507,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    expect(screen.getByText('Gem #999999')).toBeInTheDocument();
+    expect(screen.getByTitle('Gem ID: 999999')).toBeInTheDocument();
   });
 
   it('does not show enchant or gem details when item has neither', () => {
@@ -519,6 +518,7 @@ describe('GearPanel', () => {
     render(<GearPanel profile={profile} />);
 
     expect(screen.queryByText(/Enchant/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Gem #/)).not.toBeInTheDocument();
+    // Gem icons use title attributes, not text
+    expect(screen.queryByTitle(/Gem ID/)).not.toBeInTheDocument();
   });
 });

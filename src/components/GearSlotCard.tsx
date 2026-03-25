@@ -319,7 +319,7 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
 
       {/* Item name + details */}
       <div className="flex-1 min-w-0">
-        {/* Primary line: name + ilvl */}
+        {/* Primary line: name + ilvl + gems + enchant (Raidbots-style inline) */}
         <div className="flex items-center gap-1.5">
           <span
             className={[
@@ -330,44 +330,43 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           >
             {displayName}
           </span>
+        </div>
 
+        {/* Detail line: ilvl + enchant name + gem icons */}
+        <div className="flex items-center gap-1.5 mt-0.5">
           {/* Item level */}
           {ilvl != null && (
             <span
-              className="shrink-0 text-[10px] tabular-nums text-zinc-500 font-medium"
+              className="shrink-0 text-[11px] tabular-nums text-zinc-400 font-semibold"
               title="Item Level"
             >
               {ilvl}
             </span>
           )}
+
+          {/* Enchant name (green, like Raidbots) */}
+          {hasEnchant && (
+            <span
+              className="text-[11px] text-emerald-400/90 truncate"
+              title={getEnchantFullName(item.enchantId!)}
+            >
+              {getEnchantLabel(item.enchantId!)}
+            </span>
+          )}
+
+          {/* Gem icons (small colored diamonds, no text) */}
+          {socketCount > 0 && (
+            <span className="flex items-center gap-0.5 shrink-0">
+              {item.gemIds.map((gemId, i) => (
+                <span
+                  key={i}
+                  className="inline-block w-2.5 h-2.5 rounded-sm bg-amber-500/50 ring-1 ring-amber-500/30 rotate-45"
+                  title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
+                />
+              ))}
+            </span>
+          )}
         </div>
-
-        {/* Secondary line: gems + enchant */}
-        {(socketCount > 0 || hasEnchant) && (
-          <div className="flex items-center gap-1.5 mt-0.5">
-            {/* Gem labels */}
-            {item.gemIds.map((gemId, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center gap-0.5 text-[10px] text-amber-400/70"
-                title={GEM_BY_ID.get(gemId)?.name ?? `Gem ID: ${gemId}`}
-              >
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500/50 ring-1 ring-amber-500/20" />
-                {getGemLabel(gemId)}
-              </span>
-            ))}
-
-            {/* Enchant label */}
-            {hasEnchant && (
-              <span
-                className="text-[10px] text-emerald-500/70"
-                title={getEnchantFullName(item.enchantId!)}
-              >
-                {getEnchantLabel(item.enchantId!)}
-              </span>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Badge */}
