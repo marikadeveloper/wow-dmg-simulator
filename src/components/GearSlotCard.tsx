@@ -146,6 +146,14 @@ export default function GearSlotCard({
     return () => { cancelled = true; };
   }, [itemIdKey]);
 
+  // Determine the equipped item's track rank for upgrade arrow comparison
+  const equippedTrackRank = (() => {
+    const eq = equippedWithIdx[0]?.[0];
+    if (!eq) return -1;
+    const info = getGearTrackFromBonusIds(eq.bonusIds);
+    return info ? (TRACK_RANK[info.trackName] ?? -1) : -1;
+  })();
+
   const selectedCount = Array.from(selectedIndices).filter((i) => i < items.length).length;
 
   return (
@@ -210,6 +218,7 @@ export default function GearSlotCard({
             badge="equipped"
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
           />
         ))}
 
@@ -227,6 +236,7 @@ export default function GearSlotCard({
             badge="vault"
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
           />
         ))}
 
@@ -244,6 +254,7 @@ export default function GearSlotCard({
             badge="bag"
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
           />
         ))}
 
@@ -279,6 +290,15 @@ const TRACK_COLORS: Record<string, string> = {
   Adventurer: 'text-zinc-400',
 };
 
+/** Numeric rank for track comparison (higher = better). */
+const TRACK_RANK: Record<string, number> = {
+  Adventurer: 0,
+  Veteran: 1,
+  Champion: 2,
+  Hero: 3,
+  Myth: 4,
+};
+
 // ── Item Row ────────────────────────────────────────────────────────────────
 
 interface ItemRowProps {
@@ -287,9 +307,11 @@ interface ItemRowProps {
   badge: 'equipped' | 'bag' | 'vault';
   selected: boolean;
   onToggle: () => void;
+  /** Numeric track rank of the equipped item (-1 if unknown). */
+  equippedTrackRank: number;
 }
 
-function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
+function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }: ItemRowProps) {
   // Prefer parsed name from SimC string, then cached Wowhead name, then fallback
   const displayName = item.name ?? getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
@@ -308,6 +330,10 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
   // Gear track info from bonus_ids
   const trackInfo = item.bonusIds.length > 0 ? getGearTrackFromBonusIds(item.bonusIds) : null;
   const trackColor = trackInfo ? (TRACK_COLORS[trackInfo.trackName] ?? 'text-zinc-400') : '';
+
+  // Show green upgrade arrow if this item's track is higher than equipped
+  const itemTrackRank = trackInfo ? (TRACK_RANK[trackInfo.trackName] ?? -1) : -1;
+  const isUpgrade = !isEquipped && itemTrackRank > equippedTrackRank && equippedTrackRank >= 0;
 
   // Enchant
   const hasEnchant = item.enchantId != null && item.enchantId > 0;
@@ -359,7 +385,7 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
 
       {/* Item name + details */}
       <div className="flex-1 min-w-0">
-        {/* Primary line: name + ilvl + gems + enchant (Raidbots-style inline) */}
+        {/* Row 1: Item name + upgrade arrow */}
         <div className="flex items-center gap-1.5">
           <span
             className={[
@@ -370,52 +396,63 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           >
             {displayName}
           </span>
+          {isUpgrade && (
+            <svg
+              className="shrink-0 w-3 h-3 text-emerald-400"
+              viewBox="0 0 12 12"
+              fill="currentColor"
+              aria-label="Higher gear track than equipped"
+            >
+              <path d="M6 1L11 7H1Z" />
+            </svg>
+          )}
         </div>
 
-        {/* Detail line: ilvl + enchant name + gem icons */}
-        <div className="flex items-center gap-1.5 mt-0.5">
-          {/* Item level + gear track */}
-          {ilvl != null && (
-            <span
-              className="shrink-0 text-[11px] tabular-nums font-semibold flex items-center gap-1"
-              title={trackInfo ? `${trackInfo.trackName} ${trackInfo.rank}/${trackInfo.maxRank} — ilvl ${ilvl}` : `Item Level ${ilvl}`}
-            >
+        {/* Row 2: ilvl + gear track */}
+        {(ilvl != null || trackInfo) && (
+          <div
+            className="flex items-center gap-1.5 mt-0.5 text-[11px] tabular-nums font-semibold"
+            title={trackInfo ? `${trackInfo.trackName} ${trackInfo.rank}/${trackInfo.maxRank} — ilvl ${ilvl}` : `Item Level ${ilvl}`}
+          >
+            {ilvl != null && (
               <span className="text-zinc-400">{ilvl}</span>
-              {trackInfo && (
-                <span className={trackColor}>
-                  {trackInfo.trackName} {trackInfo.rank}/{trackInfo.maxRank}
-                </span>
-              )}
-            </span>
-          )}
+            )}
+            {trackInfo && (
+              <span className={trackColor}>
+                {trackInfo.trackName} {trackInfo.rank}/{trackInfo.maxRank}
+              </span>
+            )}
+          </div>
+        )}
 
-          {/* Enchant name (green, tooltip shows stat) */}
-          {hasEnchant && (
-            <span
-              className="text-[11px] text-emerald-400/90 truncate"
-              title={getEnchantTooltip(item.enchantId!)}
-            >
-              {getEnchantDisplayName(item.enchantId!)}
-            </span>
-          )}
-
-          {/* Gem icons (tooltip shows name + stat) */}
-          {socketCount > 0 && (
-            <span className="flex items-center gap-0.5 shrink-0">
-              {item.gemIds.map((gemId, i) => (
-                <img
-                  key={i}
-                  src={getGemIconUrl(gemId)}
-                  alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
-                  title={getGemTooltip(gemId)}
-                  width={16}
-                  height={16}
-                  className="rounded-sm"
-                />
-              ))}
-            </span>
-          )}
-        </div>
+        {/* Row 3: enchant + gems */}
+        {(hasEnchant || socketCount > 0) && (
+          <div className="flex items-center gap-1.5 mt-0.5">
+            {hasEnchant && (
+              <span
+                className="text-[11px] text-emerald-400/90 truncate"
+                title={getEnchantTooltip(item.enchantId!)}
+              >
+                {getEnchantDisplayName(item.enchantId!)}
+              </span>
+            )}
+            {socketCount > 0 && (
+              <span className="flex items-center gap-0.5 shrink-0">
+                {item.gemIds.map((gemId, i) => (
+                  <img
+                    key={i}
+                    src={getGemIconUrl(gemId)}
+                    alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
+                    title={getGemTooltip(gemId)}
+                    width={16}
+                    height={16}
+                    className="rounded-sm"
+                  />
+                ))}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Badge */}
