@@ -211,6 +211,18 @@ export default function GearSlotCard({
   );
 }
 
+// ── Quality colors (WoW item quality) ────────────────────────────────────────
+
+/** CSS color classes for WoW item quality tiers. */
+const QUALITY_COLORS: Record<number, string> = {
+  0: 'text-zinc-500',       // Poor (grey)
+  1: 'text-zinc-300',       // Common (white)
+  2: 'text-green-400',      // Uncommon
+  3: 'text-blue-400',       // Rare
+  4: 'text-purple-400',     // Epic
+  5: 'text-orange-400',     // Legendary
+};
+
 // ── Item Row ────────────────────────────────────────────────────────────────
 
 interface ItemRowProps {
@@ -229,6 +241,16 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
   // Gem socket indicators
   const socketCount = item.gemIds.length;
 
+  // Quality color (default to common/white if no cached data)
+  const quality = cached?.quality ?? 1;
+  const qualityColor = QUALITY_COLORS[quality] ?? QUALITY_COLORS[1];
+
+  // Item level
+  const ilvl = cached?.ilvl ?? null;
+
+  // Enchant
+  const hasEnchant = item.enchantId != null && item.enchantId > 0;
+
   return (
     <button
       type="button"
@@ -238,11 +260,11 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
         'hover:bg-zinc-800/40',
         selected
           ? isEquipped
-            ? 'text-zinc-100 bg-amber-500/5'
+            ? 'bg-amber-500/5'
             : isVault
-              ? 'text-zinc-100 bg-violet-500/5'
-              : 'text-zinc-200 bg-zinc-800/30'
-          : 'text-zinc-500 opacity-60',
+              ? 'bg-violet-500/5'
+              : 'bg-zinc-800/30'
+          : 'opacity-60',
       ].join(' ')}
       aria-pressed={selected}
     >
@@ -280,11 +302,22 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
           <span
             className={[
               'text-sm leading-tight truncate text-left',
+              selected ? qualityColor : 'text-zinc-500',
               selected && (isEquipped || isVault) ? 'font-medium' : 'font-normal',
             ].join(' ')}
           >
             {displayName}
           </span>
+
+          {/* Item level */}
+          {ilvl != null && (
+            <span
+              className="shrink-0 text-[10px] tabular-nums text-zinc-500 font-medium"
+              title="Item Level"
+            >
+              {ilvl}
+            </span>
+          )}
 
           {/* Socket dots */}
           {socketCount > 0 && (
@@ -296,6 +329,16 @@ function ItemRow({ item, cached, badge, selected, onToggle }: ItemRowProps) {
                   title={`Socket ${i + 1}`}
                 />
               ))}
+            </span>
+          )}
+
+          {/* Enchant indicator */}
+          {hasEnchant && (
+            <span
+              className="shrink-0 text-[9px] text-emerald-500/70 font-medium uppercase tracking-wider"
+              title={`Enchant ID: ${item.enchantId}`}
+            >
+              ench
             </span>
           )}
         </div>

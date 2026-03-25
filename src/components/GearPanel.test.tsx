@@ -34,7 +34,7 @@ function makeProfile(gear: SimcProfile['gear']): SimcProfile {
   };
 }
 
-function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean }>) {
+function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boolean; isVault: boolean; enchantId: number }>) {
   return {
     slot: overrides.slot ?? 'head',
     id: overrides.id ?? 100,
@@ -42,6 +42,7 @@ function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boo
     gemIds: [],
     isEquipped: overrides.isEquipped ?? true,
     ...(overrides.isVault && { isVault: true }),
+    ...(overrides.enchantId != null && { enchantId: overrides.enchantId }),
   };
 }
 
@@ -425,5 +426,51 @@ describe('GearPanel', () => {
 
     // Initially only 1 selected
     expect(screen.getByLabelText('Deselect all Head items')).toBeDisabled();
+  });
+
+  it('shows item level from cached data', async () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // The mock returns ilvl 639 — wait for async item cache resolution
+    const ilvl = await screen.findByTitle('Item Level');
+    expect(ilvl).toHaveTextContent('639');
+  });
+
+  it('colors item name by quality', async () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // Wait for item cache to resolve (quality 4 = epic = purple-400)
+    const itemName = await screen.findByText('Test Item 1');
+    expect(itemName.className).toContain('text-purple-400');
+  });
+
+  it('shows enchant indicator when item has enchantId', () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7340 })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    const enchantBadge = screen.getByText('ench');
+    expect(enchantBadge).toBeInTheDocument();
+    expect(enchantBadge).toHaveAttribute('title', 'Enchant ID: 7340');
+  });
+
+  it('does not show enchant indicator when item has no enchant', () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.queryByText('ench')).not.toBeInTheDocument();
   });
 });
