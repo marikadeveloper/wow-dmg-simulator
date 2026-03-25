@@ -45,6 +45,13 @@ function makeItem(overrides: Partial<{ slot: string; id: number; isEquipped: boo
   };
 }
 
+/** Get only the item-toggle buttons (those with aria-pressed) */
+function getItemButtons() {
+  return screen.getAllByRole('button').filter(
+    (btn) => btn.hasAttribute('aria-pressed'),
+  );
+}
+
 describe('GearPanel', () => {
   afterEach(cleanup);
 
@@ -173,7 +180,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
     // Equipped item (first) should be pressed
     expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
     // Bag item (second) should not be pressed
@@ -190,7 +197,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
 
     // Bag item starts unselected
     expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
@@ -243,7 +250,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
     // Equipped = selected, vault = not selected
     expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
     expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
@@ -259,7 +266,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
 
     // Equipped item is the only selected item
     expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
@@ -281,7 +288,7 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
 
     // Select the bag item too
     fireEvent.click(buttons[1]);
@@ -310,9 +317,113 @@ describe('GearPanel', () => {
     expect(screen.getByText('1/3 selected')).toBeInTheDocument();
 
     // Select a bag item
-    const buttons = screen.getAllByRole('button');
+    const buttons = getItemButtons();
     fireEvent.click(buttons[1]);
 
     expect(screen.getByText('2/3 selected')).toBeInTheDocument();
+  });
+
+  it('shows "all / none" buttons for slots with 2+ items', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.getByLabelText('Select all Head items')).toBeInTheDocument();
+    expect(screen.getByLabelText('Deselect all Head items')).toBeInTheDocument();
+  });
+
+  it('does not show "all / none" for single-item slots', () => {
+    const profile = makeProfile({
+      head: [makeItem({ slot: 'head', id: 1, isEquipped: true })],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    expect(screen.queryByLabelText('Select all Head items')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('Deselect all Head items')).not.toBeInTheDocument();
+  });
+
+  it('"Select all" selects every item in the slot', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+        makeItem({ slot: 'head', id: 3, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // Initially only equipped is selected
+    expect(screen.getByText('1/3 selected')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Select all Head items'));
+
+    expect(screen.getByText('3/3 selected')).toBeInTheDocument();
+    const buttons = getItemButtons();
+    buttons.forEach((btn) => {
+      expect(btn).toHaveAttribute('aria-pressed', 'true');
+    });
+  });
+
+  it('"Deselect all" keeps only the equipped item selected', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+        makeItem({ slot: 'head', id: 3, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // Select all first
+    fireEvent.click(screen.getByLabelText('Select all Head items'));
+    expect(screen.getByText('3/3 selected')).toBeInTheDocument();
+
+    // Deselect all
+    fireEvent.click(screen.getByLabelText('Deselect all Head items'));
+    expect(screen.getByText('1/3 selected')).toBeInTheDocument();
+
+    // Only equipped item remains selected
+    const buttons = getItemButtons();
+    expect(buttons[0]).toHaveAttribute('aria-pressed', 'true');
+    expect(buttons[1]).toHaveAttribute('aria-pressed', 'false');
+    expect(buttons[2]).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('"Select all" button is disabled when all items already selected', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // Select all
+    fireEvent.click(screen.getByLabelText('Select all Head items'));
+
+    expect(screen.getByLabelText('Select all Head items')).toBeDisabled();
+  });
+
+  it('"Deselect all" button is disabled when only 1 item selected', () => {
+    const profile = makeProfile({
+      head: [
+        makeItem({ slot: 'head', id: 1, isEquipped: true }),
+        makeItem({ slot: 'head', id: 2, isEquipped: false }),
+      ],
+    });
+
+    render(<GearPanel profile={profile} />);
+
+    // Initially only 1 selected
+    expect(screen.getByLabelText('Deselect all Head items')).toBeDisabled();
   });
 });

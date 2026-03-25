@@ -55,6 +55,10 @@ interface GearSlotCardProps {
   selectedIndices: Set<number>;
   /** Called when a user toggles an item */
   onToggle: (slot: string, index: number) => void;
+  /** Called when user clicks "Select all" */
+  onSelectAll: (slot: string) => void;
+  /** Called when user clicks "Deselect all" */
+  onDeselectAll: (slot: string) => void;
   /** Stagger animation delay in ms */
   delay?: number;
 }
@@ -64,6 +68,8 @@ export default function GearSlotCard({
   items,
   selectedIndices,
   onToggle,
+  onSelectAll,
+  onDeselectAll,
   delay = 0,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
@@ -118,8 +124,31 @@ export default function GearSlotCard({
             {label}
           </h3>
         </div>
-        <span className="text-[10px] tabular-nums text-zinc-600 font-medium">
-          {selectedCount}/{items.length} selected
+        <span className="flex items-center gap-2 text-[10px] tabular-nums text-zinc-600 font-medium">
+          <span>{selectedCount}/{items.length} selected</span>
+          {items.length > 1 && (
+            <span className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onSelectAll(slot); }}
+                disabled={selectedCount === items.length}
+                className="text-zinc-500 hover:text-zinc-300 disabled:text-zinc-700 disabled:cursor-default transition-colors"
+                aria-label={`Select all ${label} items`}
+              >
+                all
+              </button>
+              <span className="text-zinc-700">/</span>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onDeselectAll(slot); }}
+                disabled={selectedCount <= 1}
+                className="text-zinc-500 hover:text-zinc-300 disabled:text-zinc-700 disabled:cursor-default transition-colors"
+                aria-label={`Deselect all ${label} items`}
+              >
+                none
+              </button>
+            </span>
+          )}
         </span>
       </div>
 

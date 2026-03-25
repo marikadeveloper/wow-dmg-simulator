@@ -28,10 +28,10 @@ Last updated: 2026-03-24
 | 2.5 | User can select/deselect multiple items per slot to include in comparison   | ✅     |
 | 2.6 | Live combination counter updates as user selects items                      | ✅     |
 | 2.7 | Warning if combinations > 200; hard block if > 1000                         | ✅     |
-| 2.8 | "Select all" / "Deselect all" per slot                                      | ⬜     |
+| 2.8 | "Select all" / "Deselect all" per slot                                      | ✅     |
 | 2.9 | Items show item level, slot type, and key stats in the card                 | ⬜     |
 
-**Epic status: 🟡 7/9 stories done**
+**Epic status: 🟡 8/9 stories done**
 
 ---
 

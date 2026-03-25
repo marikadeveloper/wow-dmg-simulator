@@ -51,6 +51,35 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     });
   }, []);
 
+  const selectAllInSlot = useCallback((slot: string) => {
+    setSelection((prev) => {
+      const items = profile.gear[slot];
+      if (!items) return prev;
+      const next = new Set(prev);
+      items.forEach((_, idx) => next.add(`${slot}:${idx}`));
+      return next;
+    });
+  }, [profile]);
+
+  const deselectAllInSlot = useCallback((slot: string) => {
+    setSelection((prev) => {
+      const items = profile.gear[slot];
+      if (!items) return prev;
+      const next = new Set(prev);
+
+      // Find the equipped item index to keep (or first item if none equipped)
+      const equippedIdx = items.findIndex((i) => i.isEquipped);
+      const keepIdx = equippedIdx >= 0 ? equippedIdx : 0;
+
+      items.forEach((_, idx) => {
+        if (idx !== keepIdx) next.delete(`${slot}:${idx}`);
+      });
+      // Ensure the kept one is selected
+      next.add(`${slot}:${keepIdx}`);
+      return next;
+    });
+  }, [profile]);
+
   // Build per-slot selected indices for fast lookup in children
   const selectionBySlot = useMemo(() => {
     const map: Record<string, Set<number>> = {};
@@ -108,6 +137,8 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
             items={profile.gear[slot]}
             selectedIndices={selectionBySlot[slot] ?? new Set()}
             onToggle={toggleItem}
+            onSelectAll={selectAllInSlot}
+            onDeselectAll={deselectAllInSlot}
             delay={index * 30}
           />
         ))}
