@@ -52,14 +52,14 @@ Last updated: 2026-03-24
 
 ## EPIC 4 — Enchant Optimization
 
-| #   | Story                                                                      | Status     |
-| --- | -------------------------------------------------------------------------- | ---------- |
-| 4.1 | App detects which slots support enchanting                                 | ✅         |
-| 4.2 | For enchantable slots, user can provide a list of enchant IDs to try       | ✅         |
-| 4.3 | App generates combinations trying each enchant ID on each enchantable slot | ✅         |
-| 4.4 | Enchant optimization can be combined with gear + gem optimization          | ✅         |
-| 4.5 | App ships with a preset list of current-patch enchant IDs per slot         | ✅         |
-| 4.6 | "No enchant" is always an option (enchant_id omitted)                      | ✅         |
+| #   | Story                                                                      | Status |
+| --- | -------------------------------------------------------------------------- | ------ |
+| 4.1 | App detects which slots support enchanting                                 | ✅     |
+| 4.2 | For enchantable slots, user can provide a list of enchant IDs to try       | ✅     |
+| 4.3 | App generates combinations trying each enchant ID on each enchantable slot | ✅     |
+| 4.4 | Enchant optimization can be combined with gear + gem optimization          | ✅     |
+| 4.5 | App ships with a preset list of current-patch enchant IDs per slot         | ✅     |
+| 4.6 | "No enchant" is always an option (enchant_id omitted)                      | ✅     |
 
 **Epic status: ✅ 6/6 stories done**
 
@@ -67,16 +67,17 @@ Last updated: 2026-03-24
 
 ## EPIC 5 — Simulation Settings
 
-| #   | Story                                                | Status     |
-| --- | ---------------------------------------------------- | ---------- |
-| 5.1 | Fight Style dropdown                                 | ✅ backend |
-| 5.2 | Fight Length input (max_time)                        | ✅ backend |
-| 5.3 | Fight Length Variance input (vary_combat_length)     | ✅ backend |
-| 5.4 | Number of enemies input                              | ✅ backend |
-| 5.5 | Iterations input (default 10000)                     | ✅ backend |
-| 5.6 | Target Error mode (stop when error < N%)             | ⬜         |
-| 5.7 | Threads input (default cpu_count - 1)                | ✅ backend |
-| 5.8 | Settings panel is collapsible; defaults are sensible | ⬜         |
+| #   | Story                                                                  | Status     |
+| --- | ---------------------------------------------------------------------- | ---------- |
+| 5.1 | Fight Style dropdown                                                   | ✅ backend |
+| 5.2 | Fight Length input (max_time)                                          | ✅ backend |
+| 5.3 | Fight Length Variance input (vary_combat_length)                       | ✅ backend |
+| 5.4 | Number of enemies input                                                | ✅ backend |
+| 5.5 | Iterations input (default 10000)                                       | ✅ backend |
+| 5.6 | Target Error mode (stop when error < N%)                               | ⬜         |
+| 5.7 | Threads input (default cpu_count - 1)                                  | ✅ backend |
+| 5.8 | Settings panel is collapsible; defaults are sensible                   | ⬜         |
+| 5.9 | Check if the combinations chosen are a valid input for simulationcraft | ⬜         |
 
 **Epic status: 🟡 ProfileSet builder handles all settings, UI not started**
 
