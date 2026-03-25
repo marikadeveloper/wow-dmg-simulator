@@ -521,4 +521,28 @@ describe('GearPanel', () => {
     // Gem icons use title attributes, not text
     expect(screen.queryByTitle(/Gem ID/)).not.toBeInTheDocument();
   });
+
+  it('shows "enchantable" badge on enchantable slots', () => {
+    const profile = makeProfile({
+      finger1: [makeItem({ slot: 'finger1', id: 1, isEquipped: true })],
+    });
+    render(<GearPanel profile={profile} />);
+    expect(screen.getByText('enchantable')).toBeInTheDocument();
+  });
+
+  it('does not show "enchantable" badge on non-enchantable slots', () => {
+    const profile = makeProfile({
+      neck: [makeItem({ slot: 'neck', id: 1, isEquipped: true })],
+    });
+    render(<GearPanel profile={profile} />);
+    expect(screen.queryByText('enchantable')).not.toBeInTheDocument();
+  });
+
+  it('shows "enchantable" badge on weapon slots', () => {
+    const profile = makeProfile({
+      main_hand: [makeItem({ slot: 'main_hand', id: 1, isEquipped: true })],
+    });
+    render(<GearPanel profile={profile} />);
+    expect(screen.getByText('enchantable')).toBeInTheDocument();
+  });
 });

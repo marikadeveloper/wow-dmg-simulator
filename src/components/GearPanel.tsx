@@ -5,6 +5,7 @@ import GemOptimization from './GemOptimization';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
+import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -174,6 +175,7 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
             onToggle={toggleItem}
             onSelectAll={selectAllInSlot}
             onDeselectAll={deselectAllInSlot}
+            isEnchantable={(ENCHANTABLE_SLOTS as readonly string[]).includes(slot)}
             delay={index * 30}
           />
         ))}

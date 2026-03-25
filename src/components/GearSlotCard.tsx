@@ -95,6 +95,8 @@ interface GearSlotCardProps {
   onSelectAll: (slot: string) => void;
   /** Called when user clicks "Deselect all" */
   onDeselectAll: (slot: string) => void;
+  /** Whether this slot supports enchanting */
+  isEnchantable?: boolean;
   /** Stagger animation delay in ms */
   delay?: number;
 }
@@ -106,6 +108,7 @@ export default function GearSlotCard({
   onToggle,
   onSelectAll,
   onDeselectAll,
+  isEnchantable = false,
   delay = 0,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
@@ -159,6 +162,14 @@ export default function GearSlotCard({
           <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
             {label}
           </h3>
+          {isEnchantable && (
+            <span
+              className="text-[9px] font-medium text-emerald-500/60 uppercase tracking-wider"
+              title="This slot supports enchanting"
+            >
+              enchantable
+            </span>
+          )}
         </div>
         <span className="flex items-center gap-2 text-[10px] tabular-nums text-zinc-600 font-medium">
           <span>{selectedCount}/{items.length} selected</span>
