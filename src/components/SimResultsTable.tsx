@@ -288,16 +288,28 @@ export default function SimResultsTable({
                   {/* Axis options */}
                   {axisColumns.map((axis) => {
                     const optionId = result.axes[axis.id];
+                    const baselineOptId = baseline?.axes[axis.id];
+                    const isDiff = !result.isBaseline && optionId !== baselineOptId;
                     const label = optionId
                       ? optionLabels.get(axis.id)?.get(optionId) ?? optionId
                       : '\u2014';
                     return (
                       <td
                         key={axis.id}
-                        className="px-3 py-1.5 text-zinc-400 truncate max-w-[180px]"
+                        className={[
+                          'px-3 py-1.5 truncate max-w-[180px]',
+                          isDiff
+                            ? 'text-amber-300/90'
+                            : 'text-zinc-400',
+                        ].join(' ')}
                         title={label}
                       >
-                        {label}
+                        <span className="inline-flex items-center gap-1.5">
+                          {isDiff && (
+                            <span className="inline-block w-1 h-1 rounded-full bg-amber-400/70 shrink-0" />
+                          )}
+                          {label}
+                        </span>
                       </td>
                     );
                   })}

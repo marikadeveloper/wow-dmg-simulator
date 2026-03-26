@@ -112,10 +112,10 @@ Last updated: 2026-03-24
 | 7.7 | Show error margin from SimC output                          | ✅     |
 | 7.8 | Show if two results are within statistical noise            | ✅     |
 | 7.9 | Horizontal bar chart visualization of top results           | ✅     |
-| 7.10 | Diff highlighting: show which slots changed vs equipped    | ⬜     |
+| 7.10 | Diff highlighting: show which slots changed vs equipped    | ✅     |
 | 7.11 | Paper doll visualization of gear for best result           | ⬜     |
 
-**Epic status: 🟡 9/11 stories done**
+**Epic status: 🟡 10/11 stories done**
 
 ---
 
