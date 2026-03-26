@@ -77,9 +77,9 @@ Last updated: 2026-03-24
 | 5.6 | Target Error mode (stop when error < N%)                               | ✅         |
 | 5.7 | Threads input (default cpu_count - 1)                                  | ✅         |
 | 5.8 | Settings panel is collapsible; defaults are sensible                   | ✅         |
-| 5.9 | Check if the combinations chosen are a valid input for simulationcraft | ⬜         |
+| 5.9 | Check if the combinations chosen are a valid input for simulationcraft | ✅         |
 
-**Epic status: ✅ 8/9 stories done (5.9 remaining)**
+**Epic status: ✅ 9/9 stories done**
 
 ---
 

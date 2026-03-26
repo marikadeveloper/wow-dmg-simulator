@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import ProfileImport from './components/ProfileImport';
 import GearPanel from './components/GearPanel';
 import SimSettingsPanel, { DEFAULT_SIM_SETTINGS } from './components/SimSettingsPanel';
+import { validateSimInput } from './lib/validate-sim-input';
 import type { SimcProfile } from './lib/types';
 
 function App() {
@@ -11,6 +12,11 @@ function App() {
   const handleProfileParsed = useCallback((p: SimcProfile | null) => {
     setProfile(p);
   }, []);
+
+  const validationIssues = useMemo(
+    () => (profile ? validateSimInput(profile, simSettings) : []),
+    [profile, simSettings],
+  );
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -49,6 +55,46 @@ function App() {
               settings={simSettings}
               onSettingsChange={setSimSettings}
             />
+
+            {/* Validation messages */}
+            {validationIssues.length > 0 && (
+              <div className="mt-3 space-y-1.5">
+                {validationIssues.map((issue, i) => (
+                  <div
+                    key={i}
+                    className={[
+                      'flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug',
+                      issue.severity === 'error'
+                        ? 'bg-red-500/10 border border-red-500/20 text-red-300'
+                        : 'bg-amber-500/8 border border-amber-500/15 text-amber-300/90',
+                    ].join(' ')}
+                  >
+                    <svg
+                      className="mt-0.5 shrink-0"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 13 13"
+                      fill="none"
+                    >
+                      {issue.severity === 'error' ? (
+                        <>
+                          <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1" />
+                          <path d="M6.5 4v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                          <circle cx="6.5" cy="9" r="0.6" fill="currentColor" />
+                        </>
+                      ) : (
+                        <>
+                          <path d="M6.5 1.5L12 11H1L6.5 1.5z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
+                          <path d="M6.5 5v2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                          <circle cx="6.5" cy="9.2" r="0.6" fill="currentColor" />
+                        </>
+                      )}
+                    </svg>
+                    <span>{issue.message}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
       </div>
