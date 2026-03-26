@@ -70,16 +70,16 @@ Last updated: 2026-03-24
 | #   | Story                                                                  | Status     |
 | --- | ---------------------------------------------------------------------- | ---------- |
 | 5.1 | Fight Style dropdown                                                   | ✅         |
-| 5.2 | Fight Length input (max_time)                                          | ✅ backend |
-| 5.3 | Fight Length Variance input (vary_combat_length)                       | ✅ backend |
-| 5.4 | Number of enemies input                                                | ✅ backend |
-| 5.5 | Iterations input (default 10000)                                       | ✅ backend |
-| 5.6 | Target Error mode (stop when error < N%)                               | ⬜         |
-| 5.7 | Threads input (default cpu_count - 1)                                  | ✅ backend |
-| 5.8 | Settings panel is collapsible; defaults are sensible                   | ⬜         |
+| 5.2 | Fight Length input (max_time)                                          | ✅         |
+| 5.3 | Fight Length Variance input (vary_combat_length)                       | ✅         |
+| 5.4 | Number of enemies input                                                | ✅         |
+| 5.5 | Iterations input (default 10000)                                       | ✅         |
+| 5.6 | Target Error mode (stop when error < N%)                               | ✅         |
+| 5.7 | Threads input (default cpu_count - 1)                                  | ✅         |
+| 5.8 | Settings panel is collapsible; defaults are sensible                   | ✅         |
 | 5.9 | Check if the combinations chosen are a valid input for simulationcraft | ⬜         |
 
-**Epic status: 🟡 ProfileSet builder handles all settings, UI not started**
+**Epic status: ✅ 8/9 stories done (5.9 remaining)**
 
 ---
 

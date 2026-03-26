@@ -120,4 +120,6 @@ export interface SimSettings {
   threads: number;
   /** Path for json2 output */
   jsonOutputPath: string;
+  /** Target error % — when set and > 0, replaces iterations (sim stops when error < this) */
+  targetError?: number;
 }

@@ -71,6 +71,30 @@ describe('buildProfileSetFile', () => {
     expect(output).toContain('json2=/tmp/test.json');
   });
 
+  it('uses target_error instead of iterations when targetError is set', () => {
+    const combos: CombinationSpec[] = [
+      { name: 'combo_0000', axes: {}, overrideLines: [] },
+    ];
+    const settingsWithTargetError: SimSettings = {
+      ...defaultSettings,
+      targetError: 0.1,
+    };
+    const output = buildProfileSetFile(baseProfile, combos, settingsWithTargetError);
+
+    expect(output).toContain('target_error=0.1');
+    expect(output).not.toContain('iterations=');
+  });
+
+  it('uses iterations when targetError is not set', () => {
+    const combos: CombinationSpec[] = [
+      { name: 'combo_0000', axes: {}, overrideLines: [] },
+    ];
+    const output = buildProfileSetFile(baseProfile, combos, defaultSettings);
+
+    expect(output).toContain('iterations=10000');
+    expect(output).not.toContain('target_error');
+  });
+
   it('includes base profile rawLines', () => {
     const combos: CombinationSpec[] = [
       { name: 'combo_0000', axes: {}, overrideLines: [] },

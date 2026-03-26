@@ -27,7 +27,11 @@ export function buildProfileSetFile(
     sections.push('fixed_time=1');
   }
 
-  sections.push(`iterations=${settings.iterations}`);
+  if (settings.targetError != null && settings.targetError > 0) {
+    sections.push(`target_error=${settings.targetError}`);
+  } else {
+    sections.push(`iterations=${settings.iterations}`);
+  }
   sections.push(`threads=${settings.threads}`);
   sections.push('process_priority=below_normal');
 
