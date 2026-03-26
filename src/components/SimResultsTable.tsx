@@ -71,7 +71,7 @@ export default function SimResultsTable({
 
   const handleExportCsv = useCallback(() => {
     const axisCols = axes.filter((a) => a.options.length > 1);
-    const headers = ['Rank', 'DPS', 'Delta', 'Delta %', ...axisCols.map((a) => a.label)];
+    const headers = ['Rank', 'DPS', 'Error (±)', 'Delta', 'Delta %', ...axisCols.map((a) => a.label)];
     const rows = results.map((r, i) => {
       const rank = i + 1;
       const delta = r.dps - baselineDps;
@@ -85,6 +85,7 @@ export default function SimResultsTable({
       return [
         String(rank),
         r.dps.toFixed(0),
+        r.meanStdDev.toFixed(1),
         delta.toFixed(0),
         deltaPct.toFixed(2) + '%',
         ...axisValues,
@@ -170,6 +171,7 @@ export default function SimResultsTable({
                   </svg>
                 </span>
               </th>
+              <th className="text-right px-3 py-2 w-20">Error</th>
               <th className="text-right px-3 py-2 w-32">vs Equipped</th>
               {axisColumns.map((axis) => (
                 <th key={axis.id} className="text-left px-3 py-2">
@@ -235,6 +237,13 @@ export default function SimResultsTable({
                       }
                     >
                       {formatDps(result.dps)}
+                    </span>
+                  </td>
+
+                  {/* Error margin */}
+                  <td className="text-right px-3 py-1.5 tabular-nums text-zinc-600">
+                    <span title={`Std Dev: ${result.stdDev.toFixed(1)} | Mean Std Dev: ${result.meanStdDev.toFixed(1)}`}>
+                      &plusmn;{formatDps(result.meanStdDev)}
                     </span>
                   </td>
 
