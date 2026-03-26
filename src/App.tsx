@@ -8,6 +8,7 @@ import type { SimSettingsValues } from './components/SimSettingsPanel';
 import RunSimulationButton from './components/RunSimulationButton';
 import SimProgressBar from './components/SimProgressBar';
 import SimLogPanel from './components/SimLogPanel';
+import SimResultsSummary from './components/SimResultsSummary';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -21,13 +22,13 @@ function App() {
   const [isBlocked, setIsBlocked] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [simError, setSimError] = useState<string | null>(null);
-  const [_simResults, setSimResults] = useState<SimResult[] | null>(null);
+  const [simResults, setSimResults] = useState<SimResult[] | null>(null);
   const [simProgress, setSimProgress] = useState<{ current: number; total: number }>({ current: 0, total: 0 });
   const [elapsedMs, setElapsedMs] = useState(0);
   const [simLogLines, setSimLogLines] = useState<string[]>([]);
 
-  // Keep a ref to abort if needed later (story 6.4)
-  const _runIdRef = useRef(0);
+  // Guard against stale results when a new run starts before previous finishes
+  const runIdRef = useRef(0);
   const startTimeRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -111,7 +112,7 @@ function App() {
     setSimError(null);
     setSimResults(null);
 
-    const runId = ++_runIdRef.current;
+    const runId = ++runIdRef.current;
 
     try {
       // 1. Generate combinations from axes
@@ -136,16 +137,16 @@ function App() {
       });
 
       // Guard against stale results if another run started
-      if (runId !== _runIdRef.current) return;
+      if (runId !== runIdRef.current) return;
 
       // 5. Parse results
       const results = parseSimCResults(jsonText, manifest);
       setSimResults(results);
     } catch (err) {
-      if (runId !== _runIdRef.current) return;
+      if (runId !== runIdRef.current) return;
       setSimError(err instanceof Error ? err.message : String(err));
     } finally {
-      if (runId === _runIdRef.current) {
+      if (runId === runIdRef.current) {
         setIsRunning(false);
       }
     }
@@ -258,6 +259,13 @@ function App() {
             {(isRunning || simLogLines.length > 0) && (
               <div className="mt-2">
                 <SimLogPanel lines={simLogLines} isActive={isRunning} />
+              </div>
+            )}
+
+            {/* Results summary — appears immediately when sim finishes */}
+            {simResults && simResults.length > 0 && (
+              <div className="mt-3">
+                <SimResultsSummary results={simResults} elapsedMs={elapsedMs} />
               </div>
             )}
 
