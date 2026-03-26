@@ -88,6 +88,9 @@ _The user configures how SimC runs the fight._
 | 5.6 | Alternative **Target Error** mode: stop when error < N% (replaces iterations)                                                     | 🔮       |
 | 5.7 | **Threads** input: default cpu_count - 1                                                                                          | 🚀       |
 | 5.8 | Settings panel is collapsible; defaults are sensible so most users never open it                                                  | 🚀       |
+| 5.10 | **Item Sets**: App detects tier sets from equipped/selected gear and shows a minimum set bonus filter (0/2/4 set) per tier set. Combinations that don't meet the minimum are excluded. | 🔮       |
+| 5.11 | **Item Upgrade Currency**: User inputs how many upgrade crests they own (e.g. Hero Dawncrest, Myth Dawncrest). A button upgrades selected items to the max affordable ilvl within budget. Upgraded items are included as additional combinations. | 🔮       |
+| 5.12 | **Catalyst Charges**: User sets how many Catalyst charges they want to use (0–6). This limits how many Catalyst-converted tier items can appear in a single combination. Requires "Copy and Modify" (unowned item flow) to add the catalyst version of an item. | 🔮       |
 
 **Fight style reference:**
 
