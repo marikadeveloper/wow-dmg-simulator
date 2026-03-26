@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import type { SimResult, OptimizationAxis } from '../lib/types';
 
 interface SimResultsTableProps {
@@ -25,6 +25,13 @@ function buildOptionLabelMap(
     map.set(axis.id, optMap);
   }
   return map;
+}
+
+function escapeCsvField(value: string): string {
+  if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
 }
 
 type SortDir = 'desc' | 'asc';
@@ -62,6 +69,38 @@ export default function SimResultsTable({
     return map;
   }, [results]);
 
+  const handleExportCsv = useCallback(() => {
+    const axisCols = axes.filter((a) => a.options.length > 1);
+    const headers = ['Rank', 'DPS', 'Delta', 'Delta %', ...axisCols.map((a) => a.label)];
+    const rows = results.map((r, i) => {
+      const rank = i + 1;
+      const delta = r.dps - baselineDps;
+      const deltaPct = baselineDps > 0 ? (delta / baselineDps) * 100 : 0;
+      const axisValues = axisCols.map((axis) => {
+        const optionId = r.axes[axis.id];
+        return optionId
+          ? optionLabels.get(axis.id)?.get(optionId) ?? optionId
+          : '';
+      });
+      return [
+        String(rank),
+        r.dps.toFixed(0),
+        delta.toFixed(0),
+        deltaPct.toFixed(2) + '%',
+        ...axisValues,
+      ].map(escapeCsvField).join(',');
+    });
+
+    const csv = [headers.map(escapeCsvField).join(','), ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'topgear-results.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [results, axes, baselineDps, optionLabels]);
+
   const needsToggle = sorted.length > COLLAPSED_LIMIT;
   const visibleResults = showAll
     ? sorted
@@ -77,10 +116,29 @@ export default function SimResultsTable({
   return (
     <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-2.5 border-b border-zinc-800/40">
+      <div className="px-4 py-2.5 border-b border-zinc-800/40 flex items-center justify-between">
         <h3 className="text-xs font-semibold text-zinc-400 tracking-wide">
           Results
         </h3>
+        <button
+          onClick={handleExportCsv}
+          className="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-medium text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60 border border-transparent hover:border-zinc-700/40 transition-all"
+          title="Export results to CSV"
+        >
+          <svg
+            className="w-3 h-3"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 2v6M3.5 5.5L6 8l2.5-2.5" />
+            <path d="M2 9.5h8" />
+          </svg>
+          CSV
+        </button>
       </div>
 
       {/* Table */}
