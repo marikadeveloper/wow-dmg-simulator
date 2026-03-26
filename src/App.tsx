@@ -1,13 +1,16 @@
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 import ProfileImport from './components/ProfileImport';
 import GearPanel from './components/GearPanel';
 import SimSettingsPanel, { DEFAULT_SIM_SETTINGS } from './components/SimSettingsPanel';
 import type { SimSettingsValues } from './components/SimSettingsPanel';
 import RunSimulationButton from './components/RunSimulationButton';
+import SimProgressBar from './components/SimProgressBar';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
+import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 
 function App() {
@@ -18,9 +21,13 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [simError, setSimError] = useState<string | null>(null);
   const [_simResults, setSimResults] = useState<SimResult[] | null>(null);
+  const [simProgress, setSimProgress] = useState<{ current: number; total: number }>({ current: 0, total: 0 });
+  const [elapsedMs, setElapsedMs] = useState(0);
 
   // Keep a ref to abort if needed later (story 6.4)
   const _runIdRef = useRef(0);
+  const startTimeRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const handleProfileParsed = useCallback((p: SimcProfile | null) => {
     setProfile(p);
@@ -35,6 +42,39 @@ function App() {
   const handleBlockedChange = useCallback((blocked: boolean) => {
     setIsBlocked(blocked);
   }, []);
+
+  // Listen for SimC progress events while running
+  useEffect(() => {
+    if (!isRunning) return;
+
+    let unlisten: (() => void) | null = null;
+
+    listen<{ line: string }>('simc-progress', (event) => {
+      const progress = parseSimcProgress(event.payload.line);
+      if (progress) {
+        setSimProgress(progress);
+      }
+    }).then((fn) => {
+      unlisten = fn;
+    });
+
+    // Elapsed time ticker
+    startTimeRef.current = Date.now();
+    setElapsedMs(0);
+    setSimProgress({ current: 0, total: 0 });
+
+    timerRef.current = setInterval(() => {
+      setElapsedMs(Date.now() - startTimeRef.current);
+    }, 250);
+
+    return () => {
+      unlisten?.();
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [isRunning]);
 
   const validationIssues = useMemo(
     () => (profile ? validateSimInput(profile, simSettings) : []),
@@ -194,6 +234,16 @@ function App() {
                 isBlocked={isBlocked}
                 hasErrors={hasErrors(validationIssues)}
                 combinationCount={combinationCount}
+              />
+            </div>
+
+            {/* Progress bar — visible while running */}
+            <div className="mt-3">
+              <SimProgressBar
+                current={simProgress.current}
+                total={simProgress.total}
+                elapsedMs={elapsedMs}
+                isActive={isRunning}
               />
             </div>
 

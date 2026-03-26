@@ -1,5 +1,12 @@
+use tauri::Emitter;
 use tauri_plugin_shell::ShellExt;
+use tauri_plugin_shell::process::CommandEvent;
 use uuid::Uuid;
+
+#[derive(serde::Serialize, Clone)]
+struct SimcProgressPayload {
+    line: String,
+}
 
 #[tauri::command]
 pub async fn run_top_gear(
@@ -23,7 +30,7 @@ pub async fn run_top_gear(
         "output=/dev/null".to_string()
     };
 
-    let result = app
+    let (mut rx, _child) = app
         .shell()
         .sidecar("simc")
         .map_err(|e| e.to_string())?
@@ -32,21 +39,38 @@ pub async fn run_top_gear(
             &format!("json2={}", output_path.display()),
             &output_flag,
         ])
-        .output()
-        .await
-        .map_err(|e| e.to_string());
+        .spawn()
+        .map_err(|e| e.to_string())?;
+
+    // Collect stderr for error reporting
+    let mut stderr_lines = Vec::new();
+
+    // Stream events until process terminates
+    while let Some(event) = rx.recv().await {
+        match event {
+            CommandEvent::Stderr(line) => {
+                let text = String::from_utf8_lossy(&line).to_string();
+                stderr_lines.push(text.clone());
+                let _ = app.emit("simc-progress", SimcProgressPayload { line: text });
+            }
+            CommandEvent::Stdout(line) => {
+                let text = String::from_utf8_lossy(&line).to_string();
+                let _ = app.emit("simc-progress", SimcProgressPayload { line: text });
+            }
+            CommandEvent::Terminated(_) => break,
+            _ => {}
+        }
+    }
 
     // Clean up input file regardless of outcome
     let _ = std::fs::remove_file(&input_path);
 
-    // Check result
-    let _output = result?;
-
     // SimC exits 1 on warnings — check for JSON output, not just exit code
     if !output_path.exists() {
+        let stderr_text = stderr_lines.join("\n");
         return Err(format!(
             "SimC failed: JSON output file was not created. stderr: {}",
-            String::from_utf8_lossy(&_output.stderr)
+            stderr_text
         ));
     }
 
