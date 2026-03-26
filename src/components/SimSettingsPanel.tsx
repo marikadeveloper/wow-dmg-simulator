@@ -5,37 +5,37 @@ const FIGHT_STYLES = [
   {
     value: 'Patchwerk',
     label: 'Single Target (Patchwerk)',
-    desc: 'Stand-still, single boss. The default DPS check.',
+    desc: 'Pure single-target, no movement. The standard raid boss DPS check — use this for most gear comparisons.',
   },
   {
     value: 'CastingPatchwerk',
     label: 'Single Target + Casting',
-    desc: 'Same as Patchwerk but the boss casts spells — tests interrupt value.',
+    desc: 'Single target but the boss casts spells. Useful if your spec has interrupts or benefits from enemy casting.',
   },
   {
     value: 'LightMovement',
     label: 'Light Movement',
-    desc: 'Occasional movement every ~85 seconds.',
+    desc: 'Single target with brief movement phases (~15s) every ~85s. Good for ranged specs that lose uptime to mechanics.',
   },
   {
     value: 'HeavyMovement',
     label: 'Heavy Movement',
-    desc: 'Frequent movement every ~20 seconds.',
+    desc: 'Frequent, longer movement phases (~25s every 20s). Tests how well your gear handles constant repositioning.',
   },
   {
     value: 'HecticAddCleave',
     label: 'Cleave / Add Waves',
-    desc: 'Boss + frequent add waves + movement. Good for M+ / cleave.',
+    desc: 'Boss + frequent add spawns + movement. Best for M+ and council-style raid fights where AoE matters.',
   },
   {
     value: 'DungeonSlice',
     label: 'Dungeon Slice',
-    desc: 'Mixed single-target and AoE, emulating a dungeon run.',
+    desc: 'Simulates a full dungeon pull sequence — trash packs, bosses, mixed ST/AoE. Best for overall M+ gear choices.',
   },
   {
     value: 'HelterSkelter',
     label: 'Helter Skelter (Everything)',
-    desc: 'Movement, stuns, interrupts, target switching — chaos test.',
+    desc: 'Movement, stuns, interrupts, target switching — tests everything at once. Niche; use for stress-testing builds.',
   },
 ] as const;
 
@@ -190,7 +190,7 @@ export default function SimSettingsPanel({
             <div className="sm:col-span-2">
               <SettingLabel
                 label="Fight Style"
-                hint="The type of encounter to simulate."
+                hint="What kind of encounter to simulate. Use Single Target for raid bosses, Dungeon Slice for M+ keys, or Cleave for add-heavy fights."
               />
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -274,7 +274,7 @@ export default function SimSettingsPanel({
             <div>
               <SettingLabel
                 label="Fight Length"
-                hint="How long the simulated fight lasts. 300s = 5 minutes."
+                hint="How long the boss fight lasts. Default 300s (5 min) matches a typical raid boss. Use 120–180s for M+ bosses, 30–60s for trash packs."
               />
               <div className="flex items-center gap-2">
                 <NumberInput
@@ -292,7 +292,7 @@ export default function SimSettingsPanel({
             <div>
               <SettingLabel
                 label="Fight Length Variance"
-                hint="How much the fight length varies between iterations. 0% = fixed length."
+                hint="Randomizes fight length between iterations to avoid favoring cooldown timings. Default 20% is recommended. Set to 0% only for fixed-length comparisons."
               />
               <div className="flex items-center gap-2">
                 <span className="text-xs text-zinc-500">&plusmn;</span>
@@ -311,7 +311,7 @@ export default function SimSettingsPanel({
             <div>
               <SettingLabel
                 label="Number of Enemies"
-                hint="Total enemies in the fight. 1 = single target."
+                hint="Total enemies in the fight. 1 = pure single target. Use 4–5 for M+ trash, 2 for cleave bosses. DungeonSlice handles this automatically."
               />
               <NumberInput
                 value={settings.numEnemies}
@@ -329,8 +329,8 @@ export default function SimSettingsPanel({
                   label={settings.useTargetError ? 'Target Error' : 'Iterations'}
                   hint={
                     settings.useTargetError
-                      ? 'Sim stops when DPS error drops below this %. Lower = more accurate but slower.'
-                      : 'Number of iterations per combination. More = more accurate but slower.'
+                      ? 'Sim stops automatically when the DPS margin of error drops below this %. 0.1% is very accurate; 0.5% is faster but less precise. Good for large combo counts.'
+                      : 'How many times each combination is simulated. 10,000 is a good balance of speed and accuracy. Use 5,000 for quick checks, 25,000+ for close gear comparisons.'
                   }
                   noMargin
                 />
@@ -373,7 +373,7 @@ export default function SimSettingsPanel({
             <div>
               <SettingLabel
                 label="CPU Threads"
-                hint={`Number of threads SimC will use. Detected ${navigator.hardwareConcurrency ?? '?'} cores.`}
+                hint={`How many CPU cores SimC will use (${navigator.hardwareConcurrency ?? '?'} detected). Default leaves one core free so your computer stays responsive. Lower this if your system feels sluggish during sims.`}
               />
               <NumberInput
                 value={settings.threads}
@@ -404,15 +404,14 @@ function SettingLabel({
   noMargin?: boolean;
 }) {
   return (
-    <label
-      className={[
-        'block text-xs font-medium text-zinc-500',
-        noMargin ? '' : 'mb-1.5',
-      ].join(' ')}
-      title={hint}
-    >
-      {label}
-    </label>
+    <div className={noMargin ? '' : 'mb-1.5'}>
+      <label className="block text-xs font-medium text-zinc-400">
+        {label}
+      </label>
+      <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+        {hint}
+      </p>
+    </div>
   );
 }
 
