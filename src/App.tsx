@@ -105,6 +105,14 @@ function App() {
     };
   }
 
+  const handleCancelSimulation = useCallback(async () => {
+    try {
+      await invoke('cancel_sim');
+    } catch {
+      // Ignore — process may have already finished
+    }
+  }, []);
+
   const handleRunSimulation = useCallback(async () => {
     if (!profile || isBlocked || hasErrors(validationIssues) || isRunning) return;
 
@@ -144,7 +152,11 @@ function App() {
       setSimResults(results);
     } catch (err) {
       if (runId !== runIdRef.current) return;
-      setSimError(err instanceof Error ? err.message : String(err));
+      const msg = err instanceof Error ? err.message : String(err);
+      // Don't show cancellation as an error
+      if (msg !== 'Simulation cancelled') {
+        setSimError(msg);
+      }
     } finally {
       if (runId === runIdRef.current) {
         setIsRunning(false);
@@ -238,6 +250,7 @@ function App() {
             <div className="mt-4">
               <RunSimulationButton
                 onClick={handleRunSimulation}
+                onCancel={handleCancelSimulation}
                 isRunning={isRunning}
                 isBlocked={isBlocked}
                 hasErrors={hasErrors(validationIssues)}

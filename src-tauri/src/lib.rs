@@ -2,7 +2,7 @@ mod commands;
 
 use commands::config::{get_config, set_config, validate_simc_binary};
 use commands::item_data::{fetch_item_data, search_items};
-use commands::run_simc::run_top_gear;
+use commands::run_simc::{run_top_gear, cancel_sim, SimState};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -17,8 +17,10 @@ pub fn run() {
     }
 
     builder
+        .manage(SimState::default())
         .invoke_handler(tauri::generate_handler![
             run_top_gear,
+            cancel_sim,
             fetch_item_data,
             search_items,
             validate_simc_binary,

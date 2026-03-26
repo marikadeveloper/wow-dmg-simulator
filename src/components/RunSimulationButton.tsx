@@ -1,5 +1,6 @@
 interface RunSimulationButtonProps {
   onClick: () => void;
+  onCancel?: () => void;
   isRunning: boolean;
   isBlocked: boolean;
   hasErrors: boolean;
@@ -8,6 +9,7 @@ interface RunSimulationButtonProps {
 
 export default function RunSimulationButton({
   onClick,
+  onCancel,
   isRunning,
   isBlocked,
   hasErrors,
@@ -22,7 +24,7 @@ export default function RunSimulationButton({
       : null;
 
   return (
-    <div className="relative">
+    <div className="relative flex gap-2">
       {/* Ambient glow behind button — only when enabled */}
       {!isDisabled && (
         <div
@@ -38,7 +40,7 @@ export default function RunSimulationButton({
         onClick={onClick}
         disabled={isDisabled}
         className={[
-          'relative w-full rounded-lg px-6 py-3.5 font-semibold text-sm tracking-wide',
+          'relative flex-1 rounded-lg px-6 py-3.5 font-semibold text-sm tracking-wide',
           'flex items-center justify-center gap-3',
           'transition-all duration-200 ease-out',
           'border',
@@ -122,6 +124,31 @@ export default function RunSimulationButton({
           </span>
         )}
       </button>
+
+      {/* Cancel button — appears alongside when running */}
+      {isRunning && onCancel && (
+        <button
+          onClick={onCancel}
+          className={[
+            'relative rounded-lg px-4 py-3.5 text-sm font-medium',
+            'border border-zinc-700/50 bg-zinc-800/60 text-zinc-400',
+            'hover:bg-zinc-700/60 hover:text-zinc-200 hover:border-zinc-600/60',
+            'active:scale-[0.97]',
+            'transition-all duration-150',
+          ].join(' ')}
+        >
+          <svg
+            className="w-4 h-4"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          >
+            <path d="M4 4l8 8M12 4l-8 8" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
