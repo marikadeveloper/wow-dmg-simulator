@@ -110,9 +110,9 @@ Last updated: 2026-03-24
 | 7.5 | Results are sortable by DPS                                 | ✅     |
 | 7.6 | Export results to CSV                                       | ✅     |
 | 7.7 | Show error margin from SimC output                          | ✅     |
-| 7.8 | Show if two results are within statistical noise            | ⬜     |
+| 7.8 | Show if two results are within statistical noise            | ✅     |
 
-**Epic status: 🟡 7/8 stories done — table exists from 6.7, enhancing**
+**Epic status: ✅ 8/8 stories done**
 
 ---
 
