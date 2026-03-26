@@ -67,36 +67,36 @@ Last updated: 2026-03-24
 
 ## EPIC 5 — Simulation Settings
 
-| #   | Story                                                                  | Status     |
-| --- | ---------------------------------------------------------------------- | ---------- |
-| 5.1 | Fight Style dropdown                                                   | ✅         |
-| 5.2 | Fight Length input (max_time)                                          | ✅         |
-| 5.3 | Fight Length Variance input (vary_combat_length)                       | ✅         |
-| 5.4 | Number of enemies input                                                | ✅         |
-| 5.5 | Iterations input (default 10000)                                       | ✅         |
-| 5.6 | Target Error mode (stop when error < N%)                               | ✅         |
-| 5.7 | Threads input (default cpu_count - 1)                                  | ✅         |
-| 5.8 | Settings panel is collapsible; defaults are sensible                   | ✅         |
-| 5.9 | Check if the combinations chosen are a valid input for simulationcraft | ✅         |
-| 5.10 | Item Sets: minimum set bonus filter per tier set (0/2/4 set)          | ⬜         |
-| 5.11 | Item Upgrade Currency: user inputs crest budget, upgrade items to max affordable | ⬜         |
-| 5.12 | Catalyst Charges: limit how many catalyst-converted items per combination | ⬜         |
+| #    | Story                                                                            | Status |
+| ---- | -------------------------------------------------------------------------------- | ------ |
+| 5.1  | Fight Style dropdown                                                             | ✅     |
+| 5.2  | Fight Length input (max_time)                                                    | ✅     |
+| 5.3  | Fight Length Variance input (vary_combat_length)                                 | ✅     |
+| 5.4  | Number of enemies input                                                          | ✅     |
+| 5.5  | Iterations input (default 10000)                                                 | ✅     |
+| 5.6  | Target Error mode (stop when error < N%)                                         | ✅     |
+| 5.7  | Threads input (default cpu_count - 1)                                            | ✅     |
+| 5.8  | Settings panel is collapsible; defaults are sensible                             | ✅     |
+| 5.9  | Check if the combinations chosen are a valid input for simulationcraft           | ✅     |
+| 5.10 | Item Sets: minimum set bonus filter per tier set (0/2/4 set)                     | ✅     |
+| 5.11 | Item Upgrade Currency: user inputs crest budget, upgrade items to max affordable | ⬜     |
+| 5.12 | Catalyst Charges: limit how many catalyst-converted items per combination        | ⬜     |
 
-**Epic status: 🟡 9/12 stories done**
+**Epic status: 🟡 10/12 stories done**
 
 ---
 
 ## EPIC 6 — Simulation Execution
 
-| #   | Story                                                             | Status     |
-| --- | ----------------------------------------------------------------- | ---------- |
-| 6.1 | "Run Top Gear" button starts the simulation run                   | ✅         |
-| 6.2 | Progress bar shows X / N combinations completed                   | ✅         |
-| 6.3 | Simulationcraft logs show on the page                             | ✅         |
-| 6.4 | Results appear incrementally as each sim finishes                 | ✅         |
-| 6.5 | User can cancel an in-progress run                                | ✅         |
-| 6.6 | Estimated time remaining shown during run                         | ✅         |
-| 6.7 | Each completed sim shows its DPS immediately in the results table | ✅         |
+| #   | Story                                                             | Status |
+| --- | ----------------------------------------------------------------- | ------ |
+| 6.1 | "Run Top Gear" button starts the simulation run                   | ✅     |
+| 6.2 | Progress bar shows X / N combinations completed                   | ✅     |
+| 6.3 | Simulationcraft logs show on the page                             | ✅     |
+| 6.4 | Results appear incrementally as each sim finishes                 | ✅     |
+| 6.5 | User can cancel an in-progress run                                | ✅     |
+| 6.6 | Estimated time remaining shown during run                         | ✅     |
+| 6.7 | Each completed sim shows its DPS immediately in the results table | ✅     |
 
 **Epic status: ✅ 7/7 stories done**
 
@@ -104,19 +104,19 @@ Last updated: 2026-03-24
 
 ## EPIC 7 — Results Display
 
-| #   | Story                                                       | Status |
-| --- | ----------------------------------------------------------- | ------ |
-| 7.1 | Results shown as ranked table: rank, DPS, delta vs equipped | ✅     |
-| 7.2 | Top result is highlighted                                   | ✅     |
-| 7.3 | Each result row shows which item is in each slot            | ✅     |
-| 7.4 | "Currently equipped" combination always shown for reference | ✅     |
-| 7.5 | Results are sortable by DPS                                 | ✅     |
-| 7.6 | Export results to CSV                                       | ✅     |
-| 7.7 | Show error margin from SimC output                          | ✅     |
-| 7.8 | Show if two results are within statistical noise            | ✅     |
-| 7.9 | Horizontal bar chart visualization of top results           | ✅     |
-| 7.10 | Diff highlighting: show which slots changed vs equipped    | ✅     |
-| 7.11 | Paper doll visualization of gear for best result           | ✅     |
+| #    | Story                                                       | Status |
+| ---- | ----------------------------------------------------------- | ------ |
+| 7.1  | Results shown as ranked table: rank, DPS, delta vs equipped | ✅     |
+| 7.2  | Top result is highlighted                                   | ✅     |
+| 7.3  | Each result row shows which item is in each slot            | ✅     |
+| 7.4  | "Currently equipped" combination always shown for reference | ✅     |
+| 7.5  | Results are sortable by DPS                                 | ✅     |
+| 7.6  | Export results to CSV                                       | ✅     |
+| 7.7  | Show error margin from SimC output                          | ✅     |
+| 7.8  | Show if two results are within statistical noise            | ✅     |
+| 7.9  | Horizontal bar chart visualization of top results           | ✅     |
+| 7.10 | Diff highlighting: show which slots changed vs equipped     | ✅     |
+| 7.11 | Paper doll visualization of gear for best result            | ✅     |
 
 **Epic status: ✅ 11/11 stories done**
 

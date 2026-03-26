@@ -17,6 +17,7 @@ import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
 import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
+import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
@@ -29,6 +30,7 @@ function App() {
   const [simProgress, setSimProgress] = useState<{ current: number; total: number }>({ current: 0, total: 0 });
   const [elapsedMs, setElapsedMs] = useState(0);
   const [simLogLines, setSimLogLines] = useState<string[]>([]);
+  const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
 
   // Guard against stale results when a new run starts before previous finishes
   const runIdRef = useRef(0);
@@ -47,6 +49,10 @@ function App() {
 
   const handleBlockedChange = useCallback((blocked: boolean) => {
     setIsBlocked(blocked);
+  }, []);
+
+  const handleTierSetMinimumsChange = useCallback((minimums: TierSetMinimums) => {
+    setTierSetMinimums(minimums);
   }, []);
 
   // Listen for SimC progress events while running
@@ -127,7 +133,24 @@ function App() {
 
     try {
       // 1. Generate combinations from axes
-      const combinations = generateCombinations(axes);
+      let combinations = generateCombinations(axes);
+
+      // 1b. Apply tier set filtering if active
+      const hasActiveFilters = [...tierSetMinimums.values()].some((v) => v > 0);
+      if (hasActiveFilters) {
+        combinations = filterCombinationsByTierSets(combinations, profile, tierSetMinimums);
+        if (combinations.length === 0) {
+          setSimError('No combinations meet the tier set requirements. Try lowering the minimum piece count.');
+          return;
+        }
+        // Re-number combinations after filtering
+        let comboCounter = 1;
+        for (const combo of combinations) {
+          if (combo.name === 'combo_0000') continue; // keep baseline name
+          combo.name = `combo_${String(comboCounter).padStart(4, '0')}`;
+          comboCounter++;
+        }
+      }
 
       // 2. Build manifest for result parsing (name → spec)
       const manifest = new Map<string, CombinationSpec>();
@@ -165,7 +188,7 @@ function App() {
         setIsRunning(false);
       }
     }
-  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning]);
+  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -197,6 +220,7 @@ function App() {
               profile={profile}
               onBlockedChange={handleBlockedChange}
               onAxesChange={handleAxesChange}
+              onTierSetMinimumsChange={handleTierSetMinimumsChange}
             />
           </section>
         )}

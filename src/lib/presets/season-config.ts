@@ -300,6 +300,87 @@ export function getGearTrackFromBonusIds(bonusIds: number[]): GearTrackInfo | nu
   return null;
 }
 
+// ── Tier set definitions ─────────────────────────────────────────────────────
+//
+// Each tier set is defined by the item IDs that belong to it.
+// Tier set pieces always occupy the same 5 slots: head, shoulder, chest, hands, legs.
+// SimC activates 2-set and 4-set bonuses automatically when enough pieces are equipped.
+//
+// To update for a new raid tier: replace TIER_SETS with the new item IDs.
+// Item IDs are the same across all difficulty levels (Normal/Heroic/Mythic);
+// difficulty is determined by bonus_ids, not item IDs.
+
+export interface TierSetDefinition {
+  /** Unique identifier for this set, e.g. "midnight_s1_warrior" */
+  id: string;
+  /** Human-readable name shown in UI */
+  name: string;
+  /** All item IDs belonging to this set (one per slot: head, shoulder, chest, hands, legs) */
+  itemIds: number[];
+}
+
+/**
+ * All tier sets for the current season.
+ *
+ * NOTE: The app auto-detects which sets are relevant based on the user's imported items.
+ * List ALL class tier sets here — only sets with matching items will appear in the UI.
+ *
+ * Item IDs sourced from SimC game data (item_data.inc) for Midnight S1.
+ * If an item ID is wrong or missing, the set simply won't be detected for that class.
+ */
+export const TIER_SETS: TierSetDefinition[] = [
+  // ── Midnight S1 Raid: Zul'Aman Ascendant ──
+  // Death Knight — Scales of the Amani Serpent
+  { id: 'mn_s1_dk', name: 'Scales of the Amani Serpent', itemIds: [240012, 240013, 240014, 240015, 240016] },
+  // Demon Hunter — Feathers of the Amani Eagle
+  { id: 'mn_s1_dh', name: 'Feathers of the Amani Eagle', itemIds: [240022, 240023, 240024, 240025, 240026] },
+  // Druid — Plumage of the Amani Dragonhawk
+  { id: 'mn_s1_druid', name: 'Plumage of the Amani Dragonhawk', itemIds: [240032, 240033, 240034, 240035, 240036] },
+  // Evoker — Crest of the Amani Lynx
+  { id: 'mn_s1_evoker', name: 'Crest of the Amani Lynx', itemIds: [240042, 240043, 240044, 240045, 240046] },
+  // Hunter — Fangs of the Amani Bear
+  { id: 'mn_s1_hunter', name: 'Fangs of the Amani Bear', itemIds: [240052, 240053, 240054, 240055, 240056] },
+  // Mage — Visage of the Amani Hex Lord
+  { id: 'mn_s1_mage', name: 'Visage of the Amani Hex Lord', itemIds: [240062, 240063, 240064, 240065, 240066] },
+  // Monk — Wraps of the Amani Storm
+  { id: 'mn_s1_monk', name: 'Wraps of the Amani Storm', itemIds: [240072, 240073, 240074, 240075, 240076] },
+  // Paladin — Aegis of the Amani War Bear
+  { id: 'mn_s1_paladin', name: 'Aegis of the Amani War Bear', itemIds: [240082, 240083, 240084, 240085, 240086] },
+  // Priest — Vestments of the Amani Spirit
+  { id: 'mn_s1_priest', name: 'Vestments of the Amani Spirit', itemIds: [240092, 240093, 240094, 240095, 240096] },
+  // Rogue — Guise of the Amani Shadow
+  { id: 'mn_s1_rogue', name: 'Guise of the Amani Shadow', itemIds: [240102, 240103, 240104, 240105, 240106] },
+  // Shaman — Regalia of the Amani Thunder
+  { id: 'mn_s1_shaman', name: 'Regalia of the Amani Thunder', itemIds: [240112, 240113, 240114, 240115, 240116] },
+  // Warlock — Bindings of the Amani Darkness
+  { id: 'mn_s1_warlock', name: 'Bindings of the Amani Darkness', itemIds: [240122, 240123, 240124, 240125, 240126] },
+  // Warrior — Plates of the Amani Warlord
+  { id: 'mn_s1_warrior', name: 'Plates of the Amani Warlord', itemIds: [240132, 240133, 240134, 240135, 240136] },
+];
+
+/** Build a quick lookup: itemId → tierSetId. Computed once at import time. */
+const _tierSetLookup = new Map<number, string>();
+for (const set of TIER_SETS) {
+  for (const itemId of set.itemIds) {
+    _tierSetLookup.set(itemId, set.id);
+  }
+}
+
+/**
+ * Look up which tier set an item belongs to, if any.
+ * Returns the tier set ID or undefined.
+ */
+export function getTierSetId(itemId: number): string | undefined {
+  return _tierSetLookup.get(itemId);
+}
+
+/**
+ * Get a tier set definition by ID.
+ */
+export function getTierSetById(id: string): TierSetDefinition | undefined {
+  return TIER_SETS.find((s) => s.id === id);
+}
+
 /** Slots that can be enchanted in Midnight S1. */
 export const ENCHANTABLE_SLOTS = [
   'head',

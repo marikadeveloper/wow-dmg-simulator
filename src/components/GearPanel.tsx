@@ -3,10 +3,12 @@ import type { SimcProfile, GearItem } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
 import EnchantOptimization from './EnchantOptimization';
+import TierSetFilter from './TierSetFilter';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
 import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
+import type { TierSetMinimums } from '../lib/tier-set-filter';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -14,6 +16,8 @@ interface GearPanelProps {
   onBlockedChange?: (blocked: boolean) => void;
   /** Called whenever the assembled optimization axes change. */
   onAxesChange?: (axes: import('../lib/types').OptimizationAxis[]) => void;
+  /** Called whenever tier set minimum requirements change. */
+  onTierSetMinimumsChange?: (minimums: TierSetMinimums) => void;
 }
 
 /**
@@ -51,13 +55,14 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile, onBlockedChange, onAxesChange }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange }: GearPanelProps) {
   // Selection uses original slot keys (finger1:N, trinket1:N), never merged names
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
   );
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
+  const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
 
   // ── Merged paired slot data ─────────────────────────────────────────────
 
@@ -271,6 +276,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange }: Ge
     onAxesChange?.(allAxes);
   }, [allAxes, onAxesChange]);
 
+  // Report tier set minimums to parent
+  useEffect(() => {
+    onTierSetMinimumsChange?.(tierSetMinimums);
+  }, [tierSetMinimums, onTierSetMinimumsChange]);
+
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
     if (slot in PAIRED_SLOTS) return (pairedData[slot]?.items.length ?? 0) > 0;
@@ -372,9 +382,25 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange }: Ge
         </div>
       )}
 
+      {/* Tier set filter — inline between enchant optimization and combination counter */}
+      {FEATURES.TIER_SET_FILTERING && (
+        <div className="mt-4">
+          <TierSetFilter
+            profile={profile}
+            minimums={tierSetMinimums}
+            onMinimumsChange={setTierSetMinimums}
+          />
+        </div>
+      )}
+
       {/* Live combination counter */}
       <div className="mt-4">
-        <CombinationCounter axes={allAxes} onBlockedChange={onBlockedChange} />
+        <CombinationCounter
+          axes={allAxes}
+          onBlockedChange={onBlockedChange}
+          tierSetMinimums={tierSetMinimums}
+          profile={profile}
+        />
       </div>
     </div>
   );

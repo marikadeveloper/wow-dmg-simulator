@@ -1,6 +1,7 @@
 import { useMemo, useEffect } from 'react';
-import type { OptimizationAxis } from '../lib/types';
-import { countCombinations } from '../lib/combinator';
+import type { OptimizationAxis, SimcProfile } from '../lib/types';
+import { countCombinations, generateCombinations } from '../lib/combinator';
+import { countFilteredCombinations, type TierSetMinimums } from '../lib/tier-set-filter';
 
 /** Urgency thresholds — exported for tests */
 export const WARN_THRESHOLD = 200;
@@ -11,6 +12,10 @@ interface CombinationCounterProps {
   axes: OptimizationAxis[];
   /** Called whenever the blocked state changes (count > 1000). */
   onBlockedChange?: (blocked: boolean) => void;
+  /** Tier set minimum piece requirements for post-filter count. */
+  tierSetMinimums?: TierSetMinimums;
+  /** Profile needed for tier set filtering resolution. */
+  profile?: SimcProfile;
 }
 
 type Urgency = 'idle' | 'green' | 'yellow' | 'orange' | 'red' | 'blocked';
@@ -74,10 +79,25 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
   },
 };
 
-export default function CombinationCounter({ axes, onBlockedChange }: CombinationCounterProps) {
+export default function CombinationCounter({ axes, onBlockedChange, tierSetMinimums, profile }: CombinationCounterProps) {
   const count = useMemo(() => countCombinations(axes), [axes]);
 
-  const urgency = getUrgency(count);
+  // Compute filtered count when tier set filters are active
+  const hasActiveFilters = tierSetMinimums && [...tierSetMinimums.values()].some((v) => v > 0);
+  const filteredCount = useMemo(() => {
+    if (!hasActiveFilters || !profile || !tierSetMinimums) return count;
+    // Only generate combinations if count is manageable (avoid generating 1000+ just for counting)
+    if (count > 1000) return count; // blocked anyway
+    try {
+      const combos = generateCombinations(axes, 1001);
+      return countFilteredCombinations(combos, profile, tierSetMinimums);
+    } catch {
+      return count; // cap exceeded — use raw count
+    }
+  }, [axes, count, hasActiveFilters, profile, tierSetMinimums]);
+
+  const displayCount = hasActiveFilters ? filteredCount : count;
+  const urgency = getUrgency(displayCount);
   const styles = URGENCY_STYLES[urgency];
   const warning = getUrgencyLabel(urgency);
   const isBlocked = urgency === 'blocked';
@@ -132,12 +152,17 @@ export default function CombinationCounter({ axes, onBlockedChange }: Combinatio
               <rect x="2" y="9" width="5" height="5" rx="1" />
               <rect x="9" y="9" width="5" height="5" rx="1" />
             </svg>
-            {count.toLocaleString()}
+            {displayCount.toLocaleString()}
           </span>
 
           <div className="flex flex-col">
             <span className="text-xs text-zinc-400">
-              {count === 1 ? 'combination' : 'combinations'}
+              {displayCount === 1 ? 'combination' : 'combinations'}
+              {hasActiveFilters && displayCount < count && (
+                <span className="text-zinc-600 ml-1">
+                  (of {count.toLocaleString()})
+                </span>
+              )}
             </span>
             {(activeSlotCount > 0 || gemAxisCount > 0 || enchantAxisCount > 0) && (
               <span className="text-[10px] text-zinc-600">

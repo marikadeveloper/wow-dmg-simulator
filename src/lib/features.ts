@@ -1,6 +1,7 @@
 export const FEATURES = {
   GEM_OPTIMIZATION: true,
   ENCHANT_OPTIMIZATION: true,
+  TIER_SET_FILTERING: true,
   EMBELLISHMENT_COMPARISON: false,
   TALENT_COMPARISON: false,
 } as const;
