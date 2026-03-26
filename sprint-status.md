@@ -89,7 +89,7 @@ Last updated: 2026-03-24
 | --- | ----------------------------------------------------------------- | ---------- |
 | 6.1 | "Run Top Gear" button starts the simulation run                   | ✅         |
 | 6.2 | Progress bar shows X / N combinations completed                   | ✅         |
-| 6.3 | Simulationcraft logs show on the page                             | ⬜         |
+| 6.3 | Simulationcraft logs show on the page                             | ✅         |
 | 6.4 | Results appear incrementally as each sim finishes                 | ⬜         |
 | 6.5 | User can cancel an in-progress run                                | ⬜         |
 | 6.6 | Estimated time remaining shown during run                         | ⬜         |

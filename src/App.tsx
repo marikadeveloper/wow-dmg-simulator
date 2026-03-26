@@ -7,6 +7,7 @@ import SimSettingsPanel, { DEFAULT_SIM_SETTINGS } from './components/SimSettings
 import type { SimSettingsValues } from './components/SimSettingsPanel';
 import RunSimulationButton from './components/RunSimulationButton';
 import SimProgressBar from './components/SimProgressBar';
+import SimLogPanel from './components/SimLogPanel';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -23,6 +24,7 @@ function App() {
   const [_simResults, setSimResults] = useState<SimResult[] | null>(null);
   const [simProgress, setSimProgress] = useState<{ current: number; total: number }>({ current: 0, total: 0 });
   const [elapsedMs, setElapsedMs] = useState(0);
+  const [simLogLines, setSimLogLines] = useState<string[]>([]);
 
   // Keep a ref to abort if needed later (story 6.4)
   const _runIdRef = useRef(0);
@@ -50,7 +52,11 @@ function App() {
     let unlisten: (() => void) | null = null;
 
     listen<{ line: string }>('simc-progress', (event) => {
-      const progress = parseSimcProgress(event.payload.line);
+      const text = event.payload.line;
+      // Collect for log panel
+      setSimLogLines((prev) => [...prev, text]);
+      // Parse for progress bar
+      const progress = parseSimcProgress(text);
       if (progress) {
         setSimProgress(progress);
       }
@@ -62,6 +68,7 @@ function App() {
     startTimeRef.current = Date.now();
     setElapsedMs(0);
     setSimProgress({ current: 0, total: 0 });
+    setSimLogLines([]);
 
     timerRef.current = setInterval(() => {
       setElapsedMs(Date.now() - startTimeRef.current);
@@ -246,6 +253,13 @@ function App() {
                 isActive={isRunning}
               />
             </div>
+
+            {/* SimC log output */}
+            {(isRunning || simLogLines.length > 0) && (
+              <div className="mt-2">
+                <SimLogPanel lines={simLogLines} isActive={isRunning} />
+              </div>
+            )}
 
             {/* Simulation error message */}
             {simError && (
