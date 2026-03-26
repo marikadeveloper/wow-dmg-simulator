@@ -9,6 +9,7 @@ import RunSimulationButton from './components/RunSimulationButton';
 import SimProgressBar from './components/SimProgressBar';
 import SimLogPanel from './components/SimLogPanel';
 import SimResultsSummary from './components/SimResultsSummary';
+import SimResultsPaperDoll from './components/SimResultsPaperDoll';
 import SimResultsBarChart from './components/SimResultsBarChart';
 import SimResultsTable from './components/SimResultsTable';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
@@ -281,6 +282,7 @@ function App() {
             {simResults && simResults.length > 0 && (
               <div className="mt-3 space-y-3">
                 <SimResultsSummary results={simResults} elapsedMs={elapsedMs} />
+                <SimResultsPaperDoll profile={profile} results={simResults} axes={axes} />
                 <SimResultsBarChart results={simResults} axes={axes} />
                 <SimResultsTable results={simResults} axes={axes} />
               </div>
