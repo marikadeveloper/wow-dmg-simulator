@@ -77,7 +77,7 @@ describe('GearPanel', () => {
     // Check gear cards specifically (not optimization panel labels)
     const gearCards = container.querySelectorAll('.gear-card');
     expect(gearCards).toHaveLength(2);
-    expect(screen.getByText('Trinket 1')).toBeInTheDocument();
+    expect(screen.getByText('Trinkets')).toBeInTheDocument();
   });
 
   it('does not render empty slots', () => {

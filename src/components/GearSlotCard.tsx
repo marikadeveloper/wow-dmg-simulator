@@ -39,10 +39,11 @@ function getGemTooltip(id: number): string {
 }
 
 /** Canonical slot display order matching the WoW paper doll. */
+/** Canonical slot display order matching the WoW paper doll. */
 export const SLOT_ORDER = [
   'head', 'neck', 'shoulder', 'back', 'chest', 'wrist',
   'hands', 'waist', 'legs', 'feet',
-  'rings', 'trinket1', 'trinket2',
+  'rings', 'trinkets',
   'main_hand', 'off_hand',
 ] as const;
 
@@ -58,8 +59,7 @@ const SLOT_LABELS: Record<string, string> = {
   legs: 'Legs',
   feet: 'Feet',
   rings: 'Rings',
-  trinket1: 'Trinket 1',
-  trinket2: 'Trinket 2',
+  trinkets: 'Trinkets',
   main_hand: 'Main Hand',
   off_hand: 'Off Hand',
 };
@@ -76,8 +76,7 @@ const SLOT_ICONS: Record<string, string> = {
   legs: '\u{1FA73}',       // shorts
   feet: '\u{1F97E}',       // hiking boot
   rings: '\u{1F48D}',      // ring
-  trinket1: '\u{1F4A0}',   // diamond with dot
-  trinket2: '\u{1F4A0}',   // diamond with dot
+  trinkets: '\u{1F4A0}',   // diamond with dot
   main_hand: '\u{2694}',   // crossed swords
   off_hand: '\u{1F5E1}',   // dagger
 };

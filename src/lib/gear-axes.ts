@@ -3,6 +3,7 @@ import type { SimcProfile, GearItem, OptimizationAxis, OptimizationOption } from
 /** Paired slots that should be merged into one axis with pair options. */
 const PAIRED_SLOTS: Record<string, [string, string]> = {
   rings: ['finger1', 'finger2'],
+  trinkets: ['trinket1', 'trinket2'],
 };
 
 /** The set of real SimC slots that are handled by pair axes (skip in normal axes). */

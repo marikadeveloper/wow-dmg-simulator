@@ -53,18 +53,18 @@ describe('buildGearAxes', () => {
     expect(axes).toHaveLength(0);
   });
 
-  it('creates an axis for a slot with 2+ selected items', () => {
+  it('creates an axis for a non-paired slot with 2+ selected items', () => {
     const profile = makeProfile({
-      trinket1: [
-        makeItem({ slot: 'trinket1', id: 200, isEquipped: true }),
-        makeItem({ slot: 'trinket1', id: 201 }),
-        makeItem({ slot: 'trinket1', id: 202 }),
+      head: [
+        makeItem({ slot: 'head', id: 200, isEquipped: true }),
+        makeItem({ slot: 'head', id: 201 }),
+        makeItem({ slot: 'head', id: 202 }),
       ],
     });
-    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket1:2']);
+    const selection = new Set(['head:0', 'head:1', 'head:2']);
     const axes = buildGearAxes(profile, selection);
     expect(axes).toHaveLength(1);
-    expect(axes[0].id).toBe('slot:trinket1');
+    expect(axes[0].id).toBe('slot:head');
     expect(axes[0].options).toHaveLength(3);
   });
 
@@ -87,32 +87,31 @@ describe('buildGearAxes', () => {
 
   it('only includes selected items, not all items in the slot', () => {
     const profile = makeProfile({
-      trinket1: [
-        makeItem({ slot: 'trinket1', id: 200, isEquipped: true }),
-        makeItem({ slot: 'trinket1', id: 201 }),
-        makeItem({ slot: 'trinket1', id: 202 }),
+      head: [
+        makeItem({ slot: 'head', id: 200, isEquipped: true }),
+        makeItem({ slot: 'head', id: 201 }),
+        makeItem({ slot: 'head', id: 202 }),
       ],
     });
-    // Only select index 0 and 2
-    const selection = new Set(['trinket1:0', 'trinket1:2']);
+    const selection = new Set(['head:0', 'head:2']);
     const axes = buildGearAxes(profile, selection);
     expect(axes[0].options).toHaveLength(2);
     expect(axes[0].options[0].id).toBe('item_200');
     expect(axes[0].options[1].id).toBe('item_202');
   });
 
-  it('returns multiple axes for multiple slots with multi-select', () => {
+  it('returns multiple axes for multiple non-paired slots with multi-select', () => {
     const profile = makeProfile({
-      trinket1: [
-        makeItem({ slot: 'trinket1', id: 200, isEquipped: true }),
-        makeItem({ slot: 'trinket1', id: 201 }),
+      head: [
+        makeItem({ slot: 'head', id: 200, isEquipped: true }),
+        makeItem({ slot: 'head', id: 201 }),
       ],
-      trinket2: [
-        makeItem({ slot: 'trinket2', id: 300, isEquipped: true }),
-        makeItem({ slot: 'trinket2', id: 301 }),
+      chest: [
+        makeItem({ slot: 'chest', id: 300, isEquipped: true }),
+        makeItem({ slot: 'chest', id: 301 }),
       ],
     });
-    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0', 'trinket2:1']);
+    const selection = new Set(['head:0', 'head:1', 'chest:0', 'chest:1']);
     const axes = buildGearAxes(profile, selection);
     expect(axes).toHaveLength(2);
   });
@@ -217,5 +216,74 @@ describe('ring pair axes', () => {
 
     const pair = axes.find((a) => a.id === 'slot:rings')!.options[0];
     expect(pair.id).toBe('pair_100_200');
+  });
+});
+
+describe('trinket pair axes', () => {
+  it('generates a single "slot:trinkets" axis from trinket1 + trinket2 selections', () => {
+    const profile = makeProfile({
+      trinket1: [
+        makeItem({ slot: 'trinket1', id: 500, isEquipped: true }),
+        makeItem({ slot: 'trinket1', id: 501 }),
+      ],
+      trinket2: [
+        makeItem({ slot: 'trinket2', id: 600, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    const trinketAxis = axes.find((a) => a.id === 'slot:trinkets');
+    expect(trinketAxis).toBeDefined();
+    // C(3,2) = 3 pairs
+    expect(trinketAxis!.options).toHaveLength(3);
+  });
+
+  it('each trinket pair sets both trinket1 and trinket2 simcLines', () => {
+    const profile = makeProfile({
+      trinket1: [makeItem({ slot: 'trinket1', id: 500, isEquipped: true })],
+      trinket2: [makeItem({ slot: 'trinket2', id: 600, isEquipped: true, bonusIds: [10] })],
+    });
+    const selection = new Set(['trinket1:0', 'trinket2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    const pair = axes.find((a) => a.id === 'slot:trinkets')!.options[0];
+    expect(pair.simcLines).toHaveLength(2);
+    expect(pair.simcLines[0]).toBe('trinket1=,id=500');
+    expect(pair.simcLines[1]).toBe('trinket2=,id=600,bonus_id=10');
+  });
+
+  it('does not create separate trinket1/trinket2 axes', () => {
+    const profile = makeProfile({
+      trinket1: [
+        makeItem({ slot: 'trinket1', id: 500, isEquipped: true }),
+        makeItem({ slot: 'trinket1', id: 501 }),
+      ],
+      trinket2: [
+        makeItem({ slot: 'trinket2', id: 600, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    expect(axes.find((a) => a.id === 'slot:trinket1')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:trinket2')).toBeUndefined();
+  });
+
+  it('generates C(4,2)=6 pairs for 4 trinkets', () => {
+    const profile = makeProfile({
+      trinket1: [
+        makeItem({ slot: 'trinket1', id: 500, isEquipped: true }),
+        makeItem({ slot: 'trinket1', id: 501 }),
+      ],
+      trinket2: [
+        makeItem({ slot: 'trinket2', id: 600, isEquipped: true }),
+        makeItem({ slot: 'trinket2', id: 601 }),
+      ],
+    });
+    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0', 'trinket2:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    expect(axes.find((a) => a.id === 'slot:trinkets')!.options).toHaveLength(6);
   });
 });
