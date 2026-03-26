@@ -93,9 +93,9 @@ Last updated: 2026-03-24
 | 6.4 | Results appear incrementally as each sim finishes                 | ✅         |
 | 6.5 | User can cancel an in-progress run                                | ✅         |
 | 6.6 | Estimated time remaining shown during run                         | ✅         |
-| 6.7 | Each completed sim shows its DPS immediately in the results table | ⬜         |
+| 6.7 | Each completed sim shows its DPS immediately in the results table | ✅         |
 
-**Epic status: 🟡 Run button + progress bar done (6.1–6.2), logs/cancel/ETA remaining**
+**Epic status: ✅ 7/7 stories done**
 
 ---
 

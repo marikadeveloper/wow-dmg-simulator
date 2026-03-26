@@ -9,6 +9,7 @@ import RunSimulationButton from './components/RunSimulationButton';
 import SimProgressBar from './components/SimProgressBar';
 import SimLogPanel from './components/SimLogPanel';
 import SimResultsSummary from './components/SimResultsSummary';
+import SimResultsTable from './components/SimResultsTable';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -275,10 +276,11 @@ function App() {
               </div>
             )}
 
-            {/* Results summary — appears immediately when sim finishes */}
+            {/* Results — appears immediately when sim finishes */}
             {simResults && simResults.length > 0 && (
-              <div className="mt-3">
+              <div className="mt-3 space-y-3">
                 <SimResultsSummary results={simResults} elapsedMs={elapsedMs} />
+                <SimResultsTable results={simResults} axes={axes} />
               </div>
             )}
 
