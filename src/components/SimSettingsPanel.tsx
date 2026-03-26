@@ -322,29 +322,42 @@ export default function SimSettingsPanel({
               />
             </div>
 
-            {/* ── Iterations / Target Error ────────────────────────── */}
+            {/* ── Accuracy Mode ─────────────────────────────────── */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <SettingLabel
-                  label={settings.useTargetError ? 'Target Error' : 'Iterations'}
-                  hint={
-                    settings.useTargetError
-                      ? 'Sim stops automatically when the DPS margin of error drops below this %. 0.1% is very accurate; 0.5% is faster but less precise. Good for large combo counts.'
-                      : 'How many times each combination is simulated. 10,000 is a good balance of speed and accuracy. Use 5,000 for quick checks, 25,000+ for close gear comparisons.'
-                  }
-                  noMargin
-                />
-                <button
-                  onClick={() => update({ useTargetError: !settings.useTargetError })}
-                  className="text-[10px] text-zinc-600 hover:text-amber-500/80 transition-colors"
-                  title={
-                    settings.useTargetError
-                      ? 'Switch to fixed iterations'
-                      : 'Switch to target error mode (auto-stop when accurate enough)'
-                  }
-                >
-                  {settings.useTargetError ? 'Use iterations' : 'Use target error'}
-                </button>
+              <SettingLabel
+                label="Accuracy"
+                hint={
+                  settings.useTargetError
+                    ? 'Sim stops automatically when the DPS margin of error drops below this %. 0.1% is very accurate; 0.5% is faster but less precise. Good for large combo counts.'
+                    : 'How many times each combination is simulated. 10,000 is a good balance of speed and accuracy. Use 5,000 for quick checks, 25,000+ for close gear comparisons.'
+                }
+              />
+              {/* Segmented toggle */}
+              <div className="flex items-center gap-3 mb-2.5">
+                <div className="inline-flex rounded-md border border-zinc-700/50 bg-zinc-800/40 p-0.5">
+                  <button
+                    onClick={() => update({ useTargetError: false })}
+                    className={[
+                      'px-3 py-1 rounded text-xs font-medium transition-all',
+                      !settings.useTargetError
+                        ? 'bg-zinc-700 text-zinc-100 shadow-sm'
+                        : 'text-zinc-500 hover:text-zinc-300',
+                    ].join(' ')}
+                  >
+                    Iterations
+                  </button>
+                  <button
+                    onClick={() => update({ useTargetError: true })}
+                    className={[
+                      'px-3 py-1 rounded text-xs font-medium transition-all',
+                      settings.useTargetError
+                        ? 'bg-zinc-700 text-zinc-100 shadow-sm'
+                        : 'text-zinc-500 hover:text-zinc-300',
+                    ].join(' ')}
+                  >
+                    Target Error
+                  </button>
+                </div>
               </div>
               {settings.useTargetError ? (
                 <div className="flex items-center gap-2">
