@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import type { SimcProfile } from '../lib/types';
+import type { SimcProfile, GearItem } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
 import EnchantOptimization from './EnchantOptimization';
@@ -14,9 +14,21 @@ interface GearPanelProps {
   onBlockedChange?: (blocked: boolean) => void;
 }
 
+/** Slots that are merged into "rings" for UI + axis generation. */
+const RING_SLOTS = ['finger1', 'finger2'] as const;
+
+/**
+ * Info about a merged ring item: the original slot + index in profile.gear.
+ */
+interface RingMapping {
+  originalSlot: string;
+  originalIndex: number;
+  item: GearItem;
+}
+
 /**
  * Build the initial selection: all equipped items are pre-selected.
- * Returns a Set of keys like "head:0", "trinket1:0", "trinket1:1".
+ * Returns a Set of keys like "head:0", "finger1:0", "finger2:0".
  */
 function buildInitialSelection(profile: SimcProfile): Set<string> {
   const selected = new Set<string>();
@@ -31,24 +43,94 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
 }
 
 export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) {
+  // Selection uses original slot keys (finger1:N, finger2:N), never "rings:N"
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
   );
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
 
+  // ── Merged rings data ──────────────────────────────────────────────────
+
+  /** Combined ring items from finger1 + finger2, with original slot mapping. */
+  const ringMappings: RingMapping[] = useMemo(() => {
+    const mappings: RingMapping[] = [];
+    for (const slot of RING_SLOTS) {
+      const items = profile.gear[slot];
+      if (!items) continue;
+      items.forEach((item, idx) => {
+        mappings.push({ originalSlot: slot, originalIndex: idx, item });
+      });
+    }
+    return mappings;
+  }, [profile]);
+
+  /** The merged ring items array (for GearSlotCard). */
+  const ringItems: GearItem[] = useMemo(
+    () => ringMappings.map((m) => m.item),
+    [ringMappings],
+  );
+
+  /** Convert merged ring index → original selection key. */
+  const ringIndexToKey = useCallback(
+    (mergedIndex: number): string | null => {
+      const mapping = ringMappings[mergedIndex];
+      if (!mapping) return null;
+      return `${mapping.originalSlot}:${mapping.originalIndex}`;
+    },
+    [ringMappings],
+  );
+
+  /** Selected indices in the merged ring array (for GearSlotCard). */
+  const ringSelectedIndices: Set<number> = useMemo(() => {
+    const indices = new Set<number>();
+    ringMappings.forEach((m, mergedIdx) => {
+      const key = `${m.originalSlot}:${m.originalIndex}`;
+      if (selection.has(key)) indices.add(mergedIdx);
+    });
+    return indices;
+  }, [ringMappings, selection]);
+
+  /** Count of currently selected rings (across finger1 + finger2). */
+  const selectedRingCount = ringSelectedIndices.size;
+
+  // ── Toggle / select all / deselect all ──────────────────────────────────
+
   const toggleItem = useCallback((slot: string, index: number) => {
+    // For merged rings, map the index back to the original key
+    if (slot === 'rings') {
+      const origKey = ringMappings[index]
+        ? `${ringMappings[index].originalSlot}:${ringMappings[index].originalIndex}`
+        : null;
+      if (!origKey) return;
+
+      setSelection((prev) => {
+        const next = new Set(prev);
+        if (next.has(origKey)) {
+          // Guard: at least 2 rings must remain selected
+          const currentRingCount = ringMappings.filter((m) =>
+            next.has(`${m.originalSlot}:${m.originalIndex}`),
+          ).length;
+          if (currentRingCount <= 2) return prev;
+          next.delete(origKey);
+        } else {
+          next.add(origKey);
+        }
+        return next;
+      });
+      return;
+    }
+
     setSelection((prev) => {
       const key = `${slot}:${index}`;
       const next = new Set(prev);
 
       if (next.has(key)) {
         // Guard: at least 1 item must remain selected per slot.
-        // Count how many items are currently selected in this slot.
         const slotSelectedCount = Array.from(next).filter(
           (k) => k.startsWith(`${slot}:`),
         ).length;
-        if (slotSelectedCount <= 1) return prev; // can't deselect the last one
+        if (slotSelectedCount <= 1) return prev;
 
         next.delete(key);
       } else {
@@ -56,9 +138,20 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
       }
       return next;
     });
-  }, []);
+  }, [ringMappings]);
 
   const selectAllInSlot = useCallback((slot: string) => {
+    if (slot === 'rings') {
+      setSelection((prev) => {
+        const next = new Set(prev);
+        for (const m of ringMappings) {
+          next.add(`${m.originalSlot}:${m.originalIndex}`);
+        }
+        return next;
+      });
+      return;
+    }
+
     setSelection((prev) => {
       const items = profile.gear[slot];
       if (!items) return prev;
@@ -66,9 +159,41 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
       items.forEach((_, idx) => next.add(`${slot}:${idx}`));
       return next;
     });
-  }, [profile]);
+  }, [profile, ringMappings]);
 
   const deselectAllInSlot = useCallback((slot: string) => {
+    if (slot === 'rings') {
+      setSelection((prev) => {
+        const next = new Set(prev);
+        // Keep the 2 equipped rings, deselect everything else
+        const equipped: string[] = [];
+        const others: string[] = [];
+        for (const m of ringMappings) {
+          const key = `${m.originalSlot}:${m.originalIndex}`;
+          if (m.item.isEquipped) equipped.push(key);
+          else others.push(key);
+        }
+        // Deselect non-equipped
+        for (const key of others) next.delete(key);
+        // Ensure equipped are selected
+        for (const key of equipped) next.add(key);
+        // If fewer than 2 equipped, keep first items to reach 2
+        if (equipped.length < 2) {
+          let needed = 2 - equipped.length;
+          for (const m of ringMappings) {
+            if (needed <= 0) break;
+            const key = `${m.originalSlot}:${m.originalIndex}`;
+            if (!next.has(key)) {
+              next.add(key);
+              needed--;
+            }
+          }
+        }
+        return next;
+      });
+      return;
+    }
+
     setSelection((prev) => {
       const items = profile.gear[slot];
       if (!items) return prev;
@@ -85,7 +210,7 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
       next.add(`${slot}:${keepIdx}`);
       return next;
     });
-  }, [profile]);
+  }, [profile, ringMappings]);
 
   const toggleGem = useCallback((gemId: number) => {
     setSelectedGemIds((prev) => {
@@ -152,6 +277,7 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
 
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
+    if (slot === 'rings') return ringItems.length > 0;
     const items = profile.gear[slot];
     return items && items.length > 0;
   });
@@ -189,19 +315,37 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
 
       {/* Slot grid — responsive: 1 col mobile, 2 col tablet, 3 col desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {activeSlots.map((slot, index) => (
-          <GearSlotCard
-            key={slot}
-            slot={slot}
-            items={profile.gear[slot]}
-            selectedIndices={selectionBySlot[slot] ?? new Set()}
-            onToggle={toggleItem}
-            onSelectAll={selectAllInSlot}
-            onDeselectAll={deselectAllInSlot}
-            isEnchantable={(ENCHANTABLE_SLOTS as readonly string[]).includes(slot)}
-            delay={index * 30}
-          />
-        ))}
+        {activeSlots.map((slot, index) => {
+          if (slot === 'rings') {
+            return (
+              <GearSlotCard
+                key="rings"
+                slot="rings"
+                items={ringItems}
+                selectedIndices={ringSelectedIndices}
+                onToggle={toggleItem}
+                onSelectAll={selectAllInSlot}
+                onDeselectAll={deselectAllInSlot}
+                isEnchantable={true}
+                delay={index * 30}
+              />
+            );
+          }
+
+          return (
+            <GearSlotCard
+              key={slot}
+              slot={slot}
+              items={profile.gear[slot]}
+              selectedIndices={selectionBySlot[slot] ?? new Set()}
+              onToggle={toggleItem}
+              onSelectAll={selectAllInSlot}
+              onDeselectAll={deselectAllInSlot}
+              isEnchantable={(ENCHANTABLE_SLOTS as readonly string[]).includes(slot)}
+              delay={index * 30}
+            />
+          );
+        })}
       </div>
 
       {/* Gem optimization — inline between gear grid and combination counter */}

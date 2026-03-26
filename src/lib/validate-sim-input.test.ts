@@ -168,6 +168,36 @@ describe('validateSimInput', () => {
       const issues = validateSimInput(validProfile, settings);
       expect(issues.find((i) => i.message.includes('variance'))).toBeFalsy();
     });
+
+    it('warns when enchantable slot has items with and without enchants', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        gear: {
+          ...validProfile.gear,
+          finger1: [
+            { slot: 'finger1', id: 11, bonusIds: [], gemIds: [], isEquipped: true, enchantId: 7340 },
+            { slot: 'finger1', id: 12, bonusIds: [], gemIds: [], isEquipped: false },
+          ],
+        },
+      };
+      const issues = validateSimInput(profile, validSettings);
+      expect(issues.find((i) => i.message.includes('enchant') && i.severity === 'warning')).toBeTruthy();
+    });
+
+    it('does not warn about enchants when all items in slot have enchants', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        gear: {
+          ...validProfile.gear,
+          finger1: [
+            { slot: 'finger1', id: 11, bonusIds: [], gemIds: [], isEquipped: true, enchantId: 7340 },
+            { slot: 'finger1', id: 12, bonusIds: [], gemIds: [], isEquipped: false, enchantId: 7341 },
+          ],
+        },
+      };
+      const issues = validateSimInput(profile, validSettings);
+      expect(issues.find((i) => i.message.includes('enchant') && i.severity === 'warning')).toBeFalsy();
+    });
   });
 
   describe('hasErrors', () => {

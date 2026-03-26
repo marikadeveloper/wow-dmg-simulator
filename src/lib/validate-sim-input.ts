@@ -1,5 +1,6 @@
 import type { SimcProfile } from './types';
 import type { SimSettingsValues } from '../components/SimSettingsPanel';
+import { ENCHANTABLE_SLOTS } from './presets/season-config';
 
 export interface ValidationIssue {
   /** 'error' blocks the run, 'warning' allows it but flags something */
@@ -110,6 +111,28 @@ export function validateSimInput(
       severity: 'warning',
       message: '0% variance with long fights can favor cooldown-aligned gear. Consider adding variance.',
     });
+  }
+
+  // ── Enchant consistency checks ──────────────────────────────────────────
+
+  for (const enchantableSlot of ENCHANTABLE_SLOTS) {
+    const items = profile.gear[enchantableSlot];
+    if (!items || items.length < 2) continue;
+
+    const withEnchant = items.filter((i) => i.enchantId != null);
+    const withoutEnchant = items.filter((i) => i.enchantId == null);
+
+    if (withEnchant.length > 0 && withoutEnchant.length > 0) {
+      const slotLabel = enchantableSlot
+        .replace('finger1', 'ring')
+        .replace('finger2', 'ring')
+        .replace('main_hand', 'main hand')
+        .replace('off_hand', 'off hand');
+      issues.push({
+        severity: 'warning',
+        message: `Some items in ${slotLabel} have an enchant and some don't — the comparison may be unfair. Consider enabling enchant optimization.`,
+      });
+    }
   }
 
   return issues;

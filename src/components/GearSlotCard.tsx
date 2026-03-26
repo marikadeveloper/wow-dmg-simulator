@@ -42,7 +42,7 @@ function getGemTooltip(id: number): string {
 export const SLOT_ORDER = [
   'head', 'neck', 'shoulder', 'back', 'chest', 'wrist',
   'hands', 'waist', 'legs', 'feet',
-  'finger1', 'finger2', 'trinket1', 'trinket2',
+  'rings', 'trinket1', 'trinket2',
   'main_hand', 'off_hand',
 ] as const;
 
@@ -57,8 +57,7 @@ const SLOT_LABELS: Record<string, string> = {
   waist: 'Waist',
   legs: 'Legs',
   feet: 'Feet',
-  finger1: 'Ring 1',
-  finger2: 'Ring 2',
+  rings: 'Rings',
   trinket1: 'Trinket 1',
   trinket2: 'Trinket 2',
   main_hand: 'Main Hand',
@@ -76,8 +75,7 @@ const SLOT_ICONS: Record<string, string> = {
   waist: '\u{1F4BF}',      // disc (belt buckle)
   legs: '\u{1FA73}',       // shorts
   feet: '\u{1F97E}',       // hiking boot
-  finger1: '\u{1F48D}',    // ring
-  finger2: '\u{1F48D}',    // ring
+  rings: '\u{1F48D}',      // ring
   trinket1: '\u{1F4A0}',   // diamond with dot
   trinket2: '\u{1F4A0}',   // diamond with dot
   main_hand: '\u{2694}',   // crossed swords

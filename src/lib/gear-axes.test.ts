@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildGearAxes } from './gear-axes';
+import { buildGearAxes, buildItemSimcLine } from './gear-axes';
 import type { SimcProfile, GearItem } from './types';
 
 function makeItem(overrides: Partial<GearItem> & { slot: string; id: number }): GearItem {
@@ -24,6 +24,23 @@ function makeProfile(gear: Record<string, GearItem[]>): SimcProfile {
     rawLines: [],
   };
 }
+
+describe('buildItemSimcLine', () => {
+  it('builds a line with all fields', () => {
+    const item = makeItem({ slot: 'finger1', id: 300, bonusIds: [1, 2], gemIds: [100], enchantId: 7340 });
+    expect(buildItemSimcLine(item, 'finger1')).toBe('finger1=,id=300,bonus_id=1/2,gem_id=100,enchant_id=7340');
+  });
+
+  it('builds a line for a different target slot', () => {
+    const item = makeItem({ slot: 'finger1', id: 300, bonusIds: [3] });
+    expect(buildItemSimcLine(item, 'finger2')).toBe('finger2=,id=300,bonus_id=3');
+  });
+
+  it('omits empty fields', () => {
+    const item = makeItem({ slot: 'head', id: 100 });
+    expect(buildItemSimcLine(item, 'head')).toBe('head=,id=100');
+  });
+});
 
 describe('buildGearAxes', () => {
   it('returns no axes when each slot has 0 or 1 selected items', () => {
@@ -53,18 +70,18 @@ describe('buildGearAxes', () => {
 
   it('generates correct simcLines with bonus_id, gem_id, and enchant_id', () => {
     const profile = makeProfile({
-      finger1: [
-        makeItem({ slot: 'finger1', id: 300, isEquipped: true, bonusIds: [1, 2], gemIds: [100], enchantId: 7340 }),
-        makeItem({ slot: 'finger1', id: 301, bonusIds: [3] }),
+      chest: [
+        makeItem({ slot: 'chest', id: 300, isEquipped: true, bonusIds: [1, 2], gemIds: [100], enchantId: 7340 }),
+        makeItem({ slot: 'chest', id: 301, bonusIds: [3] }),
       ],
     });
-    const selection = new Set(['finger1:0', 'finger1:1']);
+    const selection = new Set(['chest:0', 'chest:1']);
     const axes = buildGearAxes(profile, selection);
     expect(axes[0].options[0].simcLines).toEqual([
-      'finger1=,id=300,bonus_id=1/2,gem_id=100,enchant_id=7340',
+      'chest=,id=300,bonus_id=1/2,gem_id=100,enchant_id=7340',
     ]);
     expect(axes[0].options[1].simcLines).toEqual([
-      'finger1=,id=301,bonus_id=3',
+      'chest=,id=301,bonus_id=3',
     ]);
   });
 
@@ -98,5 +115,107 @@ describe('buildGearAxes', () => {
     const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0', 'trinket2:1']);
     const axes = buildGearAxes(profile, selection);
     expect(axes).toHaveLength(2);
+  });
+});
+
+describe('ring pair axes', () => {
+  it('generates a single "slot:rings" axis from finger1 + finger2 selections', () => {
+    const profile = makeProfile({
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true }),
+        makeItem({ slot: 'finger1', id: 101 }),
+      ],
+      finger2: [
+        makeItem({ slot: 'finger2', id: 200, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    const ringAxis = axes.find((a) => a.id === 'slot:rings');
+    expect(ringAxis).toBeDefined();
+    // C(3,2) = 3 pairs
+    expect(ringAxis!.options).toHaveLength(3);
+  });
+
+  it('each ring pair option sets both finger1 and finger2 simcLines', () => {
+    const profile = makeProfile({
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true, enchantId: 7340 }),
+      ],
+      finger2: [
+        makeItem({ slot: 'finger2', id: 200, isEquipped: true, bonusIds: [5] }),
+      ],
+    });
+    const selection = new Set(['finger1:0', 'finger2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    const ringAxis = axes.find((a) => a.id === 'slot:rings');
+    expect(ringAxis).toBeDefined();
+    expect(ringAxis!.options).toHaveLength(1); // C(2,2) = 1 pair
+
+    const pair = ringAxis!.options[0];
+    expect(pair.simcLines).toHaveLength(2);
+    expect(pair.simcLines[0]).toBe('finger1=,id=100,enchant_id=7340');
+    expect(pair.simcLines[1]).toBe('finger2=,id=200,bonus_id=5');
+  });
+
+  it('does not create separate finger1/finger2 axes', () => {
+    const profile = makeProfile({
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true }),
+        makeItem({ slot: 'finger1', id: 101 }),
+      ],
+      finger2: [
+        makeItem({ slot: 'finger2', id: 200, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    expect(axes.find((a) => a.id === 'slot:finger1')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:finger2')).toBeUndefined();
+  });
+
+  it('returns no ring axis when fewer than 2 rings are selected', () => {
+    const profile = makeProfile({
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['finger1:0']);
+    const axes = buildGearAxes(profile, selection);
+    expect(axes.find((a) => a.id === 'slot:rings')).toBeUndefined();
+  });
+
+  it('generates correct pair count for 4 rings', () => {
+    const profile = makeProfile({
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true }),
+        makeItem({ slot: 'finger1', id: 101 }),
+      ],
+      finger2: [
+        makeItem({ slot: 'finger2', id: 200, isEquipped: true }),
+        makeItem({ slot: 'finger2', id: 201 }),
+      ],
+    });
+    const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0', 'finger2:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    const ringAxis = axes.find((a) => a.id === 'slot:rings');
+    // C(4,2) = 6 pairs
+    expect(ringAxis!.options).toHaveLength(6);
+  });
+
+  it('pair option id contains both item ids', () => {
+    const profile = makeProfile({
+      finger1: [makeItem({ slot: 'finger1', id: 100, isEquipped: true })],
+      finger2: [makeItem({ slot: 'finger2', id: 200, isEquipped: true })],
+    });
+    const selection = new Set(['finger1:0', 'finger2:0']);
+    const axes = buildGearAxes(profile, selection);
+
+    const pair = axes.find((a) => a.id === 'slot:rings')!.options[0];
+    expect(pair.id).toBe('pair_100_200');
   });
 });
