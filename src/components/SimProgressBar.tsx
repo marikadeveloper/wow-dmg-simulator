@@ -24,9 +24,15 @@ export default function SimProgressBar({
   const isIndeterminate = total <= 0;
   const pct = isIndeterminate ? 0 : Math.min(100, (current / total) * 100);
 
+  // Estimate time remaining: (elapsed / current) * remaining
+  const etaMs =
+    !isIndeterminate && current > 0
+      ? (elapsedMs / current) * (total - current)
+      : null;
+
   return (
     <div className="rounded-md border border-zinc-800/60 bg-zinc-900/50 px-3 py-2.5 animate-in">
-      {/* Top row: label + elapsed */}
+      {/* Top row: label + elapsed + ETA */}
       <div className="flex items-center justify-between mb-1.5">
         <span className="text-[11px] font-medium text-zinc-400 tracking-wide">
           {isIndeterminate ? (
@@ -43,8 +49,16 @@ export default function SimProgressBar({
           )}
         </span>
 
-        <span className="text-[11px] tabular-nums text-zinc-600">
+        <span className="text-[11px] tabular-nums text-zinc-600 flex items-center gap-2">
           {formatElapsed(elapsedMs)}
+          {etaMs != null && etaMs > 0 && (
+            <>
+              <span className="text-zinc-700">&middot;</span>
+              <span className="text-zinc-500">
+                ~{formatElapsed(etaMs)} left
+              </span>
+            </>
+          )}
         </span>
       </div>
 
