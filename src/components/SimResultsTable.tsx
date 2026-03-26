@@ -27,11 +27,14 @@ function buildOptionLabelMap(
   return map;
 }
 
+type SortDir = 'desc' | 'asc';
+
 export default function SimResultsTable({
   results,
   axes,
 }: SimResultsTableProps) {
   const [showAll, setShowAll] = useState(false);
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
 
   const optionLabels = useMemo(() => buildOptionLabelMap(axes), [axes]);
 
@@ -44,10 +47,25 @@ export default function SimResultsTable({
   const baseline = results.find((r) => r.isBaseline);
   const baselineDps = baseline?.dps ?? 0;
 
-  const needsToggle = results.length > COLLAPSED_LIMIT;
+  // Sort results (original `results` is always desc by DPS)
+  const sorted = useMemo(() => {
+    if (sortDir === 'desc') return results;
+    return [...results].reverse();
+  }, [results, sortDir]);
+
+  // Rank map: result name → rank (always based on desc DPS order)
+  const rankMap = useMemo(() => {
+    const map = new Map<string, number>();
+    for (let i = 0; i < results.length; i++) {
+      map.set(results[i].name, i + 1);
+    }
+    return map;
+  }, [results]);
+
+  const needsToggle = sorted.length > COLLAPSED_LIMIT;
   const visibleResults = showAll
-    ? results
-    : results.slice(0, COLLAPSED_LIMIT);
+    ? sorted
+    : sorted.slice(0, COLLAPSED_LIMIT);
 
   // Ensure baseline is always visible when collapsed
   const baselineInVisible =
@@ -71,7 +89,29 @@ export default function SimResultsTable({
           <thead>
             <tr className="border-b border-zinc-800/40 text-[10px] uppercase tracking-wider text-zinc-600">
               <th className="text-right px-3 py-2 w-10">#</th>
-              <th className="text-right px-3 py-2 w-24">DPS</th>
+              <th
+                className="text-right px-3 py-2 w-24 cursor-pointer select-none hover:text-zinc-400 transition-colors"
+                onClick={() => setSortDir((d) => (d === 'desc' ? 'asc' : 'desc'))}
+              >
+                <span className="inline-flex items-center gap-1 justify-end">
+                  DPS
+                  <svg
+                    className="w-3 h-3 opacity-60"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {sortDir === 'desc' ? (
+                      <path d="M6 2.5v7M3 7l3 2.5L9 7" />
+                    ) : (
+                      <path d="M6 9.5v-7M3 5l3-2.5L9 5" />
+                    )}
+                  </svg>
+                </span>
+              </th>
               <th className="text-right px-3 py-2 w-32">vs Equipped</th>
               {axisColumns.map((axis) => (
                 <th key={axis.id} className="text-left px-3 py-2">
@@ -82,8 +122,7 @@ export default function SimResultsTable({
           </thead>
           <tbody>
             {displayResults.map((result, idx) => {
-              const rank =
-                results.indexOf(result) + 1;
+              const rank = rankMap.get(result.name) ?? 0;
               const isBest = rank === 1;
               const delta = result.dps - baselineDps;
               const deltaPct =

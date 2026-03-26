@@ -107,12 +107,12 @@ Last updated: 2026-03-24
 | 7.2 | Top result is highlighted                                   | ✅     |
 | 7.3 | Each result row shows which item is in each slot            | ✅     |
 | 7.4 | "Currently equipped" combination always shown for reference | ✅     |
-| 7.5 | Results are sortable by DPS                                 | ⬜     |
+| 7.5 | Results are sortable by DPS                                 | ✅     |
 | 7.6 | Export results to CSV                                       | ⬜     |
 | 7.7 | Show error margin from SimC output                          | ⬜     |
 | 7.8 | Show if two results are within statistical noise            | ⬜     |
 
-**Epic status: 🟡 4/8 stories done — table exists from 6.7, enhancing**
+**Epic status: 🟡 5/8 stories done — table exists from 6.7, enhancing**
 
 ---
 
