@@ -130,6 +130,9 @@ _The user reads and acts on the results._
 | 7.6 | Export results to CSV                                                                | 🔮       |
 | 7.7 | Show error margin (std_dev / mean_std_dev) from SimC output                          | 🔮       |
 | 7.8 | Show if two results are within statistical noise of each other                       | 🔮       |
+| 7.9 | Horizontal bar chart visualization of top results (à la Raidbots)                    | 🔮       |
+| 7.10 | Diff highlighting: slots that changed vs equipped are visually called out           | 🔮       |
+| 7.11 | Paper doll visualization showing gear icons for the best result                     | 🔮       |
 
 ---
 
