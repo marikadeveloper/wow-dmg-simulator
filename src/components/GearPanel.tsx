@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import type { SimcProfile, GearItem } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
@@ -12,6 +12,8 @@ interface GearPanelProps {
   profile: SimcProfile;
   /** Called when the combination count exceeds / drops below the hard block threshold (1000). */
   onBlockedChange?: (blocked: boolean) => void;
+  /** Called whenever the assembled optimization axes change. */
+  onAxesChange?: (axes: import('../lib/types').OptimizationAxis[]) => void;
 }
 
 /**
@@ -49,7 +51,7 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange, onAxesChange }: GearPanelProps) {
   // Selection uses original slot keys (finger1:N, trinket1:N), never merged names
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
@@ -263,6 +265,11 @@ export default function GearPanel({ profile, onBlockedChange }: GearPanelProps) 
     const enchantIds = FEATURES.ENCHANT_OPTIMIZATION ? Array.from(selectedEnchantIds) : [];
     return assembleAxes(profile, selection, gemIds, enchantIds);
   }, [profile, selection, selectedGemIds, selectedEnchantIds]);
+
+  // Report axes to parent
+  useEffect(() => {
+    onAxesChange?.(allAxes);
+  }, [allAxes, onAxesChange]);
 
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {

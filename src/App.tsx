@@ -1,22 +1,108 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
+import { invoke } from '@tauri-apps/api/core';
 import ProfileImport from './components/ProfileImport';
 import GearPanel from './components/GearPanel';
 import SimSettingsPanel, { DEFAULT_SIM_SETTINGS } from './components/SimSettingsPanel';
-import { validateSimInput } from './lib/validate-sim-input';
-import type { SimcProfile } from './lib/types';
+import type { SimSettingsValues } from './components/SimSettingsPanel';
+import RunSimulationButton from './components/RunSimulationButton';
+import { validateSimInput, hasErrors } from './lib/validate-sim-input';
+import { generateCombinations, countCombinations } from './lib/combinator';
+import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
+import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
-  const [simSettings, setSimSettings] = useState(DEFAULT_SIM_SETTINGS);
+  const [simSettings, setSimSettings] = useState<SimSettingsValues>(DEFAULT_SIM_SETTINGS);
+  const [axes, setAxes] = useState<OptimizationAxis[]>([]);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [simError, setSimError] = useState<string | null>(null);
+  const [_simResults, setSimResults] = useState<SimResult[] | null>(null);
+
+  // Keep a ref to abort if needed later (story 6.4)
+  const _runIdRef = useRef(0);
 
   const handleProfileParsed = useCallback((p: SimcProfile | null) => {
     setProfile(p);
+    setSimResults(null);
+    setSimError(null);
+  }, []);
+
+  const handleAxesChange = useCallback((newAxes: OptimizationAxis[]) => {
+    setAxes(newAxes);
+  }, []);
+
+  const handleBlockedChange = useCallback((blocked: boolean) => {
+    setIsBlocked(blocked);
   }, []);
 
   const validationIssues = useMemo(
     () => (profile ? validateSimInput(profile, simSettings) : []),
     [profile, simSettings],
   );
+
+  const combinationCount = useMemo(() => countCombinations(axes), [axes]);
+
+  /** Convert UI settings to the SimSettings shape expected by profileset-builder. */
+  function toSimSettings(uiSettings: SimSettingsValues): SimSettings {
+    return {
+      fightStyle: uiSettings.fightStyle,
+      maxTime: uiSettings.maxTime,
+      varyCombatLength: uiSettings.varyCombatLength / 100, // UI is %, SimC wants fraction
+      numEnemies: uiSettings.numEnemies,
+      iterations: uiSettings.iterations,
+      threads: uiSettings.threads,
+      jsonOutputPath: '/tmp/placeholder.json', // Rust backend overrides via CLI arg
+      targetError: uiSettings.useTargetError ? uiSettings.targetError : undefined,
+    };
+  }
+
+  const handleRunSimulation = useCallback(async () => {
+    if (!profile || isBlocked || hasErrors(validationIssues) || isRunning) return;
+
+    setIsRunning(true);
+    setSimError(null);
+    setSimResults(null);
+
+    const runId = ++_runIdRef.current;
+
+    try {
+      // 1. Generate combinations from axes
+      const combinations = generateCombinations(axes);
+
+      // 2. Build manifest for result parsing (name → spec)
+      const manifest = new Map<string, CombinationSpec>();
+      for (const combo of combinations) {
+        manifest.set(combo.name, combo);
+      }
+
+      // 3. Build the .simc file content
+      const simcContent = buildProfileSetFile(
+        profile,
+        combinations,
+        toSimSettings(simSettings),
+      );
+
+      // 4. Invoke Tauri backend
+      const jsonText = await invoke<string>('run_top_gear', {
+        simcContent,
+      });
+
+      // Guard against stale results if another run started
+      if (runId !== _runIdRef.current) return;
+
+      // 5. Parse results
+      const results = parseSimCResults(jsonText, manifest);
+      setSimResults(results);
+    } catch (err) {
+      if (runId !== _runIdRef.current) return;
+      setSimError(err instanceof Error ? err.message : String(err));
+    } finally {
+      if (runId === _runIdRef.current) {
+        setIsRunning(false);
+      }
+    }
+  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -44,7 +130,11 @@ function App() {
         {/* Zone 2 — Gear & Optimization Panel */}
         {profile && (
           <section className="mb-8">
-            <GearPanel profile={profile} />
+            <GearPanel
+              profile={profile}
+              onBlockedChange={handleBlockedChange}
+              onAxesChange={handleAxesChange}
+            />
           </section>
         )}
 
@@ -93,6 +183,35 @@ function App() {
                     <span>{issue.message}</span>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Run button */}
+            <div className="mt-4">
+              <RunSimulationButton
+                onClick={handleRunSimulation}
+                isRunning={isRunning}
+                isBlocked={isBlocked}
+                hasErrors={hasErrors(validationIssues)}
+                combinationCount={combinationCount}
+              />
+            </div>
+
+            {/* Simulation error message */}
+            {simError && (
+              <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-red-300">
+                <svg
+                  className="mt-0.5 shrink-0"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                >
+                  <circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" strokeWidth="1" />
+                  <path d="M6.5 4v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                  <circle cx="6.5" cy="9" r="0.6" fill="currentColor" />
+                </svg>
+                <span>Simulation failed: {simError}</span>
               </div>
             )}
           </section>
