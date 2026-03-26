@@ -103,7 +103,7 @@ Last updated: 2026-03-24
 
 | #   | Story                                                       | Status |
 | --- | ----------------------------------------------------------- | ------ |
-| 7.1 | Results shown as ranked table: rank, DPS, delta vs equipped | ⬜     |
+| 7.1 | Results shown as ranked table: rank, DPS, delta vs equipped | ✅     |
 | 7.2 | Top result is highlighted                                   | ⬜     |
 | 7.3 | Each result row shows which item is in each slot            | ⬜     |
 | 7.4 | "Currently equipped" combination always shown for reference | ⬜     |
@@ -112,7 +112,7 @@ Last updated: 2026-03-24
 | 7.7 | Show error margin from SimC output                          | ⬜     |
 | 7.8 | Show if two results are within statistical noise            | ⬜     |
 
-**Epic status: 🔴 json2 parser exists, UI not started**
+**Epic status: 🟡 1/8 stories done — table exists from 6.7, enhancing**
 
 ---
 
