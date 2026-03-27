@@ -14,6 +14,7 @@ import SimResultsBarChart from './components/SimResultsBarChart';
 import SimResultsTable from './components/SimResultsTable';
 import AppSettingsPanel from './components/AppSettingsPanel';
 import AppFooter from './components/AppFooter';
+import UpdateChecker from './components/UpdateChecker';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -217,6 +218,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      <UpdateChecker />
       {/* Subtle top accent line */}
       <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
 
