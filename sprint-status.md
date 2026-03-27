@@ -126,13 +126,13 @@ Last updated: 2026-03-27
 
 | #   | Story                                                       | Status     |
 | --- | ----------------------------------------------------------- | ---------- |
-| 8.1 | App uses bundled SimC sidecar by default                    | ✅ backend |
-| 8.2 | Settings screen allows user to override SimC binary path    | ⬜         |
-| 8.3 | App validates the SimC binary on launch and shows version   | ✅ backend |
-| 8.4 | Settings are persisted across sessions (Tauri store plugin) | ⬜         |
-| 8.5 | App shows SimC version in footer/about screen               | ⬜         |
+| 8.1 | App uses bundled SimC sidecar by default                    | ✅ |
+| 8.2 | Settings screen allows user to override SimC binary path    | ✅ |
+| 8.3 | App validates the SimC binary on launch and shows version   | ✅ |
+| 8.4 | Settings are persisted across sessions (Tauri store plugin) | ✅ |
+| 8.5 | App shows SimC version in footer/about screen               | ✅ |
 
-**Epic status: 🟡 Tauri commands exist (validate_simc_binary), store not wired, UI missing**
+**Epic status: ✅ 5/5 stories done**
 
 ---
 
