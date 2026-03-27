@@ -140,12 +140,12 @@ Last updated: 2026-03-27
 
 | #   | Story                                                                      | Status |
 | --- | -------------------------------------------------------------------------- | ------ |
-| 9.1 | GitHub Actions builds .dmg (macOS) and .exe (Windows) on each release tag  | ⬜     |
-| 9.2 | Installers are published to GitHub Releases                                | ⬜     |
+| 9.1 | GitHub Actions builds .dmg (macOS) and .exe (Windows) on each release tag  | ✅     |
+| 9.2 | Installers are published to GitHub Releases                                | ✅     |
 | 9.3 | App checks for updates on launch and prompts user                          | ⬜     |
 | 9.4 | macOS binary is properly code-signed (or gatekeeper workaround documented) | ⬜     |
 
-**Epic status: 🔴 Not started**
+**Epic status: 🟡 2/4 stories done**
 
 ---
 

@@ -1,0 +1,124 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  validate-season:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Validate season config
+        run: pnpm season:validate
+
+  build:
+    needs: validate-season
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+            simc_binary: simc-aarch64-apple-darwin
+            simc_secret: SIMC_MACOS_ARM64_URL
+          - platform: macos-13
+            target: x86_64-apple-darwin
+            simc_binary: simc-x86_64-apple-darwin
+            simc_secret: SIMC_MACOS_X64_URL
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+            simc_binary: simc-x86_64-pc-windows-msvc.exe
+            simc_secret: SIMC_WIN64_URL
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Install frontend dependencies
+        run: pnpm install
+
+      # --- Download SimC sidecar binary ---
+
+      - name: Download SimC binary (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p src-tauri/binaries
+          curl -fSL "${{ secrets[matrix.simc_secret] }}" -o "src-tauri/binaries/${{ matrix.simc_binary }}"
+          chmod +x "src-tauri/binaries/${{ matrix.simc_binary }}"
+
+      - name: Download SimC binary (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path src-tauri\binaries | Out-Null
+          Invoke-WebRequest -Uri "${{ secrets[matrix.simc_secret] }}" -OutFile "src-tauri\binaries\${{ matrix.simc_binary }}"
+
+      # --- Build ---
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # macOS code signing (configure when you have an Apple Developer cert):
+          # APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          # APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          # APPLE_ID: ${{ secrets.APPLE_ID }}
+          # APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'WoW Top Gear ${{ github.ref_name }}'
+          releaseBody: |
+            ## WoW Top Gear ${{ github.ref_name }}
+
+            Download the installer for your platform below.
+
+            | Platform | File |
+            |----------|------|
+            | macOS Apple Silicon | `.dmg` (aarch64) |
+            | macOS Intel | `.dmg` (x64) |
+            | Windows | `.exe` installer or `.msi` |
+          releaseDraft: true
+          prerelease: false
+          args: --target ${{ matrix.target }}
