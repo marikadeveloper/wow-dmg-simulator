@@ -79,6 +79,11 @@ jobs:
       - name: Install frontend dependencies
         run: pnpm install
 
+      # --- Generate bundled item database ---
+
+      - name: Build items.db
+        run: pnpm build:item-db
+
       # --- Download SimC sidecar binary ---
 
       - name: Download SimC binary (macOS)
