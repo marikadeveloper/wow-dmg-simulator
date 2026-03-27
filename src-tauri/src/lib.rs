@@ -1,6 +1,6 @@
 mod commands;
 
-use commands::config::{get_config, set_config, validate_simc_binary};
+use commands::config::{get_config, set_config, validate_simc_binary, validate_custom_binary};
 use commands::item_data::{fetch_item_data, search_items};
 use commands::run_simc::{run_top_gear, cancel_sim, SimState};
 
@@ -24,6 +24,7 @@ pub fn run() {
             fetch_item_data,
             search_items,
             validate_simc_binary,
+            validate_custom_binary,
             get_config,
             set_config,
         ])

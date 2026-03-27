@@ -4,6 +4,8 @@ use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::{CommandChild, CommandEvent};
 use uuid::Uuid;
 
+use super::config::read_config;
+
 /// Shared state holding the active SimC child process (if any).
 pub struct SimState {
     pub child: Mutex<Option<CommandChild>>,
@@ -45,17 +47,30 @@ pub async fn run_top_gear(
         "output=/dev/null".to_string()
     };
 
-    let (mut rx, child) = app
-        .shell()
-        .sidecar("simc")
-        .map_err(|e| e.to_string())?
-        .args([
-            input_path.to_str().unwrap(),
-            &format!("json2={}", output_path.display()),
-            &output_flag,
-        ])
-        .spawn()
-        .map_err(|e| e.to_string())?;
+    // Use custom binary path from config if set, otherwise use bundled sidecar
+    let config = read_config(&app);
+    let (mut rx, child) = if let Some(ref custom_path) = config.simc_binary_path {
+        app.shell()
+            .command(custom_path)
+            .args([
+                input_path.to_str().unwrap(),
+                &format!("json2={}", output_path.display()),
+                &output_flag,
+            ])
+            .spawn()
+            .map_err(|e| format!("Failed to run custom SimC binary '{}': {}", custom_path, e))?
+    } else {
+        app.shell()
+            .sidecar("simc")
+            .map_err(|e| e.to_string())?
+            .args([
+                input_path.to_str().unwrap(),
+                &format!("json2={}", output_path.display()),
+                &output_flag,
+            ])
+            .spawn()
+            .map_err(|e| e.to_string())?
+    };
 
     // Store child so cancel_sim can kill it
     {

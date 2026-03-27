@@ -1,0 +1,66 @@
+import { useEffect, useState } from 'react';
+import { invoke } from '@tauri-apps/api/core';
+
+interface BinaryStatus {
+  ok: boolean;
+  version: string | null;
+  error: string | null;
+}
+
+interface AppFooterProps {
+  /** Bumped when config changes to re-validate */
+  refreshKey?: number;
+}
+
+export default function AppFooter({ refreshKey }: AppFooterProps) {
+  const [status, setStatus] = useState<BinaryStatus | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    invoke<BinaryStatus>('validate_simc_binary')
+      .then((result) => setStatus(result))
+      .catch(() =>
+        setStatus({ ok: false, version: null, error: 'Failed to validate SimC binary' }),
+      )
+      .finally(() => setLoading(false));
+  }, [refreshKey]);
+
+  return (
+    <footer className="border-t border-zinc-800/50 bg-zinc-950/80">
+      <div className="mx-auto max-w-5xl px-6 py-3 flex items-center justify-between">
+        {/* Left: SimC version */}
+        <div className="flex items-center gap-2 text-[11px]">
+          {loading ? (
+            <span className="text-zinc-600">Checking SimC binary...</span>
+          ) : status?.ok ? (
+            <>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
+                <span className="text-zinc-500">SimC</span>
+              </span>
+              <span className="text-zinc-400 font-medium">{status.version}</span>
+            </>
+          ) : (
+            <>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
+                <span className="text-red-400/80">SimC not found</span>
+              </span>
+              {status?.error && (
+                <span className="text-zinc-600 max-w-xs truncate" title={status.error}>
+                  {status.error}
+                </span>
+              )}
+            </>
+          )}
+        </div>
+
+        {/* Right: App info */}
+        <div className="text-[11px] text-zinc-700">
+          WoW Top Gear v0.1.0
+        </div>
+      </div>
+    </footer>
+  );
+}

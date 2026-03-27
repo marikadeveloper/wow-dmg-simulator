@@ -12,6 +12,8 @@ import SimResultsSummary from './components/SimResultsSummary';
 import SimResultsPaperDoll from './components/SimResultsPaperDoll';
 import SimResultsBarChart from './components/SimResultsBarChart';
 import SimResultsTable from './components/SimResultsTable';
+import AppSettingsPanel from './components/AppSettingsPanel';
+import AppFooter from './components/AppFooter';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -33,6 +35,7 @@ function App() {
   const [simLogLines, setSimLogLines] = useState<string[]>([]);
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
+  const [footerRefreshKey, setFooterRefreshKey] = useState(0);
 
   // Guard against stale results when a new run starts before previous finishes
   const runIdRef = useRef(0);
@@ -59,6 +62,10 @@ function App() {
 
   const handleCatalystChargesChange = useCallback((charges: number | null) => {
     setCatalystCharges(charges);
+  }, []);
+
+  const handleConfigChange = useCallback(() => {
+    setFooterRefreshKey((k) => k + 1);
   }, []);
 
   // Listen for SimC progress events while running
@@ -247,6 +254,10 @@ function App() {
         {/* Zone 3 — Simulation Settings + Run Controls */}
         {profile && (
           <section className="mb-8">
+            <div className="mb-3">
+              <AppSettingsPanel onConfigChange={handleConfigChange} />
+            </div>
+
             <SimSettingsPanel
               settings={simSettings}
               onSettingsChange={setSimSettings}
@@ -351,6 +362,9 @@ function App() {
           </section>
         )}
       </div>
+
+      {/* Footer — always visible */}
+      <AppFooter refreshKey={footerRefreshKey} />
     </div>
   );
 }

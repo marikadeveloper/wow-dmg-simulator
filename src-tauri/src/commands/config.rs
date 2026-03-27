@@ -1,5 +1,9 @@
 use serde::{Deserialize, Serialize};
 use tauri_plugin_shell::ShellExt;
+use tauri_plugin_store::StoreExt;
+
+const STORE_FILE: &str = "config.json";
+const STORE_KEY: &str = "app_config";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -99,13 +103,66 @@ fn remove_quarantine_from_sidecar(app: &tauri::AppHandle) {
 }
 
 #[tauri::command]
-pub async fn get_config() -> Result<AppConfig, String> {
-    // TODO: Read from tauri-plugin-store
-    Ok(AppConfig::default())
+pub async fn get_config(app: tauri::AppHandle) -> Result<AppConfig, String> {
+    let store = app.store(STORE_FILE).map_err(|e| e.to_string())?;
+    match store.get(STORE_KEY) {
+        Some(value) => {
+            serde_json::from_value::<AppConfig>(value).map_err(|e| e.to_string())
+        }
+        None => Ok(AppConfig::default()),
+    }
 }
 
 #[tauri::command]
-pub async fn set_config(_config: AppConfig) -> Result<(), String> {
-    // TODO: Write to tauri-plugin-store
+pub async fn set_config(app: tauri::AppHandle, config: AppConfig) -> Result<(), String> {
+    let store = app.store(STORE_FILE).map_err(|e| e.to_string())?;
+    let value = serde_json::to_value(&config).map_err(|e| e.to_string())?;
+    store.set(STORE_KEY, value);
     Ok(())
+}
+
+/// Read the persisted config (non-command helper for other modules).
+pub fn read_config(app: &tauri::AppHandle) -> AppConfig {
+    let store = match app.store(STORE_FILE) {
+        Ok(s) => s,
+        Err(_) => return AppConfig::default(),
+    };
+    match store.get(STORE_KEY) {
+        Some(value) => serde_json::from_value::<AppConfig>(value).unwrap_or_default(),
+        None => AppConfig::default(),
+    }
+}
+
+/// Validate a user-provided SimC binary path (not the bundled sidecar).
+#[tauri::command]
+pub async fn validate_custom_binary(path: String) -> Result<BinaryStatus, String> {
+    match tokio::process::Command::new(&path)
+        .arg("--version")
+        .output()
+        .await
+    {
+        Ok(output) => {
+            let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+            let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+
+            if !stdout.is_empty() || output.status.success() {
+                Ok(BinaryStatus {
+                    ok: true,
+                    version: Some(stdout.trim().to_string()),
+                    error: None,
+                })
+            } else {
+                Ok(BinaryStatus {
+                    ok: false,
+                    version: None,
+                    error: Some(format!("Binary returned error: {}", stderr.trim())),
+                })
+            }
+        }
+        Err(e) => Ok(BinaryStatus {
+            ok: false,
+            version: None,
+            error: Some(format!("Failed to run binary at '{}': {}", path, e)),
+        }),
+    }
 }
