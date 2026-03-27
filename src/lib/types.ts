@@ -48,6 +48,8 @@ export interface GearItem {
   isUpgraded?: boolean;
   /** true = this item is a Catalyst-converted tier piece */
   isCatalyst?: boolean;
+  /** true = this item is an unowned item added via search (hypothetical) */
+  isUnowned?: boolean;
 }
 
 /** The fully parsed SimC addon export string. */

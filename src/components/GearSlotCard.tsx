@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
 import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-cache';
 import { GEM_PRESETS, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
+import { FEATURES } from '../lib/features';
+import UnownedItemSearch from './UnownedItemSearch';
 
 /** Lookup maps built once from season presets. */
 const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
@@ -96,6 +98,10 @@ interface GearSlotCardProps {
   isEnchantable?: boolean;
   /** Stagger animation delay in ms */
   delay?: number;
+  /** Real SimC slots this card represents (for paired slots like rings → ["finger1","finger2"]) */
+  realSlots?: string[];
+  /** Called when user adds an unowned item via search */
+  onAddUnownedItem?: (slot: string, item: GearItem) => void;
 }
 
 export default function GearSlotCard({
@@ -107,22 +113,26 @@ export default function GearSlotCard({
   onDeselectAll,
   isEnchantable = false,
   delay = 0,
+  realSlots,
+  onAddUnownedItem,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
 
   const label = SLOT_LABELS[slot] ?? slot;
   const icon = SLOT_ICONS[slot] ?? '\u{2699}';
 
-  // Track equipped/vault/bag/upgraded/catalyst items with their original indices
+  // Track equipped/vault/bag/upgraded/catalyst/unowned items with their original indices
   const equippedWithIdx: Array<[GearItem, number]> = [];
   const vaultWithIdx: Array<[GearItem, number]> = [];
   const bagWithIdx: Array<[GearItem, number]> = [];
   const upgradedWithIdx: Array<[GearItem, number]> = [];
   const catalystWithIdx: Array<[GearItem, number]> = [];
+  const unownedWithIdx: Array<[GearItem, number]> = [];
   items.forEach((item, idx) => {
     if (item.isEquipped) equippedWithIdx.push([item, idx]);
     else if (item.isCatalyst) catalystWithIdx.push([item, idx]);
     else if (item.isUpgraded) upgradedWithIdx.push([item, idx]);
+    else if (item.isUnowned) unownedWithIdx.push([item, idx]);
     else if (item.isVault) vaultWithIdx.push([item, idx]);
     else bagWithIdx.push([item, idx]);
   });
@@ -290,8 +300,34 @@ export default function GearSlotCard({
           />
         ))}
 
+        {/* Separator before unowned items */}
+        {unownedWithIdx.length > 0 && (equippedWithIdx.length > 0 || bagWithIdx.length > 0 || vaultWithIdx.length > 0 || upgradedWithIdx.length > 0 || catalystWithIdx.length > 0) && (
+          <div className="border-t border-zinc-800/30 my-1.5" />
+        )}
+
+        {/* Unowned items (added via search) */}
+        {unownedWithIdx.map(([item, idx]) => (
+          <ItemRow
+            key={`unowned-${item.id}-${idx}`}
+            item={item}
+            cached={itemNames[item.id] ?? null}
+            badge="unowned"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
+          />
+        ))}
+
+        {/* Unowned item search entry point */}
+        {FEATURES.UNOWNED_ITEM_SEARCH && onAddUnownedItem && (
+          <UnownedItemSearch
+            realSlots={realSlots ?? [slot]}
+            onAddItem={onAddUnownedItem}
+          />
+        )}
+
         {/* Empty slot */}
-        {items.length === 0 && (
+        {items.length === 0 && !FEATURES.UNOWNED_ITEM_SEARCH && (
           <div className="py-3 text-center text-xs text-zinc-700 italic">
             No items
           </div>
@@ -336,7 +372,7 @@ const TRACK_RANK: Record<string, number> = {
 interface ItemRowProps {
   item: GearItem;
   cached: CachedItem | null;
-  badge: 'equipped' | 'bag' | 'vault' | 'upgraded' | 'catalyst';
+  badge: 'equipped' | 'bag' | 'vault' | 'upgraded' | 'catalyst' | 'unowned';
   selected: boolean;
   onToggle: () => void;
   /** Numeric track rank of the equipped item (-1 if unknown). */
@@ -350,6 +386,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
   const isVault = badge === 'vault';
   const isUpgraded = badge === 'upgraded';
   const isCatalyst = badge === 'catalyst';
+  const isUnowned = badge === 'unowned';
 
   // Gem socket indicators
   const socketCount = item.gemIds.length;
@@ -390,9 +427,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
               ? 'bg-amber-500/5'
               : isCatalyst
                 ? 'bg-cyan-500/5'
-                : isVault
-                  ? 'bg-violet-500/5'
-                  : 'bg-zinc-800/30'
+                : isUnowned
+                  ? 'bg-amber-500/5'
+                  : isVault
+                    ? 'bg-violet-500/5'
+                    : 'bg-zinc-800/30'
           : 'opacity-60',
       ].join(' ')}
       aria-pressed={selected}
@@ -408,9 +447,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
                 ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
                 : isCatalyst
                   ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
-                  : isVault
-                    ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
-                    : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
+                  : isUnowned
+                    ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                    : isVault
+                      ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
+                      : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
             : 'border-zinc-700/50 text-transparent',
         ].join(' ')}
       >
@@ -531,12 +572,14 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
               ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
               : isCatalyst
                 ? 'bg-cyan-500/10 text-cyan-400/80 border border-cyan-500/15'
-                : isVault
-                  ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
-                  : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+                : isUnowned
+                  ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                  : isVault
+                    ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
+                    : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
         ].join(' ')}
       >
-        {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isCatalyst ? 'catalyst' : isVault ? 'vault' : 'bag'}
+        {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isCatalyst ? 'catalyst' : isUnowned ? 'unowned' : isVault ? 'vault' : 'bag'}
       </span>
     </button>
   );

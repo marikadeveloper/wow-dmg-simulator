@@ -4,6 +4,7 @@ export const FEATURES = {
   TIER_SET_FILTERING: true,
   ITEM_UPGRADE_CURRENCY: true,
   CATALYST_CHARGES: true,
+  UNOWNED_ITEM_SEARCH: true,
   EMBELLISHMENT_COMPARISON: false,
   TALENT_COMPARISON: false,
 } as const;

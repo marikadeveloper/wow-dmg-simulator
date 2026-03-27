@@ -13,6 +13,7 @@ import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
 import { computeAllUpgrades, type CrestBudget } from '../lib/upgrade-calculator';
 import { generateCatalystItems } from '../lib/catalyst-generator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
+import { getItemData } from '../lib/item-cache';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -72,6 +73,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [upgradeItems, setUpgradeItems] = useState<Map<string, GearItem[]>>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
   const [catalystItems, setCatalystItems] = useState<Map<string, GearItem[]>>(new Map());
+  const [unownedItems, setUnownedItems] = useState<Map<string, GearItem[]>>(new Map());
 
   // ── Augmented profile with upgrade + catalyst variants ────────────────
 
@@ -85,7 +87,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     return { ...profile, gear };
   }, [profile, upgradeItems]);
 
-  const augmentedProfile = useMemo((): SimcProfile => {
+  const profileWithCatalyst = useMemo((): SimcProfile => {
     if (catalystItems.size === 0) return profileWithUpgrades;
     const gear: Record<string, GearItem[]> = {};
     for (const [slot, items] of Object.entries(profileWithUpgrades.gear)) {
@@ -94,6 +96,20 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     }
     return { ...profileWithUpgrades, gear };
   }, [profileWithUpgrades, catalystItems]);
+
+  const augmentedProfile = useMemo((): SimcProfile => {
+    if (unownedItems.size === 0) return profileWithCatalyst;
+    const gear: Record<string, GearItem[]> = {};
+    for (const [slot, items] of Object.entries(profileWithCatalyst.gear)) {
+      const unowned = unownedItems.get(slot) ?? [];
+      gear[slot] = unowned.length > 0 ? [...items, ...unowned] : items;
+    }
+    // Also add unowned items for slots that don't yet exist in profile
+    for (const [slot, items] of unownedItems) {
+      if (!gear[slot]) gear[slot] = items;
+    }
+    return { ...profileWithCatalyst, gear };
+  }, [profileWithCatalyst, unownedItems]);
 
   const handleApplyUpgrades = useCallback((budget: CrestBudget) => {
     // Clear previous upgrade items from selection first
@@ -172,6 +188,39 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
       setCatalystItems(new Map());
     }
   }, [profileWithUpgrades, selection, catalystItems]);
+
+  // ── Unowned item search (story 10.1) ──────────────────────────────────────
+
+  const handleAddUnownedItem = useCallback((slot: string, item: GearItem) => {
+    setUnownedItems((prev) => {
+      const next = new Map(prev);
+      const existing = next.get(slot) ?? [];
+      // Avoid duplicates by item ID
+      if (existing.some((e) => e.id === item.id)) return prev;
+      next.set(slot, [...existing, item]);
+      return next;
+    });
+
+    // Auto-select the new unowned item
+    // Need to compute its index in the augmented profile
+    // It will be appended after all existing items in that slot
+    setTimeout(() => {
+      setSelection((prev) => {
+        const next = new Set(prev);
+        // Count items in the base profile + upgrades + catalyst + existing unowned
+        const baseLen = profile.gear[slot]?.length ?? 0;
+        const upgradeLen = upgradeItems.get(slot)?.length ?? 0;
+        const catalystLen = catalystItems.get(slot)?.length ?? 0;
+        const existingUnowned = unownedItems.get(slot)?.length ?? 0;
+        const newIdx = baseLen + upgradeLen + catalystLen + existingUnowned;
+        next.add(`${slot}:${newIdx}`);
+        return next;
+      });
+    }, 0);
+
+    // Prefetch item data for the tooltip
+    getItemData(item.id);
+  }, [profile.gear, upgradeItems, catalystItems, unownedItems]);
 
   // Report catalyst charges to parent
   useEffect(() => {
@@ -422,6 +471,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     0,
   );
 
+  const totalUnowned = Object.values(augmentedProfile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => i.isUnowned).length,
+    0,
+  );
+
   return (
     <div className="animate-in">
       {/* Section header */}
@@ -450,6 +504,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
               {totalCatalyst} catalyst {totalCatalyst === 1 ? 'item' : 'items'}
             </span>
           )}
+          {totalUnowned > 0 && (
+            <span className="text-amber-500/70">
+              {totalUnowned} unowned {totalUnowned === 1 ? 'item' : 'items'}
+            </span>
+          )}
         </span>
       </div>
 
@@ -474,6 +533,8 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
                 onDeselectAll={deselectAllInSlot}
                 isEnchantable={isEnchantable}
                 delay={index * 30}
+                realSlots={realSlots ? [...realSlots] : [slot]}
+                onAddUnownedItem={handleAddUnownedItem}
               />
             );
           }
@@ -489,6 +550,8 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
               onDeselectAll={deselectAllInSlot}
               isEnchantable={(ENCHANTABLE_SLOTS as readonly string[]).includes(slot)}
               delay={index * 30}
+              realSlots={[slot]}
+              onAddUnownedItem={handleAddUnownedItem}
             />
           );
         })}
