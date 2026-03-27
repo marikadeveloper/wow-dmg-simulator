@@ -266,7 +266,7 @@ interface TrackBonusRange {
   startBonusId: number; // bonus_id for rank 1
 }
 
-const TRACK_BONUS_RANGES: TrackBonusRange[] = [
+export const TRACK_BONUS_RANGES: TrackBonusRange[] = [
   { name: 'Adventurer', startBonusId: 12769 },
   { name: 'Veteran',    startBonusId: 12777 },
   { name: 'Champion',   startBonusId: 12785 },
@@ -298,6 +298,60 @@ export function getGearTrackFromBonusIds(bonusIds: number[]): GearTrackInfo | nu
     }
   }
   return null;
+}
+
+// ── Upgrade crest system ─────────────────────────────────────────────────────
+//
+// Each crest type is used to upgrade items within specific gear tracks.
+// Midnight S1 uses "Dawncrest" as the crest currency.
+
+export interface CrestType {
+  /** Unique key matching the track name in lowercase, e.g. "adventurer" */
+  id: string;
+  /** Human-readable name shown in UI */
+  name: string;
+  /** The gear track this crest upgrades */
+  track: string;
+}
+
+/**
+ * Midnight S1 uses five crest types, one per gear track.
+ * Each track's items are upgraded using that track's Dawncrest.
+ * Source: https://www.wowhead.com/guide/midnight/item-level-gear-upgrades-dawncrests
+ */
+export const CREST_TYPES: CrestType[] = [
+  { id: 'adventurer', name: 'Adventurer Dawncrest', track: 'Adventurer' },
+  { id: 'veteran', name: 'Veteran Dawncrest', track: 'Veteran' },
+  { id: 'champion', name: 'Champion Dawncrest', track: 'Champion' },
+  { id: 'hero', name: 'Hero Dawncrest', track: 'Hero' },
+  { id: 'myth', name: 'Myth Dawncrest', track: 'Myth' },
+];
+
+/**
+ * Cost in Dawncrests per single rank upgrade. Flat 20 per rank for all slots.
+ * Upgrading from 1/6 to 6/6 = 5 upgrades × 20 = 100 Dawncrests total.
+ */
+export const UPGRADE_CREST_COST_PER_RANK = 20;
+
+/**
+ * Get the crest type needed to upgrade items in a given track.
+ * Returns undefined for tracks with no associated crest.
+ */
+export function getCrestForTrack(trackName: string): CrestType | undefined {
+  return CREST_TYPES.find((c) => c.track === trackName);
+}
+
+/**
+ * Compute the estimated item level for a given track + rank.
+ * Used for display only — SimC resolves ilvl from bonus_ids internally.
+ */
+export function getIlvlForRank(trackName: string, rank: number): number {
+  const track = GEAR_TRACKS.find((t) => t.name === trackName);
+  if (!track) return 0;
+  const [min, max] = track.ilvlRange;
+  if (rank <= 1) return min;
+  if (rank >= UPGRADE_RANKS) return max;
+  return Math.round(min + ((rank - 1) * (max - min)) / (UPGRADE_RANKS - 1));
 }
 
 // ── Tier set definitions ─────────────────────────────────────────────────────

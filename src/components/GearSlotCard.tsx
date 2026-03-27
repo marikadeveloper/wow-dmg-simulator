@@ -113,12 +113,14 @@ export default function GearSlotCard({
   const label = SLOT_LABELS[slot] ?? slot;
   const icon = SLOT_ICONS[slot] ?? '\u{2699}';
 
-  // Track equipped/vault/bag items with their original indices
+  // Track equipped/vault/bag/upgraded items with their original indices
   const equippedWithIdx: Array<[GearItem, number]> = [];
   const vaultWithIdx: Array<[GearItem, number]> = [];
   const bagWithIdx: Array<[GearItem, number]> = [];
+  const upgradedWithIdx: Array<[GearItem, number]> = [];
   items.forEach((item, idx) => {
     if (item.isEquipped) equippedWithIdx.push([item, idx]);
+    else if (item.isUpgraded) upgradedWithIdx.push([item, idx]);
     else if (item.isVault) vaultWithIdx.push([item, idx]);
     else bagWithIdx.push([item, idx]);
   });
@@ -219,8 +221,26 @@ export default function GearSlotCard({
           />
         ))}
 
-        {/* Separator between equipped and vault/bag items */}
-        {equippedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
+        {/* Separator between equipped and vault/bag/upgraded items */}
+        {equippedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0 || upgradedWithIdx.length > 0) && (
+          <div className="border-t border-zinc-800/30 my-1.5" />
+        )}
+
+        {/* Upgraded items (from upgrade budget feature) */}
+        {upgradedWithIdx.map(([item, idx]) => (
+          <ItemRow
+            key={`upg-${item.id}-${idx}`}
+            item={item}
+            cached={itemNames[item.id] ?? null}
+            badge="upgraded"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
+          />
+        ))}
+
+        {/* Separator between upgraded and vault items */}
+        {upgradedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
           <div className="border-t border-zinc-800/30 my-1.5" />
         )}
 
@@ -301,7 +321,7 @@ const TRACK_RANK: Record<string, number> = {
 interface ItemRowProps {
   item: GearItem;
   cached: CachedItem | null;
-  badge: 'equipped' | 'bag' | 'vault';
+  badge: 'equipped' | 'bag' | 'vault' | 'upgraded';
   selected: boolean;
   onToggle: () => void;
   /** Numeric track rank of the equipped item (-1 if unknown). */
@@ -313,6 +333,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
   const displayName = item.name ?? getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
   const isVault = badge === 'vault';
+  const isUpgraded = badge === 'upgraded';
 
   // Gem socket indicators
   const socketCount = item.gemIds.length;
@@ -349,9 +370,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
         selected
           ? isEquipped
             ? 'bg-amber-500/5'
-            : isVault
-              ? 'bg-violet-500/5'
-              : 'bg-zinc-800/30'
+            : isUpgraded
+              ? 'bg-amber-500/5'
+              : isVault
+                ? 'bg-violet-500/5'
+                : 'bg-zinc-800/30'
           : 'opacity-60',
       ].join(' ')}
       aria-pressed={selected}
@@ -363,9 +386,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
           selected
             ? isEquipped
               ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
-              : isVault
-                ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
-                : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
+              : isUpgraded
+                ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                : isVault
+                  ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
+                  : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
             : 'border-zinc-700/50 text-transparent',
         ].join(' ')}
       >
@@ -482,12 +507,14 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
           'shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded',
           isEquipped
             ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
-            : isVault
-              ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
-              : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+            : isUpgraded
+              ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+              : isVault
+                ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
+                : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
         ].join(' ')}
       >
-        {isEquipped ? 'equipped' : isVault ? 'vault' : 'bag'}
+        {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isVault ? 'vault' : 'bag'}
       </span>
     </button>
   );

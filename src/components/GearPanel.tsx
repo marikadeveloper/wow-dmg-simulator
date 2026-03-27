@@ -4,10 +4,12 @@ import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
 import EnchantOptimization from './EnchantOptimization';
 import TierSetFilter from './TierSetFilter';
+import UpgradeBudget from './UpgradeBudget';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
 import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
+import { computeAllUpgrades, type CrestBudget } from '../lib/upgrade-calculator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
 
 interface GearPanelProps {
@@ -63,6 +65,58 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
+  const [upgradeItems, setUpgradeItems] = useState<Map<string, GearItem[]>>(new Map());
+
+  // ── Augmented profile with upgrade variants ───────────────────────────
+
+  const augmentedProfile = useMemo((): SimcProfile => {
+    if (upgradeItems.size === 0) return profile;
+
+    const gear: Record<string, GearItem[]> = {};
+    for (const [slot, items] of Object.entries(profile.gear)) {
+      const upgrades = upgradeItems.get(slot) ?? [];
+      gear[slot] = upgrades.length > 0 ? [...items, ...upgrades] : items;
+    }
+    return { ...profile, gear };
+  }, [profile, upgradeItems]);
+
+  const handleApplyUpgrades = useCallback((budget: CrestBudget) => {
+    // Clear previous upgrade items from selection first
+    setSelection((prev) => {
+      const next = new Set(prev);
+      for (const [slot, items] of upgradeItems) {
+        const baseLen = profile.gear[slot]?.length ?? 0;
+        items.forEach((_, i) => next.delete(`${slot}:${baseLen + i}`));
+      }
+      return next;
+    });
+
+    const upgrades = computeAllUpgrades(profile.gear, selection, budget);
+    setUpgradeItems(upgrades);
+
+    // Auto-select the new upgrade items
+    setSelection((prev) => {
+      const next = new Set(prev);
+      for (const [slot, items] of upgrades) {
+        const baseLen = profile.gear[slot]?.length ?? 0;
+        items.forEach((_, i) => next.add(`${slot}:${baseLen + i}`));
+      }
+      return next;
+    });
+  }, [profile.gear, selection, upgradeItems]);
+
+  const handleClearUpgrades = useCallback(() => {
+    // Remove upgrade item selections
+    setSelection((prev) => {
+      const next = new Set(prev);
+      for (const [slot, items] of upgradeItems) {
+        const baseLen = profile.gear[slot]?.length ?? 0;
+        items.forEach((_, i) => next.delete(`${slot}:${baseLen + i}`));
+      }
+      return next;
+    });
+    setUpgradeItems(new Map());
+  }, [profile.gear, upgradeItems]);
 
   // ── Merged paired slot data ─────────────────────────────────────────────
 
@@ -72,7 +126,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     for (const [pairName, [slotA, slotB]] of Object.entries(PAIRED_SLOTS)) {
       const mappings: PairMapping[] = [];
       for (const slot of [slotA, slotB]) {
-        const items = profile.gear[slot];
+        const items = augmentedProfile.gear[slot];
         if (!items) continue;
         items.forEach((item, idx) => {
           mappings.push({ originalSlot: slot, originalIndex: idx, item });
@@ -81,7 +135,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
       result[pairName] = { mappings, items: mappings.map((m) => m.item) };
     }
     return result;
-  }, [profile]);
+  }, [augmentedProfile]);
 
   /** Get selected indices in the merged array for a paired slot. */
   const getPairedSelectedIndices = useCallback(
@@ -160,13 +214,13 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     }
 
     setSelection((prev) => {
-      const items = profile.gear[slot];
+      const items = augmentedProfile.gear[slot];
       if (!items) return prev;
       const next = new Set(prev);
       items.forEach((_, idx) => next.add(`${slot}:${idx}`));
       return next;
     });
-  }, [profile, pairedData]);
+  }, [augmentedProfile, pairedData]);
 
   const deselectAllInSlot = useCallback((slot: string) => {
     const pairData = pairedData[slot];
@@ -201,7 +255,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     }
 
     setSelection((prev) => {
-      const items = profile.gear[slot];
+      const items = augmentedProfile.gear[slot];
       if (!items) return prev;
       const next = new Set(prev);
       const equippedIdx = items.findIndex((i) => i.isEquipped);
@@ -212,7 +266,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
       next.add(`${slot}:${keepIdx}`);
       return next;
     });
-  }, [profile, pairedData]);
+  }, [augmentedProfile, pairedData]);
 
   const toggleGem = useCallback((gemId: number) => {
     setSelectedGemIds((prev) => {
@@ -249,27 +303,27 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     for (const key of selection) {
       const [slot, idxStr] = key.split(':');
       const idx = Number(idxStr);
-      const items = profile.gear[slot];
+      const items = augmentedProfile.gear[slot];
       if (!items || idx >= items.length) continue;
       count += items[idx].gemIds.length;
     }
     return count;
-  }, [profile, selection]);
+  }, [augmentedProfile, selection]);
 
   // Count enchantable slots that have gear equipped/selected
   const enchantableSlotCount = useMemo(() => {
     return (ENCHANTABLE_SLOTS as readonly string[]).filter((slot) => {
-      const items = profile.gear[slot];
+      const items = augmentedProfile.gear[slot];
       return items && items.length > 0;
     }).length;
-  }, [profile]);
+  }, [augmentedProfile]);
 
   // Assemble all optimization axes (gear + gems + enchants)
   const allAxes = useMemo(() => {
     const gemIds = FEATURES.GEM_OPTIMIZATION ? Array.from(selectedGemIds) : [];
     const enchantIds = FEATURES.ENCHANT_OPTIMIZATION ? Array.from(selectedEnchantIds) : [];
-    return assembleAxes(profile, selection, gemIds, enchantIds);
-  }, [profile, selection, selectedGemIds, selectedEnchantIds]);
+    return assembleAxes(augmentedProfile, selection, gemIds, enchantIds);
+  }, [augmentedProfile, selection, selectedGemIds, selectedEnchantIds]);
 
   // Report axes to parent
   useEffect(() => {
@@ -284,17 +338,22 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   // Only show slots that have at least one item
   const activeSlots = SLOT_ORDER.filter((slot) => {
     if (slot in PAIRED_SLOTS) return (pairedData[slot]?.items.length ?? 0) > 0;
-    const items = profile.gear[slot];
+    const items = augmentedProfile.gear[slot];
     return items && items.length > 0;
   });
 
-  const totalBag = Object.values(profile.gear).reduce(
-    (sum, items) => sum + items.filter((i) => !i.isEquipped && !i.isVault).length,
+  const totalBag = Object.values(augmentedProfile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => !i.isEquipped && !i.isVault && !i.isUpgraded).length,
     0,
   );
 
-  const totalVault = Object.values(profile.gear).reduce(
+  const totalVault = Object.values(augmentedProfile.gear).reduce(
     (sum, items) => sum + items.filter((i) => i.isVault).length,
+    0,
+  );
+
+  const totalUpgraded = Object.values(augmentedProfile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => i.isUpgraded).length,
     0,
   );
 
@@ -314,6 +373,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
           {totalBag > 0 && (
             <span>
               {totalBag} bag {totalBag === 1 ? 'item' : 'items'} available to compare
+            </span>
+          )}
+          {totalUpgraded > 0 && (
+            <span className="text-amber-500/70">
+              {totalUpgraded} upgraded {totalUpgraded === 1 ? 'item' : 'items'}
             </span>
           )}
         </span>
@@ -348,7 +412,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
             <GearSlotCard
               key={slot}
               slot={slot}
-              items={profile.gear[slot]}
+              items={augmentedProfile.gear[slot]}
               selectedIndices={selectionBySlot[slot] ?? new Set()}
               onToggle={toggleItem}
               onSelectAll={selectAllInSlot}
@@ -386,9 +450,22 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
       {FEATURES.TIER_SET_FILTERING && (
         <div className="mt-4">
           <TierSetFilter
-            profile={profile}
+            profile={augmentedProfile}
             minimums={tierSetMinimums}
             onMinimumsChange={setTierSetMinimums}
+          />
+        </div>
+      )}
+
+      {/* Upgrade budget — item upgrade currency (story 5.11) */}
+      {FEATURES.ITEM_UPGRADE_CURRENCY && (
+        <div className="mt-4">
+          <UpgradeBudget
+            profile={profile}
+            selection={selection}
+            onApplyUpgrades={handleApplyUpgrades}
+            onClearUpgrades={handleClearUpgrades}
+            hasUpgrades={upgradeItems.size > 0}
           />
         </div>
       )}
@@ -399,7 +476,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
           axes={allAxes}
           onBlockedChange={onBlockedChange}
           tierSetMinimums={tierSetMinimums}
-          profile={profile}
+          profile={augmentedProfile}
         />
       </div>
     </div>
