@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
-import { CURRENT_SEASON } from '../lib/presets/season-config';
+import { GEAR_TRACKS } from '../lib/presets/season-config';
 
 interface ItemSearchResult {
   itemId: number;
@@ -11,10 +11,10 @@ interface ItemSearchResult {
   source: string;
 }
 
-/** Selected item pending ilvl confirmation. */
+/** Selected item pending track confirmation. */
 interface PendingItem {
   result: ItemSearchResult;
-  ilvl: string;
+  trackIndex: number;
 }
 
 interface UnownedItemSearchProps {
@@ -31,7 +31,6 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   const [isSearching, setIsSearching] = useState(false);
   const [pending, setPending] = useState<PendingItem | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const ilvlInputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Focus input when opened
@@ -40,14 +39,6 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
       inputRef.current.focus();
     }
   }, [isOpen, pending]);
-
-  // Focus ilvl input when pending item is set
-  useEffect(() => {
-    if (pending && ilvlInputRef.current) {
-      ilvlInputRef.current.focus();
-      ilvlInputRef.current.select();
-    }
-  }, [pending]);
 
   const doSearch = useCallback(async (q: string) => {
     if (q.length < 2) {
@@ -79,17 +70,20 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   }, [doSearch]);
 
   const handleSelectResult = useCallback((item: ItemSearchResult) => {
-    // Show ilvl configuration step instead of immediately adding
-    setPending({ result: item, ilvl: String(CURRENT_SEASON.maxIlvl) });
+    // Show track picker step — default to Hero (index 1)
+    setPending({ result: item, trackIndex: 1 });
     setResults([]);
     setQuery('');
   }, []);
 
   const handleConfirmAdd = useCallback(() => {
     if (!pending) return;
-    const { result, ilvl: ilvlStr } = pending;
-    const ilvl = parseInt(ilvlStr, 10);
-    if (isNaN(ilvl) || ilvl < 1) return;
+    const { result, trackIndex } = pending;
+    const track = GEAR_TRACKS[trackIndex];
+    if (!track) return;
+
+    // Rank 1/6 = minimum ilvl of the track range
+    const ilvl = track.ilvlRange[0];
 
     const targetSlot = result.slot && realSlots.includes(result.slot)
       ? result.slot
@@ -98,7 +92,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     const gearItem: GearItem = {
       slot: targetSlot,
       id: result.itemId,
-      bonusIds: [],
+      bonusIds: track.bonusId > 0 ? [track.bonusId] : [],
       gemIds: [],
       enchantId: undefined,
       name: result.name,
@@ -150,10 +144,11 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     );
   }
 
-  // ── Step 2: Configure ilvl for selected item ──────────────────────────
+  // ── Step 2: Pick gear track for selected item ──────────────────────────
   if (pending) {
-    const { result, ilvl } = pending;
+    const { result, trackIndex } = pending;
     const qualityColor = QUALITY_TEXT[result.quality] ?? 'text-zinc-300';
+    const selectedTrack = GEAR_TRACKS[trackIndex];
 
     return (
       <div className="mt-1 rounded-md border border-zinc-800/60 bg-zinc-900/80 overflow-hidden animate-in">
@@ -175,44 +170,54 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
           </button>
         </div>
 
-        {/* ilvl input row */}
-        <div className="flex items-center gap-2.5 px-3 py-2.5">
-          <label className="text-[11px] text-zinc-500 shrink-0">Item level</label>
-          <input
-            ref={ilvlInputRef}
-            type="number"
-            min={1}
-            max={999}
-            value={ilvl}
-            onChange={(e) => setPending({ ...pending, ilvl: e.target.value })}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleConfirmAdd(); }}
-            className="w-16 px-2 py-1 rounded bg-zinc-800/80 border border-zinc-700/50
-                       text-xs text-zinc-200 text-center tabular-nums
-                       outline-none focus:border-amber-500/40 caret-amber-400
-                       [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          />
-          <button
-            type="button"
-            onClick={handleConfirmAdd}
-            disabled={!ilvl || isNaN(parseInt(ilvl, 10)) || parseInt(ilvl, 10) < 1}
-            className="ml-auto px-3 py-1 rounded text-[11px] font-medium
-                       bg-amber-500/15 text-amber-400 border border-amber-500/25
-                       hover:bg-amber-500/25 disabled:opacity-30 disabled:cursor-default
-                       transition-colors cursor-pointer"
-          >
-            Add
-          </button>
-          <button
-            type="button"
-            onClick={handleClose}
-            className="text-zinc-600 hover:text-zinc-400 transition-colors"
-            aria-label="Cancel"
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
-              <line x1="3" y1="3" x2="9" y2="9" />
-              <line x1="9" y1="3" x2="3" y2="9" />
-            </svg>
-          </button>
+        {/* Track picker */}
+        <div className="px-3 py-2.5 space-y-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {GEAR_TRACKS.map((track, i) => (
+              <button
+                key={track.name}
+                type="button"
+                onClick={() => setPending({ ...pending, trackIndex: i })}
+                className={[
+                  'px-2 py-0.5 rounded text-[11px] font-medium border transition-colors cursor-pointer',
+                  i === trackIndex
+                    ? `${TRACK_BUTTON_ACTIVE[track.name] ?? 'bg-zinc-700/40 border-zinc-600 text-zinc-200'}`
+                    : 'bg-transparent border-zinc-800/50 text-zinc-600 hover:text-zinc-400 hover:border-zinc-700',
+                ].join(' ')}
+              >
+                {track.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Track info + add button */}
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] text-zinc-500 tabular-nums">
+              ilvl {selectedTrack.ilvlRange[0]}
+              <span className="text-zinc-700 mx-1">·</span>
+              <span className="text-zinc-600">{selectedTrack.source}</span>
+            </span>
+            <button
+              type="button"
+              onClick={handleConfirmAdd}
+              className="ml-auto px-3 py-1 rounded text-[11px] font-medium
+                         bg-amber-500/15 text-amber-400 border border-amber-500/25
+                         hover:bg-amber-500/25 transition-colors cursor-pointer"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="text-zinc-600 hover:text-zinc-400 transition-colors"
+              aria-label="Cancel"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
+                <line x1="3" y1="3" x2="9" y2="9" />
+                <line x1="9" y1="3" x2="3" y2="9" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -337,6 +342,15 @@ const QUALITY_TEXT: Record<number, string> = {
   3: 'text-blue-400',
   4: 'text-purple-400',
   5: 'text-orange-400',
+};
+
+/** Active track button styles matching WoW gear track colors. */
+const TRACK_BUTTON_ACTIVE: Record<string, string> = {
+  Myth: 'bg-orange-500/15 border-orange-500/40 text-orange-400',
+  Hero: 'bg-purple-500/15 border-purple-500/40 text-purple-400',
+  Champion: 'bg-blue-500/15 border-blue-500/40 text-blue-400',
+  Veteran: 'bg-green-500/15 border-green-500/40 text-green-400',
+  Adventurer: 'bg-zinc-500/15 border-zinc-500/40 text-zinc-300',
 };
 
 /** Human-readable slot labels for search results. */
