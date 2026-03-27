@@ -161,7 +161,7 @@ Last updated: 2026-03-27
 | 10.6  | "Assume socket" checkbox available for unowned items                           | ✅         |
 | 10.7  | Unowned items excluded from SimC string if deselected                          | ✅         |
 | 10.8  | Search works fully offline using bundled items.db SQLite database              | ✅         |
-| 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅ script  |
+| 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅         |
 | 10.10 | Recently searched/added unowned items remembered across sessions               | ⬜         |
 | 10.11 | User can search by item ID directly                                            | ⬜         |
 
