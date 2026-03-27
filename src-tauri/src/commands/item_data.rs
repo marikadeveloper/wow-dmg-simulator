@@ -30,46 +30,73 @@ pub async fn search_items(
     use tauri::Manager;
 
     let trimmed = query.trim().to_string();
-    if trimmed.len() < 2 {
+    if trimmed.is_empty() {
         return Ok(Vec::new());
     }
 
     let mut results: Vec<ItemSearchResult> = Vec::new();
 
+    // Check if the query is a numeric item ID
+    let is_id_search = trimmed.parse::<u32>().is_ok();
+
+    if !is_id_search && trimmed.len() < 2 {
+        return Ok(Vec::new());
+    }
+
     if let Ok(resource_dir) = app.path().resource_dir() {
         let db_path = resource_dir.join("assets").join("items.db");
         if db_path.exists() {
             if let Ok(conn) = rusqlite::Connection::open(&db_path) {
-                // Append * for prefix matching in FTS5
-                let fts_query = format!("{}*", trimmed.replace('"', ""));
-                let mut stmt = match conn.prepare(
-                    "SELECT i.item_id, i.name, i.slot, i.base_ilvl \
-                     FROM items_fts \
-                     JOIN items i ON items_fts.rowid = i.item_id \
-                     WHERE items_fts MATCH ?1 \
-                     LIMIT 10",
-                ) {
-                    Ok(s) => s,
-                    Err(_) => return Ok(results),
-                };
+                if is_id_search {
+                    // Search by item ID directly
+                    let item_id: u32 = trimmed.parse().unwrap();
+                    let _ = conn.query_row(
+                        "SELECT item_id, name, slot, base_ilvl FROM items WHERE item_id = ?1",
+                        [item_id],
+                        |row| {
+                            results.push(ItemSearchResult {
+                                item_id: row.get(0)?,
+                                name: row.get(1)?,
+                                slot: row.get(2)?,
+                                base_ilvl: row.get(3)?,
+                                quality: 4,
+                                source: "local".to_string(),
+                            });
+                            Ok(())
+                        },
+                    );
+                } else {
+                    // Full-text search by name
+                    let fts_query = format!("{}*", trimmed.replace('"', ""));
+                    let mut stmt = match conn.prepare(
+                        "SELECT i.item_id, i.name, i.slot, i.base_ilvl \
+                         FROM items_fts \
+                         JOIN items i ON items_fts.rowid = i.item_id \
+                         WHERE items_fts MATCH ?1 \
+                         LIMIT 10",
+                    ) {
+                        Ok(s) => s,
+                        Err(_) => return Ok(results),
+                    };
 
-                let rows = match stmt.query_map([&fts_query], |row| {
-                    Ok(ItemSearchResult {
-                        item_id: row.get(0)?,
-                        name: row.get(1)?,
-                        slot: row.get(2)?,
-                        base_ilvl: row.get(3)?,
-                        quality: 4, // default to epic
-                        source: "local".to_string(),
-                    })
-                }) {
-                    Ok(r) => r,
-                    Err(_) => return Ok(results),
-                };
+                    let rows = match stmt.query_map([&fts_query], |row| {
+                        Ok(ItemSearchResult {
+                            item_id: row.get(0)?,
+                            name: row.get(1)?,
+                            slot: row.get(2)?,
+                            base_ilvl: row.get(3)?,
+                            quality: 4,
+                            source: "local".to_string(),
+                        })
+                    }) {
+                        Ok(r) => r,
+                        Err(_) => return Ok(results),
+                    };
 
-                for row in rows {
-                    if let Ok(item) = row {
-                        results.push(item);
+                    for row in rows {
+                        if let Ok(item) = row {
+                            results.push(item);
+                        }
                     }
                 }
             }

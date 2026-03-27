@@ -42,7 +42,8 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   }, [isOpen, pending]);
 
   const doSearch = useCallback(async (q: string) => {
-    if (q.length < 2) {
+    const isNumeric = /^\d+$/.test(q.trim());
+    if (!isNumeric && q.length < 2) {
       setResults([]);
       return;
     }
@@ -257,7 +258,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
           type="text"
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
-          placeholder="Search for item..."
+          placeholder="Search by name or item ID..."
           className="flex-1 bg-transparent text-xs text-zinc-200 placeholder:text-zinc-700
                      outline-none caret-amber-400"
         />

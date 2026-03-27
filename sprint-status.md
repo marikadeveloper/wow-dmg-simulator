@@ -124,13 +124,13 @@ Last updated: 2026-03-27
 
 ## EPIC 8 — App Settings & Configuration
 
-| #   | Story                                                       | Status     |
-| --- | ----------------------------------------------------------- | ---------- |
-| 8.1 | App uses bundled SimC sidecar by default                    | ✅ |
-| 8.2 | Settings screen allows user to override SimC binary path    | ✅ |
-| 8.3 | App validates the SimC binary on launch and shows version   | ✅ |
-| 8.4 | Settings are persisted across sessions (Tauri store plugin) | ✅ |
-| 8.5 | App shows SimC version in footer/about screen               | ✅ |
+| #   | Story                                                       | Status |
+| --- | ----------------------------------------------------------- | ------ |
+| 8.1 | App uses bundled SimC sidecar by default                    | ✅     |
+| 8.2 | Settings screen allows user to override SimC binary path    | ✅     |
+| 8.3 | App validates the SimC binary on launch and shows version   | ✅     |
+| 8.4 | Settings are persisted across sessions (Tauri store plugin) | ✅     |
+| 8.5 | App shows SimC version in footer/about screen               | ✅     |
 
 **Epic status: ✅ 5/5 stories done**
 
@@ -151,19 +151,20 @@ Last updated: 2026-03-27
 
 ## EPIC 10 — Unowned Item Search
 
-| #     | Story                                                                          | Status     |
-| ----- | ------------------------------------------------------------------------------ | ---------- |
-| 10.1  | Each gear slot card has an "+ Add item to compare" search entry point          | ✅         |
-| 10.2  | Typing a name searches local item DB and Wowhead API in parallel               | ✅         |
-| 10.3  | Search results show item name, slot type, and quality color                    | ✅         |
-| 10.4  | After selecting, user picks gear track (Myth/Hero/Champion/Veteran/Adventurer) | ✅         |
-| 10.5  | Unowned items show a distinct [unowned] badge in the slot card                 | ✅         |
-| 10.6  | "Assume socket" checkbox available for unowned items                           | ✅         |
-| 10.7  | Unowned items excluded from SimC string if deselected                          | ✅         |
-| 10.8  | Search works fully offline using bundled items.db SQLite database              | ✅         |
-| 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅         |
-| 10.10 | Recently searched/added unowned items remembered across sessions               | ✅         |
-| 10.11 | User can search by item ID directly                                            | ⬜         |
+| #     | Story                                                                          | Status |
+| ----- | ------------------------------------------------------------------------------ | ------ |
+| 10.1  | Each gear slot card has an "+ Add item to compare" search entry point          | ✅     |
+| 10.2  | Typing a name searches local item DB and Wowhead API in parallel               | ✅     |
+| 10.3  | Search results show item name, slot type, and quality color                    | ✅     |
+| 10.4  | After selecting, user picks gear track (Myth/Hero/Champion/Veteran/Adventurer) | ✅     |
+| 10.5  | Unowned items show a distinct [unowned] badge in the slot card                 | ✅     |
+| 10.6  | "Assume socket" checkbox available for unowned items                           | ✅     |
+| 10.7  | Unowned items excluded from SimC string if deselected                          | ✅     |
+| 10.8  | Search works fully offline using bundled items.db SQLite database              | ✅     |
+| 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅     |
+| 10.10 | Recently searched/added unowned items remembered across sessions               | ✅     |
+| 10.11 | User can search by item ID directly                                            | ✅     |
+| 10.12 | User can refresh local DB                                                      | ⬜     |
 
 **Epic status: 🟡 Backend search + item cache + build script done, UI not started**
 
