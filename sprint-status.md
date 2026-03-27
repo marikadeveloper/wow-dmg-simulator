@@ -154,7 +154,7 @@ Last updated: 2026-03-27
 | #     | Story                                                                          | Status     |
 | ----- | ------------------------------------------------------------------------------ | ---------- |
 | 10.1  | Each gear slot card has an "+ Add item to compare" search entry point          | ✅         |
-| 10.2  | Typing a name searches local item DB and Wowhead API in parallel               | ✅ backend |
+| 10.2  | Typing a name searches local item DB and Wowhead API in parallel               | ✅         |
 | 10.3  | Search results show item name, slot type, and quality color                    | ⬜         |
 | 10.4  | After selecting, user picks gear track (Myth/Hero/Champion/Veteran/Adventurer) | ✅ presets |
 | 10.5  | Unowned items show a distinct [unowned] badge in the slot card                 | ⬜         |
