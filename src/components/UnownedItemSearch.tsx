@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
-import { GEAR_TRACKS } from '../lib/presets/season-config';
+import { GEAR_TRACKS, SOCKET_BONUS_ID } from '../lib/presets/season-config';
 
 interface ItemSearchResult {
   itemId: number;
@@ -15,6 +15,7 @@ interface ItemSearchResult {
 interface PendingItem {
   result: ItemSearchResult;
   trackIndex: number;
+  assumeSocket: boolean;
 }
 
 interface UnownedItemSearchProps {
@@ -70,15 +71,15 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   }, [doSearch]);
 
   const handleSelectResult = useCallback((item: ItemSearchResult) => {
-    // Show track picker step — default to Hero (index 1)
-    setPending({ result: item, trackIndex: 1 });
+    // Show track picker step — default to Hero (index 1), no socket
+    setPending({ result: item, trackIndex: 1, assumeSocket: false });
     setResults([]);
     setQuery('');
   }, []);
 
   const handleConfirmAdd = useCallback(() => {
     if (!pending) return;
-    const { result, trackIndex } = pending;
+    const { result, trackIndex, assumeSocket } = pending;
     const track = GEAR_TRACKS[trackIndex];
     if (!track) return;
 
@@ -89,11 +90,20 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
       ? result.slot
       : realSlots[0];
 
+    const bonusIds = track.bonusId > 0 ? [track.bonusId] : [];
+    if (assumeSocket && SOCKET_BONUS_ID > 0) {
+      bonusIds.push(SOCKET_BONUS_ID);
+    }
+
+    // If assuming socket, add a placeholder gem_id=0 so the gem optimization
+    // axis detects the socket and offers gem choices
+    const gemIds = assumeSocket ? [0] : [];
+
     const gearItem: GearItem = {
       slot: targetSlot,
       id: result.itemId,
-      bonusIds: track.bonusId > 0 ? [track.bonusId] : [],
-      gemIds: [],
+      bonusIds,
+      gemIds,
       enchantId: undefined,
       name: result.name,
       ilvl,
@@ -190,13 +200,21 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
             ))}
           </div>
 
-          {/* Track info + add button */}
+          {/* Track info + socket + add button */}
           <div className="flex items-center gap-2">
             <span className="text-[11px] text-zinc-500 tabular-nums">
               ilvl {selectedTrack.ilvlRange[0]}
-              <span className="text-zinc-700 mx-1">·</span>
-              <span className="text-zinc-600">{selectedTrack.source}</span>
             </span>
+            <label className="flex items-center gap-1 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={pending.assumeSocket}
+                onChange={(e) => setPending({ ...pending, assumeSocket: e.target.checked })}
+                className="w-3 h-3 rounded border-zinc-700 bg-zinc-800 text-amber-500
+                           accent-amber-500 cursor-pointer"
+              />
+              <span className="text-[11px] text-zinc-500">Socket</span>
+            </label>
             <button
               type="button"
               onClick={handleConfirmAdd}
