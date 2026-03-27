@@ -159,7 +159,7 @@ Last updated: 2026-03-27
 | 10.4  | After selecting, user picks gear track (Myth/Hero/Champion/Veteran/Adventurer) | ✅         |
 | 10.5  | Unowned items show a distinct [unowned] badge in the slot card                 | ✅         |
 | 10.6  | "Assume socket" checkbox available for unowned items                           | ✅         |
-| 10.7  | Unowned items excluded from SimC string if deselected                          | ⬜         |
+| 10.7  | Unowned items excluded from SimC string if deselected                          | ✅         |
 | 10.8  | Search works fully offline using bundled items.db SQLite database              | ✅ backend |
 | 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅ script  |
 | 10.10 | Recently searched/added unowned items remembered across sessions               | ⬜         |
