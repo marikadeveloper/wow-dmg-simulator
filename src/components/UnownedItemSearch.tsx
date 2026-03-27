@@ -181,14 +181,20 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
               type="button"
               onClick={() => handleSelectItem(item)}
               className="w-full flex items-center gap-2 px-3 py-1.5 text-left
-                         hover:bg-zinc-800/50 transition-colors cursor-pointer"
+                         hover:bg-zinc-800/50 transition-colors cursor-pointer group/row"
             >
-              <span className={`text-xs truncate ${QUALITY_TEXT[item.quality] ?? 'text-zinc-300'}`}>
+              {/* Quality-colored dot */}
+              <span
+                className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[item.quality] ?? 'bg-zinc-400'}`}
+              />
+              {/* Item name */}
+              <span className={`text-xs truncate flex-1 ${QUALITY_TEXT[item.quality] ?? 'text-zinc-300'}`}>
                 {item.name}
               </span>
-              {item.source === 'local' && (
-                <span className="shrink-0 text-[9px] text-zinc-700 font-medium">offline</span>
-              )}
+              {/* Slot type */}
+              <span className="shrink-0 text-[10px] text-zinc-600 font-medium">
+                {SLOT_TYPE_LABELS[item.slot] ?? item.slot}
+              </span>
             </button>
           ))}
         </div>
@@ -209,6 +215,16 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   );
 }
 
+/** Background color dots for item quality. */
+const QUALITY_DOT: Record<number, string> = {
+  0: 'bg-zinc-500',
+  1: 'bg-zinc-300',
+  2: 'bg-green-400',
+  3: 'bg-blue-400',
+  4: 'bg-purple-400',
+  5: 'bg-orange-400',
+};
+
 const QUALITY_TEXT: Record<number, string> = {
   0: 'text-zinc-500',
   1: 'text-zinc-300',
@@ -216,4 +232,24 @@ const QUALITY_TEXT: Record<number, string> = {
   3: 'text-blue-400',
   4: 'text-purple-400',
   5: 'text-orange-400',
+};
+
+/** Human-readable slot labels for search results. */
+const SLOT_TYPE_LABELS: Record<string, string> = {
+  head: 'Head',
+  neck: 'Neck',
+  shoulder: 'Shoulder',
+  back: 'Back',
+  chest: 'Chest',
+  wrist: 'Wrist',
+  hands: 'Hands',
+  waist: 'Waist',
+  legs: 'Legs',
+  feet: 'Feet',
+  finger1: 'Ring',
+  finger2: 'Ring',
+  trinket1: 'Trinket',
+  trinket2: 'Trinket',
+  main_hand: 'Weapon',
+  off_hand: 'Off Hand',
 };
