@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { CURRENT_SEASON } from '../lib/presets/season-config';
 
 interface AppConfig {
   simcBinaryPath: string | null;
@@ -24,6 +25,8 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
   const [validating, setValidating] = useState(false);
   const [validationResult, setValidationResult] = useState<BinaryStatus | null>(null);
   const [saving, setSaving] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshResult, setRefreshResult] = useState<{ ok: boolean; message: string } | null>(null);
 
   // Load config on mount
   useEffect(() => {
@@ -92,6 +95,22 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
       setSaving(false);
     }
   }, [config, onConfigChange]);
+
+  const handleRefreshDb = useCallback(async () => {
+    setRefreshing(true);
+    setRefreshResult(null);
+    try {
+      const count = await invoke<number>('refresh_item_db', { branch: CURRENT_SEASON.simcBranch });
+      setRefreshResult({ ok: true, message: `Updated — ${count.toLocaleString()} items` });
+    } catch (err) {
+      setRefreshResult({
+        ok: false,
+        message: err instanceof Error ? err.message : String(err),
+      });
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
 
   const hasCustomPath = config?.simcBinaryPath != null;
   const inputChanged = pathInput.trim() !== (config?.simcBinaryPath ?? '');
@@ -261,6 +280,37 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
                 {!inputChanged && config?.simcBinaryPath && (
                   <span className="text-[11px] text-zinc-600">
                     Saved
+                  </span>
+                )}
+              </div>
+            </div>
+            {/* Item Database */}
+            <div>
+              <div className="mb-1.5">
+                <label className="block text-xs font-medium text-zinc-400">
+                  Item Database
+                </label>
+                <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+                  Re-download the item database from SimC source. Use this if new items were added since the app was released.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleRefreshDb}
+                  disabled={refreshing}
+                  className={[
+                    'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
+                    !refreshing
+                      ? 'bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100'
+                      : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                  ].join(' ')}
+                >
+                  {refreshing ? 'Downloading...' : 'Refresh item database'}
+                </button>
+                {refreshResult && (
+                  <span className={`text-[11px] ${refreshResult.ok ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {refreshResult.message}
                   </span>
                 )}
               </div>

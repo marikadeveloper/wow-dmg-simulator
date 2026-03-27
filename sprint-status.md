@@ -164,9 +164,9 @@ Last updated: 2026-03-27
 | 10.9  | items.db is regenerated from SimC's item_data.inc by CI script                 | ✅     |
 | 10.10 | Recently searched/added unowned items remembered across sessions               | ✅     |
 | 10.11 | User can search by item ID directly                                            | ✅     |
-| 10.12 | User can refresh local DB                                                      | ⬜     |
+| 10.12 | User can refresh local DB                                                      | ✅     |
 
-**Epic status: 🟡 Backend search + item cache + build script done, UI not started**
+**Epic status: ✅ 12/12 stories done**
 
 ## EPIC 11 - Nice to Have
 

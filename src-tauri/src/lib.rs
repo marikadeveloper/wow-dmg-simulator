@@ -1,7 +1,7 @@
 mod commands;
 
 use commands::config::{get_config, set_config, validate_simc_binary, validate_custom_binary};
-use commands::item_data::{fetch_item_data, search_items};
+use commands::item_data::{fetch_item_data, search_items, refresh_item_db};
 use commands::run_simc::{run_top_gear, cancel_sim, SimState};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -25,6 +25,7 @@ pub fn run() {
             cancel_sim,
             fetch_item_data,
             search_items,
+            refresh_item_db,
             validate_simc_binary,
             validate_custom_binary,
             get_config,
