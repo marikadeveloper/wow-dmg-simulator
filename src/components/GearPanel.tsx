@@ -14,6 +14,7 @@ import { computeAllUpgrades, type CrestBudget } from '../lib/upgrade-calculator'
 import { generateCatalystItems } from '../lib/catalyst-generator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
 import { getItemData } from '../lib/item-cache';
+import { saveUnownedItems, loadUnownedItems } from '../lib/unowned-store';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -74,6 +75,18 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
   const [catalystItems, setCatalystItems] = useState<Map<string, GearItem[]>>(new Map());
   const [unownedItems, setUnownedItems] = useState<Map<string, GearItem[]>>(new Map());
+
+  // Load persisted unowned items on mount
+  useEffect(() => {
+    loadUnownedItems().then((saved) => {
+      if (saved.size > 0) setUnownedItems(saved);
+    });
+  }, []);
+
+  // Persist unowned items whenever they change
+  useEffect(() => {
+    saveUnownedItems(unownedItems);
+  }, [unownedItems]);
 
   // ── Augmented profile with upgrade + catalyst variants ────────────────
 
