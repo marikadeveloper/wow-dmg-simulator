@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
-import { GEAR_TRACKS } from '../lib/presets/season-config';
+import { CURRENT_SEASON } from '../lib/presets/season-config';
 
 interface ItemSearchResult {
   itemId: number;
@@ -9,6 +9,12 @@ interface ItemSearchResult {
   baseIlvl: number;
   quality: number;
   source: string;
+}
+
+/** Selected item pending ilvl confirmation. */
+interface PendingItem {
+  result: ItemSearchResult;
+  ilvl: string;
 }
 
 interface UnownedItemSearchProps {
@@ -23,15 +29,25 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ItemSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [pending, setPending] = useState<PendingItem | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const ilvlInputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Focus input when opened
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && !pending && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isOpen, pending]);
+
+  // Focus ilvl input when pending item is set
+  useEffect(() => {
+    if (pending && ilvlInputRef.current) {
+      ilvlInputRef.current.focus();
+      ilvlInputRef.current.select();
+    }
+  }, [pending]);
 
   const doSearch = useCallback(async (q: string) => {
     if (q.length < 2) {
@@ -62,37 +78,49 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     debounceRef.current = setTimeout(() => doSearch(value), 400);
   }, [doSearch]);
 
-  const handleSelectItem = useCallback((item: ItemSearchResult) => {
-    // Default to the highest gear track
-    const defaultTrack = GEAR_TRACKS[0];
-    // For Wowhead results (no slot info), use the first real slot of this card
-    const targetSlot = item.slot && realSlots.includes(item.slot)
-      ? item.slot
+  const handleSelectResult = useCallback((item: ItemSearchResult) => {
+    // Show ilvl configuration step instead of immediately adding
+    setPending({ result: item, ilvl: String(CURRENT_SEASON.maxIlvl) });
+    setResults([]);
+    setQuery('');
+  }, []);
+
+  const handleConfirmAdd = useCallback(() => {
+    if (!pending) return;
+    const { result, ilvl: ilvlStr } = pending;
+    const ilvl = parseInt(ilvlStr, 10);
+    if (isNaN(ilvl) || ilvl < 1) return;
+
+    const targetSlot = result.slot && realSlots.includes(result.slot)
+      ? result.slot
       : realSlots[0];
 
     const gearItem: GearItem = {
       slot: targetSlot,
-      id: item.itemId,
-      bonusIds: defaultTrack.bonusId > 0 ? [defaultTrack.bonusId] : [],
+      id: result.itemId,
+      bonusIds: [],
       gemIds: [],
       enchantId: undefined,
-      name: item.name,
-      ilvl: defaultTrack.ilvlRange[1],
+      name: result.name,
+      ilvl,
       isEquipped: false,
       isUnowned: true,
     };
 
     onAddItem(targetSlot, gearItem);
-    // Reset state
-    setQuery('');
-    setResults([]);
+    setPending(null);
     setIsOpen(false);
-  }, [realSlots, onAddItem]);
+  }, [pending, realSlots, onAddItem]);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
     setQuery('');
     setResults([]);
+    setPending(null);
+  }, []);
+
+  const handleBackToSearch = useCallback(() => {
+    setPending(null);
   }, []);
 
   if (!isOpen) {
@@ -122,6 +150,75 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     );
   }
 
+  // ── Step 2: Configure ilvl for selected item ──────────────────────────
+  if (pending) {
+    const { result, ilvl } = pending;
+    const qualityColor = QUALITY_TEXT[result.quality] ?? 'text-zinc-300';
+
+    return (
+      <div className="mt-1 rounded-md border border-zinc-800/60 bg-zinc-900/80 overflow-hidden animate-in">
+        {/* Item name header */}
+        <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40">
+          <span
+            className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[result.quality] ?? 'bg-zinc-400'}`}
+          />
+          <span className={`text-xs truncate flex-1 ${qualityColor}`}>
+            {result.name}
+          </span>
+          <button
+            type="button"
+            onClick={handleBackToSearch}
+            className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
+            aria-label="Back to search"
+          >
+            change
+          </button>
+        </div>
+
+        {/* ilvl input row */}
+        <div className="flex items-center gap-2.5 px-3 py-2.5">
+          <label className="text-[11px] text-zinc-500 shrink-0">Item level</label>
+          <input
+            ref={ilvlInputRef}
+            type="number"
+            min={1}
+            max={999}
+            value={ilvl}
+            onChange={(e) => setPending({ ...pending, ilvl: e.target.value })}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleConfirmAdd(); }}
+            className="w-16 px-2 py-1 rounded bg-zinc-800/80 border border-zinc-700/50
+                       text-xs text-zinc-200 text-center tabular-nums
+                       outline-none focus:border-amber-500/40 caret-amber-400
+                       [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          <button
+            type="button"
+            onClick={handleConfirmAdd}
+            disabled={!ilvl || isNaN(parseInt(ilvl, 10)) || parseInt(ilvl, 10) < 1}
+            className="ml-auto px-3 py-1 rounded text-[11px] font-medium
+                       bg-amber-500/15 text-amber-400 border border-amber-500/25
+                       hover:bg-amber-500/25 disabled:opacity-30 disabled:cursor-default
+                       transition-colors cursor-pointer"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="text-zinc-600 hover:text-zinc-400 transition-colors"
+            aria-label="Cancel"
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
+              <line x1="3" y1="3" x2="9" y2="9" />
+              <line x1="9" y1="3" x2="3" y2="9" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Step 1: Search ────────────────────────────────────────────────────
   return (
     <div className="mt-1 rounded-md border border-zinc-800/60 bg-zinc-900/80 overflow-hidden animate-in">
       {/* Search input */}
@@ -185,7 +282,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
             <button
               key={item.itemId}
               type="button"
-              onClick={() => handleSelectItem(item)}
+              onClick={() => handleSelectResult(item)}
               className="w-full flex items-center gap-2 px-3 py-1.5 text-left
                          hover:bg-zinc-800/50 transition-colors cursor-pointer group/row"
             >
@@ -198,9 +295,11 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
                 {item.name}
               </span>
               {/* Slot type */}
-              <span className="shrink-0 text-[10px] text-zinc-600 font-medium">
-                {SLOT_TYPE_LABELS[item.slot] ?? item.slot}
-              </span>
+              {item.slot && (
+                <span className="shrink-0 text-[10px] text-zinc-600 font-medium">
+                  {SLOT_TYPE_LABELS[item.slot] ?? item.slot}
+                </span>
+              )}
             </button>
           ))}
         </div>

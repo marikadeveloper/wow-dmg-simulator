@@ -19,6 +19,10 @@ export function buildItemSimcLine(item: GearItem, targetSlot: string): string {
   if (item.bonusIds.length > 0) {
     parts.push(`bonus_id=${item.bonusIds.join('/')}`);
   }
+  // For unowned items, set ilevel directly so SimC uses the user-specified ilvl
+  if (item.isUnowned && item.ilvl != null) {
+    parts.push(`ilevel=${item.ilvl}`);
+  }
   if (item.gemIds.length > 0) {
     parts.push(`gem_id=${item.gemIds.join('/')}`);
   }
