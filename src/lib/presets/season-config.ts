@@ -312,20 +312,31 @@ export interface CrestType {
   name: string;
   /** The gear track this crest upgrades */
   track: string;
+  /** WoW currency IDs that map to this crest (capped + non-capped variants) */
+  currencyIds: number[];
 }
 
 /**
  * Midnight S1 uses five crest types, one per gear track.
  * Each track's items are upgraded using that track's Dawncrest.
- * Source: https://www.wowhead.com/guide/midnight/item-level-gear-upgrades-dawncrests
+ * Currency IDs from: https://www.wowhead.com/search?q=dawncrest
+ * Each crest has a capped (weekly cap) and non-capped variant.
  */
 export const CREST_TYPES: CrestType[] = [
-  { id: 'adventurer', name: 'Adventurer Dawncrest', track: 'Adventurer' },
-  { id: 'veteran', name: 'Veteran Dawncrest', track: 'Veteran' },
-  { id: 'champion', name: 'Champion Dawncrest', track: 'Champion' },
-  { id: 'hero', name: 'Hero Dawncrest', track: 'Hero' },
-  { id: 'myth', name: 'Myth Dawncrest', track: 'Myth' },
+  { id: 'adventurer', name: 'Adventurer Dawncrest', track: 'Adventurer', currencyIds: [3383, 3391] },
+  { id: 'veteran', name: 'Veteran Dawncrest', track: 'Veteran', currencyIds: [3341, 3342] },
+  { id: 'champion', name: 'Champion Dawncrest', track: 'Champion', currencyIds: [3343, 3344] },
+  { id: 'hero', name: 'Hero Dawncrest', track: 'Hero', currencyIds: [3345, 3346] },
+  { id: 'myth', name: 'Myth Dawncrest', track: 'Myth', currencyIds: [3347, 3348] },
 ];
+
+/**
+ * Reverse lookup: WoW currency ID → crest type ID.
+ * Includes both capped and non-capped variants.
+ */
+export const CURRENCY_ID_TO_CREST: Record<number, string> = Object.fromEntries(
+  CREST_TYPES.flatMap((c) => c.currencyIds.map((cid) => [cid, c.id])),
+);
 
 /**
  * Cost in Dawncrests per single rank upgrade. Flat 20 per rank for all slots.

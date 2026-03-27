@@ -1,4 +1,5 @@
 import type { GearItem, SimcProfile } from './types';
+import { CURRENCY_ID_TO_CREST } from './presets/season-config';
 
 const CLASS_KEYWORDS = new Set([
   'warrior', 'paladin', 'hunter', 'rogue', 'priest', 'deathknight',
@@ -72,6 +73,13 @@ export function parseSimcString(input: string): SimcProfile {
       if (IGNORE_PREFIXES.some((prefix) => trimmed.startsWith(prefix))) continue;
       // Skip section headers (### Gear from Bags, etc.)
       if (trimmed.startsWith('###')) continue;
+
+      // Parse upgrade currencies: "# upgrade_currencies=c:3347:30/c:3383:310/..."
+      const ucMatch = trimmed.match(/^#\s*upgrade_currencies=(.+)$/);
+      if (ucMatch) {
+        profile.upgradeCurrencies = parseUpgradeCurrencies(ucMatch[1]);
+        continue;
+      }
 
       // Try to parse as a bag/vault item line: "# slot=,id=..."
       const bagContent = trimmed.slice(1).trim();
@@ -222,4 +230,32 @@ function tryParseGearLine(line: string, isEquipped: boolean, isVault = false): G
     ...(craftingQuality != null && { craftingQuality }),
     ...(isVault && { isVault: true }),
   };
+}
+
+/**
+ * Parse the upgrade_currencies value into a crest budget.
+ *
+ * Format: "c:currencyId:quantity/c:currencyId:quantity/i:itemId:quantity/..."
+ * Only "c:" (currency) entries are processed; "i:" (item) entries are ignored.
+ * Currency IDs are mapped to crest type IDs via CURRENCY_ID_TO_CREST.
+ * If both capped and non-capped variants appear, quantities are summed.
+ */
+function parseUpgradeCurrencies(raw: string): Record<string, number> {
+  const budget: Record<string, number> = {};
+
+  for (const entry of raw.split('/')) {
+    const parts = entry.split(':');
+    if (parts[0] !== 'c' || parts.length < 3) continue;
+
+    const currencyId = parseInt(parts[1], 10);
+    const quantity = parseInt(parts[2], 10);
+    if (isNaN(currencyId) || isNaN(quantity)) continue;
+
+    const crestId = CURRENCY_ID_TO_CREST[currencyId];
+    if (!crestId) continue;
+
+    budget[crestId] = (budget[crestId] ?? 0) + quantity;
+  }
+
+  return budget;
 }

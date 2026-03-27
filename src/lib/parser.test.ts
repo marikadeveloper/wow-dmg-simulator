@@ -335,4 +335,61 @@ head=,id=235602,bonus_id=10355/10257/1498/8767/10271
       expect(item.ilvl).toBeUndefined();
     });
   });
+
+  describe('upgrade_currencies parsing', () => {
+    it('parses Dawncrest currencies from the Additional Character Info section', () => {
+      const input = [
+        'mage="Test"',
+        'level=90',
+        'race=human',
+        'region=us',
+        'server=test',
+        'spec=frost',
+        'talents=AAAA',
+        'head=,id=100,bonus_id=12793',
+        '### Additional Character Info',
+        '#',
+        '# upgrade_currencies=c:3347:30/c:3383:310/c:3341:290/c:1792:1868/c:3345:180/i:232875:2',
+      ].join('\n');
+
+      const profile = parseSimcString(input);
+      expect(profile.upgradeCurrencies).toBeDefined();
+      // 3347 = Myth Dawncrest
+      expect(profile.upgradeCurrencies!.myth).toBe(30);
+      // 3383 = Adventurer Dawncrest
+      expect(profile.upgradeCurrencies!.adventurer).toBe(310);
+      // 3341 = Veteran Dawncrest
+      expect(profile.upgradeCurrencies!.veteran).toBe(290);
+      // 3345 = Hero Dawncrest
+      expect(profile.upgradeCurrencies!.hero).toBe(180);
+      // 1792 = Honor (not a crest), should not appear
+      expect(profile.upgradeCurrencies!['1792']).toBeUndefined();
+      // i:232875:2 = item entry, should be ignored
+      expect(profile.upgradeCurrencies!['232875']).toBeUndefined();
+    });
+
+    it('sums capped and non-capped variants of the same crest', () => {
+      const input = [
+        'mage="Test"',
+        'level=90',
+        'race=human',
+        'region=us',
+        'server=test',
+        'spec=frost',
+        'talents=AAAA',
+        'head=,id=100,bonus_id=12793',
+        '# upgrade_currencies=c:3347:30/c:3348:20',
+      ].join('\n');
+
+      const profile = parseSimcString(input);
+      // 3347 (capped) + 3348 (non-capped) = both Myth Dawncrest
+      expect(profile.upgradeCurrencies!.myth).toBe(50);
+    });
+
+    it('returns undefined when no upgrade_currencies line exists', () => {
+      const input = `mage="Test"\nlevel=90\nrace=human\nregion=us\nserver=test\nspec=frost\ntalents=AAAA\nhead=,id=100,bonus_id=12793`;
+      const profile = parseSimcString(input);
+      expect(profile.upgradeCurrencies).toBeUndefined();
+    });
+  });
 });

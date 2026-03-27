@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import type { SimcProfile } from '../lib/types';
 import { UPGRADE_CREST_COST_PER_RANK, type CrestType } from '../lib/presets/season-config';
 import { getRelevantCrestTypes, countUpgradeableItems, type CrestBudget } from '../lib/upgrade-calculator';
@@ -58,6 +58,15 @@ export default function UpgradeBudget({
 }: UpgradeBudgetProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [budget, setBudget] = useState<CrestBudget>({});
+  const [hasPreFilled, setHasPreFilled] = useState(false);
+
+  // Pre-fill budget from parsed SimC upgrade_currencies (once per profile)
+  useEffect(() => {
+    if (profile.upgradeCurrencies && !hasPreFilled) {
+      setBudget(profile.upgradeCurrencies);
+      setHasPreFilled(true);
+    }
+  }, [profile.upgradeCurrencies, hasPreFilled]);
 
   // Only show crest types where the user has upgradeable items
   const relevantCrestTypes = useMemo(
@@ -165,7 +174,14 @@ export default function UpgradeBudget({
             <div className="px-3.5 py-3 space-y-3">
               {/* Info */}
               <p className="text-[11px] text-zinc-600 leading-relaxed">
-                Enter how many Dawncrests you own. Each upgrade rank costs{' '}
+                {profile.upgradeCurrencies ? (
+                  <>
+                    Crest quantities were <span className="text-zinc-400 font-medium">auto-detected</span> from your SimC export.{' '}
+                  </>
+                ) : (
+                  <>Enter how many Dawncrests you own.{' '}</>
+                )}
+                Each upgrade rank costs{' '}
                 <span className="text-zinc-400 font-medium">{UPGRADE_CREST_COST_PER_RANK}</span>{' '}
                 crests. Upgraded versions of your items will be added as comparison options.
               </p>

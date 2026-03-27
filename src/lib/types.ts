@@ -68,6 +68,8 @@ export interface SimcProfile {
   gear: Record<string, GearItem[]>;
   /** ALL original lines verbatim, for profile reconstruction */
   rawLines: string[];
+  /** Parsed upgrade currencies: crest type id → quantity (from SimC addon export) */
+  upgradeCurrencies?: Record<string, number>;
 }
 
 /** Result for one combination from the SimC json2 output. */
