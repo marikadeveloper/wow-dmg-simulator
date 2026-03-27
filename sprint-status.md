@@ -167,9 +167,3 @@ Last updated: 2026-03-27
 | 10.12 | User can refresh local DB                                                      | ✅     |
 
 **Epic status: ✅ 12/12 stories done**
-
-## EPIC 11 - Nice to Have
-
-| #    | Story                                                                  | Status |
-| ---- | ---------------------------------------------------------------------- | ------ |
-| 11.1 | The user can simulate item upgrades with the crests that the user owns | ✅     |
