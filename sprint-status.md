@@ -79,7 +79,7 @@ Last updated: 2026-03-24
 | 5.8  | Settings panel is collapsible; defaults are sensible                             | ✅     |
 | 5.9  | Check if the combinations chosen are a valid input for simulationcraft           | ✅     |
 | 5.10 | Item Sets: minimum set bonus filter per tier set (0/2/4 set)                     | ✅     |
-| 5.11 | Item Upgrade Currency: user inputs crest budget, upgrade items to max affordable | ⬜     |
+| 5.11 | Item Upgrade Currency: user inputs crest budget, upgrade items to max affordable | ✅     |
 | 5.12 | Catalyst Charges: limit how many catalyst-converted items per combination        | ⬜     |
 
 **Epic status: 🟡 10/12 stories done**
