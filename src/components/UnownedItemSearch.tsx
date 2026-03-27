@@ -42,8 +42,11 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     try {
       const { invoke } = await import('@tauri-apps/api/core');
       const items = await invoke<ItemSearchResult[]>('search_items', { query: q });
-      // Filter results to items that match this slot's valid slot types
-      const filtered = items.filter((item) => realSlots.includes(item.slot));
+      // Filter local DB results by slot; Wowhead results (slot='') shown unfiltered
+      // since the user is already searching within the correct slot card
+      const filtered = items.filter(
+        (item) => item.slot === '' || realSlots.includes(item.slot),
+      );
       setResults(filtered);
     } catch {
       // Silently fail in dev mode (no backend)
@@ -62,7 +65,10 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
   const handleSelectItem = useCallback((item: ItemSearchResult) => {
     // Default to the highest gear track
     const defaultTrack = GEAR_TRACKS[0];
-    const targetSlot = realSlots.length === 1 ? realSlots[0] : item.slot;
+    // For Wowhead results (no slot info), use the first real slot of this card
+    const targetSlot = item.slot && realSlots.includes(item.slot)
+      ? item.slot
+      : realSlots[0];
 
     const gearItem: GearItem = {
       slot: targetSlot,

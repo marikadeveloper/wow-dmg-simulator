@@ -48,106 +48,23 @@ impl WowheadCache {
 static WOWHEAD_CACHE: std::sync::LazyLock<Mutex<WowheadCache>> =
     std::sync::LazyLock::new(|| Mutex::new(WowheadCache::new()));
 
-/// Map Wowhead inventorySlot IDs to SimC slot names.
-fn wowhead_slot_to_simc(slot_id: u32) -> Option<&'static str> {
-    match slot_id {
-        1 => Some("head"),
-        2 => Some("neck"),
-        3 => Some("shoulder"),
-        5 => Some("chest"),
-        6 => Some("waist"),
-        7 => Some("legs"),
-        8 => Some("feet"),
-        9 => Some("wrist"),
-        10 => Some("hands"),
-        11 => Some("finger1"), // ring
-        12 => Some("trinket1"), // trinket
-        15 => Some("back"),     // cloak
-        16 => Some("main_hand"),
-        17 => Some("main_hand"), // two-hand → main_hand
-        13 => Some("main_hand"), // one-hand → main_hand
-        21 => Some("main_hand"), // main hand explicit
-        22 => Some("off_hand"),
-        23 => Some("off_hand"),  // held in off hand
-        14 => Some("off_hand"),  // shield
-        20 => Some("chest"),     // robe → chest
-        _ => None,
-    }
+/// Wowhead suggestions API response.
+#[derive(Deserialize)]
+struct WowheadSuggestionsResponse {
+    results: Vec<WowheadSuggestion>,
 }
 
-/// Parse Wowhead search XML response into ItemSearchResults.
-/// Uses simple string scanning — no XML crate needed.
-fn parse_wowhead_search_xml(xml: &str) -> Vec<ItemSearchResult> {
-    let mut results = Vec::new();
-
-    // Split on "<item " to find each item block
-    for chunk in xml.split("<item ").skip(1) {
-        // Extract id attribute
-        let item_id = extract_attr(chunk, "id")
-            .and_then(|s| s.parse::<u32>().ok());
-
-        // Extract name from <n> tag (may have CDATA)
-        let name = extract_cdata_or_text(chunk, "n");
-
-        // Extract inventorySlot id
-        let slot_id = extract_nested_attr(chunk, "inventorySlot", "id")
-            .and_then(|s| s.parse::<u32>().ok());
-
-        // Extract quality
-        let quality = extract_nested_attr(chunk, "quality", "id")
-            .and_then(|s| s.parse::<u32>().ok())
-            .unwrap_or(4);
-
-        if let (Some(id), Some(n), Some(sid)) = (item_id, name, slot_id) {
-            if let Some(slot) = wowhead_slot_to_simc(sid) {
-                results.push(ItemSearchResult {
-                    item_id: id,
-                    name: n,
-                    slot: slot.to_string(),
-                    base_ilvl: 0, // Wowhead search doesn't give base ilvl
-                    quality,
-                    source: "wowhead".to_string(),
-                });
-            }
-        }
-    }
-
-    results
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct WowheadSuggestion {
+    #[serde(rename = "type")]
+    result_type: u32,
+    id: u32,
+    name: String,
+    quality: Option<u32>,
 }
 
-/// Extract an attribute value from a tag-like string: `id="123"` → "123"
-fn extract_attr(s: &str, attr: &str) -> Option<String> {
-    let pattern = format!("{}=\"", attr);
-    let start = s.find(&pattern)? + pattern.len();
-    let end = s[start..].find('"')? + start;
-    Some(s[start..end].to_string())
-}
-
-/// Extract attribute from a nested tag: `<inventorySlot id="17">` → "17"
-fn extract_nested_attr(s: &str, tag: &str, attr: &str) -> Option<String> {
-    let open = format!("<{} ", tag);
-    let idx = s.find(&open)?;
-    extract_attr(&s[idx..], attr)
-}
-
-/// Extract text content from a tag, handling CDATA: `<n><![CDATA[Name]]></n>` → "Name"
-fn extract_cdata_or_text(s: &str, tag: &str) -> Option<String> {
-    let open = format!("<{}>", tag);
-    let close = format!("</{}>", tag);
-    let start = s.find(&open)? + open.len();
-    let end = s[start..].find(&close)? + start;
-    let inner = &s[start..end];
-    // Strip CDATA wrapper if present
-    if let Some(cdata_start) = inner.find("<![CDATA[") {
-        let content_start = cdata_start + 9;
-        if let Some(cdata_end) = inner[content_start..].find("]]>") {
-            return Some(inner[content_start..content_start + cdata_end].to_string());
-        }
-    }
-    Some(inner.trim().to_string())
-}
-
-/// Search Wowhead API. Returns results or empty vec on failure.
+/// Search Wowhead suggestions API. Returns results or empty vec on failure.
 async fn search_wowhead(query: &str) -> Vec<ItemSearchResult> {
     // Check cache first
     {
@@ -158,7 +75,7 @@ async fn search_wowhead(query: &str) -> Vec<ItemSearchResult> {
     }
 
     let url = format!(
-        "https://www.wowhead.com/search?q={}&xml",
+        "https://www.wowhead.com/search/suggestions-template?q={}",
         urlencoding(query)
     );
 
@@ -174,10 +91,25 @@ async fn search_wowhead(query: &str) -> Vec<ItemSearchResult> {
 
     let results = match result {
         Ok(Ok(response)) => {
-            if let Ok(text) = response.text().await {
-                parse_wowhead_search_xml(&text)
-            } else {
-                Vec::new()
+            match response.json::<WowheadSuggestionsResponse>().await {
+                Ok(data) => {
+                    data.results
+                        .into_iter()
+                        // type 3 = items
+                        .filter(|r| r.result_type == 3)
+                        .take(8)
+                        .map(|r| ItemSearchResult {
+                            item_id: r.id,
+                            name: r.name,
+                            // Suggestions API doesn't include slot — resolved by frontend
+                            slot: String::new(),
+                            base_ilvl: 0,
+                            quality: r.quality.unwrap_or(4),
+                            source: "wowhead".to_string(),
+                        })
+                        .collect()
+                }
+                Err(_) => Vec::new(),
             }
         }
         _ => Vec::new(), // timeout or network error — silently return empty
