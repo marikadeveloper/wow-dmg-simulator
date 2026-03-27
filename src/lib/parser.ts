@@ -114,9 +114,10 @@ export function parseSimcString(input: string): SimcProfile {
     const key = trimmed.slice(0, eqIndex).trim();
     const value = trimmed.slice(eqIndex + 1).trim();
 
-    // Check for class="name" line
+    // Check for class="name" line (e.g. mage="Smarika")
     if (CLASS_KEYWORDS.has(key)) {
       profile.characterName = value.replace(/^"|"$/g, '');
+      profile.className = key;
       continue;
     }
 

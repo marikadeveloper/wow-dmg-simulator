@@ -423,6 +423,45 @@ export const TIER_SETS: TierSetDefinition[] = [
   { id: 'mn_s1_warrior', name: 'Plates of the Amani Warlord', itemIds: [240132, 240133, 240134, 240135, 240136] },
 ];
 
+/**
+ * Tier set slots in canonical order.
+ * This order matches the `itemIds` array in each TierSetDefinition.
+ */
+export const TIER_SLOT_ORDER = ['head', 'shoulder', 'chest', 'hands', 'legs'] as const;
+
+/**
+ * Map WoW class keyword (from SimC export) → tier set ID for the current season.
+ */
+export const CLASS_TO_TIER_SET_ID: Record<string, string> = {
+  deathknight: 'mn_s1_dk',
+  demonhunter: 'mn_s1_dh',
+  druid: 'mn_s1_druid',
+  evoker: 'mn_s1_evoker',
+  hunter: 'mn_s1_hunter',
+  mage: 'mn_s1_mage',
+  monk: 'mn_s1_monk',
+  paladin: 'mn_s1_paladin',
+  priest: 'mn_s1_priest',
+  rogue: 'mn_s1_rogue',
+  shaman: 'mn_s1_shaman',
+  warlock: 'mn_s1_warlock',
+  warrior: 'mn_s1_warrior',
+};
+
+/**
+ * Get the tier item ID for a given class and slot.
+ * Returns undefined if the class or slot is not found.
+ */
+export function getTierItemIdForSlot(className: string, slot: string): number | undefined {
+  const setId = CLASS_TO_TIER_SET_ID[className];
+  if (!setId) return undefined;
+  const set = TIER_SETS.find((s) => s.id === setId);
+  if (!set) return undefined;
+  const idx = TIER_SLOT_ORDER.indexOf(slot as typeof TIER_SLOT_ORDER[number]);
+  if (idx === -1) return undefined;
+  return set.itemIds[idx];
+}
+
 /** Build a quick lookup: itemId → tierSetId. Computed once at import time. */
 const _tierSetLookup = new Map<number, string>();
 for (const set of TIER_SETS) {

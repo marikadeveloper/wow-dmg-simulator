@@ -50,6 +50,11 @@ describe('parseSimcString', () => {
       expect(profile.characterName).toBe('Thrall');
     });
 
+    it('extracts className from class keyword', () => {
+      const profile = parseSimcString(FULL_EXPORT);
+      expect(profile.className).toBe('shaman');
+    });
+
     it('extracts level', () => {
       const profile = parseSimcString(FULL_EXPORT);
       expect(profile.level).toBe(80);

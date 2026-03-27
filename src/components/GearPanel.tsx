@@ -5,11 +5,13 @@ import GemOptimization from './GemOptimization';
 import EnchantOptimization from './EnchantOptimization';
 import TierSetFilter from './TierSetFilter';
 import UpgradeBudget from './UpgradeBudget';
+import CatalystCharges from './CatalystCharges';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
 import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
 import { computeAllUpgrades, type CrestBudget } from '../lib/upgrade-calculator';
+import { generateCatalystItems } from '../lib/catalyst-generator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
 
 interface GearPanelProps {
@@ -20,6 +22,8 @@ interface GearPanelProps {
   onAxesChange?: (axes: import('../lib/types').OptimizationAxis[]) => void;
   /** Called whenever tier set minimum requirements change. */
   onTierSetMinimumsChange?: (minimums: TierSetMinimums) => void;
+  /** Called whenever catalyst charge count changes. null = disabled. */
+  onCatalystChargesChange?: (charges: number | null) => void;
 }
 
 /**
@@ -57,7 +61,7 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange, onCatalystChargesChange }: GearPanelProps) {
   // Selection uses original slot keys (finger1:N, trinket1:N), never merged names
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
@@ -66,12 +70,13 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [upgradeItems, setUpgradeItems] = useState<Map<string, GearItem[]>>(new Map());
+  const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
+  const [catalystItems, setCatalystItems] = useState<Map<string, GearItem[]>>(new Map());
 
-  // ── Augmented profile with upgrade variants ───────────────────────────
+  // ── Augmented profile with upgrade + catalyst variants ────────────────
 
-  const augmentedProfile = useMemo((): SimcProfile => {
+  const profileWithUpgrades = useMemo((): SimcProfile => {
     if (upgradeItems.size === 0) return profile;
-
     const gear: Record<string, GearItem[]> = {};
     for (const [slot, items] of Object.entries(profile.gear)) {
       const upgrades = upgradeItems.get(slot) ?? [];
@@ -79,6 +84,16 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     }
     return { ...profile, gear };
   }, [profile, upgradeItems]);
+
+  const augmentedProfile = useMemo((): SimcProfile => {
+    if (catalystItems.size === 0) return profileWithUpgrades;
+    const gear: Record<string, GearItem[]> = {};
+    for (const [slot, items] of Object.entries(profileWithUpgrades.gear)) {
+      const cats = catalystItems.get(slot) ?? [];
+      gear[slot] = cats.length > 0 ? [...items, ...cats] : items;
+    }
+    return { ...profileWithUpgrades, gear };
+  }, [profileWithUpgrades, catalystItems]);
 
   const handleApplyUpgrades = useCallback((budget: CrestBudget) => {
     // Clear previous upgrade items from selection first
@@ -117,6 +132,51 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     });
     setUpgradeItems(new Map());
   }, [profile.gear, upgradeItems]);
+
+  const handleCatalystChargesChange = useCallback((charges: number | null) => {
+    // Clear old catalyst items from selection
+    setSelection((prev) => {
+      const next = new Set(prev);
+      for (const [slot, items] of catalystItems) {
+        const baseLen = profileWithUpgrades.gear[slot]?.length ?? 0;
+        items.forEach((_, i) => next.delete(`${slot}:${baseLen + i}`));
+      }
+      return next;
+    });
+
+    setCatalystCharges(charges);
+
+    if (charges !== null) {
+      // Generate catalyst items from current base selection (excluding old catalyst items)
+      const baseSelection = new Set<string>();
+      for (const key of selection) {
+        const [slot, idxStr] = key.split(':');
+        const idx = Number(idxStr);
+        const items = profileWithUpgrades.gear[slot];
+        if (items && idx < items.length) baseSelection.add(key);
+      }
+
+      const newCats = generateCatalystItems(profileWithUpgrades, baseSelection);
+      setCatalystItems(newCats);
+
+      // Auto-select new catalyst items
+      setSelection((prev) => {
+        const next = new Set(prev);
+        for (const [slot, items] of newCats) {
+          const baseLen = profileWithUpgrades.gear[slot]?.length ?? 0;
+          items.forEach((_, i) => next.add(`${slot}:${baseLen + i}`));
+        }
+        return next;
+      });
+    } else {
+      setCatalystItems(new Map());
+    }
+  }, [profileWithUpgrades, selection, catalystItems]);
+
+  // Report catalyst charges to parent
+  useEffect(() => {
+    onCatalystChargesChange?.(catalystCharges);
+  }, [catalystCharges, onCatalystChargesChange]);
 
   // ── Merged paired slot data ─────────────────────────────────────────────
 
@@ -343,7 +403,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   });
 
   const totalBag = Object.values(augmentedProfile.gear).reduce(
-    (sum, items) => sum + items.filter((i) => !i.isEquipped && !i.isVault && !i.isUpgraded).length,
+    (sum, items) => sum + items.filter((i) => !i.isEquipped && !i.isVault && !i.isUpgraded && !i.isCatalyst).length,
     0,
   );
 
@@ -354,6 +414,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
 
   const totalUpgraded = Object.values(augmentedProfile.gear).reduce(
     (sum, items) => sum + items.filter((i) => i.isUpgraded).length,
+    0,
+  );
+
+  const totalCatalyst = Object.values(augmentedProfile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => i.isCatalyst).length,
     0,
   );
 
@@ -378,6 +443,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
           {totalUpgraded > 0 && (
             <span className="text-amber-500/70">
               {totalUpgraded} upgraded {totalUpgraded === 1 ? 'item' : 'items'}
+            </span>
+          )}
+          {totalCatalyst > 0 && (
+            <span className="text-cyan-500/70">
+              {totalCatalyst} catalyst {totalCatalyst === 1 ? 'item' : 'items'}
             </span>
           )}
         </span>
@@ -453,6 +523,18 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
             profile={augmentedProfile}
             minimums={tierSetMinimums}
             onMinimumsChange={setTierSetMinimums}
+          />
+        </div>
+      )}
+
+      {/* Catalyst charges — tier conversion (story 5.12) */}
+      {FEATURES.CATALYST_CHARGES && (
+        <div className="mt-4">
+          <CatalystCharges
+            profile={augmentedProfile}
+            selection={selection}
+            catalystCharges={catalystCharges}
+            onCatalystChargesChange={handleCatalystChargesChange}
           />
         </div>
       )}

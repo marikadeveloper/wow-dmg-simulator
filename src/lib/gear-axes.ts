@@ -103,8 +103,9 @@ export function buildGearAxes(
       .filter((idx) => idx < items.length)
       .map((idx) => {
         const item = items[idx];
+        const prefix = item.isCatalyst ? 'catalyst' : 'item';
         return {
-          id: `item_${item.id}`,
+          id: `${prefix}_${item.id}_${idx}`,
           label: item.name ?? `Item #${item.id}`,
           simcLines: [buildItemSimcLine(item, slot)],
         };

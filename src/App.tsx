@@ -18,6 +18,7 @@ import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder'
 import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
+import { filterCombinationsByCatalystCharges } from './lib/catalyst-generator';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
@@ -31,6 +32,7 @@ function App() {
   const [elapsedMs, setElapsedMs] = useState(0);
   const [simLogLines, setSimLogLines] = useState<string[]>([]);
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
+  const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
 
   // Guard against stale results when a new run starts before previous finishes
   const runIdRef = useRef(0);
@@ -53,6 +55,10 @@ function App() {
 
   const handleTierSetMinimumsChange = useCallback((minimums: TierSetMinimums) => {
     setTierSetMinimums(minimums);
+  }, []);
+
+  const handleCatalystChargesChange = useCallback((charges: number | null) => {
+    setCatalystCharges(charges);
   }, []);
 
   // Listen for SimC progress events while running
@@ -143,10 +149,22 @@ function App() {
           setSimError('No combinations meet the tier set requirements. Try lowering the minimum piece count.');
           return;
         }
-        // Re-number combinations after filtering
+      }
+
+      // 1c. Apply catalyst charge filtering if active
+      if (catalystCharges !== null) {
+        combinations = filterCombinationsByCatalystCharges(combinations, catalystCharges);
+        if (combinations.length === 0) {
+          setSimError('No combinations fit within the catalyst charge limit. Try increasing the charge count.');
+          return;
+        }
+      }
+
+      // 1d. Re-number combinations after filtering
+      if (hasActiveFilters || catalystCharges !== null) {
         let comboCounter = 1;
         for (const combo of combinations) {
-          if (combo.name === 'combo_0000') continue; // keep baseline name
+          if (combo.name === 'combo_0000') continue;
           combo.name = `combo_${String(comboCounter).padStart(4, '0')}`;
           comboCounter++;
         }
@@ -188,7 +206,7 @@ function App() {
         setIsRunning(false);
       }
     }
-  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums]);
+  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums, catalystCharges]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -221,6 +239,7 @@ function App() {
               onBlockedChange={handleBlockedChange}
               onAxesChange={handleAxesChange}
               onTierSetMinimumsChange={handleTierSetMinimumsChange}
+              onCatalystChargesChange={handleCatalystChargesChange}
             />
           </section>
         )}

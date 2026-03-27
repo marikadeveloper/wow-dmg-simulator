@@ -72,7 +72,7 @@ function resolveItemIdForSlot(
   // Check direct slot axis (e.g. "slot:head" → "item_12345")
   const directAxisValue = combo.axes[`slot:${slot}`];
   if (directAxisValue) {
-    const match = directAxisValue.match(/^item_(\d+)$/);
+    const match = directAxisValue.match(/^(?:item|catalyst)_(\d+)(?:_\d+)?$/);
     if (match) return parseInt(match[1], 10);
   }
 

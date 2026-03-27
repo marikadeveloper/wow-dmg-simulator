@@ -96,8 +96,8 @@ describe('buildGearAxes', () => {
     const selection = new Set(['head:0', 'head:2']);
     const axes = buildGearAxes(profile, selection);
     expect(axes[0].options).toHaveLength(2);
-    expect(axes[0].options[0].id).toBe('item_200');
-    expect(axes[0].options[1].id).toBe('item_202');
+    expect(axes[0].options[0].id).toBe('item_200_0');
+    expect(axes[0].options[1].id).toBe('item_202_2');
   });
 
   it('returns multiple axes for multiple non-paired slots with multi-select', () => {
