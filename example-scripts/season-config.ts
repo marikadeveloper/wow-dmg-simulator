@@ -86,7 +86,7 @@ export const GEAR_TRACKS: GearTrack[] = [
 // ─── Socket bonus_id ─────────────────────────────────────────────────────────
 //
 // The bonus_id that adds an extra socket to an item.
-// Was 6935 in TWW — verify from SimC source for current season.
+// Was 6935 in The War Within — verify from SimC source for each new season.
 
 export const SOCKET_BONUS_ID: number = 0; // ← TODO: verify for Midnight S1
 

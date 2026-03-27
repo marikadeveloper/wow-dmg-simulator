@@ -195,15 +195,13 @@ function buildEnchantAxes(
 }
 ```
 
-### Enchant slots (TWW / The War Within)
+### Enchant slots (Midnight Season 1)
 
 ```typescript
 export const ENCHANTABLE_SLOTS = [
-  'neck',
-  'back',
+  'head',
+  'shoulder',
   'chest',
-  'wrist',
-  'hands',
   'legs',
   'feet',
   'finger1',
@@ -213,7 +211,8 @@ export const ENCHANTABLE_SLOTS = [
 ] as const;
 ```
 
-Note: `head`, `shoulder`, `waist`, `trinket1`, `trinket2` are NOT enchantable.
+Note: `neck`, `back`, `wrist`, `hands`, `waist`, `trinket1`, `trinket2` are NOT enchantable in Midnight.
+Enchantable slots are defined in `season-config.ts` and change between seasons.
 
 ---
 

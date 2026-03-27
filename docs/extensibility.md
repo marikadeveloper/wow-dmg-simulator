@@ -129,7 +129,7 @@ export interface GemPreset {
   id: number; // SimC gem_id
   name: string; // "Masterful Ysemerald"
   stat: string; // "Mastery" — for display grouping
-  color: 'prismatic'; // TWW only has prismatic sockets currently
+  color: 'prismatic'; // Midnight only has prismatic sockets currently
 }
 
 export const GEM_PRESETS: GemPreset[] = [

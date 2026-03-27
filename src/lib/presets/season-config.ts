@@ -71,7 +71,7 @@ export const GEAR_TRACKS: GearTrack[] = [
 // ── Socket bonus_id ──────────────────────────────────────────────────────────
 
 /** The bonus_id that adds an extra socket to an item. 0 = TBD for this season. */
-export const SOCKET_BONUS_ID = 0; // TBD — was 6935 in TWW S2, verify for Midnight
+export const SOCKET_BONUS_ID = 0; // TBD — was 6935 in The War Within S2, verify for Midnight
 
 // ── Gem presets ──────────────────────────────────────────────────────────────
 
@@ -147,7 +147,7 @@ export const GEM_PRESETS: GemPreset[] = [
 export interface EnchantPreset {
   id: number; // SimC enchant_id
   name: string;
-  slot: string; // target slot category: "finger", "back", "chest", etc.
+  slot: string; // target slot category: "finger", "head", "chest", etc.
   stat: string; // primary stat for display
 }
 

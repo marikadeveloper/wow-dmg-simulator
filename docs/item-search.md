@@ -103,7 +103,7 @@ app maps that to the correct `bonus_ids` for the current season.
 
 **Current expansion:** World of Warcraft: Midnight, Season 1 (started March 17, 2026).
 
-Key changes vs TWW:
+Key changes vs The War Within (previous expansion):
 
 - No Explorer track — gear starts at Adventurer
 - No Valorstones — upgrades cost only **Dawncrests** (named per track) + a small gold fee
@@ -222,8 +222,8 @@ function buildUnownedItemLine(
 The user may want to simulate the item with or without a socket. Add a checkbox:
 "Assume socket" which appends the socket bonus_id to the bonus_ids.
 The socket bonus_id for Midnight Season 1 must be confirmed from the SimC source
-(same lookup method as gear track bonus_ids above). In TWW it was `6935` — do not
-assume this is the same in Midnight.
+(same lookup method as gear track bonus_ids above). In The War Within it was `6935` —
+do not assume this carries over between expansions.
 
 ---
 
@@ -260,7 +260,7 @@ A small config row appears below the selected item:
 │     Track: [Hero ▼]  ilvl 649–665   ☐ Add socket    │
 ```
 
-- **Track dropdown**: populated from `GEAR_TRACKS_TWW_S2`
+- **Track dropdown**: populated from `GEAR_TRACKS` (in `season-config.ts`)
 - Selecting a track shows the ilvl range for context
 - "Add socket" checkbox appends the socket bonus_id
 

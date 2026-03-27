@@ -151,7 +151,7 @@ wow-topgear/
 - Schema and FTS5 full-text search index defined in `docs/item-search.md`
 - Search fires against local DB instantly; Wowhead API in parallel for misses
 - Unowned items need a gear track selection (Myth/Hero/Champion/Veteran/Adventurer)
-  which maps to a `bonus_id` — see `GEAR_TRACKS_TWW_S2` in `src/lib/presets/gear-track-presets.ts`
+  which maps to a `bonus_id` — see `GEAR_TRACKS` in `src/lib/presets/season-config.ts`
 - SimC resolves all item stats internally from `id` + `bonus_id` — we never store stats
 - `items.db` is regenerated from SimC's `item_data.inc` by `scripts/build-item-db.ts`
 - Add `rusqlite = { version = "0.31", features = ["bundled"] }` to `Cargo.toml`
@@ -159,11 +159,12 @@ wow-topgear/
 - Items with `gem_id` fields have sockets
 - User provides a list of gem IDs to try per socket
 - Combinations include all permutations of gems across all socketed items
-- SimC syntax: `gem_id=213743/213744` (slash-separated per socket)
+- SimC syntax: `gem_id=240983/240888` (slash-separated per socket)
 
 ### Enchant Optimization
 
-- Enchantable slots: neck, back, chest, wrist, hands, legs, feet, finger1, finger2, main_hand, off_hand
+- Enchantable slots (Midnight S1): head, shoulder, chest, legs, feet, finger1, finger2, main_hand, off_hand
+  (imported from `ENCHANTABLE_SLOTS` in `season-config.ts` — updates automatically with the season)
 - User provides a list of enchant IDs to try per slot
 - "No enchant" (omit enchant_id) is always an option
 - Enchant combos multiply with gear combos — warn user aggressively about count

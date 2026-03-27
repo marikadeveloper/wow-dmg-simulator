@@ -25,7 +25,7 @@ server=draenor
 role=attack
 professions=Blacksmithing=100/Leatherworking=100
 
-# talents are a base64-encoded string (Dragonflight/TWW format)
+# talents are a base64-encoded string (hero talent format, Midnight onwards)
 spec=enhancement
 talents=BYQAAAAAAAAAAAAAAAAAAAAAAgUSShQSQJRSSJkQSJAAAAAAAAgUSShQSSRSSJkQAJAAAAA
 

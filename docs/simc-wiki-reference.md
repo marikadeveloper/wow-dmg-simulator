@@ -20,7 +20,7 @@ relevant wiki page directly. Key pages are listed below with their URLs.
 | Profile Sets (running multiple profiles in one binary call) | https://github.com/simulationcraft/simc/wiki/ProfileSet           |
 | Characters (general profile syntax)                         | https://github.com/simulationcraft/simc/wiki/Characters           |
 | Buffs and debuffs (override.bloodlust etc.)                 | https://github.com/simulationcraft/simc/wiki/BuffsAndDebuffs      |
-| Expansion-specific options (TWW/Dragonflight)               | https://github.com/simulationcraft/simc/wiki/ExpansionOptions     |
+| Expansion-specific options (Midnight/TWW/Dragonflight)      | https://github.com/simulationcraft/simc/wiki/ExpansionOptions     |
 | FAQ                                                         | https://github.com/simulationcraft/simc/wiki/FAQ                  |
 | Common Issues                                               | https://github.com/simulationcraft/simc/wiki/CommonIssues         |
 

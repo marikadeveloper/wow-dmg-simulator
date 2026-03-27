@@ -71,7 +71,7 @@ These are not on any gaming guide website — you must get them from SimC source
 
 Same process as gear tracks — use Option A or B.
 
-- In TWW Season 2, it was `6935`
+- In The War Within Season 2, it was `6935`
 - Do NOT assume it carries over — verify for each season
 
 ---
