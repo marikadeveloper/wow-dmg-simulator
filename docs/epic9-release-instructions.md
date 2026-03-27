@@ -107,7 +107,10 @@ Monitor at: https://github.com/marikadeveloper/wow-dmg-simulator/actions
 
 The workflow runs:
 1. Season config validation (Ubuntu)
-2. Three parallel builds (macOS arm64, macOS x64, Windows x64)
+2. Three parallel builds (macOS arm64, macOS x64, Windows x64), each:
+   - Generates `items.db` from SimC source (`pnpm build:item-db`)
+   - Downloads the SimC sidecar binary
+   - Builds the Tauri app with items.db bundled as a resource
 3. Uploads all artifacts to a **draft** GitHub Release
 
 ---
@@ -200,3 +203,4 @@ Share this link with users. It always points to the most recent published releas
 | macOS: "app is damaged" | Gatekeeper quarantine | Right-click → Open, or the app's built-in quarantine removal handles it |
 | Windows: SmartScreen warning | App not EV code-signed | Expected for unsigned apps — user clicks "More info" → "Run anyway" |
 | macOS: SimC "operation not permitted" | Sidecar quarantined | The app removes this automatically on launch; if it persists, run `xattr -d com.apple.quarantine /Applications/WoW\ Top\ Gear.app` |
+| Item search returns no results | `items.db` empty or missing | Run `pnpm build:item-db` locally; CI runs this automatically |
