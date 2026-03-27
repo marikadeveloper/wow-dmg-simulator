@@ -1,5 +1,20 @@
 # Release Instructions
 
+## Distribution Model
+
+The app is distributed as direct downloads from **GitHub Releases**:
+
+- **macOS**: `.dmg` — user mounts it and drags the app to Applications
+- **Windows**: `-setup.exe` — standard installer wizard
+
+Users find the download at the repo's Releases page. After the first install,
+the built-in auto-updater handles future versions (see story 9.3).
+
+There is no app store, no website hosting, no CDN. GitHub is the only
+distribution channel for now.
+
+---
+
 ## First-Time Setup (do once, before your very first release)
 
 ### 1. Generate the updater signing keypair
@@ -114,9 +129,10 @@ Check that the draft has all expected artifacts:
 
 The `.sig` files and `latest.json` are required for auto-update to work.
 
-### 2. Edit the release notes
+### 2. Write the release notes
 
-Replace the auto-generated body with a human-written changelog. Suggested format:
+Replace the auto-generated body with a human-written changelog. Include
+install instructions since users download directly from this page:
 
 ```markdown
 ## What's new
@@ -125,10 +141,19 @@ Replace the auto-generated body with a human-written changelog. Suggested format
 - Feature B
 - Bug fix C
 
-## Download
+## Install
 
-Pick the installer for your platform from the assets below.
-First-time macOS users: right-click the app → Open (Gatekeeper prompt).
+**macOS** — Download the `.dmg` for your chip:
+- Apple Silicon (M1/M2/M3/M4): `WoW Top Gear_X.Y.Z_aarch64.dmg`
+- Intel: `WoW Top Gear_X.Y.Z_x64.dmg`
+
+Open the `.dmg`, drag the app to Applications.
+First launch: right-click the app → **Open** (macOS Gatekeeper prompt).
+
+**Windows** — Download `WoW Top Gear_X.Y.Z_x64-setup.exe` and run it.
+If SmartScreen warns you, click "More info" → "Run anyway".
+
+**Already installed?** The app checks for updates on launch automatically.
 ```
 
 ### 3. Publish the release
@@ -137,18 +162,30 @@ Click **Publish release**. This makes the installers publicly downloadable
 and enables auto-update for existing users (their app will find `latest.json`
 at the `latest` URL).
 
-### 4. Verify auto-update
+### 4. Smoke test the installers
+
+Download and install on at least one platform to verify:
+- `.dmg` mounts and app drags to Applications correctly
+- `.exe` installer runs and creates the app shortcut
+- App launches without errors
+- SimC sidecar binary runs (paste a profile and run a sim)
+- Version shown in footer matches the release tag
+
+### 5. Verify auto-update (from second release onwards)
 
 Open a previous version of the app. It should show the update banner
 within a few seconds of launch. Click "Update now" and confirm it
 downloads, installs, and relaunches to the new version.
 
-### 5. Smoke test the installers
+### 6. Share the link
 
-Download and install on at least one platform to verify:
-- App launches without errors
-- SimC sidecar binary runs (paste a profile and run a sim)
-- Version shown in footer matches the release tag
+The download URL for the latest release is always:
+
+```
+https://github.com/marikadeveloper/wow-dmg-simulator/releases/latest
+```
+
+Share this link with users. It always points to the most recent published release.
 
 ---
 
@@ -162,3 +199,4 @@ Download and install on at least one platform to verify:
 | Auto-update doesn't trigger | `pubkey` is empty in config | Paste your public key into `tauri.conf.json` → `plugins.updater.pubkey` |
 | macOS: "app is damaged" | Gatekeeper quarantine | Right-click → Open, or the app's built-in quarantine removal handles it |
 | Windows: SmartScreen warning | App not EV code-signed | Expected for unsigned apps — user clicks "More info" → "Run anyway" |
+| macOS: SimC "operation not permitted" | Sidecar quarantined | The app removes this automatically on launch; if it persists, run `xattr -d com.apple.quarantine /Applications/WoW\ Top\ Gear.app` |
