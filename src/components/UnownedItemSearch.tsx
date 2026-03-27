@@ -50,11 +50,8 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     try {
       const { invoke } = await import('@tauri-apps/api/core');
       const items = await invoke<ItemSearchResult[]>('search_items', { query: q });
-      // Filter local DB results by slot; Wowhead results (slot='') shown unfiltered
-      // since the user is already searching within the correct slot card
-      const filtered = items.filter(
-        (item) => item.slot === '' || realSlots.includes(item.slot),
-      );
+      // Filter results to items that match this slot's valid types
+      const filtered = items.filter((item) => realSlots.includes(item.slot));
       setResults(filtered);
     } catch {
       // Silently fail in dev mode (no backend)
@@ -86,9 +83,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     // Rank 1/6 = minimum ilvl of the track range
     const ilvl = track.ilvlRange[0];
 
-    const targetSlot = result.slot && realSlots.includes(result.slot)
-      ? result.slot
-      : realSlots[0];
+    const targetSlot = realSlots.includes(result.slot) ? result.slot : realSlots[0];
 
     const bonusIds = track.bonusId > 0 ? [track.bonusId] : [];
     if (assumeSocket && SOCKET_BONUS_ID > 0) {
