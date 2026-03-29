@@ -38,6 +38,7 @@ interface ParsedItem {
   name: string;
   slot: string;
   baseIlvl: number;
+  quality: number;
 }
 
 /**
@@ -80,10 +81,9 @@ function parseItemData(text: string): ParsedItem[] {
     //   flags1, flags2, type_flags, level (ilvl), req_level, req_skill,
     //   req_skill_level, quality, inv_type, ...
     //
-    // We attempt to parse inv_type from field index 7 (0-indexed from after id)
-    // and ilvl from field index 3
+    // inv_type is at field index 8, ilvl at field index 3
 
-    if (fields.length < 8) continue;
+    if (fields.length < 9) continue;
 
     const parseField = (f: string): number => {
       const s = f.trim();
@@ -92,7 +92,8 @@ function parseItemData(text: string): ParsedItem[] {
     };
 
     const ilvl = parseField(fields[3]);
-    const invType = parseField(fields[7]);
+    const quality = parseField(fields[7]);
+    const invType = parseField(fields[8]);
 
     if (isNaN(invType) || SKIP_INV_TYPES.has(invType)) continue;
 
@@ -104,6 +105,7 @@ function parseItemData(text: string): ParsedItem[] {
       name,
       slot,
       baseIlvl: isNaN(ilvl) ? 0 : ilvl,
+      quality: isNaN(quality) ? 4 : quality,
     });
   }
 
@@ -129,7 +131,8 @@ async function main() {
       item_id   INTEGER PRIMARY KEY,
       name      TEXT NOT NULL,
       slot      TEXT NOT NULL,
-      base_ilvl INTEGER NOT NULL DEFAULT 0
+      base_ilvl INTEGER NOT NULL DEFAULT 0,
+      quality   INTEGER NOT NULL DEFAULT 4
     );
     CREATE VIRTUAL TABLE items_fts USING fts5(
       name, content='items', content_rowid='item_id'
@@ -140,12 +143,12 @@ async function main() {
   `);
 
   const insert = db.prepare(
-    'INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl) VALUES (?, ?, ?, ?)',
+    'INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality) VALUES (?, ?, ?, ?, ?)',
   );
 
   const insertMany = db.transaction((rows: ParsedItem[]) => {
     for (const item of rows) {
-      insert.run(item.id, item.name, item.slot, item.baseIlvl);
+      insert.run(item.id, item.name, item.slot, item.baseIlvl, item.quality);
     }
   });
 

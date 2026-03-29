@@ -53,7 +53,7 @@ pub async fn search_items(
                     // Search by item ID directly
                     let item_id: u32 = trimmed.parse().unwrap();
                     let _ = conn.query_row(
-                        "SELECT item_id, name, slot, base_ilvl FROM items WHERE item_id = ?1",
+                        "SELECT item_id, name, slot, base_ilvl, quality FROM items WHERE item_id = ?1",
                         [item_id],
                         |row| {
                             results.push(ItemSearchResult {
@@ -61,7 +61,7 @@ pub async fn search_items(
                                 name: row.get(1)?,
                                 slot: row.get(2)?,
                                 base_ilvl: row.get(3)?,
-                                quality: 4,
+                                quality: row.get(4)?,
                                 source: "local".to_string(),
                             });
                             Ok(())
@@ -71,7 +71,7 @@ pub async fn search_items(
                     // Full-text search by name
                     let fts_query = format!("{}*", trimmed.replace('"', ""));
                     let mut stmt = match conn.prepare(
-                        "SELECT i.item_id, i.name, i.slot, i.base_ilvl \
+                        "SELECT i.item_id, i.name, i.slot, i.base_ilvl, i.quality \
                          FROM items_fts \
                          JOIN items i ON items_fts.rowid = i.item_id \
                          WHERE items_fts MATCH ?1 \
@@ -87,7 +87,7 @@ pub async fn search_items(
                             name: row.get(1)?,
                             slot: row.get(2)?,
                             base_ilvl: row.get(3)?,
-                            quality: 4,
+                            quality: row.get(4)?,
                             source: "local".to_string(),
                         })
                     }) {
@@ -175,6 +175,7 @@ pub async fn refresh_item_db(
         name: String,
         slot: String,
         base_ilvl: u32,
+        quality: u32,
     }
 
     let comment_re = Regex::new(r"/\*.*?\*/").map_err(|e| e.to_string())?;
@@ -190,12 +191,13 @@ pub async fn refresh_item_db(
         let cleaned = comment_re.replace_all(rest, "");
         let fields: Vec<&str> = cleaned.split(',').map(|f| f.trim()).filter(|f| !f.is_empty()).collect();
 
-        if fields.len() < 8 {
+        if fields.len() < 9 {
             continue;
         }
 
         let ilvl = parse_field(fields[3]).unwrap_or(0);
-        let inv_type = match parse_field(fields[7]) {
+        let quality = parse_field(fields[7]).unwrap_or(4);
+        let inv_type = match parse_field(fields[8]) {
             Some(v) => v,
             None => continue,
         };
@@ -209,7 +211,7 @@ pub async fn refresh_item_db(
             None => continue,
         };
 
-        items.push(ParsedItem { id, name, slot, base_ilvl: ilvl });
+        items.push(ParsedItem { id, name, slot, base_ilvl: ilvl, quality });
     }
 
     if items.is_empty() {
@@ -241,7 +243,8 @@ pub async fn refresh_item_db(
             item_id   INTEGER PRIMARY KEY,
             name      TEXT NOT NULL,
             slot      TEXT NOT NULL,
-            base_ilvl INTEGER NOT NULL DEFAULT 0
+            base_ilvl INTEGER NOT NULL DEFAULT 0,
+            quality   INTEGER NOT NULL DEFAULT 4
         );
         CREATE VIRTUAL TABLE items_fts USING fts5(
             name, content='items', content_rowid='item_id'
@@ -256,7 +259,7 @@ pub async fn refresh_item_db(
     let count;
     {
         let mut stmt = tx
-            .prepare("INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl) VALUES (?1, ?2, ?3, ?4)")
+            .prepare("INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality) VALUES (?1, ?2, ?3, ?4, ?5)")
             .map_err(|e| e.to_string())?;
 
         let mut seen = HashMap::<u32, bool>::new();
@@ -265,7 +268,7 @@ pub async fn refresh_item_db(
                 continue;
             }
             seen.insert(item.id, true);
-            let _ = stmt.execute(rusqlite::params![item.id, item.name, item.slot, item.base_ilvl]);
+            let _ = stmt.execute(rusqlite::params![item.id, item.name, item.slot, item.base_ilvl, item.quality]);
         }
         count = seen.len() as u32;
     }
