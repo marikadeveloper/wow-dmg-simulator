@@ -181,11 +181,11 @@ Last updated: 2026-03-27
 | 11.7  | UI: "Smart Sim" toggle in advanced sim settings                                | ✅     |
 | 11.8  | Handle cancellation mid-stage                                                  | ✅     |
 | 11.9  | Baseline combo_0000 always survives all stages                                 | ✅     |
-| 11.10 | Unit tests for culling, stage count, subset builder, full pipeline             | ⬜     |
+| 11.10 | Unit tests for culling, stage count, subset builder, full pipeline             | ✅     |
 | 11.11 | Show "Smart Sim" label in results metadata                                     | ⬜     |
 | 11.12 | User-configurable stage target errors in advanced settings                      | ⬜     |
 
-**Epic status: ⬜ 9/12 stories done**
+**Epic status: ⬜ 10/12 stories done**
 
 ---
 
