@@ -170,20 +170,20 @@ Last updated: 2026-03-27
 
 ## EPIC 11 — Smart Sim (Multi-Stage Simulation)
 
-| #     | Story                                                                          | Status |
-| ----- | ------------------------------------------------------------------------------ | ------ |
-| 11.1  | Create `smart-sim-runner.ts` orchestrator with multi-stage pipeline logic      | ✅     |
-| 11.2  | Implement `selectSurvivors` culling function with statistical tie-breaking     | ✅     |
-| 11.3  | Add `buildProfileSetFileForSubset` to profileset-builder.ts                    | ✅     |
-| 11.4  | Auto-select stage count based on combination count (1/2/3 stages)             | ✅     |
-| 11.5  | Wire smart-sim-runner into the simulation hook                                 | ✅     |
-| 11.6  | UI: staged progress display (Stage 1/2/3 labels, per-stage progress bar)      | ✅     |
-| 11.7  | UI: "Smart Sim" toggle in advanced sim settings                                | ✅     |
-| 11.8  | Handle cancellation mid-stage                                                  | ✅     |
-| 11.9  | Baseline combo_0000 always survives all stages                                 | ✅     |
-| 11.10 | Unit tests for culling, stage count, subset builder, full pipeline             | ✅     |
-| 11.11 | Show "Smart Sim" label in results metadata                                     | ✅     |
-| 11.12 | User-configurable stage target errors in advanced settings                      | ✅     |
+| #     | Story                                                                      | Status |
+| ----- | -------------------------------------------------------------------------- | ------ |
+| 11.1  | Create `smart-sim-runner.ts` orchestrator with multi-stage pipeline logic  | ✅     |
+| 11.2  | Implement `selectSurvivors` culling function with statistical tie-breaking | ✅     |
+| 11.3  | Add `buildProfileSetFileForSubset` to profileset-builder.ts                | ✅     |
+| 11.4  | Auto-select stage count based on combination count (1/2/3 stages)          | ✅     |
+| 11.5  | Wire smart-sim-runner into the simulation hook                             | ✅     |
+| 11.6  | UI: staged progress display (Stage 1/2/3 labels, per-stage progress bar)   | ✅     |
+| 11.7  | UI: "Smart Sim" toggle in advanced sim settings                            | ✅     |
+| 11.8  | Handle cancellation mid-stage                                              | ✅     |
+| 11.9  | Baseline combo_0000 always survives all stages                             | ✅     |
+| 11.10 | Unit tests for culling, stage count, subset builder, full pipeline         | ✅     |
+| 11.11 | Show "Smart Sim" label in results metadata                                 | ✅     |
+| 11.12 | User-configurable stage target errors in advanced settings                 | ✅     |
 
 **Epic status: ✅ 12/12 stories done**
 
