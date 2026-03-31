@@ -167,3 +167,8 @@ Last updated: 2026-03-27
 | 10.12 | User can refresh local DB                                                      | ✅     |
 
 **Epic status: ✅ 12/12 stories done**
+
+## Epic 11 — Droptimizer TODO
+
+Define the stories to achieve this
+See if it can inspect the chrome tab where you have it open

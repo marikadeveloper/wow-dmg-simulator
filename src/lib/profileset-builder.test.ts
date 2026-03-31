@@ -32,6 +32,13 @@ const defaultSettings: SimSettings = {
   iterations: 10000,
   threads: 7,
   jsonOutputPath: '/tmp/test.json',
+  potion: '',
+  food: '',
+  flask: '',
+  augmentation: '',
+  weaponRune: '',
+  raidBuffs: { bloodlust: true, arcane_intellect: true },
+  crucibleModes: {},
 };
 
 describe('buildProfileSetFile', () => {
@@ -142,8 +149,9 @@ describe('buildProfileSetFile', () => {
     ];
     const output = buildProfileSetFile(baseProfile, combos, defaultSettings);
 
-    expect(output).toContain('profileset."combo_0001"=trinket1=,id=200,bonus_id=10390/10257');
-    expect(output).toContain('profileset."combo_0001"+=finger1=,id=229379,bonus_id=10390/10257,enchant_id=7341');
+    // Both lines are present (order follows gearSlotOrder: finger1 before trinket1)
+    expect(output).toContain('profileset."combo_0001"=finger1=,id=229379,bonus_id=10390/10257,enchant_id=7341');
+    expect(output).toContain('profileset."combo_0001"+=trinket1=,id=200,bonus_id=10390/10257');
   });
 
   it('generates enemy lines when numEnemies > 1', () => {
@@ -191,28 +199,28 @@ describe('parseSimCResults', () => {
           },
         },
       ],
-    },
-    profilesets: {
-      results: [
-        {
-          name: 'combo_0001',
-          mean: 860000,
-          stddev: 11000,
-          mean_stddev: 1100,
-          min: 800000,
-          max: 920000,
-          median: 858000,
-        },
-        {
-          name: 'combo_0002',
-          mean: 840000,
-          stddev: 13000,
-          mean_stddev: 1300,
-          min: 790000,
-          max: 900000,
-          median: 839000,
-        },
-      ],
+      profilesets: {
+        results: [
+          {
+            name: 'combo_0001',
+            mean: 860000,
+            stddev: 11000,
+            mean_stddev: 1100,
+            min: 800000,
+            max: 920000,
+            median: 858000,
+          },
+          {
+            name: 'combo_0002',
+            mean: 840000,
+            stddev: 13000,
+            mean_stddev: 1300,
+            min: 790000,
+            max: 900000,
+            median: 839000,
+          },
+        ],
+      },
     },
   });
 

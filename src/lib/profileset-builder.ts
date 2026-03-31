@@ -1,4 +1,23 @@
 import type { SimcProfile, CombinationSpec, SimSettings, SimResult } from './types';
+import { buildItemSimcLine } from './gear-axes';
+
+/** Check if a combo has any active enchant selections (not "enchant_none"). */
+function hasEnchantOverrides(combo: CombinationSpec): boolean {
+  return Object.entries(combo.axes).some(
+    ([axisId, optionId]) => axisId.startsWith('enchant:') && optionId !== 'enchant_none',
+  );
+}
+
+/**
+ * Apply an enchant_id to a SimC item line.
+ * If the line already has enchant_id, replace it. Otherwise, append it.
+ */
+function applyEnchantToLine(line: string, enchantId: string): string {
+  if (line.includes('enchant_id=')) {
+    return line.replace(/enchant_id=\d+/, `enchant_id=${enchantId}`);
+  }
+  return `${line},enchant_id=${enchantId}`;
+}
 
 /**
  * Build the complete .simc file content for a ProfileSet simulation.
@@ -45,14 +64,41 @@ export function buildProfileSetFile(
   sections.push(`output=${outputNull}`);
   sections.push(`json2=${settings.jsonOutputPath}`);
 
-  // ProfileSet parallel execution
+  // ProfileSet parallel execution and accuracy
   sections.push('profileset_work_threads=2');
+  sections.push('single_actor_batch=1');
+
+  // Raid buff overrides (user-configurable)
+  for (const [key, enabled] of Object.entries(settings.raidBuffs)) {
+    sections.push(`override.${key}=${enabled ? 1 : 0}`);
+  }
+
   sections.push('');
 
   // ── Section 2: Base character profile ────────────────────────────────────
   sections.push('# ── Base character profile ──');
   for (const line of profile.rawLines) {
     sections.push(line);
+  }
+  sections.push('');
+
+  // ── Section 2b: Consumables & expansion options ────────────────────────
+  // Weapon rune / temporary enchant
+  if (settings.weaponRune) {
+    sections.push(`temporary_enchant=${settings.weaponRune}`);
+  } else {
+    sections.push('temporary_enchant=');
+  }
+  // Consumables (only emit if user chose something other than SimC default)
+  if (settings.potion) sections.push(`potion=${settings.potion}`);
+  if (settings.food) sections.push(`food=${settings.food}`);
+  if (settings.flask) sections.push(`flask=${settings.flask}`);
+  if (settings.augmentation) sections.push(`augmentation=${settings.augmentation}`);
+  // Crucible of Erratic Energies modes
+  for (const [key, enabled] of Object.entries(settings.crucibleModes)) {
+    if (enabled) {
+      sections.push(`midnight.crucible_of_erratic_energies_${key}=1`);
+    }
   }
   sections.push('');
 
@@ -66,15 +112,57 @@ export function buildProfileSetFile(
   }
 
   // ── Section 4: ProfileSet entries ────────────────────────────────────────
-  const profilesets = combinations.filter((c) => c.overrideLines.length > 0);
+  // Build equipped gear as a slot → line map
+  const gearSlotOrder = [
+    'head', 'neck', 'shoulder', 'back', 'chest', 'wrist', 'hands', 'waist',
+    'legs', 'feet', 'finger1', 'finger2', 'trinket1', 'trinket2',
+    'main_hand', 'off_hand',
+  ];
+  const equippedGearMap = new Map<string, string>();
+  for (const slot of gearSlotOrder) {
+    const items = profile.gear[slot];
+    if (!items) continue;
+    const equipped = items.find((i) => i.isEquipped);
+    if (equipped) {
+      equippedGearMap.set(slot, buildItemSimcLine(equipped, slot));
+    }
+  }
+
+  const profilesets = combinations.filter((c) => c.overrideLines.length > 0 || hasEnchantOverrides(c));
 
   if (profilesets.length > 0) {
     sections.push('# ── ProfileSets ──');
     for (const combo of profilesets) {
       const name = combo.name;
-      for (let i = 0; i < combo.overrideLines.length; i++) {
+
+      // Start with equipped gear map, then apply gear overrides
+      const slotLines = new Map(equippedGearMap);
+      for (const line of combo.overrideLines) {
+        const slotMatch = line.match(/^(\w+)=/);
+        if (slotMatch) {
+          slotLines.set(slotMatch[1], line);
+        }
+      }
+
+      // Apply enchant overrides from combo.axes — modify the item line's enchant_id
+      for (const [axisId, optionId] of Object.entries(combo.axes)) {
+        if (!axisId.startsWith('enchant:') || optionId === 'enchant_none') continue;
+        const slot = axisId.replace('enchant:', '');
+        const enchantId = optionId.replace('enchant_', '');
+        const itemLine = slotLines.get(slot);
+        if (itemLine) {
+          slotLines.set(slot, applyEnchantToLine(itemLine, enchantId));
+        }
+      }
+
+      // Assemble final lines: all gear slots + talents
+      const allLines = [
+        ...gearSlotOrder.filter((s) => slotLines.has(s)).map((s) => slotLines.get(s)!),
+        ...(profile.talentString ? [`talents=${profile.talentString}`] : []),
+      ];
+      for (let i = 0; i < allLines.length; i++) {
         const op = i === 0 ? '=' : '+=';
-        sections.push(`profileset."${name}"${op}${combo.overrideLines[i]}`);
+        sections.push(`profileset."${name}"${op}${allLines[i]}`);
       }
     }
   }
@@ -96,17 +184,17 @@ interface SimCJson2Output {
         };
       };
     }>;
-  };
-  profilesets?: {
-    results: Array<{
-      name: string;
-      mean: number;
-      stddev: number;
-      mean_stddev: number;
-      min: number;
-      max: number;
-      median: number;
-    }>;
+    profilesets?: {
+      results: Array<{
+        name: string;
+        mean: number;
+        stddev: number;
+        mean_stddev: number;
+        min: number;
+        max: number;
+        median: number;
+      }>;
+    };
   };
 }
 
@@ -136,9 +224,9 @@ export function parseSimCResults(
     axes: {},
   });
 
-  // ProfileSet results
-  if (json.profilesets?.results) {
-    for (const r of json.profilesets.results) {
+  // ProfileSet results (SimC nests profilesets under sim.profilesets)
+  if (json.sim.profilesets?.results) {
+    for (const r of json.sim.profilesets.results) {
       const spec = manifest.get(r.name);
       if (!spec) continue;
       results.push({

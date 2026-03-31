@@ -88,11 +88,83 @@ export function buildGearAxes(
       }
     }
 
-    axes.push({
-      id: `slot:${pairName}`,
-      label: pairName,
-      options,
-    });
+    // Only create an axis if there are 2+ pair options (something to vary)
+    if (options.length >= 2) {
+      axes.push({
+        id: `slot:${pairName}`,
+        label: pairName,
+        options,
+      });
+    }
+  }
+
+  // ── Handle weapon slots (main_hand + off_hand) when 2H weapons are involved ─
+  {
+    const mhIndices = selectedBySlot.get('main_hand') ?? [];
+    const ohIndices = selectedBySlot.get('off_hand') ?? [];
+    const mhItems = mhIndices
+      .filter((idx) => idx < (profile.gear.main_hand?.length ?? 0))
+      .map((idx) => ({ item: profile.gear.main_hand[idx], idx }));
+    const ohItems = ohIndices
+      .filter((idx) => idx < (profile.gear.off_hand?.length ?? 0))
+      .map((idx) => ({ item: profile.gear.off_hand[idx], idx }));
+
+    const hasTwoHand = mhItems.some(({ item }) => item.isTwoHand);
+    const profileHasOffHand = (profile.gear.off_hand?.length ?? 0) > 0;
+
+    // Only need special weapon handling if we have 2H weapons AND an off_hand exists
+    if (hasTwoHand && (ohItems.length > 0 || profileHasOffHand)) {
+      const options: OptimizationOption[] = [];
+
+      for (const { item: mh, idx } of mhItems) {
+        if (mh.isTwoHand) {
+          // 2H weapon: clear the off_hand slot
+          const prefix = mh.isCatalyst ? 'catalyst' : 'item';
+          options.push({
+            id: `${prefix}_${mh.id}_${idx}`,
+            label: mh.name ?? `Item #${mh.id}`,
+            simcLines: [buildItemSimcLine(mh, 'main_hand'), 'off_hand=,'],
+          });
+        } else if (ohItems.length > 0) {
+          // 1H weapon: pair with each selected off_hand
+          for (const { item: oh, idx: ohIdx } of ohItems) {
+            // If both items are equipped, this pair is the baseline — use empty
+            // simcLines so the combinator can identify it as the no-override combo
+            const isBaseline = mh.isEquipped && oh.isEquipped;
+            options.push({
+              id: `pair_${mh.id}_${idx}_${oh.id}_${ohIdx}`,
+              label: `${mh.name ?? `#${mh.id}`} + ${oh.name ?? `#${oh.id}`}`,
+              simcLines: isBaseline
+                ? []
+                : [
+                    buildItemSimcLine(mh, 'main_hand'),
+                    buildItemSimcLine(oh, 'off_hand'),
+                  ],
+            });
+          }
+        } else {
+          // 1H weapon with no off_hand alternatives selected: just set main_hand
+          const prefix = mh.isCatalyst ? 'catalyst' : 'item';
+          options.push({
+            id: `${prefix}_${mh.id}_${idx}`,
+            label: mh.name ?? `Item #${mh.id}`,
+            simcLines: [buildItemSimcLine(mh, 'main_hand')],
+          });
+        }
+      }
+
+      if (options.length >= 2) {
+        axes.push({
+          id: 'slot:weapons',
+          label: 'weapons',
+          options,
+        });
+      }
+
+      // Mark weapon slots as handled so the normal loop skips them
+      selectedBySlot.delete('main_hand');
+      selectedBySlot.delete('off_hand');
+    }
   }
 
   // ── Handle normal (non-paired) slots ─────────────────────────────────────
@@ -111,7 +183,9 @@ export function buildGearAxes(
         return {
           id: `${prefix}_${item.id}_${idx}`,
           label: item.name ?? `Item #${item.id}`,
-          simcLines: [buildItemSimcLine(item, slot)],
+          // Equipped items match the base profile — empty simcLines so the
+          // combinator can identify the baseline (no-override) combination
+          simcLines: item.isEquipped ? [] : [buildItemSimcLine(item, slot)],
         };
       });
 

@@ -485,7 +485,123 @@ export function getTierSetById(id: string): TierSetDefinition | undefined {
   return TIER_SETS.find((s) => s.id === id);
 }
 
-/** Slots that can be enchanted in Midnight S1. */
+// ── Consumable Presets ──────────────────────────────────────────────────────
+// SimC-compatible values extracted from Raidbots. '' = SimC Default, 'disabled' = none.
+
+export interface ConsumablePreset {
+  value: string;
+  name: string;
+}
+
+export const POTION_PRESETS: ConsumablePreset[] = [
+  { value: '', name: 'SimC Default' },
+  { value: 'lights_potential_2', name: "Light's Potential (Q2)" },
+  { value: 'lights_potential_1', name: "Light's Potential (Q1)" },
+  { value: 'potion_of_zealotry_2', name: 'Potion of Zealotry (Q2)' },
+  { value: 'potion_of_zealotry_1', name: 'Potion of Zealotry (Q1)' },
+  { value: 'potion_of_recklessness_2', name: 'Potion of Recklessness (Q2)' },
+  { value: 'potion_of_recklessness_1', name: 'Potion of Recklessness (Q1)' },
+  { value: 'draught_of_rampant_abandon_2', name: 'Draught of Rampant Abandon (Q2)' },
+  { value: 'draught_of_rampant_abandon_1', name: 'Draught of Rampant Abandon (Q1)' },
+  { value: 'disabled', name: 'No Potion' },
+];
+
+export const FOOD_PRESETS: ConsumablePreset[] = [
+  { value: '', name: 'SimC Default' },
+  { value: 'silvermoon_parade', name: 'Silvermoon Parade (50 Main Stat)' },
+  { value: 'queldorei_medley', name: "Quel'dorei Medley (64 Highest Secondary)" },
+  { value: 'blooming_feast', name: 'Blooming Feast (64 Highest Secondary)' },
+  { value: 'harandar_celebration', name: 'Harandar Celebration (50 Main Stat)' },
+  { value: 'royal_roast', name: 'Royal Roast (50 Main Stat)' },
+  { value: 'impossibly_royal_roast', name: 'Impossibly Royal Roast (50 Main Stat)' },
+  { value: 'flora_frenzy', name: 'Flora Frenzy (64 Highest Secondary)' },
+  { value: 'champions_bento', name: "Champion's Bento (64 Highest Secondary)" },
+  { value: 'warped_wise_wings', name: 'Warped Wise Wings (58 Mastery)' },
+  { value: 'voidkissed_fish_rolls', name: 'Void-Kissed Fish Rolls (58 Vers)' },
+  { value: 'sunseared_lumifin', name: 'Sun-Seared Lumifin (58 Crit)' },
+  { value: 'null_and_void_plate', name: 'Null and Void Plate (58 Haste)' },
+  { value: 'glitter_skewers', name: 'Glitter Skewers (58 Mastery)' },
+  { value: 'felkissed_filet', name: 'Fel-Kissed Filet (58 Haste)' },
+  { value: 'buttered_root_crab', name: 'Buttered Root Crab (58 Vers)' },
+  { value: 'arcano_cutlets', name: 'Arcano Cutlets (58 Crit)' },
+  { value: 'tasty_smoked_tetra', name: 'Tasty Smoked Tetra (58 Crit)' },
+  { value: 'crimson_calamari', name: 'Crimson Calamari (58 Haste)' },
+  { value: 'braised_blood_hunter', name: 'Braised Blood Hunter (58 Vers)' },
+  { value: 'disabled', name: 'No Food' },
+];
+
+export const FLASK_PRESETS: ConsumablePreset[] = [
+  { value: '', name: 'SimC Default' },
+  { value: 'flask_of_the_shattered_sun_2', name: 'Flask of the Shattered Sun (Q2)' },
+  { value: 'flask_of_the_shattered_sun_1', name: 'Flask of the Shattered Sun (Q1)' },
+  { value: 'flask_of_the_blood_knights_2', name: 'Flask of the Blood Knights (Q2)' },
+  { value: 'flask_of_the_blood_knights_1', name: 'Flask of the Blood Knights (Q1)' },
+  { value: 'flask_of_the_magisters_2', name: 'Flask of the Magisters (Q2)' },
+  { value: 'flask_of_the_magisters_1', name: 'Flask of the Magisters (Q1)' },
+  { value: 'flask_of_thalassian_resistance_2', name: 'Flask of Thalassian Resistance (Q2)' },
+  { value: 'flask_of_thalassian_resistance_1', name: 'Flask of Thalassian Resistance (Q1)' },
+  { value: 'disabled', name: 'No Flask' },
+];
+
+export const AUGMENTATION_PRESETS: ConsumablePreset[] = [
+  { value: '', name: 'SimC Default' },
+  { value: 'void_touched', name: 'Void-Touched Augment Rune' },
+  { value: 'crystallized', name: 'Crystallized Augment Rune' },
+  { value: 'disabled', name: 'Disabled' },
+];
+
+export const WEAPON_RUNE_PRESETS: ConsumablePreset[] = [
+  { value: '', name: 'SimC Default' },
+  { value: 'main_hand:refulgent_whetstone_2', name: 'Refulgent Whetstone (AP)' },
+  { value: 'main_hand:thalassian_phoenix_oil_2', name: 'Thalassian Phoenix Oil (Crit/Haste)' },
+  { value: 'main_hand:oil_of_dawn_2', name: 'Oil of Dawn (Holy Damage)' },
+  { value: 'main_hand:smugglers_enchanted_edge_2', name: "Smuggler's Enchanted Edge (Damage)" },
+  { value: 'main_hand:refulgent_whetstone_2/off_hand:refulgent_whetstone_2', name: '[DW] Refulgent Whetstone (AP)' },
+  { value: 'main_hand:thalassian_phoenix_oil_2/off_hand:thalassian_phoenix_oil_2', name: '[DW] Thalassian Phoenix Oil (Crit/Haste)' },
+  { value: 'main_hand:oil_of_dawn_2/off_hand:oil_of_dawn_2', name: '[DW] Oil of Dawn (Holy Damage)' },
+  { value: 'main_hand:smugglers_enchanted_edge_2/off_hand:smugglers_enchanted_edge_2', name: "[DW] Smuggler's Enchanted Edge (Damage)" },
+  { value: 'disabled', name: 'Disabled' },
+];
+
+// ── Raid Buffs ─────────────────────────────────────────────────────────────
+
+export interface RaidBuffPreset {
+  key: string;
+  simcKey: string;
+  label: string;
+  defaultOn: boolean;
+}
+
+export const RAID_BUFFS: RaidBuffPreset[] = [
+  { key: 'bloodlust', simcKey: 'override.bloodlust', label: 'Bloodlust', defaultOn: true },
+  { key: 'arcane_intellect', simcKey: 'override.arcane_intellect', label: 'Arcane Intellect', defaultOn: true },
+  { key: 'power_word_fortitude', simcKey: 'override.power_word_fortitude', label: 'Power Word: Fortitude', defaultOn: true },
+  { key: 'mark_of_the_wild', simcKey: 'override.mark_of_the_wild', label: 'Mark of the Wild', defaultOn: true },
+  { key: 'battle_shout', simcKey: 'override.battle_shout', label: 'Battle Shout', defaultOn: true },
+  { key: 'mystic_touch', simcKey: 'override.mystic_touch', label: 'Mystic Touch (5% Physical)', defaultOn: true },
+  { key: 'chaos_brand', simcKey: 'override.chaos_brand', label: 'Chaos Brand (3% Magic)', defaultOn: true },
+  { key: 'skyfury', simcKey: 'override.skyfury', label: 'Skyfury', defaultOn: true },
+  { key: 'hunters_mark', simcKey: 'override.hunters_mark', label: "Hunter's Mark", defaultOn: true },
+  { key: 'bleeding', simcKey: 'override.bleeding', label: 'Bleeding', defaultOn: true },
+];
+
+// ── Trinket-Specific Options ───────────────────────────────────────────────
+
+export interface CrucibleMode {
+  key: string;
+  simcKey: string;
+  label: string;
+}
+
+/** Crucible of Erratic Energies (item_id=264507) mode toggles. */
+export const CRUCIBLE_ITEM_ID = 264507;
+export const CRUCIBLE_MODES: CrucibleMode[] = [
+  { key: 'violence', simcKey: 'midnight.crucible_of_erratic_energies_violence', label: 'Violence' },
+  { key: 'sustenance', simcKey: 'midnight.crucible_of_erratic_energies_sustenance', label: 'Sustenance' },
+  { key: 'predation', simcKey: 'midnight.crucible_of_erratic_energies_predation', label: 'Predation' },
+];
+
+/** Slots that can be enchanted in Midnight S1. Off-hand cannot have weapon enchants. */
 export const ENCHANTABLE_SLOTS = [
   'head',
   'shoulder',
@@ -495,5 +611,4 @@ export const ENCHANTABLE_SLOTS = [
   'finger1',
   'finger2',
   'main_hand',
-  'off_hand',
 ] as const;

@@ -41,6 +41,13 @@ const validSettings: SimSettingsValues = {
   threads: 7,
   useTargetError: false,
   targetError: 0.1,
+  potion: '',
+  food: '',
+  flask: '',
+  augmentation: '',
+  weaponRune: '',
+  raidBuffs: { bloodlust: true },
+  crucibleModes: {},
 };
 
 describe('validateSimInput', () => {

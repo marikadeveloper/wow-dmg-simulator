@@ -125,6 +125,13 @@ function App() {
       threads: uiSettings.threads,
       jsonOutputPath: '/tmp/placeholder.json', // Rust backend overrides via CLI arg
       targetError: uiSettings.useTargetError ? uiSettings.targetError : undefined,
+      potion: uiSettings.potion,
+      food: uiSettings.food,
+      flask: uiSettings.flask,
+      augmentation: uiSettings.augmentation,
+      weaponRune: uiSettings.weaponRune,
+      raidBuffs: uiSettings.raidBuffs,
+      crucibleModes: uiSettings.crucibleModes,
     };
   }
 
@@ -263,6 +270,7 @@ function App() {
             <SimSettingsPanel
               settings={simSettings}
               onSettingsChange={setSimSettings}
+              profile={profile}
             />
 
             {/* Validation messages */}

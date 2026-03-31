@@ -39,6 +39,7 @@ interface ParsedItem {
   slot: string;
   baseIlvl: number;
   quality: number;
+  invType: number;
 }
 
 /**
@@ -106,6 +107,7 @@ function parseItemData(text: string): ParsedItem[] {
       slot,
       baseIlvl: isNaN(ilvl) ? 0 : ilvl,
       quality: isNaN(quality) ? 4 : quality,
+      invType,
     });
   }
 
@@ -132,7 +134,8 @@ async function main() {
       name      TEXT NOT NULL,
       slot      TEXT NOT NULL,
       base_ilvl INTEGER NOT NULL DEFAULT 0,
-      quality   INTEGER NOT NULL DEFAULT 4
+      quality   INTEGER NOT NULL DEFAULT 4,
+      inv_type  INTEGER NOT NULL DEFAULT 0
     );
     CREATE VIRTUAL TABLE items_fts USING fts5(
       name, content='items', content_rowid='item_id'
@@ -143,12 +146,12 @@ async function main() {
   `);
 
   const insert = db.prepare(
-    'INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality) VALUES (?, ?, ?, ?, ?)',
+    'INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality, inv_type) VALUES (?, ?, ?, ?, ?, ?)',
   );
 
   const insertMany = db.transaction((rows: ParsedItem[]) => {
     for (const item of rows) {
-      insert.run(item.id, item.name, item.slot, item.baseIlvl, item.quality);
+      insert.run(item.id, item.name, item.slot, item.baseIlvl, item.quality, item.invType);
     }
   });
 

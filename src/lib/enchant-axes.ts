@@ -18,7 +18,6 @@ const ENCHANT_BY_ID = new Map<number, EnchantPreset>(
  */
 function slotToPresetCategory(slot: string): string {
   if (slot === 'finger1' || slot === 'finger2') return 'finger';
-  if (slot === 'off_hand') return 'main_hand';
   return slot;
 }
 
@@ -26,9 +25,15 @@ function slotToPresetCategory(slot: string): string {
  * Build unconditional enchant OptimizationAxis[] for all enchantable slots
  * that have selected items.
  *
- * Unlike gem axes, enchant axes are unconditional — they apply regardless of
- * which item ends up in the slot. The enchant modifies the item line via
- * `enchant_id=N`.
+ * Enchant options have EMPTY simcLines — the profileset builder is responsible
+ * for merging the enchant_id into the correct item line. This is necessary
+ * because enchant overrides must be applied to whatever item ends up in the
+ * slot (which may change due to gear swaps), not the currently equipped item.
+ *
+ * The enchant_id is encoded in the option ID: "enchant_{id}" for active
+ * enchants, "enchant_none" for keep-current.
+ *
+ * Off-hand cannot have weapon enchants.
  *
  * @param profile        - Parsed SimC profile
  * @param selection      - Set of "slot:index" keys for selected items
@@ -51,6 +56,8 @@ export function buildEnchantAxes(
   }
 
   for (const slot of ENCHANTABLE_SLOTS) {
+    // Off-hand cannot have weapon enchants
+    if (slot === 'off_hand') continue;
     // Skip slots where the user has no items selected
     if (!slotsWithSelection.has(slot)) continue;
 
@@ -63,22 +70,16 @@ export function buildEnchantAxes(
 
     if (relevantEnchantIds.length === 0) continue;
 
-    const options: OptimizationOption[] = [
-      // "No enchant" / keep current — always first option
-      {
-        id: 'enchant_none',
-        label: 'No enchant',
-        simcLines: [], // signals to omit enchant_id from the item line
-      },
-      ...relevantEnchantIds.map((enchantId) => {
-        const preset = ENCHANT_BY_ID.get(enchantId);
-        return {
-          id: `enchant_${enchantId}`,
-          label: preset?.name ?? `Enchant #${enchantId}`,
-          simcLines: [], // enchant is merged into item lines by profileset builder
-        };
-      }),
-    ];
+    const options: OptimizationOption[] = relevantEnchantIds.map((enchantId) => {
+      const preset = ENCHANT_BY_ID.get(enchantId);
+      return {
+        id: `enchant_${enchantId}`,
+        label: preset?.name ?? `Enchant #${enchantId}`,
+        // Empty simcLines — the profileset builder reads the enchant_id from
+        // the option ID and merges it into the item line for the correct slot
+        simcLines: [],
+      };
+    });
 
     axes.push({
       id: `enchant:${slot}`,

@@ -10,6 +10,7 @@ pub struct ItemSearchResult {
     pub slot: String,
     pub base_ilvl: u32,
     pub quality: u32,
+    pub inv_type: u32,
     pub source: String, // "local"
 }
 
@@ -53,7 +54,7 @@ pub async fn search_items(
                     // Search by item ID directly
                     let item_id: u32 = trimmed.parse().unwrap();
                     let _ = conn.query_row(
-                        "SELECT item_id, name, slot, base_ilvl, quality FROM items WHERE item_id = ?1",
+                        "SELECT item_id, name, slot, base_ilvl, quality, COALESCE(inv_type, 0) FROM items WHERE item_id = ?1",
                         [item_id],
                         |row| {
                             results.push(ItemSearchResult {
@@ -62,6 +63,7 @@ pub async fn search_items(
                                 slot: row.get(2)?,
                                 base_ilvl: row.get(3)?,
                                 quality: row.get(4)?,
+                                inv_type: row.get(5)?,
                                 source: "local".to_string(),
                             });
                             Ok(())
@@ -71,7 +73,7 @@ pub async fn search_items(
                     // Full-text search by name
                     let fts_query = format!("{}*", trimmed.replace('"', ""));
                     let mut stmt = match conn.prepare(
-                        "SELECT i.item_id, i.name, i.slot, i.base_ilvl, i.quality \
+                        "SELECT i.item_id, i.name, i.slot, i.base_ilvl, i.quality, COALESCE(i.inv_type, 0) \
                          FROM items_fts \
                          JOIN items i ON items_fts.rowid = i.item_id \
                          WHERE items_fts MATCH ?1 \
@@ -88,6 +90,7 @@ pub async fn search_items(
                             slot: row.get(2)?,
                             base_ilvl: row.get(3)?,
                             quality: row.get(4)?,
+                            inv_type: row.get(5)?,
                             source: "local".to_string(),
                         })
                     }) {
@@ -176,6 +179,7 @@ pub async fn refresh_item_db(
         slot: String,
         base_ilvl: u32,
         quality: u32,
+        inv_type: u32,
     }
 
     let comment_re = Regex::new(r"/\*.*?\*/").map_err(|e| e.to_string())?;
@@ -211,7 +215,7 @@ pub async fn refresh_item_db(
             None => continue,
         };
 
-        items.push(ParsedItem { id, name, slot, base_ilvl: ilvl, quality });
+        items.push(ParsedItem { id, name, slot, base_ilvl: ilvl, quality, inv_type });
     }
 
     if items.is_empty() {
@@ -244,7 +248,8 @@ pub async fn refresh_item_db(
             name      TEXT NOT NULL,
             slot      TEXT NOT NULL,
             base_ilvl INTEGER NOT NULL DEFAULT 0,
-            quality   INTEGER NOT NULL DEFAULT 4
+            quality   INTEGER NOT NULL DEFAULT 4,
+            inv_type  INTEGER NOT NULL DEFAULT 0
         );
         CREATE VIRTUAL TABLE items_fts USING fts5(
             name, content='items', content_rowid='item_id'
@@ -259,7 +264,7 @@ pub async fn refresh_item_db(
     let count;
     {
         let mut stmt = tx
-            .prepare("INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality) VALUES (?1, ?2, ?3, ?4, ?5)")
+            .prepare("INSERT OR IGNORE INTO items (item_id, name, slot, base_ilvl, quality, inv_type) VALUES (?1, ?2, ?3, ?4, ?5, ?6)")
             .map_err(|e| e.to_string())?;
 
         let mut seen = HashMap::<u32, bool>::new();
@@ -268,11 +273,57 @@ pub async fn refresh_item_db(
                 continue;
             }
             seen.insert(item.id, true);
-            let _ = stmt.execute(rusqlite::params![item.id, item.name, item.slot, item.base_ilvl, item.quality]);
+            let _ = stmt.execute(rusqlite::params![item.id, item.name, item.slot, item.base_ilvl, item.quality, item.inv_type]);
         }
         count = seen.len() as u32;
     }
     tx.commit().map_err(|e| e.to_string())?;
 
     Ok(count)
+}
+
+/// Batch-lookup inventory types for a list of item IDs.
+/// Returns a map of item_id → inv_type (only items found in the DB).
+#[tauri::command]
+pub async fn lookup_item_types(
+    app: tauri::AppHandle,
+    item_ids: Vec<u32>,
+) -> Result<HashMap<u32, u32>, String> {
+    #[allow(unused_imports)]
+    use tauri::Manager;
+
+    let mut result = HashMap::new();
+    if item_ids.is_empty() {
+        return Ok(result);
+    }
+
+    if let Ok(resource_dir) = app.path().resource_dir() {
+        let db_path = resource_dir.join("assets").join("items.db");
+        if db_path.exists() {
+            if let Ok(conn) = rusqlite::Connection::open(&db_path) {
+                // Build a parameterized query for the given IDs
+                let placeholders: Vec<String> = item_ids.iter().map(|_| "?".to_string()).collect();
+                let sql = format!(
+                    "SELECT item_id, COALESCE(inv_type, 0) FROM items WHERE item_id IN ({})",
+                    placeholders.join(",")
+                );
+                if let Ok(mut stmt) = conn.prepare(&sql) {
+                    let params: Vec<Box<dyn rusqlite::ToSql>> = item_ids
+                        .iter()
+                        .map(|id| Box::new(*id) as Box<dyn rusqlite::ToSql>)
+                        .collect();
+                    let param_refs: Vec<&dyn rusqlite::ToSql> = params.iter().map(|p| p.as_ref()).collect();
+                    if let Ok(rows) = stmt.query_map(param_refs.as_slice(), |row| {
+                        Ok((row.get::<_, u32>(0)?, row.get::<_, u32>(1)?))
+                    }) {
+                        for row in rows.flatten() {
+                            result.insert(row.0, row.1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(result)
 }

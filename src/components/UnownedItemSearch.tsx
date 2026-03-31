@@ -8,6 +8,7 @@ interface ItemSearchResult {
   slot: string;
   baseIlvl: number;
   quality: number;
+  invType: number;
   source: string;
 }
 
@@ -105,6 +106,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
       ilvl,
       isEquipped: false,
       isUnowned: true,
+      ...(result.invType === 17 && { isTwoHand: true }),
     };
 
     onAddItem(targetSlot, gearItem);

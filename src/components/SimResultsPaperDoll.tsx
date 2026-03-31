@@ -45,25 +45,77 @@ function formatDps(n: number): string {
   return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
 }
 
+/** Map individual slots to their paired axis name */
+const SLOT_TO_PAIR_AXIS: Record<string, { axis: string; position: 'first' | 'second' }> = {
+  finger1: { axis: 'slot:rings', position: 'first' },
+  finger2: { axis: 'slot:rings', position: 'second' },
+  trinket1: { axis: 'slot:trinkets', position: 'first' },
+  trinket2: { axis: 'slot:trinkets', position: 'second' },
+  main_hand: { axis: 'slot:weapons', position: 'first' },
+  off_hand: { axis: 'slot:weapons', position: 'second' },
+};
+
 /** Resolve which item the best result uses for a given slot */
 function resolveSlotItem(
   slot: string,
   bestResult: SimResult,
   profile: SimcProfile,
 ): GearItem | undefined {
-  const items = profile.gear[slot];
-  if (!items || items.length === 0) return undefined;
+  // Collect all items across both slots of a pair for lookup
+  const allGearItems = Object.values(profile.gear).flat();
 
+  // Check individual slot axis first (e.g. slot:head)
   const axisKey = `slot:${slot}`;
   const chosenOptionId = bestResult.axes[axisKey];
-
   if (chosenOptionId) {
-    // Find the item matching the chosen option ID
-    const match = items.find((item) => String(item.id) === chosenOptionId);
-    if (match) return match;
+    // Option IDs: "item_{id}_{idx}" or "catalyst_{id}_{idx}"
+    const idMatch = chosenOptionId.match(/^(?:item|catalyst)_(\d+)/);
+    if (idMatch) {
+      const itemId = parseInt(idMatch[1], 10);
+      const match = allGearItems.find((item) => item.id === itemId);
+      if (match) return match;
+    }
   }
 
-  // No axis for this slot or no match — use equipped item
+  // Check paired axis (rings, trinkets, weapons)
+  const pairInfo = SLOT_TO_PAIR_AXIS[slot];
+  if (pairInfo) {
+    const pairOptionId = bestResult.axes[pairInfo.axis];
+    if (pairOptionId) {
+      // Pair option IDs: "pair_{idA}_{idB}" (rings/trinkets) or "pair_{idA}_{idxA}_{idB}_{idxB}" (weapons)
+      if (pairOptionId.startsWith('pair_')) {
+        const parts = pairOptionId.replace('pair_', '').split('_').map(Number);
+        // For rings/trinkets: pair_{idA}_{idB} → 2 parts
+        // For weapons: pair_{idA}_{idxA}_{idB}_{idxB} → 4 parts
+        let itemId: number;
+        if (parts.length === 4) {
+          // Weapon pair: first=parts[0], second=parts[2]
+          itemId = pairInfo.position === 'first' ? parts[0] : parts[2];
+        } else {
+          // Ring/trinket pair: first=parts[0], second=parts[1]
+          itemId = pairInfo.position === 'first' ? parts[0] : parts[1];
+        }
+        const match = allGearItems.find((item) => item.id === itemId);
+        if (match) return match;
+      }
+      // Single weapon option: "item_{id}_{idx}" or "catalyst_{id}_{idx}" (2H weapon)
+      const idMatch = pairOptionId.match(/^(?:item|catalyst)_(\d+)/);
+      if (idMatch) {
+        if (pairInfo.position === 'first') {
+          const itemId = parseInt(idMatch[1], 10);
+          const match = allGearItems.find((item) => item.id === itemId);
+          if (match) return match;
+        } else {
+          // 2H weapon → off_hand is empty
+          return undefined;
+        }
+      }
+    }
+  }
+
+  // No axis for this slot — use equipped item
+  const items = profile.gear[slot];
+  if (!items || items.length === 0) return undefined;
   return items.find((item) => item.isEquipped) ?? items[0];
 }
 
@@ -72,14 +124,31 @@ function isSlotChanged(
   slot: string,
   bestResult: SimResult,
   baseline: SimResult | undefined,
+  profile: SimcProfile,
 ): boolean {
   if (!baseline) return false;
+
+  // Check direct slot axis
   const axisKey = `slot:${slot}`;
-  const bestOpt = bestResult.axes[axisKey];
-  const baseOpt = baseline.axes[axisKey];
-  // Changed if both have the axis and they differ, or best has it and baseline doesn't
-  if (!bestOpt && !baseOpt) return false;
-  return bestOpt !== baseOpt;
+  const bestDirect = bestResult.axes[axisKey];
+  const baseDirect = baseline.axes[axisKey];
+  if (bestDirect || baseDirect) return bestDirect !== baseDirect;
+
+  // Check paired axis
+  const pairInfo = SLOT_TO_PAIR_AXIS[slot];
+  if (pairInfo) {
+    const bestPair = bestResult.axes[pairInfo.axis];
+    const basePair = baseline.axes[pairInfo.axis];
+    if (bestPair || basePair) {
+      if (bestPair !== basePair) return true;
+      // Same pair option but different from equipped? Compare resolved items
+      const bestItem = resolveSlotItem(slot, bestResult, profile);
+      const equippedItem = profile.gear[slot]?.find((i) => i.isEquipped);
+      return bestItem?.id !== equippedItem?.id;
+    }
+  }
+
+  return false;
 }
 
 /** Resolve enchant/gem changes for a slot */
@@ -226,7 +295,7 @@ export default function SimResultsPaperDoll({
     return allDefs.map((slotDef) => ({
       slotDef,
       item: resolveSlotItem(slotDef.simcSlot, best, profile),
-      changed: isSlotChanged(slotDef.simcSlot, best, baseline),
+      changed: isSlotChanged(slotDef.simcSlot, best, baseline, profile),
       modifiers: getSlotModifiers(slotDef.simcSlot, best, baseline, axes),
     }));
   }, [best, baseline, profile, axes]);

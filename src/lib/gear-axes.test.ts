@@ -77,9 +77,9 @@ describe('buildGearAxes', () => {
     });
     const selection = new Set(['chest:0', 'chest:1']);
     const axes = buildGearAxes(profile, selection);
-    expect(axes[0].options[0].simcLines).toEqual([
-      'chest=,id=300,bonus_id=1/2,gem_id=100,enchant_id=7340',
-    ]);
+    // Equipped item produces empty simcLines (matches base profile)
+    expect(axes[0].options[0].simcLines).toEqual([]);
+    // Non-equipped item produces override lines
     expect(axes[0].options[1].simcLines).toEqual([
       'chest=,id=301,bonus_id=3',
     ]);
@@ -141,22 +141,34 @@ describe('ring pair axes', () => {
     const profile = makeProfile({
       finger1: [
         makeItem({ slot: 'finger1', id: 100, isEquipped: true, enchantId: 7340 }),
+        makeItem({ slot: 'finger1', id: 102 }),
       ],
       finger2: [
         makeItem({ slot: 'finger2', id: 200, isEquipped: true, bonusIds: [5] }),
       ],
     });
-    const selection = new Set(['finger1:0', 'finger2:0']);
+    const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0']);
     const axes = buildGearAxes(profile, selection);
 
     const ringAxis = axes.find((a) => a.id === 'slot:rings');
     expect(ringAxis).toBeDefined();
-    expect(ringAxis!.options).toHaveLength(1); // C(2,2) = 1 pair
+    expect(ringAxis!.options).toHaveLength(3); // C(3,2) = 3 pairs
 
     const pair = ringAxis!.options[0];
     expect(pair.simcLines).toHaveLength(2);
     expect(pair.simcLines[0]).toBe('finger1=,id=100,enchant_id=7340');
-    expect(pair.simcLines[1]).toBe('finger2=,id=200,bonus_id=5');
+    expect(pair.simcLines[1]).toBe('finger2=,id=102');
+  });
+
+  it('returns no ring axis when only one pair possible (2 items)', () => {
+    const profile = makeProfile({
+      finger1: [makeItem({ slot: 'finger1', id: 100, isEquipped: true })],
+      finger2: [makeItem({ slot: 'finger2', id: 200, isEquipped: true })],
+    });
+    const selection = new Set(['finger1:0', 'finger2:0']);
+    const axes = buildGearAxes(profile, selection);
+    // C(2,2) = 1 pair → nothing to vary
+    expect(axes.find((a) => a.id === 'slot:rings')).toBeUndefined();
   });
 
   it('does not create separate finger1/finger2 axes', () => {
@@ -208,14 +220,17 @@ describe('ring pair axes', () => {
 
   it('pair option id contains both item ids', () => {
     const profile = makeProfile({
-      finger1: [makeItem({ slot: 'finger1', id: 100, isEquipped: true })],
+      finger1: [
+        makeItem({ slot: 'finger1', id: 100, isEquipped: true }),
+        makeItem({ slot: 'finger1', id: 101 }),
+      ],
       finger2: [makeItem({ slot: 'finger2', id: 200, isEquipped: true })],
     });
-    const selection = new Set(['finger1:0', 'finger2:0']);
+    const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0']);
     const axes = buildGearAxes(profile, selection);
 
     const pair = axes.find((a) => a.id === 'slot:rings')!.options[0];
-    expect(pair.id).toBe('pair_100_200');
+    expect(pair.id).toBe('pair_100_101');
   });
 });
 
@@ -241,16 +256,22 @@ describe('trinket pair axes', () => {
 
   it('each trinket pair sets both trinket1 and trinket2 simcLines', () => {
     const profile = makeProfile({
-      trinket1: [makeItem({ slot: 'trinket1', id: 500, isEquipped: true })],
+      trinket1: [
+        makeItem({ slot: 'trinket1', id: 500, isEquipped: true }),
+        makeItem({ slot: 'trinket1', id: 501 }),
+      ],
       trinket2: [makeItem({ slot: 'trinket2', id: 600, isEquipped: true, bonusIds: [10] })],
     });
-    const selection = new Set(['trinket1:0', 'trinket2:0']);
+    const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0']);
     const axes = buildGearAxes(profile, selection);
 
-    const pair = axes.find((a) => a.id === 'slot:trinkets')!.options[0];
+    const trinketAxis = axes.find((a) => a.id === 'slot:trinkets');
+    expect(trinketAxis).toBeDefined();
+    // C(3,2) = 3 pairs
+    const pair = trinketAxis!.options[0];
     expect(pair.simcLines).toHaveLength(2);
     expect(pair.simcLines[0]).toBe('trinket1=,id=500');
-    expect(pair.simcLines[1]).toBe('trinket2=,id=600,bonus_id=10');
+    expect(pair.simcLines[1]).toBe('trinket2=,id=501');
   });
 
   it('does not create separate trinket1/trinket2 axes', () => {
@@ -285,5 +306,109 @@ describe('trinket pair axes', () => {
     const axes = buildGearAxes(profile, selection);
 
     expect(axes.find((a) => a.id === 'slot:trinkets')!.options).toHaveLength(6);
+  });
+});
+
+describe('weapon axes (2H / 1H+OH)', () => {
+  it('2H weapon adds off_hand=, when profile has an off_hand', () => {
+    const profile = makeProfile({
+      main_hand: [
+        makeItem({ slot: 'main_hand', id: 100, isEquipped: true }),
+        makeItem({ slot: 'main_hand', id: 200, isTwoHand: true }),
+      ],
+      off_hand: [
+        makeItem({ slot: 'off_hand', id: 300, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['main_hand:0', 'main_hand:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    const weaponAxis = axes.find((a) => a.id === 'slot:weapons');
+    expect(weaponAxis).toBeDefined();
+
+    // The 2H option should include off_hand=,
+    const twoHandOption = weaponAxis!.options.find((o) => o.id.includes('200'));
+    expect(twoHandOption).toBeDefined();
+    expect(twoHandOption!.simcLines).toContain('off_hand=,');
+
+    // The 1H option should NOT include off_hand=,
+    const oneHandOption = weaponAxis!.options.find((o) => o.id.includes('100'));
+    expect(oneHandOption).toBeDefined();
+    expect(oneHandOption!.simcLines).not.toContain('off_hand=,');
+  });
+
+  it('mixed 1H/2H with off_hand selection creates paired weapon axis', () => {
+    const profile = makeProfile({
+      main_hand: [
+        makeItem({ slot: 'main_hand', id: 100, isEquipped: true }),
+        makeItem({ slot: 'main_hand', id: 200, isTwoHand: true }),
+      ],
+      off_hand: [
+        makeItem({ slot: 'off_hand', id: 300, isEquipped: true }),
+        makeItem({ slot: 'off_hand', id: 301 }),
+      ],
+    });
+    const selection = new Set(['main_hand:0', 'main_hand:1', 'off_hand:0', 'off_hand:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    const weaponAxis = axes.find((a) => a.id === 'slot:weapons');
+    expect(weaponAxis).toBeDefined();
+    // 1 x 2H (with off_hand=,) + 1 x 1H paired with 2 off_hands = 3 options
+    expect(weaponAxis!.options).toHaveLength(3);
+
+    // No separate main_hand or off_hand axes
+    expect(axes.find((a) => a.id === 'slot:main_hand')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:off_hand')).toBeUndefined();
+  });
+
+  it('pure 1H comparison (no isTwoHand) uses normal independent axes', () => {
+    const profile = makeProfile({
+      main_hand: [
+        makeItem({ slot: 'main_hand', id: 100, isEquipped: true }),
+        makeItem({ slot: 'main_hand', id: 101 }),
+      ],
+      off_hand: [
+        makeItem({ slot: 'off_hand', id: 300, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['main_hand:0', 'main_hand:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    // No weapon pairing — standard main_hand axis
+    expect(axes.find((a) => a.id === 'slot:weapons')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:main_hand')).toBeDefined();
+  });
+
+  it('2H-only comparison with no off_hand in profile uses normal axis', () => {
+    const profile = makeProfile({
+      main_hand: [
+        makeItem({ slot: 'main_hand', id: 100, isEquipped: true, isTwoHand: true }),
+        makeItem({ slot: 'main_hand', id: 200, isTwoHand: true }),
+      ],
+    });
+    const selection = new Set(['main_hand:0', 'main_hand:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    // No off_hand in profile, so no weapon pairing needed
+    expect(axes.find((a) => a.id === 'slot:weapons')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:main_hand')).toBeDefined();
+  });
+
+  it('isTwoHand undefined defaults to 1H behavior', () => {
+    const profile = makeProfile({
+      main_hand: [
+        makeItem({ slot: 'main_hand', id: 100, isEquipped: true }),
+        makeItem({ slot: 'main_hand', id: 200 }), // no isTwoHand set
+      ],
+      off_hand: [
+        makeItem({ slot: 'off_hand', id: 300, isEquipped: true }),
+      ],
+    });
+    const selection = new Set(['main_hand:0', 'main_hand:1']);
+    const axes = buildGearAxes(profile, selection);
+
+    // No 2H items → no weapon pairing
+    expect(axes.find((a) => a.id === 'slot:weapons')).toBeUndefined();
+    expect(axes.find((a) => a.id === 'slot:main_hand')).toBeDefined();
   });
 });

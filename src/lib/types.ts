@@ -50,6 +50,8 @@ export interface GearItem {
   isCatalyst?: boolean;
   /** true = this item is an unowned item added via search (hypothetical) */
   isUnowned?: boolean;
+  /** true = this is a two-handed weapon (inv_type 17) that occupies main_hand and clears off_hand */
+  isTwoHand?: boolean;
 }
 
 /** The fully parsed SimC addon export string. */
@@ -132,4 +134,15 @@ export interface SimSettings {
   jsonOutputPath: string;
   /** Target error % — when set and > 0, replaces iterations (sim stops when error < this) */
   targetError?: number;
+  /** Consumable SimC values ('' = SimC default, 'disabled' = none) */
+  potion: string;
+  food: string;
+  flask: string;
+  augmentation: string;
+  /** Weapon rune — SimC temporary_enchant value */
+  weaponRune: string;
+  /** Raid buff overrides — key → enabled */
+  raidBuffs: Record<string, boolean>;
+  /** Crucible of Erratic Energies modes — key → enabled */
+  crucibleModes: Record<string, boolean>;
 }

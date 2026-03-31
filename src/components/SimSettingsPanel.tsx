@@ -1,4 +1,15 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import type { SimcProfile } from '../lib/types';
+import {
+  POTION_PRESETS,
+  FOOD_PRESETS,
+  FLASK_PRESETS,
+  AUGMENTATION_PRESETS,
+  WEAPON_RUNE_PRESETS,
+  RAID_BUFFS,
+  CRUCIBLE_ITEM_ID,
+  CRUCIBLE_MODES,
+} from '../lib/presets/season-config';
 
 /** SimC fight_style value → user-facing label + short description. */
 const FIGHT_STYLES = [
@@ -39,6 +50,14 @@ const FIGHT_STYLES = [
   },
 ] as const;
 
+const DEFAULT_RAID_BUFFS: Record<string, boolean> = Object.fromEntries(
+  RAID_BUFFS.map((b) => [b.key, b.defaultOn]),
+);
+
+const DEFAULT_CRUCIBLE_MODES: Record<string, boolean> = Object.fromEntries(
+  CRUCIBLE_MODES.map((m) => [m.key, true]),
+);
+
 export interface SimSettingsValues {
   fightStyle: string;
   maxTime: number;
@@ -48,6 +67,13 @@ export interface SimSettingsValues {
   threads: number;
   useTargetError: boolean;
   targetError: number;
+  potion: string;
+  food: string;
+  flask: string;
+  augmentation: string;
+  weaponRune: string;
+  raidBuffs: Record<string, boolean>;
+  crucibleModes: Record<string, boolean>;
 }
 
 export const DEFAULT_SIM_SETTINGS: SimSettingsValues = {
@@ -59,16 +85,25 @@ export const DEFAULT_SIM_SETTINGS: SimSettingsValues = {
   threads: Math.max(1, (navigator.hardwareConcurrency ?? 4) - 1),
   useTargetError: false,
   targetError: 0.1,
+  potion: '',
+  food: '',
+  flask: '',
+  augmentation: '',
+  weaponRune: '',
+  raidBuffs: DEFAULT_RAID_BUFFS,
+  crucibleModes: DEFAULT_CRUCIBLE_MODES,
 };
 
 interface SimSettingsPanelProps {
   settings: SimSettingsValues;
   onSettingsChange: (next: SimSettingsValues) => void;
+  profile?: SimcProfile | null;
 }
 
 export default function SimSettingsPanel({
   settings,
   onSettingsChange,
+  profile,
 }: SimSettingsPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -77,19 +112,26 @@ export default function SimSettingsPanel({
   const currentStyle =
     FIGHT_STYLES.find((s) => s.value === settings.fightStyle) ?? FIGHT_STYLES[0];
 
-  const handleSelect = useCallback(
-    (value: string) => {
-      onSettingsChange({ ...settings, fightStyle: value });
-      setDropdownOpen(false);
-    },
-    [settings, onSettingsChange],
-  );
+  const hasCrucible = useMemo(() => {
+    if (!profile) return false;
+    const t1 = profile.gear.trinket1?.find((i) => i.isEquipped);
+    const t2 = profile.gear.trinket2?.find((i) => i.isEquipped);
+    return t1?.id === CRUCIBLE_ITEM_ID || t2?.id === CRUCIBLE_ITEM_ID;
+  }, [profile]);
 
   const update = useCallback(
     (patch: Partial<SimSettingsValues>) => {
       onSettingsChange({ ...settings, ...patch });
     },
     [settings, onSettingsChange],
+  );
+
+  const handleSelect = useCallback(
+    (value: string) => {
+      update({ fightStyle: value });
+      setDropdownOpen(false);
+    },
+    [update],
   );
 
   // Close dropdown on outside click
@@ -397,6 +439,120 @@ export default function SimSettingsPanel({
               />
             </div>
           </div>
+
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/*  Consumables                                              */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          <SectionDivider label="Consumables" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-3">
+            <ConsumableSelect
+              label="Potion"
+              value={settings.potion}
+              options={POTION_PRESETS}
+              onChange={(v) => update({ potion: v })}
+            />
+            <ConsumableSelect
+              label="Food"
+              value={settings.food}
+              options={FOOD_PRESETS}
+              onChange={(v) => update({ food: v })}
+            />
+            <ConsumableSelect
+              label="Flask"
+              value={settings.flask}
+              options={FLASK_PRESETS}
+              onChange={(v) => update({ flask: v })}
+            />
+            <ConsumableSelect
+              label="Augmentation"
+              value={settings.augmentation}
+              options={AUGMENTATION_PRESETS}
+              onChange={(v) => update({ augmentation: v })}
+            />
+            <ConsumableSelect
+              label="Weapon Rune"
+              value={settings.weaponRune}
+              options={WEAPON_RUNE_PRESETS}
+              onChange={(v) => update({ weaponRune: v })}
+            />
+          </div>
+
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/*  Trinket Options (conditional)                            */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          {hasCrucible && (
+            <>
+              <SectionDivider label="Trinket Options" />
+              <div className="mb-1">
+                <span className="text-xs font-medium text-zinc-300">
+                  Crucible of Erratic Energies
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+                {CRUCIBLE_MODES.map((mode) => (
+                  <CheckboxItem
+                    key={mode.key}
+                    label={mode.label}
+                    checked={settings.crucibleModes[mode.key] ?? true}
+                    onChange={() =>
+                      update({
+                        crucibleModes: {
+                          ...settings.crucibleModes,
+                          [mode.key]: !settings.crucibleModes[mode.key],
+                        },
+                      })
+                    }
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* ══════════════════════════════════════════════════════════ */}
+          {/*  Raid Buffs                                               */}
+          {/* ══════════════════════════════════════════════════════════ */}
+          <SectionDivider label="Raid Buffs" />
+          <div className="flex items-center gap-2 mb-3">
+            <button
+              onClick={() => update({ raidBuffs: { ...DEFAULT_RAID_BUFFS } })}
+              className="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/25 transition-colors"
+            >
+              Optimal Raid Buffs
+            </button>
+            <button
+              onClick={() =>
+                update({
+                  raidBuffs: Object.fromEntries(
+                    RAID_BUFFS.map((b) => [b.key, false]),
+                  ),
+                })
+              }
+              className="px-3 py-1 rounded-md text-xs font-semibold bg-zinc-800/80 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/60 hover:text-zinc-300 transition-colors"
+            >
+              No Buffs
+            </button>
+          </div>
+          <p className="text-[11px] text-zinc-600 mb-2.5 leading-snug">
+            If your character provides one of these buffs, it may be used even
+            if disabled here.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-1.5">
+            {RAID_BUFFS.map((buff) => (
+              <CheckboxItem
+                key={buff.key}
+                label={buff.label}
+                checked={settings.raidBuffs[buff.key] ?? false}
+                onChange={() =>
+                  update({
+                    raidBuffs: {
+                      ...settings.raidBuffs,
+                      [buff.key]: !settings.raidBuffs[buff.key],
+                    },
+                  })
+                }
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -425,6 +581,109 @@ function SettingLabel({
         {hint}
       </p>
     </div>
+  );
+}
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="mt-5 mb-3 flex items-center gap-3">
+      <div className="h-px flex-1 bg-zinc-800/80" />
+      <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest shrink-0">
+        {label}
+      </span>
+      <div className="h-px flex-1 bg-zinc-800/80" />
+    </div>
+  );
+}
+
+function ConsumableSelect({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: { value: string; name: string }[];
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div>
+      <label className="block text-[11px] font-medium text-zinc-500 mb-1">
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={[
+          'w-full px-2.5 py-1.5 rounded-md text-sm',
+          'bg-zinc-800/60 border border-zinc-700/50 text-zinc-200',
+          'focus:outline-none focus:border-amber-500/40 transition-colors',
+          'appearance-none cursor-pointer',
+          // Arrow via background-image
+          'bg-no-repeat bg-[length:12px] bg-[right_8px_center]',
+          "bg-[url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 7.5 9 4.5' stroke='%2371717a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")]",
+          'pr-7',
+        ].join(' ')}
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function CheckboxItem({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label onClick={onChange} className="flex items-center gap-2 cursor-pointer group py-0.5">
+      <div
+        className={[
+          'w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all',
+          checked
+            ? 'bg-amber-500/20 border-amber-500/50'
+            : 'bg-zinc-800/60 border-zinc-700/50 group-hover:border-zinc-600',
+        ].join(' ')}
+      >
+        {checked && (
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 10 10"
+            fill="none"
+            className="text-amber-400"
+          >
+            <path
+              d="M2 5.5L4 7.5L8 3"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </div>
+      <span
+        className={[
+          'text-xs transition-colors',
+          checked
+            ? 'text-zinc-300'
+            : 'text-zinc-500 group-hover:text-zinc-400',
+        ].join(' ')}
+      >
+        {label}
+      </span>
+    </label>
   );
 }
 

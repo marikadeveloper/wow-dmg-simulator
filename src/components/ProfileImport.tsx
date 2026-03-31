@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { invoke } from '@tauri-apps/api/core';
 import { parseSimcString } from '../lib/parser';
 import { saveLastInput, loadLastInput, clearLastInput } from '../lib/profile-store';
 import type { SimcProfile } from '../lib/types';
@@ -7,6 +8,27 @@ import type { SimcProfile } from '../lib/types';
 type ParseResult =
   | { ok: true; profile: SimcProfile }
   | { ok: false; error: string };
+
+/**
+ * Enrich weapon items in a parsed profile with isTwoHand from the item database.
+ * Mutates the profile's gear items in-place.
+ */
+async function enrichWeaponTypes(profile: SimcProfile): Promise<void> {
+  const weaponItems = profile.gear.main_hand ?? [];
+  if (weaponItems.length === 0) return;
+
+  const ids = weaponItems.map((i) => i.id);
+  try {
+    const typeMap = await invoke<Record<string, number>>('lookup_item_types', { itemIds: ids });
+    for (const item of weaponItems) {
+      if (typeMap[String(item.id)] === 17) {
+        item.isTwoHand = true;
+      }
+    }
+  } catch {
+    // DB lookup failed — items default to 1H behavior (safe fallback)
+  }
+}
 
 function validate(input: string): ParseResult {
   const trimmed = input.trim();
@@ -106,6 +128,22 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
+  /** Validate, enrich weapon types, and emit the parsed profile. */
+  const validateAndEmit = useCallback(
+    async (value: string) => {
+      const r = validate(value);
+      setResult(r);
+      if (r.ok) {
+        await enrichWeaponTypes(r.profile);
+        onProfileParsed(r.profile);
+      } else {
+        onProfileParsed(null);
+      }
+      saveLastInput(value);
+    },
+    [onProfileParsed],
+  );
+
   const handleChange = useCallback(
     (value: string) => {
       setInput(value);
@@ -122,13 +160,10 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
 
       // Debounce parsing for typed input (50ms — feels instant but avoids thrash)
       debounceRef.current = setTimeout(() => {
-        const r = validate(value);
-        setResult(r);
-        onProfileParsed(r.ok ? r.profile : null);
-        saveLastInput(value);
+        validateAndEmit(value);
       }, 50);
     },
-    [onProfileParsed],
+    [onProfileParsed, validateAndEmit],
   );
 
   const handlePaste = useCallback(
@@ -137,14 +172,10 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       const pasted = e.clipboardData.getData('text');
       // The textarea onChange will fire too, but we parse eagerly here
       setTimeout(() => {
-        const value = pasted;
-        const r = validate(value);
-        setResult(r);
-        onProfileParsed(r.ok ? r.profile : null);
-        saveLastInput(value);
+        validateAndEmit(pasted);
       }, 0);
     },
-    [onProfileParsed],
+    [validateAndEmit],
   );
 
   const handleClear = useCallback(() => {
@@ -157,12 +188,10 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
 
   // Restore last session's input on mount
   useEffect(() => {
-    loadLastInput().then((saved) => {
+    loadLastInput().then(async (saved) => {
       if (saved.trim()) {
         setInput(saved);
-        const r = validate(saved);
-        setResult(r);
-        onProfileParsed(r.ok ? r.profile : null);
+        await validateAndEmit(saved);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps — only run on mount

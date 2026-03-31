@@ -38,19 +38,7 @@ describe('buildEnchantAxes', () => {
     expect(buildEnchantAxes(profile, selection, [7988])).toEqual([]);
   });
 
-  it('always includes "No enchant" as the first option', () => {
-    const profile = makeProfile({
-      chest: [makeItem('chest', 100, true)],
-    });
-    const selection = new Set(['chest:0']);
-    const axes = buildEnchantAxes(profile, selection, [7956]);
-
-    expect(axes[0].options[0].id).toBe('enchant_none');
-    expect(axes[0].options[0].label).toBe('No enchant');
-    expect(axes[0].options[0].simcLines).toEqual([]);
-  });
-
-  it('creates one axis with no-enchant + selected enchant', () => {
+  it('creates one axis with only selected enchants (no "No enchant" option)', () => {
     const profile = makeProfile({
       chest: [makeItem('chest', 100, true)],
     });
@@ -60,9 +48,8 @@ describe('buildEnchantAxes', () => {
 
     expect(axes).toHaveLength(1);
     expect(axes[0].id).toBe('enchant:chest');
-    expect(axes[0].options).toHaveLength(2); // no-enchant + 1 enchant
-    expect(axes[0].options[0].id).toBe('enchant_none');
-    expect(axes[0].options[1].id).toBe('enchant_7956');
+    expect(axes[0].options).toHaveLength(1); // only the selected enchant
+    expect(axes[0].options[0].id).toBe('enchant_7956');
     // Enchant axes are unconditional — no parentItemId
     expect(axes[0].parentItemId).toBeUndefined();
     expect(axes[0].parentSlot).toBeUndefined();
@@ -80,11 +67,10 @@ describe('buildEnchantAxes', () => {
     expect(axes).toHaveLength(2);
     expect(axes.find((a) => a.id === 'enchant:finger1')).toBeDefined();
     expect(axes.find((a) => a.id === 'enchant:finger2')).toBeDefined();
-    // Both should have no-enchant + the enchant option
+    // Both should have the enchant option only
     for (const axis of axes) {
-      expect(axis.options).toHaveLength(2);
-      expect(axis.options[0].id).toBe('enchant_none');
-      expect(axis.options[1].id).toBe('enchant_7996');
+      expect(axis.options).toHaveLength(1);
+      expect(axis.options[0].id).toBe('enchant_7996');
     }
   });
 
@@ -102,11 +88,11 @@ describe('buildEnchantAxes', () => {
 
     expect(chestAxis).toBeDefined();
     expect(feetAxis).toBeDefined();
-    // Each should have no-enchant + its own enchant
-    expect(chestAxis!.options).toHaveLength(2);
-    expect(chestAxis!.options[1].id).toBe('enchant_7956');
-    expect(feetAxis!.options).toHaveLength(2);
-    expect(feetAxis!.options[1].id).toBe('enchant_7962');
+    // Each should have only its matching enchant
+    expect(chestAxis!.options).toHaveLength(1);
+    expect(chestAxis!.options[0].id).toBe('enchant_7956');
+    expect(feetAxis!.options).toHaveLength(1);
+    expect(feetAxis!.options[0].id).toBe('enchant_7962');
   });
 
   it('skips slots with no selected items', () => {
@@ -131,18 +117,19 @@ describe('buildEnchantAxes', () => {
     // 7956 = Mark of Nalorakk
     const axes = buildEnchantAxes(profile, selection, [7956]);
 
-    expect(axes[0].options[1].label).toBe('Mark of Nalorakk');
+    expect(axes[0].options[0].label).toBe('Mark of Nalorakk');
   });
 
-  it('enchant simcLines are empty (merged by profileset builder)', () => {
+  it('all enchant options have empty simcLines (merged by profileset builder)', () => {
     const profile = makeProfile({
       chest: [makeItem('chest', 100, true)],
     });
     const selection = new Set(['chest:0']);
     const axes = buildEnchantAxes(profile, selection, [7956]);
-    // Both no-enchant and enchant options have empty simcLines
+    // Enchant options have empty simcLines — profileset builder reads the enchant_id
+    // from the option ID and merges it into the item line
     expect(axes[0].options[0].simcLines).toEqual([]);
-    expect(axes[0].options[1].simcLines).toEqual([]);
+    expect(axes[0].options[0].id).toBe('enchant_7956');
   });
 
   it('handles multiple enchants for the same slot', () => {
@@ -154,10 +141,10 @@ describe('buildEnchantAxes', () => {
     const axes = buildEnchantAxes(profile, selection, [7956, 7957]);
 
     expect(axes).toHaveLength(1);
-    expect(axes[0].options).toHaveLength(3); // no-enchant + 2 enchants
+    expect(axes[0].options).toHaveLength(2); // 2 enchants
   });
 
-  it('off_hand uses main_hand enchant category', () => {
+  it('off_hand cannot be enchanted with weapon enchants', () => {
     const profile = makeProfile({
       off_hand: [makeItem('off_hand', 100, true)],
     });
@@ -165,9 +152,8 @@ describe('buildEnchantAxes', () => {
     // 7978 = Strength of Halazzi (main_hand category)
     const axes = buildEnchantAxes(profile, selection, [7978]);
 
-    expect(axes).toHaveLength(1);
-    expect(axes[0].id).toBe('enchant:off_hand');
-    expect(axes[0].options).toHaveLength(2); // no-enchant + 1 enchant
+    // Off-hand is excluded from weapon enchants
+    expect(axes).toHaveLength(0);
   });
 
   it('works across multiple slots simultaneously', () => {
@@ -182,9 +168,10 @@ describe('buildEnchantAxes', () => {
     const axes = buildEnchantAxes(profile, selection, [7988, 7956, 7996, 7978]);
 
     expect(axes).toHaveLength(4);
-    // Each axis should have no-enchant as first option
+    // Each axis should have only its matching enchant(s)
     for (const axis of axes) {
-      expect(axis.options[0].id).toBe('enchant_none');
+      expect(axis.options.length).toBeGreaterThan(0);
+      expect(axis.options[0].id).toMatch(/^enchant_\d+$/);
     }
   });
 });
