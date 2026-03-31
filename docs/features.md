@@ -190,6 +190,38 @@ See `docs/item-search.md` for full implementation spec.
 
 ---
 
+## EPIC 11 — Smart Sim (Multi-Stage Simulation)
+
+_The app runs large sims much faster by culling bad combinations early._
+
+Inspired by Raidbots' Smart Sim and AutoSimC. Instead of running all
+combinations at full precision, the app runs 3 stages of increasing accuracy,
+eliminating obvious losers after each stage. For 200+ combos this can be ~30x
+faster than brute-force.
+
+See `docs/smart-sim.md` for research and `docs/smart-sim-implementation.md`
+for the technical design.
+
+| #     | Story                                                                                                                                                    | Priority |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| 11.1  | Create `smart-sim-runner.ts` orchestrator with multi-stage pipeline logic (stage loop, culling between stages, callbacks for progress/IPC)               | 🚀       |
+| 11.2  | Implement `selectSurvivors` culling function — top-N% with statistical tie-breaking using `mean_std_dev`                                                 | 🚀       |
+| 11.3  | Add `buildProfileSetFileForSubset` to `profileset-builder.ts` — builds a .simc file for a subset of combos with a stage-specific `target_error` override | 🚀       |
+| 11.4  | Auto-select stage count based on combination count: 1 stage (< 50), 2 stages (50-199), 3 stages (200+)                                                  | 🚀       |
+| 11.5  | Wire smart-sim-runner into the simulation hook — call `run_top_gear` once per stage, feed survivors into the next stage                                  | 🚀       |
+| 11.6  | UI: staged progress display — show Stage 1/2/3 labels, per-stage progress bar, combo count per stage                                                    | 🚀       |
+| 11.7  | UI: "Smart Sim" toggle in advanced sim settings (enabled by default for 50+ combos, hidden for small sims)                                               | 🚀       |
+| 11.8  | Handle cancellation mid-stage — kill SimC process, return partial results from completed stages                                                          | 🚀       |
+| 11.9  | Baseline (`combo_0000`) always survives all stages so it appears in the final ranking                                                                    | 🚀       |
+| 11.10 | Unit tests: `selectSurvivors` culling logic, `getStageCount` thresholds, `buildProfileSetFileForSubset` output, full pipeline with mocked `runSimC`      | 🚀       |
+| 11.11 | Show "Smart Sim" label in results metadata (like Raidbots shows "10,250 (Smart Sim)")                                                                    | 🔮       |
+| 11.12 | User-configurable stage target errors in advanced settings (power users)                                                                                 | 🔮       |
+
+**Key constraint:** No Rust backend changes needed. The existing `run_top_gear`
+command is called once per stage. The orchestration is entirely in TypeScript.
+
+---
+
 ## OUT OF SCOPE (for now) ❌
 
 These features exist on Raidbots but are not part of this app's initial scope:
