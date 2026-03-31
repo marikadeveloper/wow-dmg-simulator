@@ -169,11 +169,31 @@ export function buildProfileSetFileForSubset(
 
 // ── Main pipeline ──────────────────────────────────────────────────────────
 
+/** Error thrown when a Smart Sim is cancelled mid-stage. */
+export class SmartSimCancelledError extends Error {
+  /** Partial results from stages that completed before cancellation. */
+  readonly stageResults: StageResult[];
+  /** Best available results (from the last completed stage, or empty). */
+  readonly partialResults: SimResult[];
+
+  constructor(stageResults: StageResult[]) {
+    super('Simulation cancelled');
+    this.name = 'SmartSimCancelledError';
+    this.stageResults = stageResults;
+    this.partialResults = stageResults.length > 0
+      ? stageResults[stageResults.length - 1].results
+      : [];
+  }
+}
+
 /**
  * Run a multi-stage Smart Sim pipeline.
  *
  * Executes one SimC invocation per stage, culling between stages.
  * Returns the final-stage results (sorted by DPS descending).
+ *
+ * If cancelled mid-stage, throws SmartSimCancelledError with partial
+ * results from completed stages.
  */
 export async function runSmartSim(
   config: SmartSimConfig,
@@ -208,8 +228,17 @@ export async function runSmartSim(
       survivorNames,
     );
 
-    // Run SimC
-    const jsonText = await callbacks.runSimC(simcContent);
+    // Run SimC — may throw on cancellation
+    let jsonText: string;
+    try {
+      jsonText = await callbacks.runSimC(simcContent);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg === 'Simulation cancelled') {
+        throw new SmartSimCancelledError(stageResults);
+      }
+      throw err;
+    }
 
     const durationMs = Date.now() - startTime;
 

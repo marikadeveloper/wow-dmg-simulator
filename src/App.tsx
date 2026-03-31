@@ -18,7 +18,7 @@ import UpdateChecker from './components/UpdateChecker';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
-import { runSmartSim, getStagesForCount, type StageResult } from './lib/smart-sim-runner';
+import { runSmartSim, getStagesForCount, SmartSimCancelledError, type StageResult } from './lib/smart-sim-runner';
 import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
@@ -237,6 +237,13 @@ function App() {
       }
     } catch (err) {
       if (runId !== runIdRef.current) return;
+      // Smart Sim cancellation: show partial results from completed stages
+      if (err instanceof SmartSimCancelledError) {
+        if (err.partialResults.length > 0) {
+          setSimResults(err.partialResults);
+        }
+        return;
+      }
       const msg = err instanceof Error ? err.message : String(err);
       // Don't show cancellation as an error
       if (msg !== 'Simulation cancelled') {
