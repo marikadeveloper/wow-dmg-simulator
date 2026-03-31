@@ -10,8 +10,7 @@ import SimProgressBar from './components/SimProgressBar';
 import SimLogPanel from './components/SimLogPanel';
 import SimResultsSummary from './components/SimResultsSummary';
 import SimResultsPaperDoll from './components/SimResultsPaperDoll';
-import SimResultsBarChart from './components/SimResultsBarChart';
-import SimResultsTable from './components/SimResultsTable';
+import SimResultsTopGear from './components/SimResultsTopGear';
 import AppSettingsPanel from './components/AppSettingsPanel';
 import AppFooter from './components/AppFooter';
 import UpdateChecker from './components/UpdateChecker';
@@ -387,8 +386,7 @@ function App() {
               <div className="mt-3 space-y-3">
                 <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
                 <SimResultsPaperDoll profile={profile} results={simResults} axes={axes} />
-                <SimResultsBarChart results={simResults} axes={axes} />
-                <SimResultsTable results={simResults} axes={axes} />
+                <SimResultsTopGear results={simResults} axes={axes} />
               </div>
             )}
 

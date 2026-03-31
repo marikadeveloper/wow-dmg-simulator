@@ -215,13 +215,14 @@ export function parseSimCResults(
 
   // Base (currently equipped) result
   const baseDps = json.sim.players[0].collected_data.dps;
+  const baselineSpec = manifest.get('combo_0000');
   results.push({
     name: 'combo_0000',
     isBaseline: true,
     dps: baseDps.mean,
     stdDev: baseDps.std_dev,
     meanStdDev: baseDps.mean_std_dev,
-    axes: {},
+    axes: baselineSpec?.axes ?? {},
   });
 
   // ProfileSet results (SimC nests profilesets under sim.profilesets)

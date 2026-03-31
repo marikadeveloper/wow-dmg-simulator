@@ -77,13 +77,18 @@ export function buildGearAxes(
       for (let j = i + 1; j < allItems.length; j++) {
         const a = allItems[i];
         const b = allItems[j];
+        // If both items are equipped, this pair is the baseline — use empty
+        // simcLines so the combinator can identify it as the no-override combo
+        const isBaseline = a.isEquipped && b.isEquipped;
         options.push({
           id: `pair_${a.id}_${b.id}`,
           label: `${a.name ?? `#${a.id}`} + ${b.name ?? `#${b.id}`}`,
-          simcLines: [
-            buildItemSimcLine(a, slotA),
-            buildItemSimcLine(b, slotB),
-          ],
+          simcLines: isBaseline
+            ? []
+            : [
+                buildItemSimcLine(a, slotA),
+                buildItemSimcLine(b, slotB),
+              ],
         });
       }
     }
