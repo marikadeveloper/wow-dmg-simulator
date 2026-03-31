@@ -18,6 +18,7 @@ import UpdateChecker from './components/UpdateChecker';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
+import { runSmartSim, getStagesForCount, type StageResult } from './lib/smart-sim-runner';
 import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
@@ -37,6 +38,9 @@ function App() {
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
   const [footerRefreshKey, setFooterRefreshKey] = useState(0);
+  // Smart Sim stage tracking
+  const [smartSimStage, setSmartSimStage] = useState<{ current: number; total: number; label: string; combos: number } | null>(null);
+  const [smartSimStageResults, setSmartSimStageResults] = useState<StageResult[]>([]);
 
   // Guard against stale results when a new run starts before previous finishes
   const runIdRef = useRef(0);
@@ -149,6 +153,8 @@ function App() {
     setIsRunning(true);
     setSimError(null);
     setSimResults(null);
+    setSmartSimStage(null);
+    setSmartSimStageResults([]);
 
     const runId = ++runIdRef.current;
 
@@ -185,30 +191,47 @@ function App() {
         }
       }
 
-      // 2. Build manifest for result parsing (name → spec)
-      const manifest = new Map<string, CombinationSpec>();
-      for (const combo of combinations) {
-        manifest.set(combo.name, combo);
+      const settings = toSimSettings(simSettings);
+      const stages = getStagesForCount(combinations.length);
+      const useSmartSim = stages.length > 1;
+
+      if (useSmartSim) {
+        // ── Smart Sim: multi-stage pipeline ──
+        const { results } = await runSmartSim(
+          { combinations, profile, settings, stages },
+          {
+            onStageStart: (stage, totalStages, comboCount, label) => {
+              if (runId !== runIdRef.current) return;
+              setSmartSimStage({ current: stage, total: totalStages, label, combos: comboCount });
+              setSimProgress({ current: 0, total: 0 });
+            },
+            onStageComplete: (result) => {
+              if (runId !== runIdRef.current) return;
+              setSmartSimStageResults((prev) => [...prev, result]);
+            },
+            runSimC: async (simcContent: string) => {
+              return invoke<string>('run_top_gear', { simcContent });
+            },
+          },
+        );
+
+        if (runId !== runIdRef.current) return;
+        setSimResults(results);
+      } else {
+        // ── Single stage: direct run ──
+        // Build manifest for result parsing (name → spec)
+        const manifest = new Map<string, CombinationSpec>();
+        for (const combo of combinations) {
+          manifest.set(combo.name, combo);
+        }
+
+        const simcContent = buildProfileSetFile(profile, combinations, settings);
+        const jsonText = await invoke<string>('run_top_gear', { simcContent });
+
+        if (runId !== runIdRef.current) return;
+        const results = parseSimCResults(jsonText, manifest);
+        setSimResults(results);
       }
-
-      // 3. Build the .simc file content
-      const simcContent = buildProfileSetFile(
-        profile,
-        combinations,
-        toSimSettings(simSettings),
-      );
-
-      // 4. Invoke Tauri backend
-      const jsonText = await invoke<string>('run_top_gear', {
-        simcContent,
-      });
-
-      // Guard against stale results if another run started
-      if (runId !== runIdRef.current) return;
-
-      // 5. Parse results
-      const results = parseSimCResults(jsonText, manifest);
-      setSimResults(results);
     } catch (err) {
       if (runId !== runIdRef.current) return;
       const msg = err instanceof Error ? err.message : String(err);
