@@ -3,6 +3,8 @@ import type { SimResult } from '../lib/types';
 interface SimResultsSummaryProps {
   results: SimResult[];
   elapsedMs: number;
+  /** Number of Smart Sim stages used (0 or undefined = single-stage run). */
+  smartSimStages?: number;
 }
 
 function formatDps(n: number): string {
@@ -20,6 +22,7 @@ function formatElapsed(ms: number): string {
 export default function SimResultsSummary({
   results,
   elapsedMs,
+  smartSimStages,
 }: SimResultsSummaryProps) {
   if (results.length === 0) return null;
 
@@ -129,6 +132,14 @@ export default function SimResultsSummary({
           <span className="text-[10px] text-zinc-600">
             {formatElapsed(elapsedMs)}
           </span>
+          {smartSimStages != null && smartSimStages > 1 && (
+            <>
+              <span className="text-[10px] text-zinc-700">&middot;</span>
+              <span className="text-[10px] text-amber-500/70 font-medium">
+                Smart Sim ({smartSimStages} stages)
+              </span>
+            </>
+          )}
         </div>
       </div>
 

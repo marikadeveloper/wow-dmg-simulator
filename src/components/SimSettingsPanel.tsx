@@ -69,6 +69,8 @@ export interface SimSettingsValues {
   targetError: number;
   /** Enable Smart Sim (multi-stage pipeline). null = auto (enabled for 50+ combos). */
   smartSimEnabled: boolean | null;
+  /** Custom stage target errors [low, medium, high]. null = use defaults. */
+  smartSimTargetErrors: [number, number, number] | null;
   potion: string;
   food: string;
   flask: string;
@@ -88,6 +90,7 @@ export const DEFAULT_SIM_SETTINGS: SimSettingsValues = {
   useTargetError: false,
   targetError: 0.1,
   smartSimEnabled: null, // auto
+  smartSimTargetErrors: null, // use defaults
 
   potion: '',
   food: '',
@@ -472,6 +475,57 @@ export default function SimSettingsPanel({
                 </button>
               </div>
             </div>
+
+            {/* ── Smart Sim Target Errors (power user) ────────────── */}
+            {settings.smartSimEnabled !== false && (
+              <div>
+                <SettingLabel
+                  label="Stage Precision"
+                  hint="Target error % for each Smart Sim stage. Lower = more accurate but slower. Defaults are 1.0 / 0.2 / 0.05."
+                />
+                <div className="flex items-center gap-2">
+                  <label className="flex items-center gap-1.5">
+                    <input
+                      type="checkbox"
+                      checked={settings.smartSimTargetErrors !== null}
+                      onChange={() => {
+                        if (settings.smartSimTargetErrors !== null) {
+                          update({ smartSimTargetErrors: null });
+                        } else {
+                          update({ smartSimTargetErrors: [1.0, 0.2, 0.05] });
+                        }
+                      }}
+                      className="accent-amber-500"
+                    />
+                    <span className="text-[11px] text-zinc-500">Custom</span>
+                  </label>
+                </div>
+                {settings.smartSimTargetErrors && (
+                  <div className="flex items-center gap-3 mt-2">
+                    {(['Low', 'Medium', 'High'] as const).map((label, idx) => (
+                      <div key={label} className="flex flex-col items-center gap-1">
+                        <span className="text-[10px] text-zinc-600">{label}</span>
+                        <div className="flex items-center gap-1">
+                          <NumberInput
+                            value={settings.smartSimTargetErrors![idx]}
+                            onChange={(v) => {
+                              const next = [...settings.smartSimTargetErrors!] as [number, number, number];
+                              next[idx] = v;
+                              update({ smartSimTargetErrors: next });
+                            }}
+                            min={0.01}
+                            max={5}
+                            step={0.05}
+                            decimals={2}
+                          />
+                          <span className="text-[10px] text-zinc-600">%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* ── Threads ─────────────────────────────────────────── */}
             <div>

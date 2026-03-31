@@ -18,7 +18,7 @@ import UpdateChecker from './components/UpdateChecker';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
-import { runSmartSim, getStagesForCount, SmartSimCancelledError, type StageResult } from './lib/smart-sim-runner';
+import { runSmartSim, getStagesForCount, SmartSimCancelledError, DEFAULT_STAGES, type StageResult } from './lib/smart-sim-runner';
 import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
@@ -192,7 +192,13 @@ function App() {
       }
 
       const settings = toSimSettings(simSettings);
-      const stages = getStagesForCount(combinations.length);
+      let stages = getStagesForCount(combinations.length);
+      // Apply user-configured target errors if set
+      if (simSettings.smartSimTargetErrors) {
+        const customErrors = simSettings.smartSimTargetErrors;
+        stages = DEFAULT_STAGES.map((s, i) => ({ ...s, targetError: customErrors[i] }));
+        stages = stages.slice(stages.length - getStagesForCount(combinations.length).length);
+      }
       // Smart Sim: auto (null) uses stage count > 1, or respect explicit toggle
       const useSmartSim = simSettings.smartSimEnabled === null
         ? stages.length > 1
@@ -379,7 +385,7 @@ function App() {
             {/* Results — appears immediately when sim finishes */}
             {simResults && simResults.length > 0 && (
               <div className="mt-3 space-y-3">
-                <SimResultsSummary results={simResults} elapsedMs={elapsedMs} />
+                <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
                 <SimResultsPaperDoll profile={profile} results={simResults} axes={axes} />
                 <SimResultsBarChart results={simResults} axes={axes} />
                 <SimResultsTable results={simResults} axes={axes} />
