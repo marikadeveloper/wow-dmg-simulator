@@ -67,6 +67,8 @@ export interface SimSettingsValues {
   threads: number;
   useTargetError: boolean;
   targetError: number;
+  /** Enable Smart Sim (multi-stage pipeline). null = auto (enabled for 50+ combos). */
+  smartSimEnabled: boolean | null;
   potion: string;
   food: string;
   flask: string;
@@ -85,6 +87,8 @@ export const DEFAULT_SIM_SETTINGS: SimSettingsValues = {
   threads: Math.max(1, (navigator.hardwareConcurrency ?? 4) - 1),
   useTargetError: false,
   targetError: 0.1,
+  smartSimEnabled: null, // auto
+
   potion: '',
   food: '',
   flask: '',
@@ -165,6 +169,8 @@ export default function SimSettingsPanel({
   } else if (settings.iterations !== 10000) {
     summaryParts.push(`${(settings.iterations / 1000).toFixed(0)}k iter`);
   }
+  if (settings.smartSimEnabled === true) summaryParts.push('Smart Sim');
+  else if (settings.smartSimEnabled === false) summaryParts.push('Smart Sim off');
   const summaryText = summaryParts.join(' · ');
 
   return (
@@ -422,6 +428,49 @@ export default function SimSettingsPanel({
                   step={1000}
                 />
               )}
+            </div>
+
+            {/* ── Smart Sim ─────────────────────────────────────── */}
+            <div>
+              <SettingLabel
+                label="Smart Sim"
+                hint="Runs multiple stages at increasing precision, eliminating bad combinations early. Much faster for large sims (50+ combos). When set to Auto, enables automatically for 50+ combinations."
+              />
+              <div className="inline-flex rounded-md border border-zinc-700/50 bg-zinc-800/40 p-0.5">
+                <button
+                  onClick={() => update({ smartSimEnabled: null })}
+                  className={[
+                    'px-3 py-1 rounded text-xs font-medium transition-all',
+                    settings.smartSimEnabled === null
+                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
+                >
+                  Auto
+                </button>
+                <button
+                  onClick={() => update({ smartSimEnabled: true })}
+                  className={[
+                    'px-3 py-1 rounded text-xs font-medium transition-all',
+                    settings.smartSimEnabled === true
+                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
+                >
+                  On
+                </button>
+                <button
+                  onClick={() => update({ smartSimEnabled: false })}
+                  className={[
+                    'px-3 py-1 rounded text-xs font-medium transition-all',
+                    settings.smartSimEnabled === false
+                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
+                >
+                  Off
+                </button>
+              </div>
             </div>
 
             {/* ── Threads ─────────────────────────────────────────── */}

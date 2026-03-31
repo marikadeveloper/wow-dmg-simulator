@@ -193,7 +193,10 @@ function App() {
 
       const settings = toSimSettings(simSettings);
       const stages = getStagesForCount(combinations.length);
-      const useSmartSim = stages.length > 1;
+      // Smart Sim: auto (null) uses stage count > 1, or respect explicit toggle
+      const useSmartSim = simSettings.smartSimEnabled === null
+        ? stages.length > 1
+        : simSettings.smartSimEnabled && combinations.length > 1;
 
       if (useSmartSim) {
         // ── Smart Sim: multi-stage pipeline ──
