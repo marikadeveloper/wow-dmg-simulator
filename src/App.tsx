@@ -355,6 +355,7 @@ function App() {
                 total={simProgress.total}
                 elapsedMs={elapsedMs}
                 isActive={isRunning}
+                smartSimStage={smartSimStage}
               />
             </div>
 

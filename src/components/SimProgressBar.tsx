@@ -3,6 +3,13 @@ interface SimProgressBarProps {
   total: number;
   elapsedMs: number;
   isActive: boolean;
+  /** Smart Sim stage info (null = single-stage run). */
+  smartSimStage?: {
+    current: number;
+    total: number;
+    label: string;
+    combos: number;
+  } | null;
 }
 
 function formatElapsed(ms: number): string {
@@ -18,6 +25,7 @@ export default function SimProgressBar({
   total,
   elapsedMs,
   isActive,
+  smartSimStage,
 }: SimProgressBarProps) {
   if (!isActive) return null;
 
@@ -32,19 +40,75 @@ export default function SimProgressBar({
 
   return (
     <div className="rounded-md border border-zinc-800/60 bg-zinc-900/50 px-3 py-2.5 animate-in">
+      {/* Smart Sim stage indicators */}
+      {smartSimStage && smartSimStage.total > 1 && (
+        <div className="flex items-center gap-1 mb-2">
+          {Array.from({ length: smartSimStage.total }, (_, i) => {
+            const stageNum = i + 1;
+            const isComplete = stageNum < smartSimStage.current;
+            const isCurrent = stageNum === smartSimStage.current;
+            return (
+              <div key={stageNum} className="flex items-center gap-1">
+                {i > 0 && (
+                  <div className={`h-px w-3 ${isComplete ? 'bg-amber-500/50' : 'bg-zinc-700/50'}`} />
+                )}
+                <div className="flex items-center gap-1.5">
+                  <div
+                    className={[
+                      'w-1.5 h-1.5 rounded-full transition-colors',
+                      isComplete
+                        ? 'bg-amber-500/70'
+                        : isCurrent
+                          ? 'bg-amber-400 shadow-[0_0_4px_rgba(245,158,11,0.5)]'
+                          : 'bg-zinc-700',
+                    ].join(' ')}
+                  />
+                  <span
+                    className={[
+                      'text-[10px] font-medium tracking-wide',
+                      isComplete
+                        ? 'text-amber-500/50'
+                        : isCurrent
+                          ? 'text-amber-400/90'
+                          : 'text-zinc-600',
+                    ].join(' ')}
+                  >
+                    Stage {stageNum}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       {/* Top row: label + elapsed + ETA */}
       <div className="flex items-center justify-between mb-1.5">
         <span className="text-[11px] font-medium text-zinc-400 tracking-wide">
           {isIndeterminate ? (
-            'Simulating\u2026'
+            smartSimStage ? (
+              <>
+                {smartSimStage.label}
+                <span className="text-zinc-600 ml-1.5">
+                  ({smartSimStage.combos} combos)
+                </span>
+              </>
+            ) : (
+              'Simulating\u2026'
+            )
           ) : (
             <>
-              Simulating
+              {smartSimStage ? smartSimStage.label : 'Simulating'}
               <span className="text-amber-400/90 ml-1.5 tabular-nums">
                 {current}
               </span>
               <span className="text-zinc-600 mx-0.5">/</span>
               <span className="text-zinc-500 tabular-nums">{total}</span>
+              {smartSimStage && (
+                <span className="text-zinc-600 ml-1.5">
+                  ({smartSimStage.combos} combos)
+                </span>
+              )}
             </>
           )}
         </span>
