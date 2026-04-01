@@ -16,9 +16,10 @@ interface BinaryStatus {
 
 interface AppSettingsPanelProps {
   onConfigChange?: () => void;
+  onCheckForUpdates?: () => Promise<void>;
 }
 
-export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelProps) {
+export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: AppSettingsPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [pathInput, setPathInput] = useState('');
@@ -27,6 +28,8 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
   const [saving, setSaving] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [refreshResult, setRefreshResult] = useState<{ ok: boolean; message: string } | null>(null);
+  const [checkingUpdates, setCheckingUpdates] = useState(false);
+  const [updateCheckResult, setUpdateCheckResult] = useState<string | null>(null);
 
   // Load config on mount
   useEffect(() => {
@@ -111,6 +114,20 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
       setRefreshing(false);
     }
   }, []);
+
+  const handleCheckForUpdates = useCallback(async () => {
+    if (!onCheckForUpdates) return;
+    setCheckingUpdates(true);
+    setUpdateCheckResult(null);
+    try {
+      await onCheckForUpdates();
+      setUpdateCheckResult('checked');
+    } catch {
+      setUpdateCheckResult('error');
+    } finally {
+      setCheckingUpdates(false);
+    }
+  }, [onCheckForUpdates]);
 
   const hasCustomPath = config?.simcBinaryPath != null;
   const inputChanged = pathInput.trim() !== (config?.simcBinaryPath ?? '');
@@ -315,6 +332,45 @@ export default function AppSettingsPanel({ onConfigChange }: AppSettingsPanelPro
                 )}
               </div>
             </div>
+
+            {/* Check for Updates */}
+            {onCheckForUpdates && (
+              <div>
+                <div className="mb-1.5">
+                  <label className="block text-xs font-medium text-zinc-400">
+                    App Updates
+                  </label>
+                  <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+                    Check if a newer version of WoW Top Gear is available.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleCheckForUpdates}
+                    disabled={checkingUpdates}
+                    className={[
+                      'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
+                      !checkingUpdates
+                        ? 'bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100'
+                        : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                    ].join(' ')}
+                  >
+                    {checkingUpdates ? 'Checking...' : 'Check for updates'}
+                  </button>
+                  {updateCheckResult === 'checked' && (
+                    <span className="text-[11px] text-zinc-500">
+                      Check complete — see banner above if an update is available
+                    </span>
+                  )}
+                  {updateCheckResult === 'error' && (
+                    <span className="text-[11px] text-red-400">
+                      Could not check for updates
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -14,6 +14,7 @@ import SimResultsTopGear from './components/SimResultsTopGear';
 import AppSettingsPanel from './components/AppSettingsPanel';
 import AppFooter from './components/AppFooter';
 import UpdateChecker from './components/UpdateChecker';
+import type { UpdateCheckerHandle } from './components/UpdateChecker';
 import { validateSimInput, hasErrors } from './lib/validate-sim-input';
 import { generateCombinations, countCombinations } from './lib/combinator';
 import { buildProfileSetFile, parseSimCResults } from './lib/profileset-builder';
@@ -40,6 +41,8 @@ function App() {
   // Smart Sim stage tracking
   const [smartSimStage, setSmartSimStage] = useState<{ current: number; total: number; label: string; combos: number } | null>(null);
   const [smartSimStageResults, setSmartSimStageResults] = useState<StageResult[]>([]);
+
+  const updateCheckerRef = useRef<UpdateCheckerHandle>(null);
 
   // Guard against stale results when a new run starts before previous finishes
   const runIdRef = useRef(0);
@@ -263,7 +266,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <UpdateChecker />
+      <UpdateChecker ref={updateCheckerRef} />
       {/* Subtle top accent line */}
       <div className="h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
 
@@ -302,7 +305,10 @@ function App() {
         {profile && (
           <section className="mb-8">
             <div className="mb-3">
-              <AppSettingsPanel onConfigChange={handleConfigChange} />
+              <AppSettingsPanel
+                onConfigChange={handleConfigChange}
+                onCheckForUpdates={() => updateCheckerRef.current?.checkForUpdates() ?? Promise.resolve()}
+              />
             </div>
 
             <SimSettingsPanel

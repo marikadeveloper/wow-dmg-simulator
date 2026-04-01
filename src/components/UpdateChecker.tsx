@@ -1,18 +1,57 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 
 type UpdateState =
   | { phase: 'idle' }
+  | { phase: 'checking' }
   | { phase: 'available'; version: string; body: string | null }
   | { phase: 'downloading'; percent: number }
   | { phase: 'installing' }
+  | { phase: 'up-to-date' }
+  | { phase: 'error'; message: string }
   | { phase: 'dismissed' };
 
-export default function UpdateChecker() {
+export interface UpdateCheckerHandle {
+  checkForUpdates: () => Promise<void>;
+}
+
+const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_props, ref) {
   const [state, setState] = useState<UpdateState>({ phase: 'idle' });
   const updateRef = useRef<Awaited<ReturnType<typeof import('@tauri-apps/plugin-updater').check>> | null>(null);
 
+  const checkForUpdates = useCallback(async () => {
+    if (!(window as any).__TAURI__) return;
+
+    setState({ phase: 'checking' });
+    updateRef.current = null;
+
+    try {
+      const { check } = await import('@tauri-apps/plugin-updater');
+      const update = await check();
+
+      if (!update) {
+        setState({ phase: 'up-to-date' });
+        return;
+      }
+
+      updateRef.current = update;
+      setState({
+        phase: 'available',
+        version: update.version,
+        body: update.body ?? null,
+      });
+    } catch (err) {
+      setState({
+        phase: 'error',
+        message: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }, []);
+
+  // Expose checkForUpdates to parent via ref
+  useImperativeHandle(ref, () => ({ checkForUpdates }), [checkForUpdates]);
+
+  // Auto-check on mount
   useEffect(() => {
-    // Don't run in browser-only dev mode
     if (!(window as any).__TAURI__) return;
 
     let cancelled = false;
@@ -31,7 +70,7 @@ export default function UpdateChecker() {
           body: update.body ?? null,
         });
       } catch {
-        // Silently fail — expected in dev mode or if updater isn't configured
+        // Silently fail on auto-check — expected in dev mode
       }
     })();
 
@@ -76,13 +115,13 @@ export default function UpdateChecker() {
     }
   }, []);
 
-  if (state.phase === 'idle' || state.phase === 'dismissed') return null;
+  // Only show the banner for actionable states
+  if (state.phase === 'idle' || state.phase === 'dismissed' || state.phase === 'checking' || state.phase === 'up-to-date' || state.phase === 'error') return null;
 
   return (
     <div
       className="animate-[slideDown_0.35s_ease-out] fixed top-0 left-0 right-0 z-50"
       style={{
-        // Inline keyframe — avoids needing tailwind config extension
         animation: 'slideDown 0.35s ease-out',
       }}
     >
@@ -148,7 +187,6 @@ export default function UpdateChecker() {
                 style={{
                   width: `${state.percent}%`,
                   animation: state.percent === 0 ? 'pulseBar 1.5s ease-in-out infinite' : undefined,
-                  // Indeterminate state when percent is 0
                   ...(state.percent === 0 ? { width: '40%' } : {}),
                 }}
               />
@@ -187,4 +225,6 @@ export default function UpdateChecker() {
       </div>
     </div>
   );
-}
+});
+
+export default UpdateChecker;
