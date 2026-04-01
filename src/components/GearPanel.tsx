@@ -9,7 +9,7 @@ import CatalystCharges from './CatalystCharges';
 import CombinationCounter from './CombinationCounter';
 import { assembleAxes } from '../lib/optimization-assembler';
 import { FEATURES } from '../lib/features';
-import { ENCHANTABLE_SLOTS } from '../lib/presets/season-config';
+import { ENCHANTABLE_SLOTS, DUAL_WIELD_SPECS } from '../lib/presets/season-config';
 import { computeAllUpgrades, type CrestBudget } from '../lib/upgrade-calculator';
 import { generateCatalystItems } from '../lib/catalyst-generator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
@@ -461,10 +461,12 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     return assembleAxes(augmentedProfile, selection, gemIds, enchantIds);
   }, [augmentedProfile, selection, selectedGemIds, selectedEnchantIds]);
 
-  // Weapon validation: warn when a selected 1H main-hand has no off-hand items to pair with.
-  // If the base profile uses a 2H weapon (no off-hand in rawLines), switching to 1H
-  // without an off-hand would simulate incorrectly (no shield/off-hand stats).
+  // Weapon validation: warn when a dual-wield spec has a selected 1H main-hand
+  // but no off-hand items to pair with. Only applies to specs in DUAL_WIELD_SPECS —
+  // ranged specs (e.g. BM/MM hunter) use bows/guns and never need an off-hand.
   const weaponWarning = useMemo((): string | null => {
+    if (!profile.spec || !DUAL_WIELD_SPECS.has(profile.spec)) return null;
+
     const mhIndices = Array.from(selection)
       .filter((k) => k.startsWith('main_hand:'))
       .map((k) => Number(k.split(':')[1]));
