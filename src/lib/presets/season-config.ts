@@ -394,33 +394,34 @@ export interface TierSetDefinition {
  * If an item ID is wrong or missing, the set simply won't be detected for that class.
  */
 export const TIER_SETS: TierSetDefinition[] = [
-  // ── Midnight S1 Raid: Zul'Aman Ascendant ──
-  // Death Knight — Scales of the Amani Serpent
-  { id: 'mn_s1_dk', name: 'Scales of the Amani Serpent', itemIds: [240012, 240013, 240014, 240015, 240016] },
-  // Demon Hunter — Feathers of the Amani Eagle
-  { id: 'mn_s1_dh', name: 'Feathers of the Amani Eagle', itemIds: [240022, 240023, 240024, 240025, 240026] },
-  // Druid — Plumage of the Amani Dragonhawk
-  { id: 'mn_s1_druid', name: 'Plumage of the Amani Dragonhawk', itemIds: [240032, 240033, 240034, 240035, 240036] },
-  // Evoker — Crest of the Amani Lynx
-  { id: 'mn_s1_evoker', name: 'Crest of the Amani Lynx', itemIds: [240042, 240043, 240044, 240045, 240046] },
-  // Hunter — Fangs of the Amani Bear
-  { id: 'mn_s1_hunter', name: 'Fangs of the Amani Bear', itemIds: [240052, 240053, 240054, 240055, 240056] },
-  // Mage — Visage of the Amani Hex Lord
-  { id: 'mn_s1_mage', name: 'Visage of the Amani Hex Lord', itemIds: [240062, 240063, 240064, 240065, 240066] },
-  // Monk — Wraps of the Amani Storm
-  { id: 'mn_s1_monk', name: 'Wraps of the Amani Storm', itemIds: [240072, 240073, 240074, 240075, 240076] },
-  // Paladin — Aegis of the Amani War Bear
-  { id: 'mn_s1_paladin', name: 'Aegis of the Amani War Bear', itemIds: [240082, 240083, 240084, 240085, 240086] },
-  // Priest — Vestments of the Amani Spirit
-  { id: 'mn_s1_priest', name: 'Vestments of the Amani Spirit', itemIds: [240092, 240093, 240094, 240095, 240096] },
-  // Rogue — Guise of the Amani Shadow
-  { id: 'mn_s1_rogue', name: 'Guise of the Amani Shadow', itemIds: [240102, 240103, 240104, 240105, 240106] },
-  // Shaman — Regalia of the Amani Thunder
-  { id: 'mn_s1_shaman', name: 'Regalia of the Amani Thunder', itemIds: [240112, 240113, 240114, 240115, 240116] },
-  // Warlock — Bindings of the Amani Darkness
-  { id: 'mn_s1_warlock', name: 'Bindings of the Amani Darkness', itemIds: [240122, 240123, 240124, 240125, 240126] },
-  // Warrior — Plates of the Amani Warlord
-  { id: 'mn_s1_warrior', name: 'Plates of the Amani Warlord', itemIds: [240132, 240133, 240134, 240135, 240136] },
+  // ── Midnight S1 Raid Tier Sets ──
+  // Item ID order: [head, shoulder, chest, hands, legs] — matches TIER_SLOT_ORDER
+  // Death Knight — Relentless Rider's Lament
+  { id: 'mn_s1_dk', name: "Relentless Rider's Lament", itemIds: [249970, 249968, 249973, 249971, 249969] },
+  // Demon Hunter — Devouring Reaver's Sheathe
+  { id: 'mn_s1_dh', name: "Devouring Reaver's Sheathe", itemIds: [250033, 250031, 250036, 250034, 250032] },
+  // Druid — Sprouts of the Luminous Bloom
+  { id: 'mn_s1_druid', name: 'Sprouts of the Luminous Bloom', itemIds: [250024, 250022, 250027, 250025, 250023] },
+  // Evoker — Livery of the Black Talon
+  { id: 'mn_s1_evoker', name: 'Livery of the Black Talon', itemIds: [249997, 249995, 250000, 249998, 249996] },
+  // Hunter — Primal Sentry's Camouflage
+  { id: 'mn_s1_hunter', name: "Primal Sentry's Camouflage", itemIds: [249988, 249986, 249991, 249989, 249987] },
+  // Mage — Voidbreaker's Accordance
+  { id: 'mn_s1_mage', name: "Voidbreaker's Accordance", itemIds: [250060, 250058, 250063, 250061, 250059] },
+  // Monk — Way of Ra-den's Chosen
+  { id: 'mn_s1_monk', name: "Way of Ra-den's Chosen", itemIds: [250015, 250013, 250018, 250016, 250014] },
+  // Paladin — Luminant Verdict's Vestments
+  { id: 'mn_s1_paladin', name: "Luminant Verdict's Vestments", itemIds: [249961, 249959, 249964, 249962, 249960] },
+  // Priest — Blind Oath's Burden
+  { id: 'mn_s1_priest', name: "Blind Oath's Burden", itemIds: [250051, 250049, 250054, 250052, 250050] },
+  // Rogue — Motley of the Grim Jest
+  { id: 'mn_s1_rogue', name: 'Motley of the Grim Jest', itemIds: [250006, 250004, 250009, 250007, 250005] },
+  // Shaman — Mantle of the Primal Core
+  { id: 'mn_s1_shaman', name: 'Mantle of the Primal Core', itemIds: [249979, 249977, 249982, 249980, 249978] },
+  // Warlock — Reign of the Abyssal Immolator
+  { id: 'mn_s1_warlock', name: 'Reign of the Abyssal Immolator', itemIds: [250042, 250040, 250045, 250043, 250041] },
+  // Warrior — Rage of the Night Ender
+  { id: 'mn_s1_warrior', name: 'Rage of the Night Ender', itemIds: [249952, 249950, 249955, 249953, 249951] },
 ];
 
 /**
