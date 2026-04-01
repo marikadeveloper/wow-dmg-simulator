@@ -26,6 +26,8 @@ interface GearPanelProps {
   onTierSetMinimumsChange?: (minimums: TierSetMinimums) => void;
   /** Called whenever catalyst charge count changes. null = disabled. */
   onCatalystChargesChange?: (charges: number | null) => void;
+  /** Called whenever the augmented profile (with catalyst/unowned items) changes. */
+  onAugmentedProfileChange?: (profile: SimcProfile) => void;
 }
 
 /**
@@ -60,7 +62,7 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange, onCatalystChargesChange }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange, onCatalystChargesChange, onAugmentedProfileChange }: GearPanelProps) {
   // Selection uses original slot keys (finger1:N, trinket1:N), never merged names
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
@@ -494,6 +496,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   useEffect(() => {
     onAxesChange?.(allAxes);
   }, [allAxes, onAxesChange]);
+
+  // Report augmented profile to parent
+  useEffect(() => {
+    onAugmentedProfileChange?.(augmentedProfile);
+  }, [augmentedProfile, onAugmentedProfileChange]);
 
   // Report tier set minimums to parent
   useEffect(() => {

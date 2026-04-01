@@ -37,6 +37,7 @@ function App() {
   const [simLogLines, setSimLogLines] = useState<string[]>([]);
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
+  const [augmentedProfile, setAugmentedProfile] = useState<SimcProfile | null>(null);
   const [footerRefreshKey, setFooterRefreshKey] = useState(0);
   // Smart Sim stage tracking
   const [smartSimStage, setSmartSimStage] = useState<{ current: number; total: number; label: string; combos: number } | null>(null);
@@ -51,6 +52,7 @@ function App() {
 
   const handleProfileParsed = useCallback((p: SimcProfile | null) => {
     setProfile(p);
+    setAugmentedProfile(null);
     setSimResults(null);
     setSimError(null);
     setAxes([]);
@@ -71,6 +73,10 @@ function App() {
 
   const handleTierSetMinimumsChange = useCallback((minimums: TierSetMinimums) => {
     setTierSetMinimums(minimums);
+  }, []);
+
+  const handleAugmentedProfileChange = useCallback((p: SimcProfile) => {
+    setAugmentedProfile(p);
   }, []);
 
   const handleCatalystChargesChange = useCallback((charges: number | null) => {
@@ -303,6 +309,7 @@ function App() {
               onAxesChange={handleAxesChange}
               onTierSetMinimumsChange={handleTierSetMinimumsChange}
               onCatalystChargesChange={handleCatalystChargesChange}
+              onAugmentedProfileChange={handleAugmentedProfileChange}
             />
           </section>
         )}
@@ -397,7 +404,7 @@ function App() {
             {simResults && simResults.length > 0 && (
               <div className="mt-3 space-y-3">
                 <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
-                <SimResultsPaperDoll profile={profile} results={simResults} axes={axes} />
+                <SimResultsPaperDoll profile={augmentedProfile ?? profile} results={simResults} axes={axes} />
                 <SimResultsTopGear results={simResults} axes={axes} />
               </div>
             )}

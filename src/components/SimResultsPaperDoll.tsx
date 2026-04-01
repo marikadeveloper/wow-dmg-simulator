@@ -69,10 +69,22 @@ function resolveSlotItem(
   const chosenOptionId = bestResult.axes[axisKey];
   if (chosenOptionId) {
     // Option IDs: "item_{id}_{idx}" or "catalyst_{id}_{idx}"
-    const idMatch = chosenOptionId.match(/^(?:item|catalyst)_(\d+)/);
+    const idMatch = chosenOptionId.match(
+      /^(item|catalyst)_(\d+)_(\d+)$/,
+    );
     if (idMatch) {
-      const itemId = parseInt(idMatch[1], 10);
-      const match = allGearItems.find((item) => item.id === itemId);
+      const isCatalyst = idMatch[1] === 'catalyst';
+      const itemId = parseInt(idMatch[2], 10);
+      const idx = parseInt(idMatch[3], 10);
+      // Use index to pick the exact item from the slot array
+      const slotItems = profile.gear[slot];
+      if (slotItems && idx < slotItems.length && slotItems[idx].id === itemId) {
+        return slotItems[idx];
+      }
+      // Fallback: match by id + isCatalyst flag
+      const match = allGearItems.find(
+        (item) => item.id === itemId && item.isCatalyst === isCatalyst,
+      );
       if (match) return match;
     }
   }
@@ -99,11 +111,21 @@ function resolveSlotItem(
         if (match) return match;
       }
       // Single weapon option: "item_{id}_{idx}" or "catalyst_{id}_{idx}" (2H weapon)
-      const idMatch = pairOptionId.match(/^(?:item|catalyst)_(\d+)/);
+      const idMatch = pairOptionId.match(
+        /^(item|catalyst)_(\d+)_(\d+)$/,
+      );
       if (idMatch) {
         if (pairInfo.position === 'first') {
-          const itemId = parseInt(idMatch[1], 10);
-          const match = allGearItems.find((item) => item.id === itemId);
+          const isCatalyst = idMatch[1] === 'catalyst';
+          const itemId = parseInt(idMatch[2], 10);
+          const idx = parseInt(idMatch[3], 10);
+          const mhItems = profile.gear['main_hand'];
+          if (mhItems && idx < mhItems.length && mhItems[idx].id === itemId) {
+            return mhItems[idx];
+          }
+          const match = allGearItems.find(
+            (item) => item.id === itemId && item.isCatalyst === isCatalyst,
+          );
           if (match) return match;
         } else {
           // 2H weapon → off_hand is empty
