@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
-import { GEAR_TRACKS, SOCKET_BONUS_ID } from '../lib/presets/season-config';
+import { GEAR_TRACKS, SOCKET_BONUS_ID, DUAL_WIELD_SPECS } from '../lib/presets/season-config';
 
 interface ItemSearchResult {
   itemId: number;
@@ -19,24 +19,6 @@ interface PendingItem {
   assumeSocket: boolean;
 }
 
-/**
- * Specs that dual-wield weapons in the off-hand slot.
- * These specs should see weapons (inv_type 14, 22) in off-hand search,
- * NOT shields or held-in-off-hand items (inv_type 23).
- */
-const DUAL_WIELD_SPECS = new Set([
-  'fury',           // Warrior — Titan's Grip / Single-Minded Fury
-  'assassination',  // Rogue
-  'outlaw',         // Rogue
-  'subtlety',       // Rogue
-  'frost',          // Death Knight (dual-wield variant)
-  'windwalker',     // Monk
-  'brewmaster',     // Monk (can dual-wield)
-  'havoc',          // Demon Hunter
-  'vengeance',      // Demon Hunter
-  'enhancement',    // Shaman
-  'survival',       // Hunter (can use off-hand weapons)
-]);
 
 /**
  * Valid off-hand inv_types for dual-wield specs.

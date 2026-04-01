@@ -1,6 +1,6 @@
 import type { SimcProfile } from './types';
 import type { SimSettingsValues } from '../components/SimSettingsPanel';
-import { ENCHANTABLE_SLOTS } from './presets/season-config';
+import { ENCHANTABLE_SLOTS, DUAL_WIELD_SPECS } from './presets/season-config';
 
 export interface ValidationIssue {
   /** 'error' blocks the run, 'warning' allows it but flags something */
@@ -48,6 +48,17 @@ export function validateSimInput(
 
   if (equippedSlots.length === 0) {
     issues.push({ severity: 'error', message: 'No equipped gear found in the profile.' });
+  }
+
+  // Dual-wield specs must have an off-hand weapon
+  if (profile.spec && DUAL_WIELD_SPECS.has(profile.spec)) {
+    const offHandItems = profile.gear.off_hand ?? [];
+    if (offHandItems.length === 0) {
+      issues.push({
+        severity: 'error',
+        message: `${profile.spec.charAt(0).toUpperCase() + profile.spec.slice(1)} requires an off-hand weapon to simulate. Add an off-hand weapon to continue.`,
+      });
+    }
   }
 
   // Warn if very few slots have gear (probably an incomplete import)

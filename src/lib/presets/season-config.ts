@@ -602,6 +602,24 @@ export const CRUCIBLE_MODES: CrucibleMode[] = [
   { key: 'predation', simcKey: 'midnight.crucible_of_erratic_energies_predation', label: 'Predation' },
 ];
 
+/**
+ * Specs that dual-wield weapons in the off-hand slot.
+ * These specs MUST have an off-hand weapon equipped to simulate correctly.
+ */
+export const DUAL_WIELD_SPECS = new Set([
+  'fury',           // Warrior — Titan's Grip / Single-Minded Fury
+  'assassination',  // Rogue
+  'outlaw',         // Rogue
+  'subtlety',       // Rogue
+  'frost',          // Death Knight (dual-wield variant)
+  'windwalker',     // Monk
+  'brewmaster',     // Monk (can dual-wield)
+  'havoc',          // Demon Hunter
+  'vengeance',      // Demon Hunter
+  'enhancement',    // Shaman
+  'survival',       // Hunter (can use off-hand weapons)
+]);
+
 /** Slots that can be enchanted in Midnight S1. Off-hand cannot have weapon enchants. */
 export const ENCHANTABLE_SLOTS = [
   'head',

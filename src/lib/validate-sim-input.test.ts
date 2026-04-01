@@ -90,6 +90,7 @@ describe('validateSimInput', () => {
     it('warns on incomplete gear (few slots)', () => {
       const profile = {
         ...validProfile,
+        spec: 'marksmanship', // non-dual-wield so missing off_hand is not an error
         gear: {
           head: [{ slot: 'head', id: 1, bonusIds: [], gemIds: [], isEquipped: true }],
           chest: [{ slot: 'chest', id: 2, bonusIds: [], gemIds: [], isEquipped: true }],
@@ -98,6 +99,42 @@ describe('validateSimInput', () => {
       const issues = validateSimInput(profile, validSettings);
       expect(hasErrors(issues)).toBe(false);
       expect(issues.find((i) => i.message.includes('incomplete'))).toBeTruthy();
+    });
+
+    it('errors when dual-wield spec has no off-hand', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        spec: 'fury',
+        gear: {
+          ...validProfile.gear,
+          off_hand: undefined as unknown as typeof validProfile.gear.off_hand,
+        },
+      };
+      // Remove off_hand entirely
+      delete (profile.gear as Record<string, unknown>).off_hand;
+      const issues = validateSimInput(profile, validSettings);
+      expect(hasErrors(issues)).toBe(true);
+      expect(issues.find((i) => i.message.includes('off-hand weapon'))).toBeTruthy();
+    });
+
+    it('does not error when dual-wield spec has an off-hand', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        spec: 'fury',
+      };
+      const issues = validateSimInput(profile, validSettings);
+      expect(issues.find((i) => i.message.includes('off-hand weapon'))).toBeFalsy();
+    });
+
+    it('does not error when non-dual-wield spec has no off-hand', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        spec: 'marksmanship',
+        gear: { ...validProfile.gear },
+      };
+      delete (profile.gear as Record<string, unknown>).off_hand;
+      const issues = validateSimInput(profile, validSettings);
+      expect(issues.find((i) => i.message.includes('off-hand weapon'))).toBeFalsy();
     });
   });
 
