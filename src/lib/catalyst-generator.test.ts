@@ -112,6 +112,18 @@ describe('generateCatalystItems', () => {
     expect(catalystItem.bonusIds).toEqual([12793, 13577]);
   });
 
+  it('clears the original item name so the tier piece name is resolved from cache', () => {
+    const profile = makeProfile('mage', {
+      head: [{ id: 99999, name: 'Elder Mossfeelers' }],
+    });
+    const selection = new Set(['head:0']);
+    const result = generateCatalystItems(profile, selection);
+
+    const catalystItem = result.get('head')![0];
+    expect(catalystItem.name).toBeUndefined();
+    expect(catalystItem.id).toBe(MAGE_TIER_HEAD_ID);
+  });
+
   it('skips items that are already catalyst copies', () => {
     const profile = makeProfile('mage', {
       head: [

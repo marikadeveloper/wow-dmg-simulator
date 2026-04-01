@@ -43,6 +43,7 @@ export function generateCatalystItems(
       const catalystItem: GearItem = {
         ...items[i],
         id: tierItemId,
+        name: undefined, // clear so UI resolves the tier piece name from cache
         isEquipped: false,
         isVault: false,
         isUpgraded: false,
