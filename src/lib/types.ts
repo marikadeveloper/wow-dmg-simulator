@@ -38,6 +38,8 @@ export interface GearItem {
   name?: string;
   /** Item level parsed from the SimC comment (e.g. "# Helm of Valor (639)") */
   ilvl?: number;
+  /** Crafted stat IDs (e.g. [32, 49] for crafted_stats=32/49), present only for crafted items */
+  craftedStats?: number[];
   /** Crafting quality (1–5), present only for crafted items */
   craftingQuality?: number;
   /** true = currently equipped, false = in bag or unowned */

@@ -183,6 +183,54 @@ describe('buildProfileSetFile', () => {
     const output = buildProfileSetFile(baseProfile, combos, settings);
     expect(output).toContain('fixed_time=1');
   });
+
+  it('only writes changed slots in profileset entries (not all slots)', () => {
+    const combos: CombinationSpec[] = [
+      { name: 'combo_0000', axes: {}, overrideLines: [] },
+      {
+        name: 'combo_0001',
+        axes: { 'slot:trinket1': 'item_200' },
+        overrideLines: ['trinket1=,id=200,bonus_id=10390/10257'],
+      },
+    ];
+    const output = buildProfileSetFile(baseProfile, combos, defaultSettings);
+    const profilesetLines = output.split('\n').filter((l) => l.startsWith('profileset.'));
+
+    // Should only have the trinket1 override, not head or other slots
+    expect(profilesetLines).toHaveLength(1);
+    expect(profilesetLines[0]).toContain('trinket1=,id=200');
+    expect(profilesetLines[0]).not.toContain('head=');
+  });
+
+  it('preserves crafted_stats from raw lines for enchant-only overrides', () => {
+    const craftedProfile: SimcProfile = {
+      ...baseProfile,
+      rawLines: [
+        'shaman="Thrall"',
+        'level=80',
+        'race=orc',
+        'region=eu',
+        'server=draenor',
+        'spec=enhancement',
+        'talents=AAAA',
+        'main_hand=,id=265337,enchant_id=8039,bonus_id=12214/12497,crafted_stats=40/36,crafting_quality=5',
+      ],
+    };
+    const combos: CombinationSpec[] = [
+      { name: 'combo_0000', axes: {}, overrideLines: [] },
+      {
+        name: 'combo_0001',
+        axes: { 'enchant:main_hand': 'enchant_8040' },
+        overrideLines: [],
+      },
+    ];
+    const output = buildProfileSetFile(craftedProfile, combos, defaultSettings);
+
+    // The enchant override should use the raw line which preserves crafted_stats
+    expect(output).toContain('crafted_stats=40/36');
+    expect(output).toContain('crafting_quality=5');
+    expect(output).toContain('enchant_id=8040');
+  });
 });
 
 describe('parseSimCResults', () => {

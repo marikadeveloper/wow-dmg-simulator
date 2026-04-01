@@ -29,6 +29,12 @@ export function buildItemSimcLine(item: GearItem, targetSlot: string): string {
   if (item.enchantId != null) {
     parts.push(`enchant_id=${item.enchantId}`);
   }
+  if (item.craftedStats != null && item.craftedStats.length > 0) {
+    parts.push(`crafted_stats=${item.craftedStats.join('/')}`);
+  }
+  if (item.craftingQuality != null) {
+    parts.push(`crafting_quality=${item.craftingQuality}`);
+  }
   return parts.join(',');
 }
 

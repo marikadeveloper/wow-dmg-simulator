@@ -1,5 +1,4 @@
 import type { SimcProfile, CombinationSpec, SimSettings, SimResult } from './types';
-import { buildItemSimcLine } from './gear-axes';
 
 /** Check if a combo has any active enchant selections (not "enchant_none"). */
 function hasEnchantOverrides(combo: CombinationSpec): boolean {
@@ -112,19 +111,24 @@ export function buildProfileSetFile(
   }
 
   // ── Section 4: ProfileSet entries ────────────────────────────────────────
-  // Build equipped gear as a slot → line map
+  // Build a map of slot → raw gear line from the profile's rawLines.
+  // Using raw lines (instead of rebuilding via buildItemSimcLine) preserves
+  // all SimC fields like crafted_stats, crafting_quality, etc.
   const gearSlotOrder = [
     'head', 'neck', 'shoulder', 'back', 'chest', 'wrist', 'hands', 'waist',
     'legs', 'feet', 'finger1', 'finger2', 'trinket1', 'trinket2',
     'main_hand', 'off_hand',
   ];
-  const equippedGearMap = new Map<string, string>();
-  for (const slot of gearSlotOrder) {
-    const items = profile.gear[slot];
-    if (!items) continue;
-    const equipped = items.find((i) => i.isEquipped);
-    if (equipped) {
-      equippedGearMap.set(slot, buildItemSimcLine(equipped, slot));
+  const gearSlotSet = new Set(gearSlotOrder);
+  const rawGearLineMap = new Map<string, string>();
+  for (const line of profile.rawLines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('#') || !trimmed) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    if (gearSlotSet.has(key)) {
+      rawGearLineMap.set(key, trimmed);
     }
   }
 
@@ -135,34 +139,40 @@ export function buildProfileSetFile(
     for (const combo of profilesets) {
       const name = combo.name;
 
-      // Start with equipped gear map, then apply gear overrides
-      const slotLines = new Map(equippedGearMap);
+      // Only track slots that actually differ from the base profile.
+      // SimC profilesets inherit all unspecified slots from the base profile,
+      // so we only need to write the overrides.
+      const changedSlots = new Map<string, string>();
+
+      // Apply gear overrides (item swaps)
       for (const line of combo.overrideLines) {
         const slotMatch = line.match(/^(\w+)=/);
         if (slotMatch) {
-          slotLines.set(slotMatch[1], line);
+          changedSlots.set(slotMatch[1], line);
         }
       }
 
-      // Apply enchant overrides from combo.axes — modify the item line's enchant_id
+      // Apply enchant overrides from combo.axes — modify the item line's enchant_id.
+      // For slots with gear overrides, apply to the override line.
+      // For unchanged slots, use the RAW profile line to preserve crafted_stats etc.
       for (const [axisId, optionId] of Object.entries(combo.axes)) {
         if (!axisId.startsWith('enchant:') || optionId === 'enchant_none') continue;
         const slot = axisId.replace('enchant:', '');
         const enchantId = optionId.replace('enchant_', '');
-        const itemLine = slotLines.get(slot);
-        if (itemLine) {
-          slotLines.set(slot, applyEnchantToLine(itemLine, enchantId));
+        const baseLine = changedSlots.get(slot) ?? rawGearLineMap.get(slot);
+        if (baseLine) {
+          changedSlots.set(slot, applyEnchantToLine(baseLine, enchantId));
         }
       }
 
-      // Assemble final lines: all gear slots + talents
-      const allLines = [
-        ...gearSlotOrder.filter((s) => slotLines.has(s)).map((s) => slotLines.get(s)!),
-        ...(profile.talentString ? [`talents=${profile.talentString}`] : []),
-      ];
-      for (let i = 0; i < allLines.length; i++) {
+      // Assemble only the changed lines (ordered by slot)
+      const overrideLines = gearSlotOrder
+        .filter((s) => changedSlots.has(s))
+        .map((s) => changedSlots.get(s)!);
+
+      for (let i = 0; i < overrideLines.length; i++) {
         const op = i === 0 ? '=' : '+=';
-        sections.push(`profileset."${name}"${op}${allLines[i]}`);
+        sections.push(`profileset."${name}"${op}${overrideLines[i]}`);
       }
     }
   }

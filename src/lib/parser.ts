@@ -191,6 +191,7 @@ function tryParseGearLine(line: string, isEquipped: boolean, isVault = false): G
   let bonusIds: number[] = [];
   let gemIds: number[] = [];
   let enchantId: number | undefined;
+  let craftedStats: number[] | undefined;
   let craftingQuality: number | undefined;
 
   for (const part of parts) {
@@ -213,6 +214,10 @@ function tryParseGearLine(line: string, isEquipped: boolean, isVault = false): G
       case 'enchant_id':
         enchantId = parseInt(pVal, 10) || undefined;
         break;
+      case 'crafted_stats':
+        craftedStats = pVal.split('/').map((v) => parseInt(v, 10)).filter((v) => !isNaN(v));
+        if (craftedStats.length === 0) craftedStats = undefined;
+        break;
       case 'crafting_quality':
         craftingQuality = parseInt(pVal, 10) || undefined;
         break;
@@ -228,6 +233,7 @@ function tryParseGearLine(line: string, isEquipped: boolean, isVault = false): G
     gemIds,
     enchantId,
     isEquipped,
+    ...(craftedStats != null && { craftedStats }),
     ...(craftingQuality != null && { craftingQuality }),
     ...(isVault && { isVault: true }),
   };
