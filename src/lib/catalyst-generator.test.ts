@@ -113,15 +113,16 @@ describe('generateCatalystItems', () => {
   });
 
   it('replaces the original item name with the individual tier piece name', () => {
+    // Sprawling Stoloncollar is a cloth head item (mages wear cloth)
     const profile = makeProfile('mage', {
-      head: [{ id: 99999, name: 'Elder Mossfeelers' }],
+      head: [{ id: 249632, name: 'Sprawling Stoloncollar' }],
     });
     const selection = new Set(['head:0']);
     const result = generateCatalystItems(profile, selection);
 
     const catalystItem = result.get('head')![0];
-    // Should use the individual piece name, not the set name or the original item name
-    expect(catalystItem.name).toBe(MAGE_SET.itemNames[0]); // head piece name
+    // Should use the individual piece name ("Voidbreaker's Veil"), not the original item name
+    expect(catalystItem.name).toBe(MAGE_SET.itemNames[0]); // "Voidbreaker's Veil"
     expect(catalystItem.id).toBe(MAGE_TIER_HEAD_ID);
   });
 
