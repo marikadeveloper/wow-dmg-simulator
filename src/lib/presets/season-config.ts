@@ -38,31 +38,31 @@ export interface GearTrack {
 export const GEAR_TRACKS: GearTrack[] = [
   {
     name: 'Myth',
-    bonusId: 0, // TBD — find from SimC source
+    bonusId: 12801,
     ilvlRange: [276, 289],
     source: 'Mythic Raid / M+10 vault',
   },
   {
     name: 'Hero',
-    bonusId: 0, // TBD
+    bonusId: 12793,
     ilvlRange: [263, 276],
     source: 'Heroic Raid / M+6–9',
   },
   {
     name: 'Champion',
-    bonusId: 0, // TBD
+    bonusId: 12785,
     ilvlRange: [250, 263],
     source: 'Normal Raid / M0–M+5',
   },
   {
     name: 'Veteran',
-    bonusId: 0, // TBD
+    bonusId: 12777,
     ilvlRange: [237, 250],
     source: 'Heroic Dungeon / Hard Prey',
   },
   {
     name: 'Adventurer',
-    bonusId: 0, // TBD
+    bonusId: 12769,
     ilvlRange: [224, 237],
     source: 'World events / Normal Prey',
   },
@@ -70,8 +70,8 @@ export const GEAR_TRACKS: GearTrack[] = [
 
 // ── Socket bonus_id ──────────────────────────────────────────────────────────
 
-/** The bonus_id that adds an extra socket to an item. 0 = TBD for this season. */
-export const SOCKET_BONUS_ID = 0; // TBD — was 6935 in The War Within S2, verify for Midnight
+/** The bonus_id that adds an extra socket to an item. */
+export const SOCKET_BONUS_ID = 6935;
 
 // ── Gem presets ──────────────────────────────────────────────────────────────
 
