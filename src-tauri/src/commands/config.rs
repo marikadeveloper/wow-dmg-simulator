@@ -48,12 +48,13 @@ pub async fn validate_simc_binary(app: tauri::AppHandle) -> Result<BinaryStatus,
         remove_quarantine_from_sidecar(&app);
     }
 
-    // Attempt to run simc --version
+    // Attempt to run simc with no args — it prints a version header and exits.
+    // Note: SimC does NOT support --version; all CLI args are treated as input
+    // files or key=value options, so passing --version causes an error on Windows.
     match app
         .shell()
         .sidecar("simc")
         .map_err(|e| e.to_string())?
-        .args(["--version"])
         .output()
         .await
     {
@@ -61,10 +62,22 @@ pub async fn validate_simc_binary(app: tauri::AppHandle) -> Result<BinaryStatus,
             let stdout = String::from_utf8_lossy(&output.stdout).to_string();
             let stderr = String::from_utf8_lossy(&output.stderr).to_string();
 
-            if !stdout.is_empty() || output.status.success() {
+            // SimC prints its version header as the first line of stdout,
+            // e.g. "SimulationCraft 1110-01 for World of Warcraft 11.1.0.58238 ..."
+            let version = extract_simc_version(&stdout)
+                .or_else(|| extract_simc_version(&stderr));
+
+            if version.is_some() {
                 Ok(BinaryStatus {
                     ok: true,
-                    version: Some(stdout.trim().to_string()),
+                    version,
+                    error: None,
+                })
+            } else if !stdout.is_empty() || output.status.success() {
+                // Got some output but couldn't parse version — still OK
+                Ok(BinaryStatus {
+                    ok: true,
+                    version: stdout.lines().next().map(|l| l.trim().to_string()),
                     error: None,
                 })
             } else {
@@ -81,6 +94,14 @@ pub async fn validate_simc_binary(app: tauri::AppHandle) -> Result<BinaryStatus,
             error: Some(format!("Failed to run SimC binary: {}", e)),
         }),
     }
+}
+
+/// Extract the SimC version from output text.
+/// Looks for lines starting with "SimulationCraft" (the version header).
+fn extract_simc_version(text: &str) -> Option<String> {
+    text.lines()
+        .find(|line| line.starts_with("SimulationCraft"))
+        .map(|line| line.trim().to_string())
 }
 
 #[cfg(target_os = "macos")]
@@ -136,8 +157,8 @@ pub fn read_config(app: &tauri::AppHandle) -> AppConfig {
 /// Validate a user-provided SimC binary path (not the bundled sidecar).
 #[tauri::command]
 pub async fn validate_custom_binary(path: String) -> Result<BinaryStatus, String> {
+    // Run without args — SimC doesn't support --version.
     match tokio::process::Command::new(&path)
-        .arg("--version")
         .output()
         .await
     {
@@ -145,10 +166,19 @@ pub async fn validate_custom_binary(path: String) -> Result<BinaryStatus, String
             let stdout = String::from_utf8_lossy(&output.stdout).to_string();
             let stderr = String::from_utf8_lossy(&output.stderr).to_string();
 
-            if !stdout.is_empty() || output.status.success() {
+            let version = extract_simc_version(&stdout)
+                .or_else(|| extract_simc_version(&stderr));
+
+            if version.is_some() {
                 Ok(BinaryStatus {
                     ok: true,
-                    version: Some(stdout.trim().to_string()),
+                    version,
+                    error: None,
+                })
+            } else if !stdout.is_empty() || output.status.success() {
+                Ok(BinaryStatus {
+                    ok: true,
+                    version: stdout.lines().next().map(|l| l.trim().to_string()),
                     error: None,
                 })
             } else {
