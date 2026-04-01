@@ -41,7 +41,7 @@ jobs:
             target: aarch64-apple-darwin
             simc_binary: simc-aarch64-apple-darwin
             simc_file_key: macos
-          - platform: macos-13
+          - platform: macos-latest
             target: x86_64-apple-darwin
             simc_binary: simc-x86_64-apple-darwin
             simc_file_key: macos
