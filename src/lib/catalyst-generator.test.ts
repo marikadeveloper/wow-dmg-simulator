@@ -112,7 +112,7 @@ describe('generateCatalystItems', () => {
     expect(catalystItem.bonusIds).toEqual([12793, 13577]);
   });
 
-  it('clears the original item name so the tier piece name is resolved from cache', () => {
+  it('replaces the original item name with the tier set name and slot', () => {
     const profile = makeProfile('mage', {
       head: [{ id: 99999, name: 'Elder Mossfeelers' }],
     });
@@ -120,7 +120,7 @@ describe('generateCatalystItems', () => {
     const result = generateCatalystItems(profile, selection);
 
     const catalystItem = result.get('head')![0];
-    expect(catalystItem.name).toBeUndefined();
+    expect(catalystItem.name).toBe(`${MAGE_SET.name} (Head)`);
     expect(catalystItem.id).toBe(MAGE_TIER_HEAD_ID);
   });
 

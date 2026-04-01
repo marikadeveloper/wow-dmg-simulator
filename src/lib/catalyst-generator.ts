@@ -3,6 +3,8 @@ import {
   TIER_SLOT_ORDER,
   getTierSetId,
   getTierItemIdForSlot,
+  CLASS_TO_TIER_SET_ID,
+  getTierSetById,
 } from './presets/season-config';
 
 /**
@@ -24,12 +26,21 @@ export function generateCatalystItems(
   const className = profile.className;
   if (!className) return result;
 
+  // Look up the tier set name for display (e.g. "Primal Sentry's Camouflage")
+  const setId = CLASS_TO_TIER_SET_ID[className];
+  const tierSetName = setId ? getTierSetById(setId)?.name : undefined;
+
   for (const slot of TIER_SLOT_ORDER) {
     const items = profile.gear[slot];
     if (!items) continue;
 
     const tierItemId = getTierItemIdForSlot(className, slot);
     if (!tierItemId) continue;
+
+    // Build a display name: "Set Name (Slot)" or fall back to undefined
+    // so the Wowhead cache can resolve the full tier piece name later.
+    const slotLabel = slot.charAt(0).toUpperCase() + slot.slice(1);
+    const catalystName = tierSetName ? `${tierSetName} (${slotLabel})` : undefined;
 
     for (let i = 0; i < items.length; i++) {
       if (!selection.has(`${slot}:${i}`)) continue;
@@ -43,7 +54,7 @@ export function generateCatalystItems(
       const catalystItem: GearItem = {
         ...items[i],
         id: tierItemId,
-        name: undefined, // clear so UI resolves the tier piece name from cache
+        name: catalystName, // use tier set name, not the original item name
         isEquipped: false,
         isVault: false,
         isUpgraded: false,
