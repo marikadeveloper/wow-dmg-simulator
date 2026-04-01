@@ -3,8 +3,7 @@ import {
   TIER_SLOT_ORDER,
   getTierSetId,
   getTierItemIdForSlot,
-  CLASS_TO_TIER_SET_ID,
-  getTierSetById,
+  getTierPieceNameForSlot,
 } from './presets/season-config';
 
 /**
@@ -26,10 +25,6 @@ export function generateCatalystItems(
   const className = profile.className;
   if (!className) return result;
 
-  // Look up the tier set name for display (e.g. "Primal Sentry's Camouflage")
-  const setId = CLASS_TO_TIER_SET_ID[className];
-  const tierSetName = setId ? getTierSetById(setId)?.name : undefined;
-
   for (const slot of TIER_SLOT_ORDER) {
     const items = profile.gear[slot];
     if (!items) continue;
@@ -37,10 +32,8 @@ export function generateCatalystItems(
     const tierItemId = getTierItemIdForSlot(className, slot);
     if (!tierItemId) continue;
 
-    // Build a display name: "Set Name (Slot)" or fall back to undefined
-    // so the Wowhead cache can resolve the full tier piece name later.
-    const slotLabel = slot.charAt(0).toUpperCase() + slot.slice(1);
-    const catalystName = tierSetName ? `${tierSetName} (${slotLabel})` : undefined;
+    // Use the individual tier piece name (e.g. "Primal Sentry's Talonguards")
+    const catalystName = getTierPieceNameForSlot(className, slot);
 
     for (let i = 0; i < items.length; i++) {
       if (!selection.has(`${slot}:${i}`)) continue;

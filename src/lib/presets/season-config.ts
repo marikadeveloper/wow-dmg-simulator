@@ -382,6 +382,8 @@ export interface TierSetDefinition {
   name: string;
   /** All item IDs belonging to this set (one per slot: head, shoulder, chest, hands, legs) */
   itemIds: number[];
+  /** Individual piece names matching itemIds order (head, shoulder, chest, hands, legs) */
+  itemNames: string[];
 }
 
 /**
@@ -395,33 +397,33 @@ export interface TierSetDefinition {
  */
 export const TIER_SETS: TierSetDefinition[] = [
   // ── Midnight S1 Raid Tier Sets ──
-  // Item ID order: [head, shoulder, chest, hands, legs] — matches TIER_SLOT_ORDER
+  // Item ID / name order: [head, shoulder, chest, hands, legs] — matches TIER_SLOT_ORDER
   // Death Knight — Relentless Rider's Lament
-  { id: 'mn_s1_dk', name: "Relentless Rider's Lament", itemIds: [249970, 249968, 249973, 249971, 249969] },
+  { id: 'mn_s1_dk', name: "Relentless Rider's Lament", itemIds: [249970, 249968, 249973, 249971, 249969], itemNames: ["Relentless Rider's Crown", "Relentless Rider's Dreadthorns", "Relentless Rider's Cuirass", "Relentless Rider's Bonegrasps", "Relentless Rider's Legguards"] },
   // Demon Hunter — Devouring Reaver's Sheathe
-  { id: 'mn_s1_dh', name: "Devouring Reaver's Sheathe", itemIds: [250033, 250031, 250036, 250034, 250032] },
+  { id: 'mn_s1_dh', name: "Devouring Reaver's Sheathe", itemIds: [250033, 250031, 250036, 250034, 250032], itemNames: ["Devouring Reaver's Intake", "Devouring Reaver's Exhaustplates", "Devouring Reaver's Engine", "Devouring Reaver's Essence Grips", "Devouring Reaver's Pistons"] },
   // Druid — Sprouts of the Luminous Bloom
-  { id: 'mn_s1_druid', name: 'Sprouts of the Luminous Bloom', itemIds: [250024, 250022, 250027, 250025, 250023] },
+  { id: 'mn_s1_druid', name: 'Sprouts of the Luminous Bloom', itemIds: [250024, 250022, 250027, 250025, 250023], itemNames: ['Branches of the Luminous Bloom', 'Seedpods of the Luminous Bloom', 'Trunk of the Luminous Bloom', 'Arbortenders of the Luminous Bloom', 'Phloemwraps of the Luminous Bloom'] },
   // Evoker — Livery of the Black Talon
-  { id: 'mn_s1_evoker', name: 'Livery of the Black Talon', itemIds: [249997, 249995, 250000, 249998, 249996] },
+  { id: 'mn_s1_evoker', name: 'Livery of the Black Talon', itemIds: [249997, 249995, 250000, 249998, 249996], itemNames: ['Hornhelm of the Black Talon', 'Beacons of the Black Talon', 'Frenzyward of the Black Talon', "Enforcer's Grips of the Black Talon", 'Greaves of the Black Talon'] },
   // Hunter — Primal Sentry's Camouflage
-  { id: 'mn_s1_hunter', name: "Primal Sentry's Camouflage", itemIds: [249988, 249986, 249991, 249989, 249987] },
+  { id: 'mn_s1_hunter', name: "Primal Sentry's Camouflage", itemIds: [249988, 249986, 249991, 249989, 249987], itemNames: ["Primal Sentry's Maw", "Primal Sentry's Trophies", "Primal Sentry's Scaleplate", "Primal Sentry's Talonguards", "Primal Sentry's Legguards"] },
   // Mage — Voidbreaker's Accordance
-  { id: 'mn_s1_mage', name: "Voidbreaker's Accordance", itemIds: [250060, 250058, 250063, 250061, 250059] },
+  { id: 'mn_s1_mage', name: "Voidbreaker's Accordance", itemIds: [250060, 250058, 250063, 250061, 250059], itemNames: ["Voidbreaker's Veil", "Voidbreaker's Leyline Nexi", "Voidbreaker's Robe", "Voidbreaker's Gloves", "Voidbreaker's Britches"] },
   // Monk — Way of Ra-den's Chosen
-  { id: 'mn_s1_monk', name: "Way of Ra-den's Chosen", itemIds: [250015, 250013, 250018, 250016, 250014] },
+  { id: 'mn_s1_monk', name: "Way of Ra-den's Chosen", itemIds: [250015, 250013, 250018, 250016, 250014], itemNames: ["Fearsome Visage of Ra-den's Chosen", "Aurastones of Ra-den's Chosen", "Battle Garb of Ra-den's Chosen", "Thunderfists of Ra-den's Chosen", "Swiftsweepers of Ra-den's Chosen"] },
   // Paladin — Luminant Verdict's Vestments
-  { id: 'mn_s1_paladin', name: "Luminant Verdict's Vestments", itemIds: [249961, 249959, 249964, 249962, 249960] },
+  { id: 'mn_s1_paladin', name: "Luminant Verdict's Vestments", itemIds: [249961, 249959, 249964, 249962, 249960], itemNames: ["Luminant Verdict's Unwavering Gaze", "Luminant Verdict's Providence Watch", "Luminant Verdict's Divine Warplate", "Luminant Verdict's Gauntlets", "Luminant Verdict's Greaves"] },
   // Priest — Blind Oath's Burden
-  { id: 'mn_s1_priest', name: "Blind Oath's Burden", itemIds: [250051, 250049, 250054, 250052, 250050] },
+  { id: 'mn_s1_priest', name: "Blind Oath's Burden", itemIds: [250051, 250049, 250054, 250052, 250050], itemNames: ["Blind Oath's Winged Crest", "Blind Oath's Seraphguards", "Blind Oath's Raiment", "Blind Oath's Touch", "Blind Oath's Leggings"] },
   // Rogue — Motley of the Grim Jest
-  { id: 'mn_s1_rogue', name: 'Motley of the Grim Jest', itemIds: [250006, 250004, 250009, 250007, 250005] },
+  { id: 'mn_s1_rogue', name: 'Motley of the Grim Jest', itemIds: [250006, 250004, 250009, 250007, 250005], itemNames: ['Masquerade of the Grim Jest', 'Venom Casks of the Grim Jest', 'Fantastic Finery of the Grim Jest', 'Sleight of Hand of the Grim Jest', 'Blade Holsters of the Grim Jest'] },
   // Shaman — Mantle of the Primal Core
-  { id: 'mn_s1_shaman', name: 'Mantle of the Primal Core', itemIds: [249979, 249977, 249982, 249980, 249978] },
+  { id: 'mn_s1_shaman', name: 'Mantle of the Primal Core', itemIds: [249979, 249977, 249982, 249980, 249978], itemNames: ['Locus of the Primal Core', 'Tempests of the Primal Core', 'Embrace of the Primal Core', 'Earthgrips of the Primal Core', 'Leggings of the Primal Core'] },
   // Warlock — Reign of the Abyssal Immolator
-  { id: 'mn_s1_warlock', name: 'Reign of the Abyssal Immolator', itemIds: [250042, 250040, 250045, 250043, 250041] },
+  { id: 'mn_s1_warlock', name: 'Reign of the Abyssal Immolator', itemIds: [250042, 250040, 250045, 250043, 250041], itemNames: ["Abyssal Immolator's Smoldering Flames", "Abyssal Immolator's Fury", "Abyssal Immolator's Dreadrobe", "Abyssal Immolator's Grasps", "Abyssal Immolator's Pillars"] },
   // Warrior — Rage of the Night Ender
-  { id: 'mn_s1_warrior', name: 'Rage of the Night Ender', itemIds: [249952, 249950, 249955, 249953, 249951] },
+  { id: 'mn_s1_warrior', name: 'Rage of the Night Ender', itemIds: [249952, 249950, 249955, 249953, 249951], itemNames: ["Night Ender's Tusks", "Night Ender's Pauldrons", "Night Ender's Breastplate", "Night Ender's Fists", "Night Ender's Chausses"] },
 ];
 
 /**
@@ -461,6 +463,20 @@ export function getTierItemIdForSlot(className: string, slot: string): number | 
   const idx = TIER_SLOT_ORDER.indexOf(slot as typeof TIER_SLOT_ORDER[number]);
   if (idx === -1) return undefined;
   return set.itemIds[idx];
+}
+
+/**
+ * Get the individual tier piece name for a given class and slot.
+ * Returns undefined if the class or slot is not found.
+ */
+export function getTierPieceNameForSlot(className: string, slot: string): string | undefined {
+  const setId = CLASS_TO_TIER_SET_ID[className];
+  if (!setId) return undefined;
+  const set = TIER_SETS.find((s) => s.id === setId);
+  if (!set) return undefined;
+  const idx = TIER_SLOT_ORDER.indexOf(slot as typeof TIER_SLOT_ORDER[number]);
+  if (idx === -1) return undefined;
+  return set.itemNames[idx];
 }
 
 /** Build a quick lookup: itemId → tierSetId. Computed once at import time. */
