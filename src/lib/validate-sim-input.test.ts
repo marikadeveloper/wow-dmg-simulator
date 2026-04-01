@@ -101,20 +101,36 @@ describe('validateSimInput', () => {
       expect(issues.find((i) => i.message.includes('incomplete'))).toBeTruthy();
     });
 
-    it('errors when dual-wield spec has no off-hand', () => {
+    it('errors when dual-wield spec has 1H main-hand and no off-hand', () => {
       const profile: SimcProfile = {
         ...validProfile,
         spec: 'fury',
         gear: {
           ...validProfile.gear,
+          // 1H weapon (isTwoHand not set = defaults to 1H)
+          main_hand: [{ slot: 'main_hand', id: 15, bonusIds: [], gemIds: [], isEquipped: true }],
           off_hand: undefined as unknown as typeof validProfile.gear.off_hand,
         },
       };
-      // Remove off_hand entirely
       delete (profile.gear as Record<string, unknown>).off_hand;
       const issues = validateSimInput(profile, validSettings);
       expect(hasErrors(issues)).toBe(true);
       expect(issues.find((i) => i.message.includes('off-hand weapon'))).toBeTruthy();
+    });
+
+    it('does not error when dual-wield spec has 2H main-hand and no off-hand', () => {
+      const profile: SimcProfile = {
+        ...validProfile,
+        spec: 'fury',
+        gear: {
+          ...validProfile.gear,
+          main_hand: [{ slot: 'main_hand', id: 15, bonusIds: [], gemIds: [], isEquipped: true, isTwoHand: true }],
+          off_hand: undefined as unknown as typeof validProfile.gear.off_hand,
+        },
+      };
+      delete (profile.gear as Record<string, unknown>).off_hand;
+      const issues = validateSimInput(profile, validSettings);
+      expect(issues.find((i) => i.message.includes('off-hand weapon'))).toBeFalsy();
     });
 
     it('does not error when dual-wield spec has an off-hand', () => {

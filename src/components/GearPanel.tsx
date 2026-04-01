@@ -444,6 +444,33 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     return assembleAxes(augmentedProfile, selection, gemIds, enchantIds);
   }, [augmentedProfile, selection, selectedGemIds, selectedEnchantIds]);
 
+  // Weapon validation: warn when a selected 1H main-hand has no off-hand items to pair with.
+  // If the base profile uses a 2H weapon (no off-hand in rawLines), switching to 1H
+  // without an off-hand would simulate incorrectly (no shield/off-hand stats).
+  const weaponWarning = useMemo((): string | null => {
+    const mhIndices = Array.from(selection)
+      .filter((k) => k.startsWith('main_hand:'))
+      .map((k) => Number(k.split(':')[1]));
+    if (mhIndices.length === 0) return null;
+
+    const mhItems = mhIndices
+      .filter((idx) => idx < (augmentedProfile.gear.main_hand?.length ?? 0))
+      .map((idx) => augmentedProfile.gear.main_hand[idx]);
+
+    const hasOneHand = mhItems.some((i) => !i.isTwoHand);
+    if (!hasOneHand) return null;
+
+    // Check if there are any off-hand items available (selected or not)
+    const ohItems = augmentedProfile.gear.off_hand ?? [];
+    if (ohItems.length > 0) return null;
+
+    const oneHandNames = mhItems
+      .filter((i) => !i.isTwoHand)
+      .map((i) => i.name ?? `Item #${i.id}`)
+      .join(', ');
+    return `${oneHandNames} ${mhItems.filter((i) => !i.isTwoHand).length === 1 ? 'is a' : 'are'} one-handed weapon${mhItems.filter((i) => !i.isTwoHand).length === 1 ? '' : 's'} and ${mhItems.filter((i) => !i.isTwoHand).length === 1 ? 'requires' : 'require'} an off-hand. Add an off-hand item or deselect the one-handed weapon${mhItems.filter((i) => !i.isTwoHand).length === 1 ? '' : 's'}.`;
+  }, [augmentedProfile, selection]);
+
   // Report axes to parent
   useEffect(() => {
     onAxesChange?.(allAxes);
@@ -627,6 +654,17 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
         </div>
       )}
 
+      {/* Weapon validation warning */}
+      {weaponWarning && (
+        <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-red-300">
+          <svg className="w-3.5 h-3.5 mt-0.5 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="8" cy="8" r="6" />
+            <path d="M8 5v3" /><circle cx="8" cy="10.5" r="0.5" fill="currentColor" />
+          </svg>
+          {weaponWarning}
+        </div>
+      )}
+
       {/* Live combination counter */}
       <div className="mt-4">
         <CombinationCounter
@@ -634,6 +672,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
           onBlockedChange={onBlockedChange}
           tierSetMinimums={tierSetMinimums}
           profile={augmentedProfile}
+          weaponBlocked={weaponWarning != null}
         />
       </div>
     </div>

@@ -50,13 +50,17 @@ export function validateSimInput(
     issues.push({ severity: 'error', message: 'No equipped gear found in the profile.' });
   }
 
-  // Dual-wield specs must have an off-hand weapon
+  // Off-hand validation: only required when main-hand weapons include 1H options.
+  // If ALL main-hand weapons are 2H (e.g. a staff on a mage), no off-hand is needed.
   if (profile.spec && DUAL_WIELD_SPECS.has(profile.spec)) {
+    const mhItems = profile.gear.main_hand ?? [];
+    const allMainHandsAreTwoHand = mhItems.length > 0 && mhItems.every((i) => i.isTwoHand);
     const offHandItems = profile.gear.off_hand ?? [];
-    if (offHandItems.length === 0) {
+
+    if (!allMainHandsAreTwoHand && offHandItems.length === 0) {
       issues.push({
         severity: 'error',
-        message: `${profile.spec.charAt(0).toUpperCase() + profile.spec.slice(1)} requires an off-hand weapon to simulate. Add an off-hand weapon to continue.`,
+        message: `${profile.spec.charAt(0).toUpperCase() + profile.spec.slice(1)} requires an off-hand weapon when using one-handed weapons. Add an off-hand weapon to continue.`,
       });
     }
   }

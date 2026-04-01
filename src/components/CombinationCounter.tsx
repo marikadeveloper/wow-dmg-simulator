@@ -10,12 +10,14 @@ export const BLOCK_THRESHOLD = 1000;
 interface CombinationCounterProps {
   /** Pre-assembled axes from the optimization assembler (gear + gems + enchants). */
   axes: OptimizationAxis[];
-  /** Called whenever the blocked state changes (count > 1000). */
+  /** Called whenever the blocked state changes (count > 1000 or weapon issue). */
   onBlockedChange?: (blocked: boolean) => void;
   /** Tier set minimum piece requirements for post-filter count. */
   tierSetMinimums?: TierSetMinimums;
   /** Profile needed for tier set filtering resolution. */
   profile?: SimcProfile;
+  /** External block: selected 1H weapon has no off-hand available. */
+  weaponBlocked?: boolean;
 }
 
 type Urgency = 'idle' | 'green' | 'yellow' | 'orange' | 'red' | 'blocked';
@@ -79,7 +81,7 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
   },
 };
 
-export default function CombinationCounter({ axes, onBlockedChange, tierSetMinimums, profile }: CombinationCounterProps) {
+export default function CombinationCounter({ axes, onBlockedChange, tierSetMinimums, profile, weaponBlocked }: CombinationCounterProps) {
   const count = useMemo(() => countCombinations(axes), [axes]);
 
   // Compute filtered count when tier set filters are active
@@ -100,7 +102,7 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
   const urgency = getUrgency(displayCount);
   const styles = URGENCY_STYLES[urgency];
   const warning = getUrgencyLabel(urgency);
-  const isBlocked = urgency === 'blocked';
+  const isBlocked = urgency === 'blocked' || !!weaponBlocked;
 
   // Notify parent of blocked state changes
   useEffect(() => {
