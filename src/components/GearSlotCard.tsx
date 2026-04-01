@@ -102,6 +102,8 @@ interface GearSlotCardProps {
   realSlots?: string[];
   /** Called when user adds an unowned item via search */
   onAddUnownedItem?: (slot: string, item: GearItem) => void;
+  /** Character spec (e.g. "fury", "protection") — passed to UnownedItemSearch for off-hand filtering */
+  spec?: string;
 }
 
 export default function GearSlotCard({
@@ -115,6 +117,7 @@ export default function GearSlotCard({
   delay = 0,
   realSlots,
   onAddUnownedItem,
+  spec,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
 
@@ -323,6 +326,7 @@ export default function GearSlotCard({
           <UnownedItemSearch
             realSlots={realSlots ?? [slot]}
             onAddItem={onAddUnownedItem}
+            spec={spec}
           />
         )}
 

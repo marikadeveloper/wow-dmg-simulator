@@ -19,14 +19,52 @@ interface PendingItem {
   assumeSocket: boolean;
 }
 
+/**
+ * Specs that dual-wield weapons in the off-hand slot.
+ * These specs should see weapons (inv_type 14, 22) in off-hand search,
+ * NOT shields or held-in-off-hand items (inv_type 23).
+ */
+const DUAL_WIELD_SPECS = new Set([
+  'fury',           // Warrior — Titan's Grip / Single-Minded Fury
+  'assassination',  // Rogue
+  'outlaw',         // Rogue
+  'subtlety',       // Rogue
+  'frost',          // Death Knight (dual-wield variant)
+  'windwalker',     // Monk
+  'brewmaster',     // Monk (can dual-wield)
+  'havoc',          // Demon Hunter
+  'vengeance',      // Demon Hunter
+  'enhancement',    // Shaman
+  'survival',       // Hunter (can use off-hand weapons)
+]);
+
+/**
+ * Valid off-hand inv_types for dual-wield specs.
+ * 13 = one-hand (stored as main_hand in DB but usable in either hand)
+ * 14 = off-hand weapon
+ * 22 = off-hand weapon (explicit)
+ */
+const OFFHAND_DUAL_WIELD_INV_TYPES = new Set([13, 14, 22]);
+
+/**
+ * Fury Warriors can also equip two-handed weapons (inv_type 17) in off-hand
+ * via Titan's Grip. This set extends the dual-wield set for Fury specifically.
+ */
+const OFFHAND_FURY_INV_TYPES = new Set([13, 14, 17, 22]);
+
+/** Shield / held-in-off-hand inv_type. */
+const OFFHAND_SHIELD_INV_TYPE = 23;
+
 interface UnownedItemSearchProps {
   /** All real SimC slots this card represents (for paired slots like rings) */
   realSlots: string[];
   /** Called when user adds an unowned item */
   onAddItem: (slot: string, item: GearItem) => void;
+  /** Character spec (e.g. "fury", "protection") — used to filter off-hand item types */
+  spec?: string;
 }
 
-export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemSearchProps) {
+export default function UnownedItemSearch({ realSlots, onAddItem, spec }: UnownedItemSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ItemSearchResult[]>([]);
@@ -52,8 +90,27 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     try {
       const { invoke } = await import('@tauri-apps/api/core');
       const items = await invoke<ItemSearchResult[]>('search_items', { query: q });
-      // Filter results to items that match this slot's valid types
-      const filtered = items.filter((item) => realSlots.includes(item.slot));
+      // Filter results to items that match this slot's valid types.
+      // Off-hand needs special handling: dual-wield specs use weapons (including
+      // one-hand items stored as main_hand in the DB), while other specs use
+      // shields/held items.
+      const isOffHand = realSlots.includes('off_hand');
+      const isDualWield = spec ? DUAL_WIELD_SPECS.has(spec) : false;
+      const filtered = items.filter((item) => {
+        if (isOffHand && isDualWield) {
+          // Dual-wield off-hand: match by inv_type, not slot — because inv_type 13
+          // (one-hand) items are stored as slot=main_hand but are valid in off-hand.
+          // Fury Warriors can also use 2H weapons (inv_type 17) via Titan's Grip.
+          const validTypes = spec === 'fury' ? OFFHAND_FURY_INV_TYPES : OFFHAND_DUAL_WIELD_INV_TYPES;
+          return validTypes.has(item.invType);
+        }
+        if (isOffHand && !isDualWield) {
+          // Shield/caster specs: only shields and held-in-off-hand items
+          return item.invType === OFFHAND_SHIELD_INV_TYPE;
+        }
+        // All other slots: filter by slot name
+        return realSlots.includes(item.slot);
+      });
       setResults(filtered);
     } catch {
       // Silently fail in dev mode (no backend)
@@ -61,7 +118,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     } finally {
       setIsSearching(false);
     }
-  }, [realSlots]);
+  }, [realSlots, spec]);
 
   const handleInputChange = useCallback((value: string) => {
     setQuery(value);
@@ -96,6 +153,10 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
     // axis detects the socket and offers gem choices
     const gemIds = assumeSocket ? [0] : [];
 
+    // Only mark as isTwoHand when the item is going into main_hand.
+    // A 2H weapon in off_hand (Fury Titan's Grip) is treated as a normal off-hand.
+    const isTwoHand = result.invType === 17 && targetSlot === 'main_hand';
+
     const gearItem: GearItem = {
       slot: targetSlot,
       id: result.itemId,
@@ -106,7 +167,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem }: UnownedItemS
       ilvl,
       isEquipped: false,
       isUnowned: true,
-      ...(result.invType === 17 && { isTwoHand: true }),
+      ...(isTwoHand && { isTwoHand: true }),
     };
 
     onAddItem(targetSlot, gearItem);

@@ -545,6 +545,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
                 delay={index * 30}
                 realSlots={realSlots ? [...realSlots] : [slot]}
                 onAddUnownedItem={handleAddUnownedItem}
+                spec={profile.spec}
               />
             );
           }
@@ -562,6 +563,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
               delay={index * 30}
               realSlots={[slot]}
               onAddUnownedItem={handleAddUnownedItem}
+              spec={profile.spec}
             />
           );
         })}
