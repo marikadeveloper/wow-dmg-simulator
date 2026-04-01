@@ -1,6 +1,6 @@
-import { useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { OptimizationAxis, SimcProfile } from '../lib/types';
-import { countCombinations, generateCombinations } from '../lib/combinator';
+import { countCombinations, generateCombinations, getCombinationBreakdown } from '../lib/combinator';
 import { countFilteredCombinations, type TierSetMinimums } from '../lib/tier-set-filter';
 
 /** Urgency thresholds — exported for tests */
@@ -83,6 +83,8 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
 
 export default function CombinationCounter({ axes, onBlockedChange, tierSetMinimums, profile, weaponBlocked }: CombinationCounterProps) {
   const count = useMemo(() => countCombinations(axes), [axes]);
+  const breakdown = useMemo(() => getCombinationBreakdown(axes), [axes]);
+  const [showBreakdown, setShowBreakdown] = useState(false);
 
   // Compute filtered count when tier set filters are active
   const hasActiveFilters = tierSetMinimums && [...tierSetMinimums.values()].some((v) => v > 0);
@@ -109,12 +111,6 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
     onBlockedChange?.(isBlocked);
   }, [isBlocked, onBlockedChange]);
 
-  // Count how many slots have >1 selected item (active comparison slots)
-  const activeSlotCount = axes.filter((a) => a.id.startsWith('slot:')).length;
-  // Count gem axes for display
-  const gemAxisCount = axes.filter((a) => a.id.startsWith('gem:')).length;
-  // Count enchant axes with >1 option (actual enchant comparisons)
-  const enchantAxisCount = axes.filter((a) => a.id.startsWith('enchant:') && a.options.length > 1).length;
 
   return (
     <div
@@ -166,14 +162,28 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
                 </span>
               )}
             </span>
-            {(activeSlotCount > 0 || gemAxisCount > 0 || enchantAxisCount > 0) && (
-              <span className="text-[10px] text-zinc-600">
-                {activeSlotCount > 0 && `${activeSlotCount} ${activeSlotCount === 1 ? 'slot' : 'slots'}`}
-                {activeSlotCount > 0 && (gemAxisCount > 0 || enchantAxisCount > 0) && ' + '}
-                {gemAxisCount > 0 && `${gemAxisCount} ${gemAxisCount === 1 ? 'socket' : 'sockets'}`}
-                {gemAxisCount > 0 && enchantAxisCount > 0 && ' + '}
-                {enchantAxisCount > 0 && `${enchantAxisCount} ${enchantAxisCount === 1 ? 'enchant' : 'enchants'}`}
-              </span>
+            {breakdown.length > 1 && (
+              <button
+                type="button"
+                onClick={() => setShowBreakdown((v) => !v)}
+                className="text-[10px] text-zinc-500 hover:text-zinc-400 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                <span className="flex items-center gap-0.5 flex-wrap">
+                  {breakdown.map((f, i) => (
+                    <span key={f.label} className="whitespace-nowrap">
+                      {i > 0 && <span className="text-zinc-600 mx-0.5">&times;</span>}
+                      <span className="text-zinc-400 tabular-nums">{f.optionCount}</span>
+                      {' '}{f.label}
+                    </span>
+                  ))}
+                </span>
+                <svg
+                  className={`w-2.5 h-2.5 ml-0.5 shrink-0 transition-transform ${showBreakdown ? 'rotate-180' : ''}`}
+                  viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                >
+                  <path d="M2 4l3 3 3-3" />
+                </svg>
+              </button>
             )}
           </div>
         </div>
@@ -204,6 +214,21 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
           </span>
         )}
       </div>
+
+      {/* Expanded breakdown */}
+      {showBreakdown && breakdown.length > 1 && (
+        <div className="px-4 pb-3 pt-1 border-t border-zinc-800/40">
+          <div className="grid grid-cols-[1fr_auto_auto] gap-x-3 gap-y-0.5 text-[10px]">
+            {breakdown.map((f) => (
+              <div key={f.label} className="contents">
+                <span className="text-zinc-400 capitalize">{f.label}</span>
+                <span className="text-zinc-500 text-right tabular-nums">{f.optionCount}</span>
+                <span className="text-zinc-600">{f.detail ?? ''}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

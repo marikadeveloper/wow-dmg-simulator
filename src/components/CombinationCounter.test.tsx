@@ -167,14 +167,14 @@ describe('CombinationCounter', () => {
     expect(BLOCK_THRESHOLD).toBe(1000);
   });
 
-  it('shows enchant axis count in breakdown', () => {
+  it('shows combination breakdown formula', () => {
     const axes: OptimizationAxis[] = [
       {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
       {
@@ -195,7 +195,10 @@ describe('CombinationCounter', () => {
       },
     ];
     render(<CombinationCounter axes={axes} />);
-    expect(screen.getByText(/2 enchants/)).toBeInTheDocument();
+    // Shows each factor in the breakdown: "2 Trinket 1 × 2 Ring 1 Enchant × 2 Ring 2 Enchant"
+    expect(screen.getByText(/Trinket 1/)).toBeInTheDocument();
+    expect(screen.getByText(/Ring 1 Enchant/)).toBeInTheDocument();
+    expect(screen.getByText(/Ring 2 Enchant/)).toBeInTheDocument();
   });
 
   it('does not show warning for idle/green urgency', () => {

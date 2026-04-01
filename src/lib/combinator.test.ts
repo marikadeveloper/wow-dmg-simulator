@@ -17,9 +17,9 @@ describe('countCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: ['trinket1=,id=100'] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
-          { id: 'item_300', label: 'C', simcLines: ['trinket1=,id=300'] },
+          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_300_2', label: 'C', simcLines: ['trinket1=,id=300'] },
         ],
       },
     ];
@@ -32,17 +32,17 @@ describe('countCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: ['trinket1=,id=100'] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
       {
         id: 'slot:trinket2',
         label: 'Trinket 2',
         options: [
-          { id: 'item_300', label: 'C', simcLines: ['trinket2=,id=300'] },
-          { id: 'item_400', label: 'D', simcLines: ['trinket2=,id=400'] },
-          { id: 'item_500', label: 'E', simcLines: ['trinket2=,id=500'] },
+          { id: 'item_300_0', label: 'C', simcLines: ['trinket2=,id=300'] },
+          { id: 'item_400_1', label: 'D', simcLines: ['trinket2=,id=400'] },
+          { id: 'item_500_2', label: 'E', simcLines: ['trinket2=,id=500'] },
         ],
       },
     ];
@@ -55,8 +55,8 @@ describe('countCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: ['trinket1=,id=100'] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
       {
@@ -74,8 +74,8 @@ describe('countCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: ['trinket1=,id=100'] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
       {
@@ -96,8 +96,8 @@ describe('countCombinations', () => {
         id: 'slot:head',
         label: 'Head',
         options: [
-          { id: 'item_100', label: 'Item A (1 socket)', simcLines: [] },
-          { id: 'item_200', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
+          { id: 'item_100_0', label: 'Item A (1 socket)', simcLines: [] },
+          { id: 'item_200_1', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
         ],
       },
       // Conditional gem axis: 3 gems for item A's socket
@@ -126,6 +126,77 @@ describe('countCombinations', () => {
     // × 2 enchant options = 8
     expect(countCombinations(axes)).toBe(8);
   });
+
+  it('counts gems correctly for paired slots (trinkets/rings)', () => {
+    const axes: OptimizationAxis[] = [
+      // Paired trinket axis: 3 pairs from 3 items (A, B, C)
+      {
+        id: 'slot:trinkets',
+        label: 'Trinkets',
+        options: [
+          { id: 'pair_100_200', label: 'A + B', simcLines: [] },
+          { id: 'pair_100_300', label: 'A + C', simcLines: ['trinket1=,id=100', 'trinket2=,id=300'] },
+          { id: 'pair_200_300', label: 'B + C', simcLines: ['trinket1=,id=200', 'trinket2=,id=300'] },
+        ],
+      },
+      // Gem axis for item A (id=100, has 1 socket)
+      {
+        id: 'gem:trinket1:100:socket_0',
+        label: 'Trinket socket (Item A)',
+        parentItemId: 100,
+        parentSlot: 'trinket1',
+        options: [
+          { id: 'gem_1', label: 'Mastery', simcLines: [] },
+          { id: 'gem_2', label: 'Haste', simcLines: [] },
+        ],
+      },
+    ];
+    // pair (A,B): A has 2 gem options → 2
+    // pair (A,C): A has 2 gem options → 2
+    // pair (B,C): neither has gems → 1
+    // Total: 2 + 2 + 1 = 5
+    expect(countCombinations(axes)).toBe(5);
+  });
+
+  it('counts gems for both items in a pair when both have sockets', () => {
+    const axes: OptimizationAxis[] = [
+      {
+        id: 'slot:rings',
+        label: 'Rings',
+        options: [
+          { id: 'pair_100_200', label: 'A + B', simcLines: [] },
+          { id: 'pair_100_300', label: 'A + C', simcLines: ['finger1=,id=100', 'finger2=,id=300'] },
+        ],
+      },
+      // Gem axis for item A (id=100)
+      {
+        id: 'gem:finger1:100:socket_0',
+        label: 'Ring socket (Item A)',
+        parentItemId: 100,
+        parentSlot: 'finger1',
+        options: [
+          { id: 'gem_1', label: 'Mastery', simcLines: [] },
+          { id: 'gem_2', label: 'Haste', simcLines: [] },
+        ],
+      },
+      // Gem axis for item B (id=200)
+      {
+        id: 'gem:finger2:200:socket_0',
+        label: 'Ring socket (Item B)',
+        parentItemId: 200,
+        parentSlot: 'finger2',
+        options: [
+          { id: 'gem_10', label: 'Crit', simcLines: [] },
+          { id: 'gem_11', label: 'Vers', simcLines: [] },
+          { id: 'gem_12', label: 'Mastery', simcLines: [] },
+        ],
+      },
+    ];
+    // pair (A,B): A has 2 gems × B has 3 gems = 6
+    // pair (A,C): A has 2 gems × C has 0 gems = 2
+    // Total: 6 + 2 = 8
+    expect(countCombinations(axes)).toBe(8);
+  });
 });
 
 describe('generateCombinations', () => {
@@ -135,8 +206,8 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
     ];
@@ -150,8 +221,8 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
       {
@@ -173,8 +244,8 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A (equipped)', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A (equipped)', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
     ];
@@ -190,9 +261,9 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
-          { id: 'item_300', label: 'C', simcLines: ['trinket1=,id=300'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_300_2', label: 'C', simcLines: ['trinket1=,id=300'] },
         ],
       },
     ];
@@ -207,8 +278,8 @@ describe('generateCombinations', () => {
         id: 'slot:head',
         label: 'Head',
         options: [
-          { id: 'item_100', label: 'Item A (1 socket)', simcLines: [] },
-          { id: 'item_200', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
+          { id: 'item_100_0', label: 'Item A (1 socket)', simcLines: [] },
+          { id: 'item_200_1', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
         ],
       },
       {
@@ -229,7 +300,7 @@ describe('generateCombinations', () => {
 
     // Combos for item B should not have any gem axis selections
     const itemBCombos = combos.filter(
-      (c) => c.axes['slot:head'] === 'item_200',
+      (c) => c.axes['slot:head'] === 'item_200_1',
     );
     expect(itemBCombos).toHaveLength(1);
     expect(itemBCombos[0].axes['gem:head:100:socket_0']).toBeUndefined();
@@ -241,8 +312,8 @@ describe('generateCombinations', () => {
         id: 'slot:head',
         label: 'Head',
         options: [
-          { id: 'item_100', label: 'Item A (1 socket)', simcLines: [] },
-          { id: 'item_200', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
+          { id: 'item_100_0', label: 'Item A (1 socket)', simcLines: [] },
+          { id: 'item_200_1', label: 'Item B (no socket)', simcLines: ['head=,id=200'] },
         ],
       },
       {
@@ -277,17 +348,61 @@ describe('generateCombinations', () => {
     }
 
     // Item A combos should have gem selections
-    const itemACombos = combos.filter((c) => c.axes['slot:head'] === 'item_100');
+    const itemACombos = combos.filter((c) => c.axes['slot:head'] === 'item_100_0');
     expect(itemACombos).toHaveLength(4);
     for (const combo of itemACombos) {
       expect(combo.axes['gem:head:100:socket_0']).toBeDefined();
     }
 
     // Item B combos should NOT have gem selections
-    const itemBCombos = combos.filter((c) => c.axes['slot:head'] === 'item_200');
+    const itemBCombos = combos.filter((c) => c.axes['slot:head'] === 'item_200_1');
     expect(itemBCombos).toHaveLength(2);
     for (const combo of itemBCombos) {
       expect(combo.axes['gem:head:100:socket_0']).toBeUndefined();
+    }
+  });
+
+  it('handles gem axes for paired slots (trinkets) correctly', () => {
+    const axes: OptimizationAxis[] = [
+      {
+        id: 'slot:trinkets',
+        label: 'Trinkets',
+        options: [
+          { id: 'pair_100_200', label: 'A + B', simcLines: [] },
+          { id: 'pair_100_300', label: 'A + C', simcLines: ['trinket1=,id=100', 'trinket2=,id=300'] },
+          { id: 'pair_200_300', label: 'B + C', simcLines: ['trinket1=,id=200', 'trinket2=,id=300'] },
+        ],
+      },
+      // Gem for item A (id=100)
+      {
+        id: 'gem:trinket1:100:socket_0',
+        label: 'Trinket socket (A)',
+        parentItemId: 100,
+        parentSlot: 'trinket1',
+        options: [
+          { id: 'gem_1', label: 'Mastery', simcLines: [] },
+          { id: 'gem_2', label: 'Haste', simcLines: [] },
+        ],
+      },
+    ];
+
+    const combos = generateCombinations(axes);
+    // pair(A,B): A has gems → 2
+    // pair(A,C): A has gems → 2
+    // pair(B,C): no gems → 1
+    // Total: 5
+    expect(combos).toHaveLength(5);
+
+    // pair(B,C) should NOT have gem axis
+    const bcCombos = combos.filter((c) => c.axes['slot:trinkets'] === 'pair_200_300');
+    expect(bcCombos).toHaveLength(1);
+    expect(bcCombos[0].axes['gem:trinket1:100:socket_0']).toBeUndefined();
+
+    // pair(A,B) SHOULD have gem axis
+    const abCombos = combos.filter((c) => c.axes['slot:trinkets'] === 'pair_100_200');
+    expect(abCombos).toHaveLength(2);
+    for (const combo of abCombos) {
+      expect(combo.axes['gem:trinket1:100:socket_0']).toBeDefined();
     }
   });
 
@@ -297,7 +412,7 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: Array.from({ length: 10 }, (_, i) => ({
-          id: `item_${i}`,
+          id: `item_${i}_${i}`,
           label: `Item ${i}`,
           simcLines: i === 0 ? [] : [`trinket1=,id=${i}`],
         })),
@@ -306,7 +421,7 @@ describe('generateCombinations', () => {
         id: 'slot:trinket2',
         label: 'Trinket 2',
         options: Array.from({ length: 10 }, (_, i) => ({
-          id: `item_${100 + i}`,
+          id: `item_${100 + i}_${i}`,
           label: `Item ${100 + i}`,
           simcLines: i === 0 ? [] : [`trinket2=,id=${100 + i}`],
         })),
@@ -323,8 +438,8 @@ describe('generateCombinations', () => {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100', label: 'A', simcLines: [] },
-          { id: 'item_200', label: 'B', simcLines: ['trinket1=,id=200'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] },
+          { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
     ];
