@@ -316,10 +316,6 @@ describe('runSmartSim', () => {
 
   it('throws SmartSimCancelledError on cancellation with partial results', async () => {
     const combos = [makeCombo('combo_0000'), makeCombo('combo_0001')];
-    const stage1Results = [
-      makeResult('combo_0000', 80000),
-      makeResult('combo_0001', 100000),
-    ];
 
     let callIdx = 0;
     const mockRunSimC = vi.fn(async () => {

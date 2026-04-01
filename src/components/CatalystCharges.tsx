@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { SimcProfile } from '../lib/types';
-import { TIER_SLOT_ORDER, getTierSetId, getTierItemIdForSlot, CLASS_TO_TIER_SET_ID, getTierSetById } from '../lib/presets/season-config';
+import { TIER_SLOT_ORDER, getTierSetId, CLASS_TO_TIER_SET_ID, getTierSetById } from '../lib/presets/season-config';
 
 interface CatalystChargesProps {
   profile: SimcProfile;

@@ -5,7 +5,7 @@ import {
   filterCombinationsByCatalystCharges,
 } from './catalyst-generator';
 import type { SimcProfile, GearItem, CombinationSpec } from './types';
-import { TIER_SETS, CLASS_TO_TIER_SET_ID, TIER_SLOT_ORDER } from './presets/season-config';
+import { TIER_SETS } from './presets/season-config';
 
 // Use the mage tier set for testing
 const MAGE_SET = TIER_SETS.find((s) => s.id === 'mn_s1_mage')!;

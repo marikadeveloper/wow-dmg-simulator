@@ -48,6 +48,8 @@ const validSettings: SimSettingsValues = {
   weaponRune: '',
   raidBuffs: { bloodlust: true },
   crucibleModes: {},
+  smartSimEnabled: null,
+  smartSimTargetErrors: null,
 };
 
 describe('validateSimInput', () => {

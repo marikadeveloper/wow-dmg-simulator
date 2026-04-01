@@ -37,9 +37,6 @@ const PAIRED_SLOTS: Record<string, [string, string]> = {
   trinkets: ['trinket1', 'trinket2'],
 };
 
-/** Set of all real SimC slots handled by paired display. */
-const ALL_PAIRED_REAL_SLOTS = new Set(Object.values(PAIRED_SLOTS).flat());
-
 /** Info about a merged paired item: the original slot + index in profile.gear. */
 interface PairMapping {
   originalSlot: string;

@@ -40,7 +40,7 @@ function slotToPresetCategory(slot: string): string {
  * @param enchantIdsToTry - Enchant IDs the user wants to compare
  */
 export function buildEnchantAxes(
-  profile: SimcProfile,
+  _profile: SimcProfile,
   selection: Set<string>,
   enchantIdsToTry: number[],
 ): OptimizationAxis[] {
@@ -56,8 +56,6 @@ export function buildEnchantAxes(
   }
 
   for (const slot of ENCHANTABLE_SLOTS) {
-    // Off-hand cannot have weapon enchants
-    if (slot === 'off_hand') continue;
     // Skip slots where the user has no items selected
     if (!slotsWithSelection.has(slot)) continue;
 
