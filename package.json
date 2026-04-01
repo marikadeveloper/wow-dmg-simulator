@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "season:validate": "tsx scripts/validate-season.ts",
-    "build:item-db": "tsx scripts/build-item-db.ts"
+    "build:item-db": "tsx scripts/build-item-db.ts",
+    "download:simc": "bash scripts/download-simc.sh"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

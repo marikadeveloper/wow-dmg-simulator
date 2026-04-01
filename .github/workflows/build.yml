@@ -40,15 +40,15 @@ jobs:
           - platform: macos-latest
             target: aarch64-apple-darwin
             simc_binary: simc-aarch64-apple-darwin
-            simc_secret: SIMC_MACOS_ARM64_URL
+            simc_file_key: macos
           - platform: macos-13
             target: x86_64-apple-darwin
             simc_binary: simc-x86_64-apple-darwin
-            simc_secret: SIMC_MACOS_X64_URL
+            simc_file_key: macos
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
             simc_binary: simc-x86_64-pc-windows-msvc.exe
-            simc_secret: SIMC_WIN64_URL
+            simc_file_key: win64
 
     runs-on: ${{ matrix.platform }}
 
@@ -84,21 +84,76 @@ jobs:
       - name: Build items.db
         run: pnpm build:item-db
 
-      # --- Download SimC sidecar binary ---
+      # --- Download and extract SimC sidecar binary ---
 
-      - name: Download SimC binary (macOS)
+      - name: Read SimC version info
+        id: simc
+        shell: bash
+        run: |
+          NIGHTLY_URL=$(jq -r '.nightlyUrl' simc-version.json)
+          FILENAME=$(jq -r '.files.${{ matrix.simc_file_key }}' simc-version.json)
+          VERSION=$(jq -r '.version' simc-version.json)
+          echo "nightly_url=${NIGHTLY_URL}" >> "$GITHUB_OUTPUT"
+          echo "filename=${FILENAME}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "download_url=${NIGHTLY_URL}${FILENAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Download and extract SimC binary (macOS)
         if: runner.os == 'macOS'
         run: |
           mkdir -p src-tauri/binaries
-          curl -fSL "${{ secrets[matrix.simc_secret] }}" -o "src-tauri/binaries/${{ matrix.simc_binary }}"
-          chmod +x "src-tauri/binaries/${{ matrix.simc_binary }}"
+          echo "Downloading ${{ steps.simc.outputs.filename }}..."
+          curl -fSL "${{ steps.simc.outputs.download_url }}" -o /tmp/simc.dmg
 
-      - name: Download SimC binary (Windows)
+          echo "Mounting DMG..."
+          hdiutil attach /tmp/simc.dmg -mountpoint /tmp/simc-mount -nobrowse -quiet
+
+          echo "Looking for simc binary..."
+          # The simc CLI binary is at the root of the mounted volume
+          if [ -f /tmp/simc-mount/simc ]; then
+            cp /tmp/simc-mount/simc "src-tauri/binaries/${{ matrix.simc_binary }}"
+          else
+            # Search for it inside the volume
+            SIMC_BIN=$(find /tmp/simc-mount -name "simc" -type f -perm +111 | head -1)
+            if [ -z "$SIMC_BIN" ]; then
+              echo "ERROR: Could not find simc binary in DMG"
+              ls -laR /tmp/simc-mount/
+              exit 1
+            fi
+            cp "$SIMC_BIN" "src-tauri/binaries/${{ matrix.simc_binary }}"
+          fi
+
+          chmod +x "src-tauri/binaries/${{ matrix.simc_binary }}"
+          hdiutil detach /tmp/simc-mount -quiet
+          rm /tmp/simc.dmg
+          echo "SimC binary ready: ${{ matrix.simc_binary }}"
+
+      - name: Download and extract SimC binary (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path src-tauri\binaries | Out-Null
-          Invoke-WebRequest -Uri "${{ secrets[matrix.simc_secret] }}" -OutFile "src-tauri\binaries\${{ matrix.simc_binary }}"
+          $url = "${{ steps.simc.outputs.download_url }}"
+          $archive = "$env:TEMP\simc.7z"
+
+          Write-Host "Downloading ${{ steps.simc.outputs.filename }}..."
+          Invoke-WebRequest -Uri $url -OutFile $archive
+
+          Write-Host "Extracting..."
+          7z x $archive -o"$env:TEMP\simc-extract" -y | Out-Null
+
+          # Find simc.exe inside the extracted folder
+          $simcExe = Get-ChildItem -Path "$env:TEMP\simc-extract" -Filter "simc.exe" -Recurse | Select-Object -First 1
+          if (-not $simcExe) {
+            Write-Host "ERROR: Could not find simc.exe in archive"
+            Get-ChildItem -Path "$env:TEMP\simc-extract" -Recurse
+            exit 1
+          }
+
+          Copy-Item $simcExe.FullName -Destination "src-tauri\binaries\${{ matrix.simc_binary }}"
+          Remove-Item $archive -Force
+          Remove-Item "$env:TEMP\simc-extract" -Recurse -Force
+          Write-Host "SimC binary ready: ${{ matrix.simc_binary }}"
 
       # --- Build ---
 
@@ -118,6 +173,8 @@ jobs:
           releaseName: 'WoW Top Gear ${{ github.ref_name }}'
           releaseBody: |
             ## WoW Top Gear ${{ github.ref_name }}
+
+            **SimC version:** ${{ steps.simc.outputs.version }}
 
             Download the installer for your platform below.
 

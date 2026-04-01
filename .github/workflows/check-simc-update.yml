@@ -1,0 +1,118 @@
+name: Check SimC Nightly Updates
+
+on:
+  schedule:
+    # Every Monday at 10:00 UTC
+    - cron: '0 10 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for new SimC nightly
+        id: check
+        run: |
+          NIGHTLY_URL=$(jq -r '.nightlyUrl' simc-version.json)
+          CURRENT_COMMIT=$(jq -r '.commit' simc-version.json)
+
+          echo "Current SimC commit: $CURRENT_COMMIT"
+          echo "Fetching nightly page..."
+
+          # Fetch the directory listing (HTTP, not HTTPS — their cert is broken)
+          PAGE=$(curl -fsSL --insecure "${NIGHTLY_URL}?C=M;O=D")
+
+          # Extract the latest macOS DMG filename (most recent = first match)
+          LATEST_MACOS=$(echo "$PAGE" | grep -oP 'simc-\d+-\d+-macos-[a-f0-9]+\.dmg' | head -1)
+          LATEST_WIN64=$(echo "$PAGE" | grep -oP 'simc-\d+\.\d+\.[a-f0-9]+-win64\.7z' | head -1)
+
+          if [ -z "$LATEST_MACOS" ] || [ -z "$LATEST_WIN64" ]; then
+            echo "ERROR: Could not parse nightly page"
+            echo "LATEST_MACOS=$LATEST_MACOS"
+            echo "LATEST_WIN64=$LATEST_WIN64"
+            exit 1
+          fi
+
+          echo "Latest macOS: $LATEST_MACOS"
+          echo "Latest win64: $LATEST_WIN64"
+
+          # Extract version and commit from macOS filename: simc-1201-01-macos-4f365f2.dmg
+          NEW_VERSION=$(echo "$LATEST_MACOS" | sed -E 's/simc-([0-9]+)-([0-9]+)-macos-[a-f0-9]+\.dmg/\1.\2/')
+          NEW_COMMIT=$(echo "$LATEST_MACOS" | sed -E 's/simc-[0-9]+-[0-9]+-macos-([a-f0-9]+)\.dmg/\1/')
+
+          echo "Parsed version: $NEW_VERSION, commit: $NEW_COMMIT"
+
+          if [ "$NEW_COMMIT" = "$CURRENT_COMMIT" ]; then
+            echo "Already up to date."
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "New version available!"
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+            echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+            echo "commit=$NEW_COMMIT" >> "$GITHUB_OUTPUT"
+            echo "macos_file=$LATEST_MACOS" >> "$GITHUB_OUTPUT"
+            echo "win64_file=$LATEST_WIN64" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update simc-version.json
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          cat > simc-version.json << EOF
+          {
+            "version": "${{ steps.check.outputs.version }}",
+            "commit": "${{ steps.check.outputs.commit }}",
+            "date": "${DATE}",
+            "files": {
+              "macos": "${{ steps.check.outputs.macos_file }}",
+              "win64": "${{ steps.check.outputs.win64_file }}"
+            },
+            "nightlyUrl": "http://downloads.simulationcraft.org/nightly/"
+          }
+          EOF
+          # Clean up indentation from heredoc
+          python3 -c "
+          import json
+          with open('simc-version.json') as f:
+              data = json.load(f)
+          with open('simc-version.json', 'w') as f:
+              json.dump(data, f, indent=2)
+              f.write('\n')
+          "
+
+      - name: Create Pull Request
+        if: steps.check.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: bump SimC to ${{ steps.check.outputs.version }} (${{ steps.check.outputs.commit }})"
+          branch: chore/simc-update-${{ steps.check.outputs.commit }}
+          title: "chore: bump SimC nightly to ${{ steps.check.outputs.version }}"
+          body: |
+            ## SimC Nightly Update
+
+            A new SimulationCraft nightly build was detected.
+
+            | | Old | New |
+            |---|---|---|
+            | **Commit** | `${{ steps.check.outputs.commit }}` | `${{ steps.check.outputs.commit }}` |
+            | **Version** | (see simc-version.json diff) | `${{ steps.check.outputs.version }}` |
+
+            **Files:**
+            - macOS: `${{ steps.check.outputs.macos_file }}`
+            - Windows x64: `${{ steps.check.outputs.win64_file }}`
+
+            **⚠️ Review before merging:** SimC updates can include breaking changes.
+            After merging, tag a new release to ship the update to users.
+
+            ---
+            🤖 Automated by the [Check SimC Updates](${{ github.server_url }}/${{ github.repository }}/actions/workflows/check-simc-update.yml) workflow
+          labels: dependencies,simc-update
+          delete-branch: true
