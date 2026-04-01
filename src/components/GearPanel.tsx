@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import type { SimcProfile, GearItem } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
@@ -72,6 +72,23 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
   const [catalystItems, setCatalystItems] = useState<Map<string, GearItem[]>>(new Map());
   const [unownedItems, setUnownedItems] = useState<Map<string, GearItem[]>>(new Map());
+
+  // Reset all local state when the profile changes (new character imported)
+  const profileIdRef = useRef(profile);
+  useEffect(() => {
+    if (profileIdRef.current === profile) return; // skip mount
+    profileIdRef.current = profile;
+
+    setSelection(buildInitialSelection(profile));
+    setSelectedGemIds(new Set());
+    setSelectedEnchantIds(new Set());
+    setTierSetMinimums(new Map());
+    setUpgradeItems(new Map());
+    setCatalystCharges(null);
+    setCatalystItems(new Map());
+    setUnownedItems(new Map());
+    saveUnownedItems(new Map()); // clear persisted unowned items
+  }, [profile]);
 
   // Load persisted unowned items on mount
   useEffect(() => {

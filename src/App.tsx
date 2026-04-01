@@ -53,6 +53,12 @@ function App() {
     setProfile(p);
     setSimResults(null);
     setSimError(null);
+    setAxes([]);
+    setTierSetMinimums(new Map());
+    setCatalystCharges(null);
+    setSimLogLines([]);
+    setSmartSimStage(null);
+    setSmartSimStageResults([]);
   }, []);
 
   const handleAxesChange = useCallback((newAxes: OptimizationAxis[]) => {
