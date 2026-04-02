@@ -16,7 +16,7 @@ const CREST_COLORS: Record<string, string> = {
   Hero: 'text-purple-400',
   Champion: 'text-blue-400',
   Veteran: 'text-green-400',
-  Adventurer: 'text-zinc-400',
+  Adventurer: 'text-text-tertiary',
 };
 
 interface UpgradeOption {
@@ -187,9 +187,9 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
         }}
         className={[
           'flex items-center justify-center w-5 h-5 rounded-md transition-all',
-          'border border-zinc-700/50 hover:border-zinc-500/70',
-          'text-zinc-500 hover:text-zinc-300',
-          open ? 'bg-zinc-700/40 border-zinc-500/70 text-zinc-300' : 'bg-zinc-800/40',
+          'border border-border-input hover:border-border-input',
+          'text-text-muted hover:text-text-secondary',
+          open ? 'bg-surface-tertiary border-border-input text-text-secondary' : 'bg-surface-tertiary',
         ].join(' ')}
         title="Copy and modify"
         aria-label="Copy and modify item"
@@ -208,13 +208,13 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
             'z-[9999]',
             'min-w-[220px] max-w-[280px]',
             'rounded-lg overflow-hidden',
-            'bg-[#18181b] border border-zinc-700/60',
+            'bg-surface-overlay border border-border-input',
             'shadow-xl shadow-black/40',
           ].join(' ')}
         >
           {/* Header */}
-          <div className="px-3 py-2 border-b border-zinc-800/60">
-            <span className="text-xs font-semibold text-zinc-300 tracking-wide">
+          <div className="px-3 py-2 border-b border-border-primary">
+            <span className="text-xs font-semibold text-text-secondary tracking-wide">
               Copy and Modify…
             </span>
           </div>
@@ -222,19 +222,19 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
           <div className="py-1">
             {/* Upgrade options */}
             {upgradeOptions.map((opt) => {
-              const crestColor = CREST_COLORS[opt.trackName] ?? 'text-zinc-400';
+              const crestColor = CREST_COLORS[opt.trackName] ?? 'text-text-tertiary';
               return (
                 <button
                   key={`upgrade-${opt.targetRank}`}
                   type="button"
-                  className="w-full flex items-center justify-between gap-3 px-3 py-1.5 text-left hover:bg-zinc-800/60 transition-colors"
+                  className="w-full flex items-center justify-between gap-3 px-3 py-1.5 text-left hover:bg-surface-secondary transition-colors"
                   onClick={(e) => {
                     e.stopPropagation();
                     onCopyModify(buildUpgradedItem(item, opt));
                     setOpen(false);
                   }}
                 >
-                  <span className="text-xs text-zinc-300">
+                  <span className="text-xs text-text-secondary">
                     Upgrade to {opt.targetIlvl}
                   </span>
                   <span className={`flex items-center gap-1 text-[11px] tabular-nums ${crestColor}`}>
@@ -250,14 +250,14 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
 
             {/* Separator between upgrades and remove options */}
             {upgradeOptions.length > 0 && (hasEnchant || hasGems || hasSocketBonus) && (
-              <div className="border-t border-zinc-800/40 my-0.5" />
+              <div className="border-t border-border-secondary my-0.5" />
             )}
 
             {/* Remove enchant */}
             {hasEnchant && (
               <button
                 type="button"
-                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-zinc-800/60 transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-surface-secondary transition-colors"
                 onClick={(e) => {
                   e.stopPropagation();
                   onCopyModify(buildWithoutEnchant(item));
@@ -272,7 +272,7 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
             {hasGems && (
               <button
                 type="button"
-                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-zinc-800/60 transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-surface-secondary transition-colors"
                 onClick={(e) => {
                   e.stopPropagation();
                   onCopyModify(buildWithoutGems(item));
@@ -287,7 +287,7 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
             {hasSocketBonus && (
               <button
                 type="button"
-                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-zinc-800/60 transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-1.5 text-left hover:bg-surface-secondary transition-colors"
                 onClick={(e) => {
                   e.stopPropagation();
                   onCopyModify(buildWithoutSocket(item));

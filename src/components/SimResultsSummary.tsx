@@ -39,7 +39,7 @@ export default function SimResultsSummary({
 
   return (
     <div
-      className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden"
+      className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden"
       style={{ animation: 'results-enter 0.4s ease-out both' }}
     >
       {/* Top accent — gold for upgrade, neutral for no change */}
@@ -47,7 +47,7 @@ export default function SimResultsSummary({
         className={[
           'h-px',
           isBaselineBest
-            ? 'bg-zinc-700/40'
+            ? 'bg-border-input'
             : 'bg-gradient-to-r from-transparent via-amber-500/50 to-transparent',
         ].join(' ')}
       />
@@ -69,10 +69,10 @@ export default function SimResultsSummary({
               <path d="M5.5 8.5L7 10l3.5-4" />
             </svg>
             <div>
-              <span className="text-sm font-medium text-zinc-200">
+              <span className="text-sm font-medium text-text-primary">
                 Your current gear is already optimal
               </span>
-              <span className="text-[11px] text-zinc-600 ml-2">
+              <span className="text-[11px] text-text-faint ml-2">
                 {formatDps(best.dps)} DPS
               </span>
             </div>
@@ -99,23 +99,23 @@ export default function SimResultsSummary({
 
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-lg font-semibold tabular-nums text-amber-50">
+                  <span className="text-lg font-semibold tabular-nums text-text-heading">
                     {formatDps(best.dps)}
                   </span>
-                  <span className="text-[11px] text-zinc-600">DPS</span>
+                  <span className="text-[11px] text-text-faint">DPS</span>
                   <span className="text-xs font-medium tabular-nums text-emerald-400">
                     +{formatDps(delta)} (+{deltaPct.toFixed(1)}%)
                   </span>
                   {withinNoise && (
                     <span
-                      className="text-[10px] text-zinc-600 px-1 py-0.5 rounded bg-zinc-800/60"
+                      className="text-[10px] text-text-faint px-1 py-0.5 rounded bg-surface-secondary"
                       title="The difference is within statistical noise — results may be equivalent"
                     >
                       &asymp; noise
                     </span>
                   )}
                 </div>
-                <span className="text-[11px] text-zinc-600">
+                <span className="text-[11px] text-text-faint">
                   vs {formatDps(baseline.dps)} equipped
                 </span>
               </div>
@@ -124,17 +124,17 @@ export default function SimResultsSummary({
         )}
 
         {/* Footer stats */}
-        <div className="flex items-center gap-3 mt-2 pt-2 border-t border-zinc-800/40">
-          <span className="text-[10px] text-zinc-600">
+        <div className="flex items-center gap-3 mt-2 pt-2 border-t border-border-secondary">
+          <span className="text-[10px] text-text-faint">
             {results.length} {results.length === 1 ? 'combination' : 'combinations'} compared
           </span>
-          <span className="text-[10px] text-zinc-700">&middot;</span>
-          <span className="text-[10px] text-zinc-600">
+          <span className="text-[10px] text-text-disabled">&middot;</span>
+          <span className="text-[10px] text-text-faint">
             {formatElapsed(elapsedMs)}
           </span>
           {smartSimStages != null && smartSimStages > 1 && (
             <>
-              <span className="text-[10px] text-zinc-700">&middot;</span>
+              <span className="text-[10px] text-text-disabled">&middot;</span>
               <span className="text-[10px] text-amber-500/70 font-medium">
                 Smart Sim ({smartSimStages} stages)
               </span>

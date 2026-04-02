@@ -164,17 +164,17 @@ export default function GemOptimization({
   const effectiveShowRegular = showRegular || hasRegularSelected;
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header — always visible, click to collapse/expand */}
       <button
         type="button"
         onClick={() => setIsExpanded((p) => !p)}
-        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-zinc-800/20 transition-colors"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-surface-hover transition-colors"
       >
         <div className="flex items-center gap-2.5">
           {/* Gem icon */}
           <svg
-            className="w-4 h-4 text-zinc-500"
+            className="w-4 h-4 text-text-muted"
             viewBox="0 0 16 16"
             fill="none"
             stroke="currentColor"
@@ -187,11 +187,11 @@ export default function GemOptimization({
             <path d="M5.5 1L4 6L8 15" />
             <path d="M10.5 1L12 6L8 15" />
           </svg>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">
             Gem Optimization
           </h3>
           {selectedCount > 0 && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-zinc-800/60 text-zinc-400 border border-zinc-700/30 tabular-nums">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-surface-secondary text-text-tertiary border border-border-tertiary tabular-nums">
               {selectedCount} selected
             </span>
           )}
@@ -200,12 +200,12 @@ export default function GemOptimization({
         <div className="flex items-center gap-2.5">
           {/* Socket count badge */}
           {totalSockets > 0 && (
-            <span className="text-[10px] text-zinc-600 tabular-nums">
+            <span className="text-[10px] text-text-faint tabular-nums">
               {totalSockets} {totalSockets === 1 ? 'socket' : 'sockets'} on gear
             </span>
           )}
           {totalSockets === 0 && (
-            <span className="text-[10px] text-zinc-700 italic">
+            <span className="text-[10px] text-text-disabled italic">
               no sockets detected
             </span>
           )}
@@ -213,7 +213,7 @@ export default function GemOptimization({
           {/* Chevron */}
           <svg
             className={[
-              'w-3.5 h-3.5 text-zinc-600 transition-transform duration-200',
+              'w-3.5 h-3.5 text-text-faint transition-transform duration-200',
               isExpanded ? 'rotate-0' : '-rotate-90',
             ].join(' ')}
             viewBox="0 0 16 16"
@@ -229,12 +229,12 @@ export default function GemOptimization({
 
       {/* Body */}
       {isExpanded && (
-        <div className="border-t border-zinc-800/40">
+        <div className="border-t border-border-secondary">
           {totalSockets === 0 ? (
-            <div className="px-3.5 py-4 text-center text-xs text-zinc-600">
+            <div className="px-3.5 py-4 text-center text-xs text-text-faint">
               None of your selected items have gem sockets.
               <br />
-              <span className="text-zinc-700">
+              <span className="text-text-disabled">
                 Select items with sockets in the gear grid above to enable gem optimization.
               </span>
             </div>
@@ -261,7 +261,7 @@ export default function GemOptimization({
                 <button
                   type="button"
                   onClick={() => setShowRegular((p) => !p)}
-                  className="flex items-center gap-1.5 text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
+                  className="flex items-center gap-1.5 text-[11px] text-text-faint hover:text-text-tertiary transition-colors"
                 >
                   <svg
                     className={[
@@ -334,12 +334,12 @@ function GemFamilyGroup({
       {/* Family label */}
       <div className="flex items-center gap-2 mb-1.5">
         <span className={`w-1.5 h-1.5 rounded-full ${family.accent.dot} opacity-60`} />
-        <span className={`text-[11px] font-medium ${isRegular ? 'text-zinc-600' : 'text-zinc-500'}`}>
+        <span className={`text-[11px] font-medium ${isRegular ? 'text-text-faint' : 'text-text-muted'}`}>
           {isRegular ? family.label : family.label}
-          <span className="text-zinc-700 font-normal ml-1.5">{family.stat}</span>
+          <span className="text-text-disabled font-normal ml-1.5">{family.stat}</span>
         </span>
         {selectedInFamily > 0 && (
-          <span className="text-[10px] text-zinc-600 tabular-nums">
+          <span className="text-[10px] text-text-faint tabular-nums">
             {selectedInFamily} selected
           </span>
         )}
@@ -393,7 +393,7 @@ function GemChip({ gem, family, selected, equipped, onToggle, isRegular }: GemCh
         'cursor-pointer select-none',
         selected
           ? `${family.accent.borderSelected} ${family.accent.bgSelected} ${family.accent.text} font-medium`
-          : `border-zinc-800/40 ${family.accent.bg} ${isRegular ? 'text-zinc-600' : 'text-zinc-500'} hover:text-zinc-300`,
+          : `border-border-secondary ${family.accent.bg} ${isRegular ? 'text-text-faint' : 'text-text-muted'} hover:text-text-secondary`,
         isRegular && !selected ? 'opacity-70' : '',
       ].join(' ')}
       aria-pressed={selected}
@@ -414,11 +414,11 @@ function GemChip({ gem, family, selected, equipped, onToggle, isRegular }: GemCh
         />
       </a>
       <span className="truncate">{shortName}</span>
-      <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
+      <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-text-disabled'}`}>
         {gem.stat}
       </span>
       {equipped && (
-        <span className="text-[9px] font-medium px-1 py-px rounded bg-zinc-700/50 text-zinc-400 border border-zinc-600/30 uppercase tracking-wider shrink-0">
+        <span className="text-[9px] font-medium px-1 py-px rounded bg-surface-secondary text-text-tertiary border border-border-input uppercase tracking-wider shrink-0">
           Equipped
         </span>
       )}

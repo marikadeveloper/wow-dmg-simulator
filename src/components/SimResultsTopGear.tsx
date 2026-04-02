@@ -205,7 +205,7 @@ export default function SimResultsTopGear({
         <div
           className={[
             'group relative flex items-center min-h-[36px] rounded cursor-pointer overflow-hidden transition-colors',
-            isExpanded ? 'ring-1 ring-zinc-700/60' : '',
+            isExpanded ? 'ring-1 ring-border-input' : '',
           ].join(' ')}
           onClick={() => toggleRow(result.name)}
           style={{
@@ -220,7 +220,7 @@ export default function SimResultsTopGear({
                 ? 'linear-gradient(90deg, rgba(94,234,212,0.06) 0%, rgba(94,234,212,0.14) 100%)'
                 : isBest
                   ? 'linear-gradient(90deg, rgba(245,158,11,0.20) 0%, rgba(245,158,11,0.40) 100%)'
-                  : `linear-gradient(90deg, rgba(161,161,170,0.04) 0%, rgba(161,161,170,${Math.max(0.04, 0.12 - idx * 0.004)}) 100%)`,
+                  : `linear-gradient(90deg, rgba(var(--bar-neutral-rgb),0.04) 0%, rgba(var(--bar-neutral-rgb),${Math.max(0.04, 0.12 - idx * 0.004)}) 100%)`,
               boxShadow: isBest
                 ? '0 0 20px -4px rgba(245,158,11,0.15), inset 0 1px 0 rgba(245,158,11,0.08)'
                 : undefined,
@@ -251,7 +251,7 @@ export default function SimResultsTopGear({
                   ? 'text-teal-500/80'
                   : isBest
                     ? 'text-amber-400 font-bold'
-                    : 'text-zinc-600',
+                    : 'text-text-faint',
               ].join(' ')}
             >
               {rank}
@@ -264,7 +264,7 @@ export default function SimResultsTopGear({
                   <span className="inline-block px-1.5 py-0.5 rounded text-[9px] leading-none uppercase tracking-wider font-medium bg-teal-500/10 text-teal-400/80 border border-teal-500/15">
                     Equipped
                   </span>
-                  <span className="text-[10px] text-zinc-600 ml-0.5">
+                  <span className="text-[10px] text-text-faint ml-0.5">
                     Current Gear
                   </span>
                 </>
@@ -277,7 +277,7 @@ export default function SimResultsTopGear({
                         'inline-block px-1.5 py-0.5 rounded text-[9px] leading-none truncate max-w-[140px]',
                         isBest
                           ? 'bg-amber-500/10 text-amber-300/80 border border-amber-500/15'
-                          : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+                          : 'bg-surface-secondary text-text-muted border border-border-input',
                       ].join(' ')}
                       title={`${c.axisLabel}: ${c.optionLabel}`}
                     >
@@ -285,13 +285,13 @@ export default function SimResultsTopGear({
                     </span>
                   ))}
                   {changed.length > 4 && (
-                    <span className="text-[9px] text-zinc-600 shrink-0">
+                    <span className="text-[9px] text-text-faint shrink-0">
                       +{changed.length - 4}
                     </span>
                   )}
                 </>
               ) : (
-                <span className="text-[9px] text-zinc-700 italic">
+                <span className="text-[9px] text-text-disabled italic">
                   same as {diffBase === 'equipped' ? 'equipped' : 'top gear'}
                 </span>
               )}
@@ -302,10 +302,10 @@ export default function SimResultsTopGear({
               className={[
                 'text-[12px] tabular-nums font-mono shrink-0',
                 isBaselineRow
-                  ? 'text-zinc-400'
+                  ? 'text-text-tertiary'
                   : isBest
-                    ? 'text-amber-50 font-semibold'
-                    : 'text-zinc-300',
+                    ? 'text-text-heading font-semibold'
+                    : 'text-text-secondary',
               ].join(' ')}
             >
               {formatDps(result.dps)}
@@ -325,7 +325,7 @@ export default function SimResultsTopGear({
                         ? 'text-emerald-400'
                         : delta < 0
                           ? 'text-red-400'
-                          : 'text-zinc-600'
+                          : 'text-text-faint'
                     }
                   >
                     {delta > 0 ? '+' : ''}
@@ -333,7 +333,7 @@ export default function SimResultsTopGear({
                   </span>
                   {withinNoise && (
                     <span
-                      className="text-[8px] text-zinc-600 px-0.5"
+                      className="text-[8px] text-text-faint px-0.5"
                       title="Within statistical noise"
                     >
                       &asymp;
@@ -341,14 +341,14 @@ export default function SimResultsTopGear({
                   )}
                 </>
               ) : (
-                <span className="text-zinc-700">&mdash;</span>
+                <span className="text-text-disabled">&mdash;</span>
               )}
             </span>
 
             {/* Expand indicator */}
             <span
               className={[
-                'text-zinc-600 group-hover:text-zinc-400 transition-transform duration-200 shrink-0 text-[10px]',
+                'text-text-faint group-hover:text-text-tertiary transition-transform duration-200 shrink-0 text-[10px]',
                 isExpanded ? 'rotate-180' : '',
               ].join(' ')}
             >
@@ -371,11 +371,11 @@ export default function SimResultsTopGear({
         {/* Expanded detail panel */}
         {isExpanded && (
           <div
-            className="mx-1 mb-1 px-3 py-2.5 rounded-b bg-zinc-800/30 border border-t-0 border-zinc-700/30"
+            className="mx-1 mb-1 px-3 py-2.5 rounded-b bg-surface-hover border border-t-0 border-border-input"
           >
-            <div className="flex items-center gap-4 mb-2 text-[10px] text-zinc-500">
+            <div className="flex items-center gap-4 mb-2 text-[10px] text-text-muted">
               <span>
-                Error: <span className="text-zinc-400 tabular-nums">&plusmn;{formatDps(result.meanStdDev)}</span>
+                Error: <span className="text-text-tertiary tabular-nums">&plusmn;{formatDps(result.meanStdDev)}</span>
               </span>
               {showDelta && referenceDps > 0 && (
                 <span>
@@ -387,7 +387,7 @@ export default function SimResultsTopGear({
                         ? 'text-emerald-400'
                         : delta < 0
                           ? 'text-red-400'
-                          : 'text-zinc-400',
+                          : 'text-text-tertiary',
                     ].join(' ')}
                   >
                     {delta > 0 ? '+' : ''}
@@ -396,7 +396,7 @@ export default function SimResultsTopGear({
                 </span>
               )}
               {withinNoise && (
-                <span className="text-zinc-600 italic">
+                <span className="text-text-faint italic">
                   Within statistical noise
                 </span>
               )}
@@ -417,13 +417,13 @@ export default function SimResultsTopGear({
                       key={axis.id}
                       className="flex items-center gap-2 text-[11px]"
                     >
-                      <span className="text-zinc-600 w-24 shrink-0 truncate text-right">
+                      <span className="text-text-faint w-24 shrink-0 truncate text-right">
                         {axis.label}
                       </span>
                       <span
                         className={[
                           'inline-flex items-center gap-1',
-                          isDiff ? 'text-amber-300/90' : 'text-zinc-400',
+                          isDiff ? 'text-amber-300/90' : 'text-text-tertiary',
                         ].join(' ')}
                       >
                         {isDiff && (
@@ -443,10 +443,10 @@ export default function SimResultsTopGear({
   }
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-2.5 border-b border-zinc-800/40 flex items-center justify-between gap-3">
-        <h3 className="text-xs font-semibold text-zinc-400 tracking-wide">
+      <div className="px-4 py-2.5 border-b border-border-secondary flex items-center justify-between gap-3">
+        <h3 className="text-xs font-semibold text-text-tertiary tracking-wide">
           Top Gear (DPS)
         </h3>
 
@@ -466,7 +466,7 @@ export default function SimResultsTopGear({
             onClick={() =>
               setSortDir((d) => (d === 'desc' ? 'asc' : 'desc'))
             }
-            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] text-zinc-600 hover:text-zinc-400 hover:bg-zinc-800/60 transition-all"
+            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] text-text-faint hover:text-text-tertiary hover:bg-surface-secondary transition-all"
             title={`Sort DPS ${sortDir === 'desc' ? 'ascending' : 'descending'}`}
           >
             <svg
@@ -489,7 +489,7 @@ export default function SimResultsTopGear({
           {/* CSV export */}
           <button
             onClick={handleExportCsv}
-            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60 border border-transparent hover:border-zinc-700/40 transition-all"
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium text-text-muted hover:text-text-secondary hover:bg-surface-secondary border border-transparent hover:border-border-input transition-all"
             title="Export results to CSV"
           >
             <svg
@@ -508,23 +508,23 @@ export default function SimResultsTopGear({
           </button>
 
           {/* Combination count */}
-          <span className="text-[10px] text-zinc-600">
+          <span className="text-[10px] text-text-faint">
             {results.length} combinations
           </span>
         </div>
       </div>
 
       {/* Diff base toggle */}
-      <div className="px-4 py-2 border-b border-zinc-800/30 flex items-center gap-2 text-[10px]">
-        <span className="text-zinc-600">Show Gear Differences From</span>
-        <div className="inline-flex rounded overflow-hidden border border-zinc-700/40">
+      <div className="px-4 py-2 border-b border-border-tertiary flex items-center gap-2 text-[10px]">
+        <span className="text-text-faint">Show Gear Differences From</span>
+        <div className="inline-flex rounded overflow-hidden border border-border-input">
           <button
             onClick={() => setDiffBase('equipped')}
             className={[
               'px-2.5 py-1 text-[10px] font-medium transition-all',
               diffBase === 'equipped'
-                ? 'bg-zinc-700/50 text-zinc-200'
-                : 'text-zinc-500 hover:text-zinc-400 hover:bg-zinc-800/40',
+                ? 'bg-border-input text-text-primary'
+                : 'text-text-muted hover:text-text-tertiary hover:bg-surface-tertiary',
             ].join(' ')}
           >
             Equipped
@@ -532,10 +532,10 @@ export default function SimResultsTopGear({
           <button
             onClick={() => setDiffBase('topgear')}
             className={[
-              'px-2.5 py-1 text-[10px] font-medium transition-all border-l border-zinc-700/40',
+              'px-2.5 py-1 text-[10px] font-medium transition-all border-l border-border-input',
               diffBase === 'topgear'
-                ? 'bg-zinc-700/50 text-zinc-200'
-                : 'text-zinc-500 hover:text-zinc-400 hover:bg-zinc-800/40',
+                ? 'bg-border-input text-text-primary'
+                : 'text-text-muted hover:text-text-tertiary hover:bg-surface-tertiary',
             ].join(' ')}
           >
             Top Gear
@@ -552,7 +552,7 @@ export default function SimResultsTopGear({
         {/* Baseline row — separated */}
         {baseline && (
           <>
-            <div className="border-t border-dashed border-zinc-700/40 my-1" />
+            <div className="border-t border-dashed border-border-input my-1" />
             {renderRow(baseline, visibleRanked.length, true)}
           </>
         )}
@@ -562,7 +562,7 @@ export default function SimResultsTopGear({
       {needsToggle && (
         <button
           onClick={() => setShowAll((prev) => !prev)}
-          className="w-full px-4 py-2 text-[11px] text-zinc-500 hover:text-zinc-300 border-t border-zinc-800/40 transition-colors"
+          className="w-full px-4 py-2 text-[11px] text-text-muted hover:text-text-secondary border-t border-border-secondary transition-colors"
         >
           {showAll ? 'Show top 10' : `Show all ${ranked.length} results`}
         </button>

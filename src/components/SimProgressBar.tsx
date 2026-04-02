@@ -39,7 +39,7 @@ export default function SimProgressBar({
       : null;
 
   return (
-    <div className="rounded-md border border-zinc-800/60 bg-zinc-900/50 px-3 py-2.5 animate-in">
+    <div className="rounded-md border border-border-primary bg-surface-primary px-3 py-2.5 animate-in">
       {/* Smart Sim stage indicators */}
       {smartSimStage && smartSimStage.total > 1 && (
         <div className="flex items-center gap-1 mb-2">
@@ -50,7 +50,7 @@ export default function SimProgressBar({
             return (
               <div key={stageNum} className="flex items-center gap-1">
                 {i > 0 && (
-                  <div className={`h-px w-3 ${isComplete ? 'bg-amber-500/50' : 'bg-zinc-700/50'}`} />
+                  <div className={`h-px w-3 ${isComplete ? 'bg-amber-500/50' : 'bg-border-primary'}`} />
                 )}
                 <div className="flex items-center gap-1.5">
                   <div
@@ -60,7 +60,7 @@ export default function SimProgressBar({
                         ? 'bg-amber-500/70'
                         : isCurrent
                           ? 'bg-amber-400 shadow-[0_0_4px_rgba(245,158,11,0.5)]'
-                          : 'bg-zinc-700',
+                          : 'bg-text-disabled',
                     ].join(' ')}
                   />
                   <span
@@ -70,7 +70,7 @@ export default function SimProgressBar({
                         ? 'text-amber-500/50'
                         : isCurrent
                           ? 'text-amber-400/90'
-                          : 'text-zinc-600',
+                          : 'text-text-faint',
                     ].join(' ')}
                   >
                     Stage {stageNum}
@@ -84,12 +84,12 @@ export default function SimProgressBar({
 
       {/* Top row: label + elapsed + ETA */}
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[11px] font-medium text-zinc-400 tracking-wide">
+        <span className="text-[11px] font-medium text-text-tertiary tracking-wide">
           {isIndeterminate ? (
             smartSimStage ? (
               <>
                 {smartSimStage.label}
-                <span className="text-zinc-600 ml-1.5">
+                <span className="text-text-faint ml-1.5">
                   ({smartSimStage.combos} combos)
                 </span>
               </>
@@ -102,10 +102,10 @@ export default function SimProgressBar({
               <span className="text-amber-400/90 ml-1.5 tabular-nums">
                 {current}
               </span>
-              <span className="text-zinc-600 mx-0.5">/</span>
-              <span className="text-zinc-500 tabular-nums">{total}</span>
+              <span className="text-text-faint mx-0.5">/</span>
+              <span className="text-text-muted tabular-nums">{total}</span>
               {smartSimStage && (
-                <span className="text-zinc-600 ml-1.5">
+                <span className="text-text-faint ml-1.5">
                   ({smartSimStage.combos} combos)
                 </span>
               )}
@@ -113,12 +113,12 @@ export default function SimProgressBar({
           )}
         </span>
 
-        <span className="text-[11px] tabular-nums text-zinc-600 flex items-center gap-2">
+        <span className="text-[11px] tabular-nums text-text-faint flex items-center gap-2">
           {formatElapsed(elapsedMs)}
           {etaMs != null && etaMs > 0 && (
             <>
-              <span className="text-zinc-700">&middot;</span>
-              <span className="text-zinc-500">
+              <span className="text-text-disabled">&middot;</span>
+              <span className="text-text-muted">
                 ~{formatElapsed(etaMs)} left
               </span>
             </>
@@ -127,7 +127,7 @@ export default function SimProgressBar({
       </div>
 
       {/* Bar track */}
-      <div className="relative h-1 rounded-full bg-zinc-800/80 overflow-hidden">
+      <div className="relative h-1 rounded-full bg-bar-track overflow-hidden">
         {isIndeterminate ? (
           /* Sweeping shimmer for indeterminate state */
           <div

@@ -231,7 +231,7 @@ function SlotCard({
           'relative rounded-md border px-2.5 py-1.5 transition-all duration-200',
           changed
             ? 'border-amber-500/40 bg-amber-500/[0.06]'
-            : 'border-zinc-800/50 bg-zinc-900/40',
+            : 'border-border-primary bg-surface-primary',
         ].join(' ')}
       >
         {/* Glow effect for changed slots */}
@@ -249,7 +249,7 @@ function SlotCard({
           <span
             className={[
               'text-[9px] uppercase tracking-wider font-medium',
-              changed ? 'text-amber-500/70' : 'text-zinc-600',
+              changed ? 'text-amber-500/70' : 'text-text-faint',
             ].join(' ')}
           >
             {slotDef.label}
@@ -258,7 +258,7 @@ function SlotCard({
             <span
               className={[
                 'text-[10px] tabular-nums font-mono',
-                changed ? 'text-amber-400/60' : 'text-zinc-600',
+                changed ? 'text-amber-400/60' : 'text-text-faint',
               ].join(' ')}
             >
               {ilvl}
@@ -270,7 +270,7 @@ function SlotCard({
         <div
           className={[
             'text-[11px] leading-tight truncate',
-            changed ? 'text-amber-200/90' : 'text-zinc-400',
+            changed ? 'text-amber-200/90' : 'text-text-tertiary',
           ].join(' ')}
           title={itemName}
         >
@@ -288,7 +288,7 @@ function SlotCard({
                 key={i}
                 className={[
                   'text-[8px] leading-none',
-                  mod.changed ? 'text-amber-400/60' : 'text-zinc-600',
+                  mod.changed ? 'text-amber-400/60' : 'text-text-faint',
                 ].join(' ')}
                 title={mod.label}
               >
@@ -336,11 +336,11 @@ export default function SimResultsPaperDoll({
   const changeCount = allSlots.filter((s) => s.changed).length;
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-2.5 border-b border-zinc-800/40 flex items-center justify-between">
+      <div className="px-4 py-2.5 border-b border-border-secondary flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <h3 className="text-xs font-semibold text-zinc-400 tracking-wide">
+          <h3 className="text-xs font-semibold text-text-tertiary tracking-wide">
             Best Gear
           </h3>
           {changeCount > 0 && (
@@ -374,7 +374,7 @@ export default function SimResultsPaperDoll({
 
           {/* Center divider — subtle vertical line suggesting a silhouette */}
           <div className="flex flex-col items-center justify-center px-1">
-            <div className="w-px h-full bg-gradient-to-b from-transparent via-zinc-800/40 to-transparent" />
+            <div className="w-px h-full bg-gradient-to-b from-transparent via-border-secondary to-transparent" />
           </div>
 
           {/* Right column */}
@@ -393,7 +393,7 @@ export default function SimResultsPaperDoll({
         </div>
 
         {/* Bottom row — weapons & trinkets */}
-        <div className="mt-3 pt-3 border-t border-zinc-800/30">
+        <div className="mt-3 pt-3 border-t border-border-tertiary">
           <div className="grid grid-cols-2 gap-3">
             {/* Bottom left: Trinket 1 + Main Hand */}
             <div className="space-y-1.5">

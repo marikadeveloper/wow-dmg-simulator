@@ -237,21 +237,21 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
                 <h2 className="text-base font-semibold text-amber-50 tracking-tight">
                   {profile.characterName}
                 </h2>
-                <span className="text-xs text-zinc-500">
+                <span className="text-xs text-text-muted">
                   {formatRealm(profile.realm)}-{profile.region.toUpperCase()}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+              <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
                 <span className="text-amber-400/80 font-medium">
                   {formatSpec(profile.spec)}
                 </span>
-                <span className="text-zinc-600">&middot;</span>
+                <span className="text-text-faint">&middot;</span>
                 <span>
                   {totalEquipped} equipped
                 </span>
                 {totalBag > 0 && (
                   <>
-                    <span className="text-zinc-600">&middot;</span>
+                    <span className="text-text-faint">&middot;</span>
                     <span>
                       {totalBag} in bags
                     </span>
@@ -277,15 +277,15 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
           rows={profile ? 3 : 6}
           className={[
             'w-full rounded-lg px-3.5 py-2.5 text-sm font-mono leading-relaxed resize-none',
-            'bg-zinc-900/80 border transition-all duration-150 outline-none',
-            'placeholder:text-zinc-600 placeholder:font-sans placeholder:not-italic',
+            'bg-surface-secondary border transition-all duration-150 outline-none',
+            'placeholder:text-text-faint placeholder:font-sans placeholder:not-italic',
             error
               ? 'border-red-500/40 text-red-200'
               : isFocused
-                ? 'border-amber-500/40 text-zinc-200 shadow-[0_0_0_1px_rgba(245,158,11,0.1)]'
+                ? 'border-amber-500/40 text-text-primary shadow-[0_0_0_1px_rgba(245,158,11,0.1)]'
                 : hasInput && profile
-                  ? 'border-zinc-700/50 text-zinc-400'
-                  : 'border-zinc-800 text-zinc-300 hover:border-zinc-700',
+                  ? 'border-border-input text-text-tertiary'
+                  : 'border-border-primary text-text-secondary hover:border-border-input',
           ].join(' ')}
         />
 
@@ -293,7 +293,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
         {hasInput && (
           <button
             onClick={handleClear}
-            className="absolute top-2.5 right-2.5 p-1 rounded text-zinc-600 hover:text-zinc-300 hover:bg-zinc-800 transition-colors"
+            className="absolute top-2.5 right-2.5 p-1 rounded text-text-faint hover:text-text-secondary hover:bg-surface-hover transition-colors"
             title="Clear"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -328,9 +328,9 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
 
       {/* Idle hint — only shown when empty and no profile */}
       {!hasInput && !profile && (
-        <p className="mt-2 text-xs text-zinc-600 leading-relaxed">
+        <p className="mt-2 text-xs text-text-faint leading-relaxed">
           Open the{' '}
-          <span className="text-zinc-500">SimulationCraft addon</span> in WoW, go
+          <span className="text-text-muted">SimulationCraft addon</span> in WoW, go
           to the export tab, and copy everything.
         </p>
       )}

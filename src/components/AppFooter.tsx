@@ -27,19 +27,19 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
   }, [refreshKey]);
 
   return (
-    <footer className="border-t border-zinc-800/50 bg-zinc-950/80">
+    <footer className="border-t border-border-primary bg-surface-inset">
       <div className="mx-auto max-w-5xl px-6 py-3 flex items-center justify-between">
         {/* Left: SimC version */}
         <div className="flex items-center gap-2 text-[11px]">
           {loading ? (
-            <span className="text-zinc-600">Checking SimC binary...</span>
+            <span className="text-text-faint">Checking SimC binary...</span>
           ) : status?.ok ? (
             <>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80" />
-                <span className="text-zinc-500">SimC</span>
+                <span className="text-text-muted">SimC</span>
               </span>
-              <span className="text-zinc-400 font-medium">{status.version}</span>
+              <span className="text-text-tertiary font-medium">{status.version}</span>
             </>
           ) : (
             <>
@@ -48,7 +48,7 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
                 <span className="text-red-400/80">SimC not found</span>
               </span>
               {status?.error && (
-                <span className="text-zinc-600 max-w-xs truncate" title={status.error}>
+                <span className="text-text-faint max-w-xs truncate" title={status.error}>
                   {status.error}
                 </span>
               )}
@@ -57,7 +57,7 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
         </div>
 
         {/* Right: App info */}
-        <div className="text-[11px] text-zinc-700">
+        <div className="text-[11px] text-text-disabled">
           WoW Top Gear v0.1.0
         </div>
       </div>

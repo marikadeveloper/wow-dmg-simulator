@@ -1,5 +1,97 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ── Surface tokens ── */
+  --color-surface-page: var(--surface-page);
+  --color-surface-primary: var(--surface-primary);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary: var(--surface-tertiary);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-inset: var(--surface-inset);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-selected: var(--surface-selected);
+
+  /* ── Text tokens ── */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-heading: var(--text-heading);
+
+  /* ── Border tokens ── */
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-tertiary: var(--border-tertiary);
+  --color-border-input: var(--border-input);
+  --color-border-focus: var(--border-focus);
+
+  /* ── Misc tokens ── */
+  --color-bar-track: var(--bar-track);
+}
+
+/* ── Light theme (default) ───────────────────── */
+:root {
+  --surface-page: #ffffff;
+  --surface-primary: #ffffff;
+  --surface-secondary: #f4f4f5;           /* zinc-100 */
+  --surface-tertiary: #e4e4e7;            /* zinc-200 */
+  --surface-overlay: #ffffff;
+  --surface-inset: #fafafa;               /* zinc-50 */
+  --surface-hover: #f4f4f5;               /* zinc-100 */
+  --surface-selected: #f4f4f5;            /* zinc-100 */
+
+  --text-primary: #18181b;                /* zinc-900 */
+  --text-secondary: #3f3f46;              /* zinc-700 */
+  --text-tertiary: #71717a;               /* zinc-500 */
+  --text-muted: #a1a1aa;                  /* zinc-400 */
+  --text-faint: #a1a1aa;                  /* zinc-400 */
+  --text-disabled: #d4d4d8;               /* zinc-300 */
+  --text-heading: #18181b;                /* zinc-900 */
+
+  --border-primary: #e4e4e7;              /* zinc-200 */
+  --border-secondary: rgba(228,228,231,0.6); /* zinc-200/60 */
+  --border-tertiary: #f4f4f5;             /* zinc-100 */
+  --border-input: #d4d4d8;               /* zinc-300 */
+  --border-focus: rgba(245,158,11,0.6);   /* amber-500/60 */
+
+  --bar-track: #e4e4e7;                   /* zinc-200 */
+  --bar-neutral-rgb: 113,113,122;         /* zinc-500 */
+}
+
+/* ── Dark theme (improved readability) ───────── */
+.dark {
+  --surface-page: #09090b;                /* zinc-950 */
+  --surface-primary: rgba(24,24,27,0.5);  /* zinc-900/50 */
+  --surface-secondary: rgba(39,39,42,0.6); /* zinc-800/60 */
+  --surface-tertiary: rgba(39,39,42,0.4); /* zinc-800/40 */
+  --surface-overlay: #18181b;             /* zinc-900 */
+  --surface-inset: rgba(9,9,11,0.8);      /* zinc-950/80 */
+  --surface-hover: rgba(39,39,42,0.4);    /* zinc-800/40 */
+  --surface-selected: rgba(39,39,42,0.3); /* zinc-800/30 */
+
+  --text-primary: #f4f4f5;               /* zinc-100 */
+  --text-secondary: #d4d4d8;             /* zinc-300 */
+  --text-tertiary: #a1a1aa;              /* zinc-400 */
+  --text-muted: #71717a;                 /* zinc-500 */
+  --text-faint: #52525b;                 /* zinc-600 — was zinc-700, bumped for readability */
+  --text-disabled: #52525b;              /* zinc-600 — was zinc-700, bumped for readability */
+  --text-heading: #fffbeb;               /* amber-50 */
+
+  --border-primary: rgba(39,39,42,0.6);   /* zinc-800/60 */
+  --border-secondary: rgba(39,39,42,0.4); /* zinc-800/40 */
+  --border-tertiary: rgba(63,63,70,0.3);  /* zinc-700/30 — was zinc-800/30, bumped for readability */
+  --border-input: rgba(63,63,70,0.5);     /* zinc-700/50 */
+  --border-focus: rgba(245,158,11,0.4);   /* amber-500/40 */
+
+  --bar-track: rgba(39,39,42,0.8);        /* zinc-800/80 */
+  --bar-neutral-rgb: 161,161,170;         /* zinc-400 */
+}
+
+/* ── Animations ──────────────────────────────── */
 @keyframes fade-in-up {
   from {
     opacity: 0;

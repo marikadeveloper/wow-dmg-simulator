@@ -97,17 +97,17 @@ export default function UpgradeBudget({
   const noUpgradeableItems = relevantCrestTypes.length === 0;
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header */}
       <button
         type="button"
         onClick={() => setIsExpanded((p) => !p)}
-        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-zinc-800/20 transition-colors"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-surface-hover transition-colors"
       >
         <div className="flex items-center gap-2.5">
           {/* Crest icon */}
           <svg
-            className="w-4 h-4 text-zinc-500"
+            className="w-4 h-4 text-text-muted"
             viewBox="0 0 16 16"
             fill="none"
             stroke="currentColor"
@@ -120,7 +120,7 @@ export default function UpgradeBudget({
             <path d="M2 5L14 11" />
             <path d="M14 5L2 11" />
           </svg>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">
             Upgrade Budget
           </h3>
           {hasUpgrades && (
@@ -132,12 +132,12 @@ export default function UpgradeBudget({
 
         <div className="flex items-center gap-2.5">
           {noUpgradeableItems && (
-            <span className="text-[10px] text-zinc-700 italic">
+            <span className="text-[10px] text-text-disabled italic">
               no upgradeable items
             </span>
           )}
           {!noUpgradeableItems && !hasUpgrades && (
-            <span className="text-[10px] text-zinc-600 tabular-nums">
+            <span className="text-[10px] text-text-faint tabular-nums">
               {relevantCrestTypes.length} crest {relevantCrestTypes.length === 1 ? 'type' : 'types'} relevant
             </span>
           )}
@@ -145,7 +145,7 @@ export default function UpgradeBudget({
           {/* Chevron */}
           <svg
             className={[
-              'w-3.5 h-3.5 text-zinc-600 transition-transform duration-200',
+              'w-3.5 h-3.5 text-text-faint transition-transform duration-200',
               isExpanded ? 'rotate-0' : '-rotate-90',
             ].join(' ')}
             viewBox="0 0 16 16"
@@ -161,28 +161,28 @@ export default function UpgradeBudget({
 
       {/* Body */}
       {isExpanded && (
-        <div className="border-t border-zinc-800/40">
+        <div className="border-t border-border-secondary">
           {noUpgradeableItems ? (
-            <div className="px-3.5 py-4 text-center text-xs text-zinc-600">
+            <div className="px-3.5 py-4 text-center text-xs text-text-faint">
               None of your selected items can be upgraded.
               <br />
-              <span className="text-zinc-700">
+              <span className="text-text-disabled">
                 Items at max rank (6/6) or without a gear track cannot be upgraded.
               </span>
             </div>
           ) : (
             <div className="px-3.5 py-3 space-y-3">
               {/* Info */}
-              <p className="text-[11px] text-zinc-600 leading-relaxed">
+              <p className="text-[11px] text-text-faint leading-relaxed">
                 {profile.upgradeCurrencies ? (
                   <>
-                    Crest quantities were <span className="text-zinc-400 font-medium">auto-detected</span> from your SimC export.{' '}
+                    Crest quantities were <span className="text-text-tertiary font-medium">auto-detected</span> from your SimC export.{' '}
                   </>
                 ) : (
                   <>Enter how many Dawncrests you own.{' '}</>
                 )}
                 Each upgrade rank costs{' '}
-                <span className="text-zinc-400 font-medium">{UPGRADE_CREST_COST_PER_RANK}</span>{' '}
+                <span className="text-text-tertiary font-medium">{UPGRADE_CREST_COST_PER_RANK}</span>{' '}
                 crests. Upgraded versions of your items will be added as comparison options.
               </p>
 
@@ -209,7 +209,7 @@ export default function UpgradeBudget({
                     'px-3 py-1.5 rounded-md text-xs font-medium transition-all',
                     hasBudget
                       ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 cursor-pointer'
-                      : 'bg-zinc-800/40 text-zinc-600 border border-zinc-700/30 cursor-not-allowed',
+                      : 'bg-surface-tertiary text-text-faint border border-border-tertiary cursor-not-allowed',
                   ].join(' ')}
                 >
                   Apply Upgrades
@@ -218,7 +218,7 @@ export default function UpgradeBudget({
                   <button
                     type="button"
                     onClick={handleClear}
-                    className="px-3 py-1.5 rounded-md text-xs text-zinc-500 hover:text-zinc-300 border border-zinc-700/30 hover:border-zinc-600/50 transition-all cursor-pointer"
+                    className="px-3 py-1.5 rounded-md text-xs text-text-muted hover:text-text-secondary border border-border-tertiary hover:border-border-input transition-all cursor-pointer"
                   >
                     Clear Upgrades
                   </button>
@@ -257,7 +257,7 @@ function CrestInput({ crest, value, upgradeableCount, onChange }: CrestInputProp
         <div className={`text-[11px] font-medium ${accent.text} truncate`}>
           {crest.name}
         </div>
-        <div className="text-[10px] text-zinc-600 tabular-nums">
+        <div className="text-[10px] text-text-faint tabular-nums">
           {upgradeableCount} {upgradeableCount === 1 ? 'item' : 'items'} upgradeable
         </div>
       </div>
@@ -270,8 +270,8 @@ function CrestInput({ crest, value, upgradeableCount, onChange }: CrestInputProp
         onChange={(e) => onChange(e.target.value)}
         className={[
           'w-16 px-2 py-1 rounded text-xs tabular-nums text-right',
-          'bg-zinc-900/80 border border-zinc-700/40 text-zinc-300',
-          'placeholder-zinc-700 focus:outline-none focus:border-zinc-500/60',
+          'bg-surface-inset border border-border-input text-text-secondary',
+          'placeholder-text-disabled focus:outline-none focus:border-border-input',
         ].join(' ')}
       />
     </div>

@@ -139,7 +139,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
       {/* Amber accent line at the very top */}
       <div className="h-[2px] bg-amber-500/60" />
 
-      <div className="bg-zinc-900/95 backdrop-blur-sm border-b border-zinc-800/80">
+      <div className="bg-surface-overlay/95 backdrop-blur-sm border-b border-border-primary">
         <div className="mx-auto max-w-5xl px-6 py-2 flex items-center gap-3">
           {/* Status indicator dot */}
           <span className="relative flex h-2 w-2 shrink-0">
@@ -148,16 +148,16 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
           </span>
 
           {/* Message */}
-          <span className="text-xs text-zinc-300 tracking-wide flex-1 min-w-0">
+          <span className="text-xs text-text-secondary tracking-wide flex-1 min-w-0">
             {state.phase === 'available' && (
               <>
                 <span className="text-amber-200/90 font-medium">v{state.version}</span>
-                <span className="text-zinc-500 mx-1.5">&mdash;</span>
+                <span className="text-text-muted mx-1.5">&mdash;</span>
                 <span>Update available</span>
               </>
             )}
             {state.phase === 'downloading' && (
-              <span className="text-zinc-400">
+              <span className="text-text-tertiary">
                 Downloading update&hellip; {state.percent > 0 && `${state.percent}%`}
               </span>
             )}
@@ -181,7 +181,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
           )}
 
           {state.phase === 'downloading' && (
-            <div className="shrink-0 w-24 h-1.5 rounded-full bg-zinc-800 overflow-hidden">
+            <div className="shrink-0 w-24 h-1.5 rounded-full bg-bar-track overflow-hidden">
               <div
                 className="h-full bg-amber-500/70 rounded-full transition-[width] duration-300 ease-out"
                 style={{
@@ -197,7 +197,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
           {state.phase === 'available' && (
             <button
               onClick={() => setState({ phase: 'dismissed' })}
-              className="shrink-0 p-1 text-zinc-600 hover:text-zinc-400
+              className="shrink-0 p-1 text-text-faint hover:text-text-tertiary
                          transition-colors duration-150 cursor-pointer"
               aria-label="Dismiss update notification"
             >
@@ -215,7 +215,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
 
         {/* Download progress bar — full-width, paper-thin */}
         {state.phase === 'downloading' && state.percent > 0 && (
-          <div className="h-px bg-zinc-800">
+          <div className="h-px bg-bar-track">
             <div
               className="h-full bg-amber-500/50 transition-[width] duration-300 ease-out"
               style={{ width: `${state.percent}%` }}

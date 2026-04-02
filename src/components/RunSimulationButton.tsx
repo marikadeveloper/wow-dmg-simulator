@@ -64,9 +64,9 @@ export default function RunSimulationButton({
           ].join(' '),
           // Disabled (blocked or errors)
           !isRunning && isDisabled && [
-            'bg-zinc-800/60',
-            'border-zinc-700/40',
-            'text-zinc-500',
+            'bg-surface-secondary',
+            'border-border-input',
+            'text-text-muted',
             'cursor-not-allowed',
           ].join(' '),
         ]
@@ -119,7 +119,7 @@ export default function RunSimulationButton({
 
         {/* Disabled reason — only when disabled and not running */}
         {!isRunning && isDisabled && disabledReason && (
-          <span className="text-[11px] font-normal text-zinc-600">
+          <span className="text-[11px] font-normal text-text-faint">
             {disabledReason}
           </span>
         )}
@@ -131,8 +131,8 @@ export default function RunSimulationButton({
           onClick={onCancel}
           className={[
             'relative rounded-lg px-4 py-3.5 text-sm font-medium',
-            'border border-zinc-700/50 bg-zinc-800/60 text-zinc-400',
-            'hover:bg-zinc-700/60 hover:text-zinc-200 hover:border-zinc-600/60',
+            'border border-border-input bg-surface-secondary text-text-tertiary',
+            'hover:bg-surface-hover hover:text-text-primary hover:border-border-primary',
             'active:scale-[0.97]',
             'transition-all duration-150',
           ].join(' ')}

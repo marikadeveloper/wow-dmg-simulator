@@ -62,17 +62,17 @@ export default function CatalystCharges({
   const noClassName = !profile.className;
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header */}
       <button
         type="button"
         onClick={() => setIsExpanded((p) => !p)}
-        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-zinc-800/20 transition-colors"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-surface-hover transition-colors"
       >
         <div className="flex items-center gap-2.5">
           {/* Catalyst icon */}
           <svg
-            className="w-4 h-4 text-zinc-500"
+            className="w-4 h-4 text-text-muted"
             viewBox="0 0 16 16"
             fill="none"
             stroke="currentColor"
@@ -86,7 +86,7 @@ export default function CatalystCharges({
             <path d="M5.5 5.5L10.5 10.5" />
             <path d="M10.5 5.5L5.5 10.5" />
           </svg>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">
             Catalyst Charges
           </h3>
           {isEnabled && (
@@ -98,17 +98,17 @@ export default function CatalystCharges({
 
         <div className="flex items-center gap-2.5">
           {noClassName && (
-            <span className="text-[10px] text-zinc-700 italic">
+            <span className="text-[10px] text-text-disabled italic">
               class not detected
             </span>
           )}
           {!noClassName && convertibleCount === 0 && !isEnabled && (
-            <span className="text-[10px] text-zinc-700 italic">
+            <span className="text-[10px] text-text-disabled italic">
               no convertible items
             </span>
           )}
           {!noClassName && convertibleCount > 0 && !isEnabled && (
-            <span className="text-[10px] text-zinc-600 tabular-nums">
+            <span className="text-[10px] text-text-faint tabular-nums">
               {convertibleCount} {convertibleCount === 1 ? 'item' : 'items'} convertible
             </span>
           )}
@@ -116,7 +116,7 @@ export default function CatalystCharges({
           {/* Chevron */}
           <svg
             className={[
-              'w-3.5 h-3.5 text-zinc-600 transition-transform duration-200',
+              'w-3.5 h-3.5 text-text-faint transition-transform duration-200',
               isExpanded ? 'rotate-0' : '-rotate-90',
             ].join(' ')}
             viewBox="0 0 16 16"
@@ -132,32 +132,32 @@ export default function CatalystCharges({
 
       {/* Body */}
       {isExpanded && (
-        <div className="border-t border-zinc-800/40">
+        <div className="border-t border-border-secondary">
           {noClassName ? (
-            <div className="px-3.5 py-4 text-center text-xs text-zinc-600">
+            <div className="px-3.5 py-4 text-center text-xs text-text-faint">
               Could not detect your class from the SimC export.
               <br />
-              <span className="text-zinc-700">
+              <span className="text-text-disabled">
                 Catalyst conversion requires knowing your class to determine the correct tier set.
               </span>
             </div>
           ) : (
             <div className="px-3.5 py-3 space-y-3">
               {/* Info */}
-              <p className="text-[11px] text-zinc-600 leading-relaxed">
+              <p className="text-[11px] text-text-faint leading-relaxed">
                 The Creation Catalyst converts non-tier items into{' '}
-                <span className="text-zinc-400 font-medium">{tierSetName}</span>{' '}
+                <span className="text-text-tertiary font-medium">{tierSetName}</span>{' '}
                 tier pieces. Set how many charges to use &mdash; converted versions
                 of your items will be added as comparison options.
               </p>
 
               {/* Tier piece summary */}
               <div className="flex items-center gap-3 text-[11px] tabular-nums">
-                <span className="text-zinc-500">
+                <span className="text-text-muted">
                   {existingTierCount} tier {existingTierCount === 1 ? 'piece' : 'pieces'} already selected
                 </span>
-                <span className="text-zinc-700">|</span>
-                <span className="text-zinc-500">
+                <span className="text-text-disabled">|</span>
+                <span className="text-text-muted">
                   {convertibleCount} {convertibleCount === 1 ? 'item' : 'items'} can be converted
                 </span>
               </div>
@@ -171,16 +171,16 @@ export default function CatalystCharges({
                     onChange={(e) =>
                       onCatalystChargesChange(e.target.checked ? 1 : null)
                     }
-                    className="rounded border-zinc-600 bg-zinc-800 text-cyan-500 focus:ring-cyan-500/30"
+                    className="rounded border-border-input bg-surface-secondary text-cyan-500 focus:ring-cyan-500/30"
                   />
-                  <span className="text-xs text-zinc-400">
+                  <span className="text-xs text-text-tertiary">
                     Enable Catalyst
                   </span>
                 </label>
 
                 {isEnabled && (
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-zinc-500">Charges:</span>
+                    <span className="text-[11px] text-text-muted">Charges:</span>
                     <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((n) => (
                         <button
@@ -191,7 +191,7 @@ export default function CatalystCharges({
                             'w-7 h-7 rounded text-xs font-medium transition-all',
                             catalystCharges === n
                               ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                              : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30 hover:text-zinc-300 hover:border-zinc-600/50',
+                              : 'bg-surface-secondary text-text-muted border border-border-tertiary hover:text-text-secondary hover:border-border-input',
                           ].join(' ')}
                         >
                           {n}

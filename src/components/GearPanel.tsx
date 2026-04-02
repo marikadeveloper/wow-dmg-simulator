@@ -654,10 +654,10 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     <div className="animate-in">
       {/* Section header */}
       <div className="flex items-baseline justify-between mb-4">
-        <h2 className="text-sm font-semibold text-zinc-300 tracking-tight">
+        <h2 className="text-sm font-semibold text-text-secondary tracking-tight">
           Gear Slots
         </h2>
-        <span className="text-[11px] text-zinc-600 flex items-center gap-2">
+        <span className="text-[11px] text-text-faint flex items-center gap-2">
           {totalVault > 0 && (
             <span className="text-violet-500/70">
               {totalVault} vault {totalVault === 1 ? 'item' : 'items'}

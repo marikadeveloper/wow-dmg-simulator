@@ -87,17 +87,17 @@ export default function EnchantOptimization({
   const effectiveShowQ1 = showQ1 || hasQ1Selected;
 
   return (
-    <div className="rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden">
+    <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden">
       {/* Header — always visible, click to collapse/expand */}
       <button
         type="button"
         onClick={() => setIsExpanded((p) => !p)}
-        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-zinc-800/20 transition-colors"
+        className="w-full flex items-center justify-between px-3.5 py-2.5 hover:bg-surface-hover transition-colors"
       >
         <div className="flex items-center gap-2.5">
           {/* Enchant icon — wand with sparkle */}
           <svg
-            className="w-4 h-4 text-zinc-500"
+            className="w-4 h-4 text-text-muted"
             viewBox="0 0 16 16"
             fill="none"
             stroke="currentColor"
@@ -112,11 +112,11 @@ export default function EnchantOptimization({
             <circle cx="7" cy="3" r="0.4" fill="currentColor" stroke="none" />
             <circle cx="5" cy="5" r="0.4" fill="currentColor" stroke="none" />
           </svg>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">
             Enchant Optimization
           </h3>
           {selectedCount > 0 && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-zinc-800/60 text-zinc-400 border border-zinc-700/30 tabular-nums">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-surface-secondary text-text-tertiary border border-border-tertiary tabular-nums">
               {selectedCount} selected
             </span>
           )}
@@ -125,12 +125,12 @@ export default function EnchantOptimization({
         <div className="flex items-center gap-2.5">
           {/* Enchantable slot count badge */}
           {enchantableSlotCount > 0 && (
-            <span className="text-[10px] text-zinc-600 tabular-nums">
+            <span className="text-[10px] text-text-faint tabular-nums">
               {enchantableSlotCount} enchantable {enchantableSlotCount === 1 ? 'slot' : 'slots'}
             </span>
           )}
           {enchantableSlotCount === 0 && (
-            <span className="text-[10px] text-zinc-700 italic">
+            <span className="text-[10px] text-text-disabled italic">
               no enchantable slots
             </span>
           )}
@@ -138,7 +138,7 @@ export default function EnchantOptimization({
           {/* Chevron */}
           <svg
             className={[
-              'w-3.5 h-3.5 text-zinc-600 transition-transform duration-200',
+              'w-3.5 h-3.5 text-text-faint transition-transform duration-200',
               isExpanded ? 'rotate-0' : '-rotate-90',
             ].join(' ')}
             viewBox="0 0 16 16"
@@ -154,12 +154,12 @@ export default function EnchantOptimization({
 
       {/* Body */}
       {isExpanded && (
-        <div className="border-t border-zinc-800/40">
+        <div className="border-t border-border-secondary">
           {enchantableSlotCount === 0 ? (
-            <div className="px-3.5 py-4 text-center text-xs text-zinc-600">
+            <div className="px-3.5 py-4 text-center text-xs text-text-faint">
               None of your selected gear slots support enchanting.
               <br />
-              <span className="text-zinc-700">
+              <span className="text-text-disabled">
                 Enchantable slots include head, shoulders, chest, legs, feet, rings, and weapons.
               </span>
             </div>
@@ -187,7 +187,7 @@ export default function EnchantOptimization({
                 <button
                   type="button"
                   onClick={() => setShowQ1((p) => !p)}
-                  className="flex items-center gap-1.5 text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors"
+                  className="flex items-center gap-1.5 text-[11px] text-text-faint hover:text-text-tertiary transition-colors"
                 >
                   <svg
                     className={[
@@ -263,11 +263,11 @@ function EnchantSlotSection({
       {/* Slot label */}
       <div className="flex items-center gap-2 mb-1.5">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-60" />
-        <span className={`text-[11px] font-medium ${isQ2Section ? 'text-zinc-600' : 'text-zinc-500'}`}>
+        <span className={`text-[11px] font-medium ${isQ2Section ? 'text-text-faint' : 'text-text-muted'}`}>
           {slotGroup.label}
         </span>
         {selectedInSlot > 0 && (
-          <span className="text-[10px] text-zinc-600 tabular-nums">
+          <span className="text-[10px] text-text-faint tabular-nums">
             {selectedInSlot} selected
           </span>
         )}
@@ -327,7 +327,7 @@ function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: 
         'cursor-pointer select-none',
         selected
           ? 'border-emerald-500/40 bg-emerald-500/8 text-emerald-400 font-medium'
-          : `border-zinc-800/40 hover:bg-emerald-500/5 ${isQ2Chip ? 'text-zinc-600' : 'text-zinc-500'} hover:text-zinc-300`,
+          : `border-border-secondary hover:bg-emerald-500/5 ${isQ2Chip ? 'text-text-faint' : 'text-text-muted'} hover:text-text-secondary`,
         isQ2Chip && !selected ? 'opacity-70' : '',
       ].join(' ')}
       aria-pressed={selected}
@@ -340,11 +340,11 @@ function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: 
       >
         {name}
       </a>
-      <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
+      <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-text-disabled'}`}>
         {enchant.stat}
       </span>
       {equipped && (
-        <span className="text-[9px] font-medium px-1 py-px rounded bg-zinc-700/50 text-zinc-400 border border-zinc-600/30 uppercase tracking-wider shrink-0">
+        <span className="text-[9px] font-medium px-1 py-px rounded bg-surface-secondary text-text-tertiary border border-border-input uppercase tracking-wider shrink-0">
           Equipped
         </span>
       )}

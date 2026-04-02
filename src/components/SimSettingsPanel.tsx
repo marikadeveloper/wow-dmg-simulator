@@ -177,7 +177,7 @@ export default function SimSettingsPanel({
   const summaryText = summaryParts.join(' · ');
 
   return (
-    <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50">
+    <div className="rounded-lg border border-border-primary bg-surface-primary">
       {/* Collapsible header */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -186,7 +186,7 @@ export default function SimSettingsPanel({
         <div className="flex items-center gap-2.5">
           {/* Gear icon */}
           <svg
-            className="text-zinc-500 group-hover:text-zinc-400 transition-colors"
+            className="text-text-muted group-hover:text-text-tertiary transition-colors"
             width="15"
             height="15"
             viewBox="0 0 15 15"
@@ -202,12 +202,12 @@ export default function SimSettingsPanel({
             <circle cx="4.5" cy="12" r="0.75" fill="currentColor" opacity="0.3" />
             <circle cx="10.5" cy="12" r="0.75" fill="currentColor" opacity="0.3" />
           </svg>
-          <span className="text-sm font-semibold text-zinc-300 tracking-tight">
+          <span className="text-sm font-semibold text-text-secondary tracking-tight">
             Simulation Settings
           </span>
           {/* Inline summary when collapsed */}
           {!isOpen && (
-            <span className="text-[11px] text-zinc-600 ml-1">
+            <span className="text-[11px] text-text-faint ml-1">
               {summaryText}
             </span>
           )}
@@ -215,7 +215,7 @@ export default function SimSettingsPanel({
         {/* Chevron */}
         <svg
           className={[
-            'text-zinc-600 group-hover:text-zinc-400 transition-all duration-200',
+            'text-text-faint group-hover:text-text-tertiary transition-all duration-200',
             isOpen ? 'rotate-180' : '',
           ].join(' ')}
           width="14"
@@ -235,7 +235,7 @@ export default function SimSettingsPanel({
 
       {/* Settings body */}
       {isOpen && (
-        <div className="px-4 pb-4 pt-1 border-t border-zinc-800/60">
+        <div className="px-4 pb-4 pt-1 border-t border-border-primary">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mt-3">
             {/* ── Fight Style ─────────────────────────────────────── */}
             <div className="sm:col-span-2">
@@ -248,16 +248,16 @@ export default function SimSettingsPanel({
                   onClick={() => setDropdownOpen((prev) => !prev)}
                   className={[
                     'w-full flex items-center justify-between px-3 py-2 rounded-md text-sm',
-                    'bg-zinc-800/60 border transition-colors',
+                    'bg-surface-secondary border transition-colors',
                     dropdownOpen
-                      ? 'border-amber-500/40 text-zinc-100'
-                      : 'border-zinc-700/50 text-zinc-200 hover:border-zinc-600',
+                      ? 'border-amber-500/40 text-text-primary'
+                      : 'border-border-input text-text-primary hover:border-border-input',
                   ].join(' ')}
                 >
                   <span>{currentStyle.label}</span>
                   <svg
                     className={[
-                      'text-zinc-500 transition-transform duration-150',
+                      'text-text-muted transition-transform duration-150',
                       dropdownOpen ? 'rotate-180' : '',
                     ].join(' ')}
                     width="12"
@@ -276,7 +276,7 @@ export default function SimSettingsPanel({
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute z-20 mt-1 w-full rounded-lg border border-zinc-700/60 bg-zinc-900 shadow-xl shadow-black/40 py-1 max-h-[320px] overflow-y-auto">
+                  <div className="absolute z-20 mt-1 w-full rounded-lg border border-border-input bg-surface-overlay shadow-xl shadow-black/40 py-1 max-h-[320px] overflow-y-auto">
                     {FIGHT_STYLES.map((style) => {
                       const isSelected = style.value === settings.fightStyle;
                       return (
@@ -287,7 +287,7 @@ export default function SimSettingsPanel({
                             'w-full text-left px-3 py-2 transition-colors',
                             isSelected
                               ? 'bg-amber-500/10'
-                              : 'hover:bg-zinc-800/80',
+                              : 'hover:bg-surface-secondary',
                           ].join(' ')}
                         >
                           <div className="flex items-center gap-2">
@@ -303,12 +303,12 @@ export default function SimSettingsPanel({
                                   'text-sm',
                                   isSelected
                                     ? 'text-amber-50 font-medium'
-                                    : 'text-zinc-300',
+                                    : 'text-text-secondary',
                                 ].join(' ')}
                               >
                                 {style.label}
                               </div>
-                              <div className="text-[11px] text-zinc-500 mt-0.5 leading-snug">
+                              <div className="text-[11px] text-text-muted mt-0.5 leading-snug">
                                 {style.desc}
                               </div>
                             </div>
@@ -335,7 +335,7 @@ export default function SimSettingsPanel({
                   max={900}
                   step={10}
                 />
-                <span className="text-xs text-zinc-500">seconds</span>
+                <span className="text-xs text-text-muted">seconds</span>
               </div>
             </div>
 
@@ -346,7 +346,7 @@ export default function SimSettingsPanel({
                 hint="Randomizes fight length between iterations to avoid favoring cooldown timings. Default 20% is recommended. Set to 0% only for fixed-length comparisons."
               />
               <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-500">&plusmn;</span>
+                <span className="text-xs text-text-muted">&plusmn;</span>
                 <NumberInput
                   value={settings.varyCombatLength}
                   onChange={(v) => update({ varyCombatLength: v })}
@@ -354,7 +354,7 @@ export default function SimSettingsPanel({
                   max={100}
                   step={5}
                 />
-                <span className="text-xs text-zinc-500">%</span>
+                <span className="text-xs text-text-muted">%</span>
               </div>
             </div>
 
@@ -385,14 +385,14 @@ export default function SimSettingsPanel({
               />
               {/* Segmented toggle */}
               <div className="flex items-center gap-3 mb-2.5">
-                <div className="inline-flex rounded-md border border-zinc-700/50 bg-zinc-800/40 p-0.5">
+                <div className="inline-flex rounded-md border border-border-input bg-surface-tertiary p-0.5">
                   <button
                     onClick={() => update({ useTargetError: false })}
                     className={[
                       'px-3 py-1 rounded text-xs font-medium transition-all',
                       !settings.useTargetError
-                        ? 'bg-zinc-700 text-zinc-100 shadow-sm'
-                        : 'text-zinc-500 hover:text-zinc-300',
+                        ? 'bg-surface-tertiary text-text-primary shadow-sm'
+                        : 'text-text-muted hover:text-text-secondary',
                     ].join(' ')}
                   >
                     Iterations
@@ -402,8 +402,8 @@ export default function SimSettingsPanel({
                     className={[
                       'px-3 py-1 rounded text-xs font-medium transition-all',
                       settings.useTargetError
-                        ? 'bg-zinc-700 text-zinc-100 shadow-sm'
-                        : 'text-zinc-500 hover:text-zinc-300',
+                        ? 'bg-surface-tertiary text-text-primary shadow-sm'
+                        : 'text-text-muted hover:text-text-secondary',
                     ].join(' ')}
                   >
                     Target Error
@@ -420,7 +420,7 @@ export default function SimSettingsPanel({
                     step={0.05}
                     decimals={2}
                   />
-                  <span className="text-xs text-zinc-500">%</span>
+                  <span className="text-xs text-text-muted">%</span>
                 </div>
               ) : (
                 <NumberInput
@@ -439,14 +439,14 @@ export default function SimSettingsPanel({
                 label="Smart Sim"
                 hint="Runs multiple stages at increasing precision, eliminating bad combinations early. Much faster for large sims (50+ combos). When set to Auto, enables automatically for 50+ combinations."
               />
-              <div className="inline-flex rounded-md border border-zinc-700/50 bg-zinc-800/40 p-0.5">
+              <div className="inline-flex rounded-md border border-border-input bg-surface-tertiary p-0.5">
                 <button
                   onClick={() => update({ smartSimEnabled: null })}
                   className={[
                     'px-3 py-1 rounded text-xs font-medium transition-all',
                     settings.smartSimEnabled === null
-                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                      ? 'bg-surface-tertiary text-text-primary shadow-sm'
+                      : 'text-text-muted hover:text-text-secondary',
                   ].join(' ')}
                 >
                   Auto
@@ -456,8 +456,8 @@ export default function SimSettingsPanel({
                   className={[
                     'px-3 py-1 rounded text-xs font-medium transition-all',
                     settings.smartSimEnabled === true
-                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                      ? 'bg-surface-tertiary text-text-primary shadow-sm'
+                      : 'text-text-muted hover:text-text-secondary',
                   ].join(' ')}
                 >
                   On
@@ -467,8 +467,8 @@ export default function SimSettingsPanel({
                   className={[
                     'px-3 py-1 rounded text-xs font-medium transition-all',
                     settings.smartSimEnabled === false
-                      ? 'bg-zinc-700 text-zinc-100 shadow-sm'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                      ? 'bg-surface-tertiary text-text-primary shadow-sm'
+                      : 'text-text-muted hover:text-text-secondary',
                   ].join(' ')}
                 >
                   Off
@@ -497,14 +497,14 @@ export default function SimSettingsPanel({
                       }}
                       className="accent-amber-500"
                     />
-                    <span className="text-[11px] text-zinc-500">Custom</span>
+                    <span className="text-[11px] text-text-muted">Custom</span>
                   </label>
                 </div>
                 {settings.smartSimTargetErrors && (
                   <div className="flex items-center gap-3 mt-2">
                     {(['Low', 'Medium', 'High'] as const).map((label, idx) => (
                       <div key={label} className="flex flex-col items-center gap-1">
-                        <span className="text-[10px] text-zinc-600">{label}</span>
+                        <span className="text-[10px] text-text-faint">{label}</span>
                         <div className="flex items-center gap-1">
                           <NumberInput
                             value={settings.smartSimTargetErrors![idx]}
@@ -518,7 +518,7 @@ export default function SimSettingsPanel({
                             step={0.05}
                             decimals={2}
                           />
-                          <span className="text-[10px] text-zinc-600">%</span>
+                          <span className="text-[10px] text-text-faint">%</span>
                         </div>
                       </div>
                     ))}
@@ -587,7 +587,7 @@ export default function SimSettingsPanel({
             <>
               <SectionDivider label="Trinket Options" />
               <div className="mb-1">
-                <span className="text-xs font-medium text-zinc-300">
+                <span className="text-xs font-medium text-text-secondary">
                   Crucible of Erratic Energies
                 </span>
               </div>
@@ -630,12 +630,12 @@ export default function SimSettingsPanel({
                   ),
                 })
               }
-              className="px-3 py-1 rounded-md text-xs font-semibold bg-zinc-800/80 text-zinc-400 border border-zinc-700/50 hover:bg-zinc-700/60 hover:text-zinc-300 transition-colors"
+              className="px-3 py-1 rounded-md text-xs font-semibold bg-surface-secondary text-text-tertiary border border-border-input hover:bg-surface-secondary hover:text-text-secondary transition-colors"
             >
               No Buffs
             </button>
           </div>
-          <p className="text-[11px] text-zinc-600 mb-2.5 leading-snug">
+          <p className="text-[11px] text-text-faint mb-2.5 leading-snug">
             If your character provides one of these buffs, it may be used even
             if disabled here.
           </p>
@@ -677,10 +677,10 @@ function SettingLabel({
 }) {
   return (
     <div className={noMargin ? '' : 'mb-1.5'}>
-      <label className="block text-xs font-medium text-zinc-400">
+      <label className="block text-xs font-medium text-text-tertiary">
         {label}
       </label>
-      <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+      <p className="text-[11px] text-text-faint leading-snug mt-0.5">
         {hint}
       </p>
     </div>
@@ -690,11 +690,11 @@ function SettingLabel({
 function SectionDivider({ label }: { label: string }) {
   return (
     <div className="mt-5 mb-3 flex items-center gap-3">
-      <div className="h-px flex-1 bg-zinc-800/80" />
-      <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest shrink-0">
+      <div className="h-px flex-1 bg-border-primary" />
+      <span className="text-[11px] font-semibold text-text-muted uppercase tracking-widest shrink-0">
         {label}
       </span>
-      <div className="h-px flex-1 bg-zinc-800/80" />
+      <div className="h-px flex-1 bg-border-primary" />
     </div>
   );
 }
@@ -712,7 +712,7 @@ function ConsumableSelect({
 }) {
   return (
     <div>
-      <label className="block text-[11px] font-medium text-zinc-500 mb-1">
+      <label className="block text-[11px] font-medium text-text-muted mb-1">
         {label}
       </label>
       <select
@@ -720,7 +720,7 @@ function ConsumableSelect({
         onChange={(e) => onChange(e.target.value)}
         className={[
           'w-full px-2.5 py-1.5 rounded-md text-sm',
-          'bg-zinc-800/60 border border-zinc-700/50 text-zinc-200',
+          'bg-surface-secondary border border-border-input text-text-primary',
           'focus:outline-none focus:border-amber-500/40 transition-colors',
           'appearance-none cursor-pointer',
           // Arrow via background-image
@@ -755,7 +755,7 @@ function CheckboxItem({
           'w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all',
           checked
             ? 'bg-amber-500/20 border-amber-500/50'
-            : 'bg-zinc-800/60 border-zinc-700/50 group-hover:border-zinc-600',
+            : 'bg-surface-secondary border-border-input group-hover:border-border-input',
         ].join(' ')}
       >
         {checked && (
@@ -780,8 +780,8 @@ function CheckboxItem({
         className={[
           'text-xs transition-colors',
           checked
-            ? 'text-zinc-300'
-            : 'text-zinc-500 group-hover:text-zinc-400',
+            ? 'text-text-secondary'
+            : 'text-text-muted group-hover:text-text-tertiary',
         ].join(' ')}
       >
         {label}
@@ -854,8 +854,8 @@ function NumberInput({
         }
       }}
       className={[
-        'w-24 px-3 py-2 rounded-md text-sm text-zinc-200',
-        'bg-zinc-800/60 border border-zinc-700/50',
+        'w-24 px-3 py-2 rounded-md text-sm text-text-primary',
+        'bg-surface-secondary border border-border-input',
         'focus:outline-none focus:border-amber-500/40 transition-colors',
       ].join(' ')}
     />

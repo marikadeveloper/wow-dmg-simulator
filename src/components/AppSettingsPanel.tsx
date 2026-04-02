@@ -133,7 +133,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
   const inputChanged = pathInput.trim() !== (config?.simcBinaryPath ?? '');
 
   return (
-    <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50">
+    <div className="rounded-lg border border-border-primary bg-surface-primary">
       {/* Header */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -142,7 +142,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
         <div className="flex items-center gap-2.5">
           {/* Wrench icon */}
           <svg
-            className="text-zinc-500 group-hover:text-zinc-400 transition-colors"
+            className="text-text-muted group-hover:text-text-tertiary transition-colors"
             width="15"
             height="15"
             viewBox="0 0 15 15"
@@ -157,16 +157,16 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
             />
             <circle cx="11" cy="5" r="1" fill="currentColor" opacity="0.4" />
           </svg>
-          <span className="text-sm font-semibold text-zinc-300 tracking-tight">
+          <span className="text-sm font-semibold text-text-secondary tracking-tight">
             App Settings
           </span>
           {!isOpen && hasCustomPath && (
-            <span className="text-[11px] text-zinc-600 ml-1">
+            <span className="text-[11px] text-text-faint ml-1">
               Custom SimC binary
             </span>
           )}
           {!isOpen && !hasCustomPath && (
-            <span className="text-[11px] text-zinc-600 ml-1">
+            <span className="text-[11px] text-text-faint ml-1">
               Using bundled SimC
             </span>
           )}
@@ -174,7 +174,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
         {/* Chevron */}
         <svg
           className={[
-            'text-zinc-600 group-hover:text-zinc-400 transition-all duration-200',
+            'text-text-faint group-hover:text-text-tertiary transition-all duration-200',
             isOpen ? 'rotate-180' : '',
           ].join(' ')}
           width="14"
@@ -194,15 +194,15 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
 
       {/* Body */}
       {isOpen && (
-        <div className="px-4 pb-4 pt-1 border-t border-zinc-800/60">
+        <div className="px-4 pb-4 pt-1 border-t border-border-primary">
           <div className="mt-3 space-y-4">
             {/* SimC Binary Path */}
             <div>
               <div className="mb-1.5">
-                <label className="block text-xs font-medium text-zinc-400">
+                <label className="block text-xs font-medium text-text-tertiary">
                   SimC Binary Path
                 </label>
-                <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+                <p className="text-[11px] text-text-faint leading-snug mt-0.5">
                   Override the bundled SimulationCraft binary with your own. Leave empty to use the version that ships with the app.
                 </p>
               </div>
@@ -220,10 +220,10 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   }}
                   placeholder="/usr/local/bin/simc"
                   className={[
-                    'flex-1 px-3 py-2 rounded-md text-sm text-zinc-200',
-                    'bg-zinc-800/60 border border-zinc-700/50',
+                    'flex-1 px-3 py-2 rounded-md text-sm text-text-primary',
+                    'bg-surface-secondary border border-border-input',
                     'focus:outline-none focus:border-amber-500/40 transition-colors',
-                    'placeholder:text-zinc-700',
+                    'placeholder:text-text-disabled',
                   ].join(' ')}
                 />
                 <button
@@ -232,8 +232,8 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   className={[
                     'px-3 py-2 rounded-md text-xs font-medium transition-colors',
                     pathInput.trim() && !validating
-                      ? 'bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100'
-                      : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                      ? 'bg-surface-secondary border border-border-input text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+                      : 'bg-surface-tertiary border border-surface-tertiary text-text-faint cursor-not-allowed',
                   ].join(' ')}
                 >
                   {validating ? 'Checking...' : 'Validate'}
@@ -280,7 +280,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                     'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
                     inputChanged && !saving
                       ? 'bg-amber-500/15 border border-amber-500/30 text-amber-200 hover:bg-amber-500/25'
-                      : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                      : 'bg-surface-tertiary border border-surface-tertiary text-text-faint cursor-not-allowed',
                   ].join(' ')}
                 >
                   {saving ? 'Saving...' : 'Save'}
@@ -289,13 +289,13 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   <button
                     onClick={handleReset}
                     disabled={saving}
-                    className="px-3 py-1.5 rounded-md text-xs font-medium text-zinc-500 hover:text-zinc-300 transition-colors"
+                    className="px-3 py-1.5 rounded-md text-xs font-medium text-text-muted hover:text-text-secondary transition-colors"
                   >
                     Reset to bundled
                   </button>
                 )}
                 {!inputChanged && config?.simcBinaryPath && (
-                  <span className="text-[11px] text-zinc-600">
+                  <span className="text-[11px] text-text-faint">
                     Saved
                   </span>
                 )}
@@ -304,10 +304,10 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
             {/* Item Database */}
             <div>
               <div className="mb-1.5">
-                <label className="block text-xs font-medium text-zinc-400">
+                <label className="block text-xs font-medium text-text-tertiary">
                   Item Database
                 </label>
-                <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+                <p className="text-[11px] text-text-faint leading-snug mt-0.5">
                   Re-download the item database from SimC source. Use this if new items were added since the app was released.
                 </p>
               </div>
@@ -319,8 +319,8 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   className={[
                     'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
                     !refreshing
-                      ? 'bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100'
-                      : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                      ? 'bg-surface-secondary border border-border-input text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+                      : 'bg-surface-tertiary border border-surface-tertiary text-text-faint cursor-not-allowed',
                   ].join(' ')}
                 >
                   {refreshing ? 'Downloading...' : 'Refresh item database'}
@@ -337,10 +337,10 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
             {onCheckForUpdates && (
               <div>
                 <div className="mb-1.5">
-                  <label className="block text-xs font-medium text-zinc-400">
+                  <label className="block text-xs font-medium text-text-tertiary">
                     App Updates
                   </label>
-                  <p className="text-[11px] text-zinc-600 leading-snug mt-0.5">
+                  <p className="text-[11px] text-text-faint leading-snug mt-0.5">
                     Check if a newer version of WoW Top Gear is available.
                   </p>
                 </div>
@@ -352,14 +352,14 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                     className={[
                       'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
                       !checkingUpdates
-                        ? 'bg-zinc-800 border border-zinc-700/50 text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100'
-                        : 'bg-zinc-800/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed',
+                        ? 'bg-surface-secondary border border-border-input text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+                        : 'bg-surface-tertiary border border-surface-tertiary text-text-faint cursor-not-allowed',
                     ].join(' ')}
                   >
                     {checkingUpdates ? 'Checking...' : 'Check for updates'}
                   </button>
                   {updateCheckResult === 'checked' && (
-                    <span className="text-[11px] text-zinc-500">
+                    <span className="text-[11px] text-text-muted">
                       Check complete — see banner above if an update is available
                     </span>
                   )}

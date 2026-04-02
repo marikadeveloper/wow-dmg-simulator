@@ -174,8 +174,8 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
         type="button"
         onClick={() => setIsOpen(true)}
         className="w-full flex items-center justify-center gap-1.5 py-2 mt-1 rounded-md
-                   text-[11px] font-medium text-zinc-600 hover:text-amber-400/80
-                   border border-dashed border-zinc-800/50 hover:border-amber-500/30
+                   text-[11px] font-medium text-text-faint hover:text-amber-400/80
+                   border border-dashed border-border-primary hover:border-amber-500/30
                    bg-transparent hover:bg-amber-500/[0.03]
                    transition-all duration-200 cursor-pointer group"
       >
@@ -198,15 +198,15 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
   // ── Step 2: Pick gear track for selected item ──────────────────────────
   if (pending) {
     const { result, trackIndex } = pending;
-    const qualityColor = QUALITY_TEXT[result.quality] ?? 'text-zinc-300';
+    const qualityColor = QUALITY_TEXT[result.quality] ?? 'text-text-secondary';
     const selectedTrack = GEAR_TRACKS[trackIndex];
 
     return (
-      <div className="mt-1 rounded-md border border-zinc-800/60 bg-zinc-900/80 overflow-hidden animate-in">
+      <div className="mt-1 rounded-md border border-border-primary bg-surface-secondary overflow-hidden animate-in">
         {/* Item name header */}
-        <div className="flex items-center gap-2 px-3 py-2 border-b border-zinc-800/40">
+        <div className="flex items-center gap-2 px-3 py-2 border-b border-border-secondary">
           <span
-            className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[result.quality] ?? 'bg-zinc-400'}`}
+            className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[result.quality] ?? 'bg-text-tertiary'}`}
           />
           <span className={`text-xs truncate flex-1 ${qualityColor}`}>
             {result.name}
@@ -214,7 +214,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
           <button
             type="button"
             onClick={handleBackToSearch}
-            className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors"
+            className="text-[10px] text-text-faint hover:text-text-tertiary transition-colors"
             aria-label="Back to search"
           >
             change
@@ -232,8 +232,8 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
                 className={[
                   'px-2 py-0.5 rounded text-[11px] font-medium border transition-colors cursor-pointer',
                   i === trackIndex
-                    ? `${TRACK_BUTTON_ACTIVE[track.name] ?? 'bg-zinc-700/40 border-zinc-600 text-zinc-200'}`
-                    : 'bg-transparent border-zinc-800/50 text-zinc-600 hover:text-zinc-400 hover:border-zinc-700',
+                    ? `${TRACK_BUTTON_ACTIVE[track.name] ?? 'bg-surface-tertiary border-border-input text-text-primary'}`
+                    : 'bg-transparent border-border-primary text-text-faint hover:text-text-tertiary hover:border-border-input',
                 ].join(' ')}
               >
                 {track.name}
@@ -243,7 +243,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
 
           {/* Track info + socket + add button */}
           <div className="flex items-center gap-2">
-            <span className="text-[11px] text-zinc-500 tabular-nums">
+            <span className="text-[11px] text-text-muted tabular-nums">
               ilvl {selectedTrack.ilvlRange[0]}
             </span>
             <label className="flex items-center gap-1 cursor-pointer select-none">
@@ -251,10 +251,10 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
                 type="checkbox"
                 checked={pending.assumeSocket}
                 onChange={(e) => setPending({ ...pending, assumeSocket: e.target.checked })}
-                className="w-3 h-3 rounded border-zinc-700 bg-zinc-800 text-amber-500
+                className="w-3 h-3 rounded border-border-input bg-surface-secondary text-amber-500
                            accent-amber-500 cursor-pointer"
               />
-              <span className="text-[11px] text-zinc-500">Socket</span>
+              <span className="text-[11px] text-text-muted">Socket</span>
             </label>
             <button
               type="button"
@@ -268,7 +268,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
             <button
               type="button"
               onClick={handleClose}
-              className="text-zinc-600 hover:text-zinc-400 transition-colors"
+              className="text-text-faint hover:text-text-tertiary transition-colors"
               aria-label="Cancel"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -284,11 +284,11 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
 
   // ── Step 1: Search ────────────────────────────────────────────────────
   return (
-    <div className="mt-1 rounded-md border border-zinc-800/60 bg-zinc-900/80 overflow-hidden animate-in">
+    <div className="mt-1 rounded-md border border-border-primary bg-surface-secondary overflow-hidden animate-in">
       {/* Search input */}
-      <div className="flex items-center gap-2 px-2.5 py-2 border-b border-zinc-800/40">
+      <div className="flex items-center gap-2 px-2.5 py-2 border-b border-border-secondary">
         <svg
-          className="w-3.5 h-3.5 text-zinc-600 shrink-0"
+          className="w-3.5 h-3.5 text-text-faint shrink-0"
           viewBox="0 0 16 16"
           fill="none"
           stroke="currentColor"
@@ -304,14 +304,14 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
           value={query}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="Search by name or item ID..."
-          className="flex-1 bg-transparent text-xs text-zinc-200 placeholder:text-zinc-700
+          className="flex-1 bg-transparent text-xs text-text-primary placeholder:text-text-disabled
                      outline-none caret-amber-400"
         />
         {query && (
           <button
             type="button"
             onClick={() => { setQuery(''); setResults([]); }}
-            className="text-zinc-600 hover:text-zinc-400 transition-colors"
+            className="text-text-faint hover:text-text-tertiary transition-colors"
             aria-label="Clear search"
           >
             <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -323,7 +323,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
         <button
           type="button"
           onClick={handleClose}
-          className="text-zinc-600 hover:text-zinc-400 transition-colors ml-0.5"
+          className="text-text-faint hover:text-text-tertiary transition-colors ml-0.5"
           aria-label="Close search"
         >
           <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -335,7 +335,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
 
       {/* Results */}
       {isSearching && (
-        <div className="px-3 py-3 text-center text-[11px] text-zinc-600">
+        <div className="px-3 py-3 text-center text-[11px] text-text-faint">
           Searching...
         </div>
       )}
@@ -348,19 +348,19 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
               type="button"
               onClick={() => handleSelectResult(item)}
               className="w-full flex items-center gap-2 px-3 py-1.5 text-left
-                         hover:bg-zinc-800/50 transition-colors cursor-pointer group/row"
+                         hover:bg-surface-hover transition-colors cursor-pointer group/row"
             >
               {/* Quality-colored dot */}
               <span
-                className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[item.quality] ?? 'bg-zinc-400'}`}
+                className={`shrink-0 w-1.5 h-1.5 rounded-full ${QUALITY_DOT[item.quality] ?? 'bg-text-tertiary'}`}
               />
               {/* Item name */}
-              <span className={`text-xs truncate flex-1 ${QUALITY_TEXT[item.quality] ?? 'text-zinc-300'}`}>
+              <span className={`text-xs truncate flex-1 ${QUALITY_TEXT[item.quality] ?? 'text-text-secondary'}`}>
                 {item.name}
               </span>
               {/* Slot type */}
               {item.slot && (
-                <span className="shrink-0 text-[10px] text-zinc-600 font-medium">
+                <span className="shrink-0 text-[10px] text-text-faint font-medium">
                   {SLOT_TYPE_LABELS[item.slot] ?? item.slot}
                 </span>
               )}
@@ -370,13 +370,13 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
       )}
 
       {!isSearching && query.length >= 2 && results.length === 0 && (
-        <div className="px-3 py-3 text-center text-[11px] text-zinc-700 italic">
+        <div className="px-3 py-3 text-center text-[11px] text-text-disabled italic">
           No items found for this slot
         </div>
       )}
 
       {!isSearching && query.length < 2 && query.length > 0 && (
-        <div className="px-3 py-2.5 text-center text-[11px] text-zinc-700">
+        <div className="px-3 py-2.5 text-center text-[11px] text-text-disabled">
           Type at least 2 characters
         </div>
       )}
@@ -386,8 +386,8 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
 
 /** Background color dots for item quality. */
 const QUALITY_DOT: Record<number, string> = {
-  0: 'bg-zinc-500',
-  1: 'bg-zinc-300',
+  0: 'bg-text-muted',
+  1: 'bg-text-secondary',
   2: 'bg-green-400',
   3: 'bg-blue-400',
   4: 'bg-purple-400',
@@ -395,8 +395,8 @@ const QUALITY_DOT: Record<number, string> = {
 };
 
 const QUALITY_TEXT: Record<number, string> = {
-  0: 'text-zinc-500',
-  1: 'text-zinc-300',
+  0: 'text-text-muted',
+  1: 'text-text-secondary',
   2: 'text-green-400',
   3: 'text-blue-400',
   4: 'text-purple-400',
@@ -409,7 +409,7 @@ const TRACK_BUTTON_ACTIVE: Record<string, string> = {
   Hero: 'bg-purple-500/15 border-purple-500/40 text-purple-400',
   Champion: 'bg-blue-500/15 border-blue-500/40 text-blue-400',
   Veteran: 'bg-green-500/15 border-green-500/40 text-green-400',
-  Adventurer: 'bg-zinc-500/15 border-zinc-500/40 text-zinc-300',
+  Adventurer: 'bg-zinc-500/15 border-zinc-500/40 text-text-secondary',
 };
 
 /** Human-readable slot labels for search results. */

@@ -19,7 +19,7 @@ export default function SimLogPanel({ lines, isActive }: SimLogPanelProps) {
   if (lines.length === 0 && !isActive) return null;
 
   return (
-    <div className="rounded-md border border-zinc-800/40 bg-zinc-950/80 overflow-hidden">
+    <div className="rounded-md border border-border-secondary bg-surface-inset overflow-hidden">
       {/* Toggle header */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -35,7 +35,7 @@ export default function SimLogPanel({ lines, isActive }: SimLogPanelProps) {
 
         <svg
           className={[
-            'w-3 h-3 text-zinc-600 transition-transform duration-150',
+            'w-3 h-3 text-text-faint transition-transform duration-150',
             isOpen ? 'rotate-90' : '',
           ].join(' ')}
           viewBox="0 0 12 12"
@@ -48,13 +48,13 @@ export default function SimLogPanel({ lines, isActive }: SimLogPanelProps) {
           <path d="M4.5 2.5L8 6L4.5 9.5" />
         </svg>
 
-        <span className="text-[11px] text-zinc-600 group-hover:text-zinc-500 transition-colors">
+        <span className="text-[11px] text-text-faint group-hover:text-text-muted transition-colors">
           {isOpen ? 'Hide logs' : 'Show logs'}
         </span>
 
         {/* Line count badge */}
         {!isOpen && lines.length > 0 && (
-          <span className="text-[10px] tabular-nums text-zinc-700 bg-zinc-900 px-1.5 py-0.5 rounded">
+          <span className="text-[10px] tabular-nums text-text-disabled bg-surface-overlay px-1.5 py-0.5 rounded">
             {lines.length}
           </span>
         )}
@@ -64,14 +64,14 @@ export default function SimLogPanel({ lines, isActive }: SimLogPanelProps) {
       {isOpen && (
         <div
           ref={scrollRef}
-          className="max-h-48 overflow-y-auto border-t border-zinc-800/30 px-3 py-2 scroll-smooth"
+          className="max-h-48 overflow-y-auto border-t border-border-tertiary px-3 py-2 scroll-smooth"
         >
           {lines.length === 0 ? (
-            <p className="text-[11px] text-zinc-700 italic">
+            <p className="text-[11px] text-text-disabled italic">
               Waiting for output...
             </p>
           ) : (
-            <pre className="text-[11px] leading-relaxed font-mono text-zinc-600 whitespace-pre-wrap break-all">
+            <pre className="text-[11px] leading-relaxed font-mono text-text-faint whitespace-pre-wrap break-all">
               {lines.join('\n')}
             </pre>
           )}

@@ -46,10 +46,10 @@ function getUrgencyLabel(urgency: Urgency): string | null {
 
 const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: string; bar: string }> = {
   idle: {
-    badge: 'bg-zinc-800/60 text-zinc-500 border-zinc-700/40',
+    badge: 'bg-surface-secondary text-text-muted border-border-input',
     glow: '',
-    text: 'text-zinc-500',
-    bar: 'bg-zinc-700/30',
+    text: 'text-text-muted',
+    bar: 'bg-surface-hover',
   },
   green: {
     badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
@@ -133,7 +133,7 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
       data-urgency={urgency}
       className={[
         'relative rounded-lg border overflow-hidden transition-all duration-300',
-        'border-zinc-800/60 bg-zinc-900/50',
+        'border-border-primary bg-surface-primary',
         styles.glow,
         isBlocked ? 'animate-pulse-slow' : '',
       ].join(' ')}
@@ -170,10 +170,10 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
           </span>
 
           <div className="flex flex-col">
-            <span className="text-xs text-zinc-400">
+            <span className="text-xs text-text-tertiary">
               {displayCount === 1 ? 'combination' : 'combinations'}
               {hasActiveFilters && displayCount < count && (
-                <span className="text-zinc-600 ml-1">
+                <span className="text-text-faint ml-1">
                   (of {count.toLocaleString()})
                 </span>
               )}
@@ -182,13 +182,13 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
               <button
                 type="button"
                 onClick={() => setShowBreakdown((v) => !v)}
-                className="text-[10px] text-zinc-500 hover:text-zinc-400 transition-colors flex items-center gap-1 cursor-pointer"
+                className="text-[10px] text-text-muted hover:text-text-tertiary transition-colors flex items-center gap-1 cursor-pointer"
               >
                 <span className="flex items-center gap-0.5 flex-wrap">
                   {breakdown.map((f, i) => (
                     <span key={f.label} className="whitespace-nowrap">
-                      {i > 0 && <span className="text-zinc-600 mx-0.5">+</span>}
-                      <span className="text-zinc-400 tabular-nums">{f.optionCount}</span>
+                      {i > 0 && <span className="text-text-faint mx-0.5">+</span>}
+                      <span className="text-text-tertiary tabular-nums">{f.optionCount}</span>
                       {' '}{f.label}
                     </span>
                   ))}
@@ -233,7 +233,7 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
         {/* Bypass limit toggle — only when over the 1000 cap and not weapon-blocked */}
         {overLimit && !weaponBlocked && (
           <label className="flex items-center gap-2 cursor-pointer select-none group">
-            <span className="text-[11px] text-zinc-500 group-hover:text-zinc-400 transition-colors">
+            <span className="text-[11px] text-text-muted group-hover:text-text-tertiary transition-colors">
               Bypass limit
             </span>
             <div className="relative">
@@ -248,12 +248,12 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
               />
               <div className={[
                 'w-8 h-[18px] rounded-full transition-colors duration-200',
-                'bg-zinc-700 peer-checked:bg-amber-500/60',
+                'bg-surface-tertiary peer-checked:bg-amber-500/60',
                 'peer-focus-visible:ring-2 peer-focus-visible:ring-amber-500/40',
               ].join(' ')} />
               <div className={[
                 'absolute top-[3px] left-[3px] w-3 h-3 rounded-full transition-transform duration-200',
-                'bg-zinc-400 peer-checked:bg-amber-200',
+                'bg-text-tertiary peer-checked:bg-amber-200',
                 'peer-checked:translate-x-[14px]',
               ].join(' ')} />
             </div>
@@ -263,13 +263,13 @@ export default function CombinationCounter({ axes, onBlockedChange, onBypassLimi
 
       {/* Expanded breakdown */}
       {showBreakdown && breakdown.length > 1 && (
-        <div className="px-4 pb-3 pt-1 border-t border-zinc-800/40">
+        <div className="px-4 pb-3 pt-1 border-t border-border-secondary">
           <div className="grid grid-cols-[1fr_auto_auto] gap-x-3 gap-y-0.5 text-[10px]">
             {breakdown.map((f) => (
               <div key={f.label} className="contents">
-                <span className="text-zinc-400 capitalize">{f.label}</span>
-                <span className="text-zinc-500 text-right tabular-nums">{f.optionCount}</span>
-                <span className="text-zinc-600">{f.detail ?? ''}</span>
+                <span className="text-text-tertiary capitalize">{f.label}</span>
+                <span className="text-text-muted text-right tabular-nums">{f.optionCount}</span>
+                <span className="text-text-faint">{f.detail ?? ''}</span>
               </div>
             ))}
           </div>

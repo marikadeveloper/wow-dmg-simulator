@@ -177,16 +177,16 @@ export default function GearSlotCard({
 
   return (
     <div
-      className="gear-card group rounded-lg border border-zinc-800/60 bg-zinc-900/50 overflow-hidden animate-in"
+      className="gear-card group rounded-lg border border-border-primary bg-surface-primary overflow-hidden animate-in"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Card header */}
-      <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-zinc-800/40">
+      <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-border-secondary">
         <div className="flex items-center gap-2">
           <span className="text-sm opacity-70" role="img" aria-label={label}>
             {icon}
           </span>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-text-tertiary">
             {label}
           </h3>
           {isEnchantable && (
@@ -198,7 +198,7 @@ export default function GearSlotCard({
             </span>
           )}
         </div>
-        <span className="flex items-center gap-2 text-[10px] tabular-nums text-zinc-600 font-medium">
+        <span className="flex items-center gap-2 text-[10px] tabular-nums text-text-faint font-medium">
           <span>{selectedCount}/{items.length} selected</span>
           {items.length > 1 && (
             <span className="flex items-center gap-1">
@@ -206,17 +206,17 @@ export default function GearSlotCard({
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onSelectAll(slot); }}
                 disabled={selectedCount === items.length}
-                className="text-zinc-500 hover:text-zinc-300 disabled:text-zinc-700 disabled:cursor-default transition-colors"
+                className="text-text-muted hover:text-text-secondary disabled:text-text-disabled disabled:cursor-default transition-colors"
                 aria-label={`Select all ${label} items`}
               >
                 all
               </button>
-              <span className="text-zinc-700">/</span>
+              <span className="text-text-disabled">/</span>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onDeselectAll(slot); }}
                 disabled={selectedCount <= 1}
-                className="text-zinc-500 hover:text-zinc-300 disabled:text-zinc-700 disabled:cursor-default transition-colors"
+                className="text-text-muted hover:text-text-secondary disabled:text-text-disabled disabled:cursor-default transition-colors"
                 aria-label={`Deselect all ${label} items`}
               >
                 none
@@ -244,7 +244,7 @@ export default function GearSlotCard({
 
         {/* Separator between equipped and vault/bag/upgraded items */}
         {equippedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0 || upgradedWithIdx.length > 0) && (
-          <div className="border-t border-zinc-800/30 my-1.5" />
+          <div className="border-t border-border-tertiary my-1.5" />
         )}
 
         {/* Copy-modified items (from copy and modify feature) */}
@@ -262,7 +262,7 @@ export default function GearSlotCard({
 
         {/* Separator between copy-modified and upgraded/catalyst items */}
         {copyModifiedWithIdx.length > 0 && (upgradedWithIdx.length > 0 || catalystWithIdx.length > 0 || vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
-          <div className="border-t border-zinc-800/30 my-1.5" />
+          <div className="border-t border-border-tertiary my-1.5" />
         )}
 
         {/* Upgraded items (from upgrade budget feature) */}
@@ -293,7 +293,7 @@ export default function GearSlotCard({
 
         {/* Separator between upgraded/catalyst and vault items */}
         {(upgradedWithIdx.length > 0 || catalystWithIdx.length > 0) && (vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
-          <div className="border-t border-zinc-800/30 my-1.5" />
+          <div className="border-t border-border-tertiary my-1.5" />
         )}
 
         {/* Vault items */}
@@ -312,7 +312,7 @@ export default function GearSlotCard({
 
         {/* Separator between vault and bag items */}
         {vaultWithIdx.length > 0 && bagWithIdx.length > 0 && (
-          <div className="border-t border-zinc-800/30 my-1.5" />
+          <div className="border-t border-border-tertiary my-1.5" />
         )}
 
         {/* Bag items */}
@@ -331,7 +331,7 @@ export default function GearSlotCard({
 
         {/* Separator before unowned items */}
         {unownedWithIdx.length > 0 && (equippedWithIdx.length > 0 || bagWithIdx.length > 0 || vaultWithIdx.length > 0 || upgradedWithIdx.length > 0 || catalystWithIdx.length > 0 || copyModifiedWithIdx.length > 0) && (
-          <div className="border-t border-zinc-800/30 my-1.5" />
+          <div className="border-t border-border-tertiary my-1.5" />
         )}
 
         {/* Unowned items (added via search) */}
@@ -358,7 +358,7 @@ export default function GearSlotCard({
 
         {/* Empty slot */}
         {items.length === 0 && !FEATURES.UNOWNED_ITEM_SEARCH && (
-          <div className="py-3 text-center text-xs text-zinc-700 italic">
+          <div className="py-3 text-center text-xs text-text-disabled italic">
             No items
           </div>
         )}
@@ -371,8 +371,8 @@ export default function GearSlotCard({
 
 /** CSS color classes for WoW item quality tiers. */
 const QUALITY_COLORS: Record<number, string> = {
-  0: 'text-zinc-500',       // Poor (grey)
-  1: 'text-zinc-300',       // Common (white)
+  0: 'text-text-muted',     // Poor (grey)
+  1: 'text-text-secondary', // Common (white)
   2: 'text-green-400',      // Uncommon
   3: 'text-blue-400',       // Rare
   4: 'text-purple-400',     // Epic
@@ -385,7 +385,7 @@ const TRACK_COLORS: Record<string, string> = {
   Hero: 'text-purple-400',
   Champion: 'text-blue-400',
   Veteran: 'text-green-400',
-  Adventurer: 'text-zinc-400',
+  Adventurer: 'text-text-tertiary',
 };
 
 /** Numeric rank for track comparison (higher = better). */
@@ -437,7 +437,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
 
   // Gear track info from bonus_ids (not shown for crafted items)
   const trackInfo = !isCrafted && item.bonusIds.length > 0 ? getGearTrackFromBonusIds(item.bonusIds) : null;
-  const trackColor = trackInfo ? (TRACK_COLORS[trackInfo.trackName] ?? 'text-zinc-400') : '';
+  const trackColor = trackInfo ? (TRACK_COLORS[trackInfo.trackName] ?? 'text-text-tertiary') : '';
 
   // Show green upgrade arrow if this item's track is higher than equipped
   const itemTrackRank = trackInfo ? (TRACK_RANK[trackInfo.trackName] ?? -1) : -1;
@@ -454,7 +454,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(); } }}
       className={[
         'w-full flex items-center gap-2 py-1.5 px-1.5 -mx-1.5 rounded-md transition-all cursor-pointer',
-        'hover:bg-zinc-800/40',
+        'hover:bg-surface-hover',
         selected
           ? isEquipped
             ? 'bg-amber-500/5'
@@ -468,7 +468,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
                     ? 'bg-amber-500/5'
                     : isVault
                       ? 'bg-violet-500/5'
-                      : 'bg-zinc-800/30'
+                      : 'bg-surface-hover'
           : 'opacity-60',
       ].join(' ')}
       aria-pressed={selected}
@@ -490,8 +490,8 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
                       ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
                       : isVault
                         ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
-                        : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
-            : 'border-zinc-700/50 text-transparent',
+                        : 'bg-surface-tertiary border-border-input text-text-secondary'
+            : 'border-border-input text-transparent',
         ].join(' ')}
       >
         {selected && (
@@ -528,7 +528,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           width={36}
           height={36}
           className={[
-            'shrink-0 rounded-md border border-zinc-700/50',
+            'shrink-0 rounded-md border border-border-input',
             selected ? '' : 'opacity-50',
           ].join(' ')}
           loading="lazy"
@@ -542,7 +542,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           <span
             className={[
               'text-sm leading-tight truncate text-left',
-              selected ? (trackColor || qualityColor) : 'text-zinc-500',
+              selected ? (trackColor || qualityColor) : 'text-text-muted',
               selected && (isEquipped || isVault) ? 'font-medium' : 'font-normal',
             ].join(' ')}
           >
@@ -573,7 +573,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
             }
           >
             {ilvl != null && (
-              <span className="text-zinc-400">{ilvl}</span>
+              <span className="text-text-tertiary">{ilvl}</span>
             )}
             {isCrafted ? (
               <span className="flex items-center gap-1 text-amber-400/90">
@@ -664,7 +664,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
                       ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
                       : isVault
                         ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
-                        : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+                        : 'bg-surface-secondary text-text-muted border border-border-tertiary',
           ].join(' ')}
         >
           {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isCopyModified ? 'modified' : isCatalyst ? 'catalyst' : isUnowned ? 'unowned' : isVault ? 'vault' : 'bag'}
