@@ -450,6 +450,67 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     return count;
   }, [augmentedProfile, selection]);
 
+  // Collect equipped gem IDs (from all items marked isEquipped across all slots).
+  // Include both the raw ID and the base ID (Q2 → Q1 mapping) so that chips
+  // in GemOptimization show the "Equipped" badge even for Q2 quality variants.
+  const equippedGemIds = useMemo(() => {
+    const ids = new Set<number>();
+    for (const items of Object.values(augmentedProfile.gear)) {
+      for (const item of items) {
+        if (item.isEquipped) {
+          for (const gid of item.gemIds) {
+            if (gid > 0) {
+              ids.add(gid);
+              // Q2 gems have odd IDs = base even ID + 1
+              if (gid % 2 === 1) ids.add(gid - 1);
+            }
+          }
+        }
+      }
+    }
+    return ids;
+  }, [augmentedProfile]);
+
+  // Collect equipped enchant IDs (from all items marked isEquipped across all slots)
+  const equippedEnchantIds = useMemo(() => {
+    const ids = new Set<number>();
+    for (const items of Object.values(augmentedProfile.gear)) {
+      for (const item of items) {
+        if (item.isEquipped && item.enchantId != null) {
+          ids.add(item.enchantId);
+        }
+      }
+    }
+    return ids;
+  }, [augmentedProfile]);
+
+  // Detect enchant consistency issues per slot group (some items have enchant, some don't)
+  const enchantWarningSlots = useMemo(() => {
+    const warnings = new Set<string>();
+    for (const enchantableSlot of ENCHANTABLE_SLOTS) {
+      // Only check selected items in this slot
+      const items = augmentedProfile.gear[enchantableSlot];
+      if (!items || items.length < 2) continue;
+
+      const selectedItems = items.filter((_, idx) =>
+        selection.has(`${enchantableSlot}:${idx}`),
+      );
+      if (selectedItems.length < 2) continue;
+
+      const withEnchant = selectedItems.filter((i) => i.enchantId != null);
+      const withoutEnchant = selectedItems.filter((i) => i.enchantId == null);
+
+      if (withEnchant.length > 0 && withoutEnchant.length > 0) {
+        // Map to enchant slot group key
+        const groupKey = enchantableSlot.startsWith('finger')
+          ? 'finger'
+          : enchantableSlot;
+        warnings.add(groupKey);
+      }
+    }
+    return warnings;
+  }, [augmentedProfile, selection]);
+
   // Count enchantable slots that have gear equipped/selected
   const enchantableSlotCount = useMemo(() => {
     return (ENCHANTABLE_SLOTS as readonly string[]).filter((slot) => {
@@ -631,6 +692,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
             selectedGemIds={selectedGemIds}
             onToggleGem={toggleGem}
             totalSockets={totalSockets}
+            equippedGemIds={equippedGemIds}
           />
         </div>
       )}
@@ -642,6 +704,8 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
             selectedEnchantIds={selectedEnchantIds}
             onToggleEnchant={toggleEnchant}
             enchantableSlotCount={enchantableSlotCount}
+            equippedEnchantIds={equippedEnchantIds}
+            enchantWarningSlots={enchantWarningSlots}
           />
         </div>
       )}

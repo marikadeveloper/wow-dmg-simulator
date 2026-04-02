@@ -142,6 +142,21 @@ export const GEM_PRESETS: GemPreset[] = [
   { id: 240886, name: 'Masterful Lapis', stat: 'Vers + Mastery', color: 'prismatic', icon: IC_LAPIS },
 ];
 
+/**
+ * Extended gem lookup map including Q2 quality variants.
+ * In-game, Q2 gems have consecutive IDs (base + 1) for gems with even IDs
+ * (Peridot, Amethyst, Garnet, Lapis families). Diamond IDs are irregular
+ * and don't follow this pattern.
+ */
+export const GEM_LOOKUP = new Map<number, GemPreset>();
+for (const gem of GEM_PRESETS) {
+  GEM_LOOKUP.set(gem.id, gem);
+  // Only add Q2 for even-ID gems (secondary gems follow the +1 = Q2 pattern)
+  if (gem.id % 2 === 0) {
+    GEM_LOOKUP.set(gem.id + 1, { ...gem, id: gem.id + 1, name: `${gem.name} (Q2)` });
+  }
+}
+
 // ── Enchant presets ──────────────────────────────────────────────────────────
 
 export interface EnchantPreset {

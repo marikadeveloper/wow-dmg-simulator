@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
 import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-cache';
-import { GEM_PRESETS, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
+import { GEM_PRESETS, GEM_LOOKUP, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
 import { FEATURES } from '../lib/features';
 import UnownedItemSearch from './UnownedItemSearch';
 
 /** Lookup maps built once from season presets. */
-const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
+const GEM_BY_ID = GEM_LOOKUP; // includes Q2 quality variants
 const ENCHANT_BY_ID = new Map(ENCHANT_PRESETS.map((e) => [e.id, e]));
 
 /** Wowhead icon CDN base URL. */

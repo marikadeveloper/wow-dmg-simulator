@@ -118,12 +118,15 @@ interface GemOptimizationProps {
   onToggleGem: (gemId: number) => void;
   /** Total number of gem sockets across all selected items. */
   totalSockets: number;
+  /** Gem IDs currently equipped on the character. */
+  equippedGemIds: Set<number>;
 }
 
 export default function GemOptimization({
   selectedGemIds,
   onToggleGem,
   totalSockets,
+  equippedGemIds,
 }: GemOptimizationProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [showRegular, setShowRegular] = useState(false);
@@ -244,6 +247,7 @@ export default function GemOptimization({
                     gems={group.flawless}
                     selectedGemIds={selectedGemIds}
                     onToggleGem={onToggleGem}
+                    equippedGemIds={equippedGemIds}
                   />
                 );
               })}
@@ -285,6 +289,7 @@ export default function GemOptimization({
                         gems={group.regular}
                         selectedGemIds={selectedGemIds}
                         onToggleGem={onToggleGem}
+                        equippedGemIds={equippedGemIds}
                         isRegular
                       />
                     );
@@ -306,6 +311,7 @@ interface GemFamilyGroupProps {
   gems: GemPreset[];
   selectedGemIds: Set<number>;
   onToggleGem: (gemId: number) => void;
+  equippedGemIds: Set<number>;
   isRegular?: boolean;
 }
 
@@ -314,6 +320,7 @@ function GemFamilyGroup({
   gems,
   selectedGemIds,
   onToggleGem,
+  equippedGemIds,
   isRegular = false,
 }: GemFamilyGroupProps) {
   const selectedInFamily = gems.filter((g) => selectedGemIds.has(g.id)).length;
@@ -338,12 +345,14 @@ function GemFamilyGroup({
       <div className="flex flex-wrap gap-1.5">
         {gems.map((gem) => {
           const selected = selectedGemIds.has(gem.id);
+          const equipped = equippedGemIds.has(gem.id);
           return (
             <GemChip
               key={gem.id}
               gem={gem}
               family={family}
               selected={selected}
+              equipped={equipped}
               onToggle={() => onToggleGem(gem.id)}
               isRegular={isRegular}
             />
@@ -360,11 +369,12 @@ interface GemChipProps {
   gem: GemPreset;
   family: GemFamily;
   selected: boolean;
+  equipped: boolean;
   onToggle: () => void;
   isRegular: boolean;
 }
 
-function GemChip({ gem, family, selected, onToggle, isRegular }: GemChipProps) {
+function GemChip({ gem, family, selected, equipped, onToggle, isRegular }: GemChipProps) {
   // Strip "Flawless " prefix for compact display
   const shortName = gem.name
     .replace('Flawless ', '')
@@ -374,7 +384,7 @@ function GemChip({ gem, family, selected, onToggle, isRegular }: GemChipProps) {
     <button
       type="button"
       onClick={onToggle}
-      title={`${gem.name}\n${gem.stat}`}
+      title={`${gem.name}\n${gem.stat}${equipped ? '\nCurrently equipped' : ''}`}
       className={[
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-[11px] transition-all duration-150',
         'cursor-pointer select-none',
@@ -397,6 +407,11 @@ function GemChip({ gem, family, selected, onToggle, isRegular }: GemChipProps) {
       <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
         {gem.stat}
       </span>
+      {equipped && (
+        <span className="text-[9px] font-medium px-1 py-px rounded bg-zinc-700/50 text-zinc-400 border border-zinc-600/30 uppercase tracking-wider shrink-0">
+          Equipped
+        </span>
+      )}
     </button>
   );
 }

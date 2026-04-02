@@ -39,12 +39,18 @@ interface EnchantOptimizationProps {
   onToggleEnchant: (enchantId: number) => void;
   /** Number of enchantable slots the user has in their gear. */
   enchantableSlotCount: number;
+  /** Enchant IDs currently equipped on the character. */
+  equippedEnchantIds: Set<number>;
+  /** Enchant slot group keys (e.g. "head", "finger") that have mixed enchant/no-enchant items. */
+  enchantWarningSlots: Set<string>;
 }
 
 export default function EnchantOptimization({
   selectedEnchantIds,
   onToggleEnchant,
   enchantableSlotCount,
+  equippedEnchantIds,
+  enchantWarningSlots,
 }: EnchantOptimizationProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [showQ1, setShowQ1] = useState(false);
@@ -166,6 +172,8 @@ export default function EnchantOptimization({
                     enchants={group.q2}
                     selectedEnchantIds={selectedEnchantIds}
                     onToggleEnchant={onToggleEnchant}
+                    equippedEnchantIds={equippedEnchantIds}
+                    hasEnchantWarning={enchantWarningSlots.has(slotGroup.key)}
                   />
                 );
               })}
@@ -207,6 +215,7 @@ export default function EnchantOptimization({
                         enchants={group.base}
                         selectedEnchantIds={selectedEnchantIds}
                         onToggleEnchant={onToggleEnchant}
+                        equippedEnchantIds={equippedEnchantIds}
                         isQ2
                       />
                     );
@@ -228,7 +237,10 @@ interface EnchantSlotSectionProps {
   enchants: EnchantPreset[];
   selectedEnchantIds: Set<number>;
   onToggleEnchant: (enchantId: number) => void;
+  equippedEnchantIds: Set<number>;
   isQ2?: boolean;
+  /** Show a warning that some items in this slot have enchants and some don't. */
+  hasEnchantWarning?: boolean;
 }
 
 function EnchantSlotSection({
@@ -236,7 +248,9 @@ function EnchantSlotSection({
   enchants,
   selectedEnchantIds,
   onToggleEnchant,
+  equippedEnchantIds,
   isQ2: isQ2Section = false,
+  hasEnchantWarning = false,
 }: EnchantSlotSectionProps) {
   const selectedInSlot = enchants.filter((e) => selectedEnchantIds.has(e.id)).length;
 
@@ -255,15 +269,28 @@ function EnchantSlotSection({
         )}
       </div>
 
+      {/* Enchant consistency warning */}
+      {hasEnchantWarning && (
+        <div className="flex items-start gap-1.5 mb-1.5 px-2 py-1.5 rounded text-[11px] leading-snug bg-amber-500/8 border border-amber-500/20 text-amber-400/90">
+          <svg className="w-3 h-3 mt-0.5 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M8 2L1 14h14L8 2z" />
+            <path d="M8 6v4" /><circle cx="8" cy="12" r="0.5" fill="currentColor" />
+          </svg>
+          Some items in {slotGroup.label.toLowerCase()} have an enchant and some don't — the comparison may be unfair. Select enchants here to normalize.
+        </div>
+      )}
+
       {/* Enchant chips */}
       <div className="flex flex-wrap gap-1.5">
         {enchants.map((enchant) => {
           const selected = selectedEnchantIds.has(enchant.id);
+          const equipped = equippedEnchantIds.has(enchant.id);
           return (
             <EnchantChip
               key={enchant.id}
               enchant={enchant}
               selected={selected}
+              equipped={equipped}
               onToggle={() => onToggleEnchant(enchant.id)}
               isQ2={isQ2Section}
             />
@@ -279,18 +306,19 @@ function EnchantSlotSection({
 interface EnchantChipProps {
   enchant: EnchantPreset;
   selected: boolean;
+  equipped: boolean;
   onToggle: () => void;
   isQ2: boolean;
 }
 
-function EnchantChip({ enchant, selected, onToggle, isQ2: isQ2Chip }: EnchantChipProps) {
+function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: EnchantChipProps) {
   const name = displayName(enchant);
 
   return (
     <button
       type="button"
       onClick={onToggle}
-      title={`${enchant.name}\n${enchant.stat}`}
+      title={`${enchant.name}\n${enchant.stat}${equipped ? '\nCurrently equipped' : ''}`}
       className={[
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-[11px] transition-all duration-150',
         'cursor-pointer select-none',
@@ -305,6 +333,11 @@ function EnchantChip({ enchant, selected, onToggle, isQ2: isQ2Chip }: EnchantChi
       <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
         {enchant.stat}
       </span>
+      {equipped && (
+        <span className="text-[9px] font-medium px-1 py-px rounded bg-zinc-700/50 text-zinc-400 border border-zinc-600/30 uppercase tracking-wider shrink-0">
+          Equipped
+        </span>
+      )}
     </button>
   );
 }
