@@ -1,6 +1,6 @@
 # Sprint Status
 
-Last updated: 2026-03-27
+Last updated: 2026-04-02
 
 ---
 
@@ -28,11 +28,12 @@ Last updated: 2026-03-27
 | 2.5  | User can select/deselect multiple items per slot to include in comparison   | ✅     |
 | 2.6  | Live combination counter updates as user selects items                      | ✅     |
 | 2.7  | Warning if combinations > 200; hard block if > 1000                         | ✅     |
-| 2.8  | "Select all" / "Deselect all" per slot                                      | ✅     |
-| 2.9  | Items show item level, slot type, and key stats in the card                 | ✅     |
-| 2.10 | Items show the name of the enchant it has and of the gem it has equipped    | ✅     |
+| 2.8  | User can bypass the 1000 combination limit via toggle in combination counter | ✅     |
+| 2.9  | "Select all" / "Deselect all" per slot                                      | ✅     |
+| 2.10 | Items show item level, slot type, and key stats in the card                 | ✅     |
+| 2.11 | Items show the name of the enchant it has and of the gem it has equipped    | ✅     |
 
-**Epic status: ✅ 10/10 stories done**
+**Epic status: ✅ 11/11 stories done**
 
 ---
 
@@ -189,7 +190,81 @@ Last updated: 2026-03-27
 
 ---
 
-## Epic 12 — Droptimizer TODO
+## EPIC 12 — Droptimizer
 
-Define the stories to achieve this
-See if it can inspect the chrome tab where you have it open
+### 12A — Loot Table Database
+
+| #    | Story                                                                                 | Status |
+| ---- | ------------------------------------------------------------------------------------- | ------ |
+| 12.1 | `scripts/build-loot-db.ts` scrapes Wowhead → loot table DB (instance → boss → items) | ⬜     |
+| 12.2 | Loot DB: raid difficulty → ilvl mappings + boss tier positions                        | ⬜     |
+| 12.3 | Loot DB: M+ dungeon → items + keystone level → ilvl table                             | ⬜     |
+| 12.4 | Loot DB: world boss → items (fixed ilvl)                                              | ⬜     |
+| 12.5 | Loot DB: catalyst mappings (non-tier → tier conversions)                              | ⬜     |
+| 12.6 | CI regenerates loot DB each season (`pnpm build:loot-db`)                             | ⬜     |
+
+**Sub-epic status: ⬜ 0/6 stories done**
+
+### 12B — Navigation & Source Selection
+
+| #     | Story                                                                          | Status |
+| ----- | ------------------------------------------------------------------------------ | ------ |
+| 12.7  | App navigation: Top Gear / Droptimizer tabs after character loaded             | ⬜     |
+| 12.8  | Source selector UI: clickable cards for each source type                       | ⬜     |
+| 12.9  | Raid source: difficulty selector (RF/Normal/Heroic/Mythic + gear track label)  | ⬜     |
+| 12.10 | M+ source: dungeon selector (All/individual) + keystone level selector         | ⬜     |
+| 12.11 | World bosses source: no difficulty selector (fixed ilvl)                       | ⬜     |
+| 12.12 | Catalyst source: tier pieces for character's class/spec                        | ⬜     |
+
+**Sub-epic status: ⬜ 0/6 stories done**
+
+### 12C — Item List & Configuration
+
+| #     | Story                                                                     | Status |
+| ----- | ------------------------------------------------------------------------- | ------ |
+| 12.13 | Show all droppable items filtered by class/spec/armor type                | ⬜     |
+| 12.14 | Item row: name, ilvl, slot, source label (boss/dungeon name)              | ⬜     |
+| 12.15 | Group by: Item Slot (default) or Boss/Dungeon                             | ⬜     |
+| 12.16 | "Already wearing this item or better" indicator                           | ⬜     |
+| 12.17 | "Include Catalyst Items" checkbox (default checked)                       | ⬜     |
+| 12.18 | "Include Off-Spec Items" checkbox                                         | ⬜     |
+| 12.19 | "Preferred Gem" dropdown for socketed items                               | ⬜     |
+| 12.20 | "Add Vault Socket" checkbox                                               | ⬜     |
+| 12.21 | "Upgrade up to" selector                                                  | ⬜     |
+| 12.22 | "Upgrade All Equipped Gear to Same Level" checkbox                        | ⬜     |
+
+**Sub-epic status: ⬜ 0/10 stories done**
+
+### 12D — Droptimizer Simulation
+
+| #     | Story                                                                     | Status |
+| ----- | ------------------------------------------------------------------------- | ------ |
+| 12.23 | ProfileSet generation: one profileset per drop (single-swap vs baseline)  | ⬜     |
+| 12.24 | Enchants inherited from currently equipped item in same slot              | ⬜     |
+| 12.25 | Gems/sockets inherited from current neck or first ring                    | ⬜     |
+| 12.26 | Rings tried in both slots; trinkets tried in both slots automatically     | ⬜     |
+| 12.27 | Unique-Equipped constraint: skip duplicate ring/trinket in same combo     | ⬜     |
+| 12.28 | Reuse Smart Sim (Epic 11) for multi-stage adaptive precision              | ⬜     |
+| 12.29 | Dual wield classes try weapons in both hands                              | ⬜     |
+
+**Sub-epic status: ⬜ 0/7 stories done**
+
+### 12E — Results Display
+
+| #     | Story                                                                     | Status |
+| ----- | ------------------------------------------------------------------------- | ------ |
+| 12.30 | Boss/Dungeon Summary view: items grouped by encounter + DPS delta         | ⬜     |
+| 12.31 | Per-boss metrics: Expected Value, Best Drop, Priority rank                | ⬜     |
+| 12.32 | Priority ranking algorithm (EV grouping → upgrade probability → best)     | ⬜     |
+| 12.33 | Sort options: Priority / Boss Order / Expected Value / Best               | ⬜     |
+| 12.34 | Item Ranking view: flat list sorted by DPS delta                          | ⬜     |
+| 12.35 | Equipped baseline always shown with "Current Gear" label                  | ⬜     |
+| 12.36 | Upgrade/downgrade highlighting                                            | ⬜     |
+| 12.37 | Ring/trinket slot variations with "N variations hidden" toggle            | ⬜     |
+| 12.38 | Relative DPS toggle (% vs absolute)                                       | ⬜     |
+| 12.39 | DPS distribution chart per item                                           | ⬜     |
+| 12.40 | Results header: "Droptimizer • Source • Difficulty - Name - DPS"          | ⬜     |
+
+**Sub-epic status: ⬜ 0/11 stories done**
+
+**Epic status: ⬜ 0/40 stories done**

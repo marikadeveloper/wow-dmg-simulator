@@ -30,8 +30,9 @@ _The user chooses which items to compare._
 | 2.3 | User can select/deselect multiple items per slot to include in the comparison | 🚀       |
 | 2.4 | Live combination counter updates as user selects items ("X combinations")     | 🚀       |
 | 2.5 | Warning shown if combinations > 200; hard block with message if > 1000        | 🚀       |
-| 2.6 | "Select all" / "Deselect all" per slot                                        | 🔮       |
-| 2.7 | Items show item level, slot type, and key stats in the card                   | 🔮       |
+| 2.6 | User can bypass the 1000 combination limit via toggle in combination counter  | 🔮       |
+| 2.7 | "Select all" / "Deselect all" per slot                                        | 🔮       |
+| 2.8 | Items show item level, slot type, and key stats in the card                   | 🔮       |
 
 ---
 
@@ -222,13 +223,102 @@ command is called once per stage. The orchestration is entirely in TypeScript.
 
 ---
 
+## EPIC 12 — Droptimizer
+
+_The user finds out which boss drops are worth farming by simulating every
+potential drop from a content source against their current gear._
+
+Unlike Top Gear (which compares items the user already owns), Droptimizer
+answers **"what should I farm next?"**. The user selects a content source
+(raid, dungeon, world bosses, catalyst), and the app sims every possible
+drop as a single-swap replacement for their current gear.
+
+See `docs/droptimizer-research/notes.md` for full Raidbots analysis.
+
+### 12A — Loot Table Database
+
+| #     | Story                                                                                                                   | Priority |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 12.1  | `scripts/build-loot-db.ts` scrapes Wowhead to build loot table DB: instance → boss/encounter → items, with class/armor-type filters | 🚀       |
+| 12.2  | Loot DB includes raid difficulty → ilvl mappings and boss tier positions (early/mid/late/end boss → different ilvl)      | 🚀       |
+| 12.3  | Loot DB includes M+ dungeon → items mappings with keystone level → ilvl table                                           | 🚀       |
+| 12.4  | Loot DB includes world boss → items mappings (fixed ilvl per season)                                                    | 🚀       |
+| 12.5  | Loot DB includes catalyst mappings (which non-tier items can convert to tier set pieces via Catalyst)                    | 🚀       |
+| 12.6  | CI regenerates loot DB each season (`pnpm build:loot-db`), bundled in app like `items.db`                               | 🚀       |
+
+### 12B — Navigation & Source Selection
+
+| #     | Story                                                                                                                   | Priority |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 12.7  | App navigation: Top Gear / Droptimizer tabs visible after character is loaded                                           | 🚀       |
+| 12.8  | Source selector UI: clickable cards for each source type (Season Raids, individual raids, World Bosses, M+ Dungeons, individual dungeons, Catalyst) | 🚀       |
+| 12.9  | Raid source: difficulty selector (Raid Finder / Normal / Heroic / Mythic) with gear track label (Veteran / Champion / Hero / Myth) | 🚀       |
+| 12.10 | M+ source: dungeon selector (All Dungeons or individual dungeon) + keystone level selector (Heroic → +10, plus Vault tiers +7/+10) | 🚀       |
+| 12.11 | World bosses source: no difficulty selector (fixed ilvl), shows all world bosses for the current season                  | 🚀       |
+| 12.12 | Catalyst source: shows all catalyst-convertible tier pieces for the character's class/spec                               | 🚀       |
+
+### 12C — Item List & Configuration
+
+| #     | Story                                                                                                                   | Priority |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 12.13 | After source + difficulty selected, app shows all droppable items filtered by character's class/spec/armor type          | 🚀       |
+| 12.14 | Each item row shows: item name, ilvl, slot, source label (boss name for raids, dungeon name for M+)                     | 🚀       |
+| 12.15 | Items groupable by "Item Slot" (default) or by "Boss" (raids) / "Dungeon" (M+)                                         | 🚀       |
+| 12.16 | "Already wearing this item or a better version" indicator on items the user already has                                  | 🚀       |
+| 12.17 | "Include Catalyst Items" checkbox (default checked) — adds tier set catalyst conversions to the item list               | 🚀       |
+| 12.18 | "Include Off-Spec Items" checkbox (default unchecked) — shows items for other specs of the same class                   | 🔮       |
+| 12.19 | "Preferred Gem" dropdown — select a gem to socket into items that have gem slots                                        | 🚀       |
+| 12.20 | "Add Vault Socket" checkbox — simulate items as if they came from the Great Vault (adds a socket)                       | 🚀       |
+| 12.21 | "Upgrade up to" selector — sim items at an upgraded ilvl rank instead of base drop level                                | 🚀       |
+| 12.22 | "Upgrade All Equipped Gear to Same Level" checkbox — also upgrades baseline gear to the selected upgrade level          | 🔮       |
+
+### 12D — Droptimizer Simulation
+
+| #     | Story                                                                                                                   | Priority |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 12.23 | ProfileSet generation: one profileset per potential drop item (single-swap against equipped baseline)                    | 🚀       |
+| 12.24 | Enchants inherited from currently equipped item in the same slot                                                        | 🚀       |
+| 12.25 | Gems/sockets inherited from current neck or first ring (matching Raidbots behavior)                                     | 🚀       |
+| 12.26 | Rings automatically tried in both finger1 and finger2 slots; trinkets tried in both trinket1 and trinket2              | 🚀       |
+| 12.27 | Unique-Equipped constraint respected: don't sim a trinket/ring in slot 2 if the same item is already in slot 1         | 🚀       |
+| 12.28 | Reuse Smart Sim (Epic 11) for Droptimizer runs — multi-stage adaptive precision                                        | 🚀       |
+| 12.29 | Dual wield classes try weapons in both main hand and off hand                                                           | 🔮       |
+
+### 12E — Results Display
+
+| #     | Story                                                                                                                   | Priority |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
+| 12.30 | **Boss/Dungeon Summary** view: items grouped by source encounter, each boss showing item icons with DPS delta           | 🚀       |
+| 12.31 | Each boss/dungeon shows: Expected Value (avg DPS gain, downgrades count as 0), Best Drop, Priority rank                 | 🚀       |
+| 12.32 | Priority ranking algorithm: group bosses within 0.2% EV, then rank by upgrade probability, then by Best Drop            | 🚀       |
+| 12.33 | Sort options for summary: Priority (default) / Boss Order / Expected Value / Best                                       | 🚀       |
+| 12.34 | **Item Ranking** view: flat list of all items sorted by DPS delta (best first)                                          | 🚀       |
+| 12.35 | Equipped baseline always shown in item ranking with "Current Gear" label                                                | 🚀       |
+| 12.36 | Items above baseline highlighted as upgrades; items below shown as downgrades                                           | 🚀       |
+| 12.37 | Ring/trinket variations: show which slot an item was simmed in, with "N variations hidden" toggle                       | 🚀       |
+| 12.38 | Relative DPS toggle (show % instead of absolute DPS delta)                                                              | 🔮       |
+| 12.39 | DPS distribution chart per item (min/mean/max/stddev)                                                                   | 🔮       |
+| 12.40 | Results header: "Droptimizer • Source Name • Difficulty - Character Name - DPS"                                          | 🚀       |
+
+**Key constraint:** Droptimizer is single-swap only — each item is simmed independently
+against the baseline. No combinatorial explosion. Typical run = 20–80 profilesets.
+
+**SimC syntax:** Same ProfileSet architecture as Top Gear. One `.simc` file with one
+profileset per potential drop item. Each profileset overrides a single gear slot.
+
+**Enchant/gem inheritance:** Enchants are copied from the currently equipped item in the
+same slot. Gems are copied from the current neck or first ring. This matches Raidbots
+behavior and avoids gem/enchant combinatorial explosion.
+
+---
+
 ## OUT OF SCOPE (for now) ❌
 
 These features exist on Raidbots but are not part of this app's initial scope:
 
 | Feature                             | Why deferred                                                        |
 | ----------------------------------- | ------------------------------------------------------------------- |
-| **Droptimizer** (what to farm)      | Different sim type entirely, much more complex                      |
+| ~~**Droptimizer** (what to farm)~~  | ~~Moved to Epic 12~~                                               |
 | **Quick Sim** (single DPS snapshot) | Useful but not the core use case                                    |
 | **Talent comparison**               | Combinations explode extremely fast with talents added              |
 | **Stat weights / scale factors**    | Different SimC mode (`calculate_scale_factors=1`), separate feature |

@@ -12,6 +12,8 @@ interface CombinationCounterProps {
   axes: OptimizationAxis[];
   /** Called whenever the blocked state changes (count > 1000 or weapon issue). */
   onBlockedChange?: (blocked: boolean) => void;
+  /** Called when the user toggles the bypass-limit override. */
+  onBypassLimitChange?: (bypassed: boolean) => void;
   /** Tier set minimum piece requirements for post-filter count. */
   tierSetMinimums?: TierSetMinimums;
   /** Profile needed for tier set filtering resolution. */
@@ -81,30 +83,44 @@ const URGENCY_STYLES: Record<Urgency, { badge: string; glow: string; text: strin
   },
 };
 
-export default function CombinationCounter({ axes, onBlockedChange, tierSetMinimums, profile, weaponBlocked }: CombinationCounterProps) {
+export default function CombinationCounter({ axes, onBlockedChange, onBypassLimitChange, tierSetMinimums, profile, weaponBlocked }: CombinationCounterProps) {
   const count = useMemo(() => countCombinations(axes), [axes]);
   const breakdown = useMemo(() => getCombinationBreakdown(axes), [axes]);
   const [showBreakdown, setShowBreakdown] = useState(false);
+  const [bypassLimit, setBypassLimit] = useState(false);
 
   // Compute filtered count when tier set filters are active
   const hasActiveFilters = tierSetMinimums && [...tierSetMinimums.values()].some((v) => v > 0);
   const filteredCount = useMemo(() => {
     if (!hasActiveFilters || !profile || !tierSetMinimums) return count;
     // Only generate combinations if count is manageable (avoid generating 1000+ just for counting)
-    if (count > 1000) return count; // blocked anyway
+    if (count > 1000 && !bypassLimit) return count; // blocked anyway
     try {
-      const combos = generateCombinations(axes, 1001);
+      const combos = generateCombinations(axes, bypassLimit ? Infinity : 1001);
       return countFilteredCombinations(combos, profile, tierSetMinimums);
     } catch {
       return count; // cap exceeded — use raw count
     }
-  }, [axes, count, hasActiveFilters, profile, tierSetMinimums]);
+  }, [axes, count, hasActiveFilters, profile, tierSetMinimums, bypassLimit]);
 
   const displayCount = hasActiveFilters ? filteredCount : count;
-  const urgency = getUrgency(displayCount);
+  const rawUrgency = getUrgency(displayCount);
+  // When bypass is active, cap urgency at 'red' instead of 'blocked'
+  const urgency = bypassLimit && rawUrgency === 'blocked' ? 'red' : rawUrgency;
+  const overLimit = rawUrgency === 'blocked';
   const styles = URGENCY_STYLES[urgency];
-  const warning = getUrgencyLabel(urgency);
-  const isBlocked = urgency === 'blocked' || !!weaponBlocked;
+  const warning = bypassLimit && overLimit
+    ? 'Limit bypassed — this will take a long time'
+    : getUrgencyLabel(urgency);
+  const isBlocked = (urgency === 'blocked' && !bypassLimit) || !!weaponBlocked;
+
+  // Reset bypass when count drops back under the limit
+  useEffect(() => {
+    if (!overLimit && bypassLimit) {
+      setBypassLimit(false);
+      onBypassLimitChange?.(false);
+    }
+  }, [overLimit, bypassLimit, onBypassLimitChange]);
 
   // Notify parent of blocked state changes
   useEffect(() => {
@@ -212,6 +228,36 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
             )}
             {warning}
           </span>
+        )}
+
+        {/* Bypass limit toggle — only when over the 1000 cap and not weapon-blocked */}
+        {overLimit && !weaponBlocked && (
+          <label className="flex items-center gap-2 cursor-pointer select-none group">
+            <span className="text-[11px] text-zinc-500 group-hover:text-zinc-400 transition-colors">
+              Bypass limit
+            </span>
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={bypassLimit}
+                onChange={(e) => {
+                  setBypassLimit(e.target.checked);
+                  onBypassLimitChange?.(e.target.checked);
+                }}
+                className="sr-only peer"
+              />
+              <div className={[
+                'w-8 h-[18px] rounded-full transition-colors duration-200',
+                'bg-zinc-700 peer-checked:bg-amber-500/60',
+                'peer-focus-visible:ring-2 peer-focus-visible:ring-amber-500/40',
+              ].join(' ')} />
+              <div className={[
+                'absolute top-[3px] left-[3px] w-3 h-3 rounded-full transition-transform duration-200',
+                'bg-zinc-400 peer-checked:bg-amber-200',
+                'peer-checked:translate-x-[14px]',
+              ].join(' ')} />
+            </div>
+          </label>
         )}
       </div>
 

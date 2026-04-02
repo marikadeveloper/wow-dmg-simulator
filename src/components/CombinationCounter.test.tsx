@@ -130,4 +130,38 @@ describe('CombinationCounter', () => {
     expect(screen.queryByText('May take 10+ minutes')).not.toBeInTheDocument();
     expect(screen.queryByText('Too many — deselect some items')).not.toBeInTheDocument();
   });
+
+  it('shows bypass limit toggle when blocked', () => {
+    const axes = buildAxesForCount(1002);
+    render(<CombinationCounter axes={axes} />);
+    expect(screen.getByText('Bypass limit')).toBeInTheDocument();
+  });
+
+  it('does not show bypass limit toggle when not blocked', () => {
+    const axes = buildAxesForCount(500);
+    render(<CombinationCounter axes={axes} />);
+    expect(screen.queryByText('Bypass limit')).not.toBeInTheDocument();
+  });
+
+  it('unblocks simulation when bypass is toggled on', async () => {
+    const { userEvent } = await import('@testing-library/user-event');
+    const user = userEvent.setup();
+    const onBlocked = vi.fn();
+    const onBypass = vi.fn();
+    const axes = buildAxesForCount(1002);
+    const { container } = render(
+      <CombinationCounter axes={axes} onBlockedChange={onBlocked} onBypassLimitChange={onBypass} />,
+    );
+    // Initially blocked
+    expect(onBlocked).toHaveBeenCalledWith(true);
+
+    // Toggle bypass
+    const toggle = container.querySelector('input[type="checkbox"]')!;
+    await user.click(toggle);
+
+    expect(onBypass).toHaveBeenCalledWith(true);
+    // Should no longer be blocked — urgency downgrades to red
+    expect(onBlocked).toHaveBeenLastCalledWith(false);
+    expect(screen.getByText('Limit bypassed — this will take a long time')).toBeInTheDocument();
+  });
 });

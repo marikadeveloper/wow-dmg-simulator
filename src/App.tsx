@@ -29,6 +29,7 @@ function App() {
   const [simSettings, setSimSettings] = useState<SimSettingsValues>(DEFAULT_SIM_SETTINGS);
   const [axes, setAxes] = useState<OptimizationAxis[]>([]);
   const [isBlocked, setIsBlocked] = useState(false);
+  const [bypassLimit, setBypassLimit] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [simError, setSimError] = useState<string | null>(null);
   const [simResults, setSimResults] = useState<SimResult[] | null>(null);
@@ -69,6 +70,10 @@ function App() {
 
   const handleBlockedChange = useCallback((blocked: boolean) => {
     setIsBlocked(blocked);
+  }, []);
+
+  const handleBypassLimitChange = useCallback((bypassed: boolean) => {
+    setBypassLimit(bypassed);
   }, []);
 
   const handleTierSetMinimumsChange = useCallback((minimums: TierSetMinimums) => {
@@ -174,7 +179,7 @@ function App() {
 
     try {
       // 1. Generate combinations from axes
-      let combinations = generateCombinations(axes);
+      let combinations = generateCombinations(axes, bypassLimit ? Infinity : undefined);
 
       // 1b. Apply tier set filtering if active
       const hasActiveFilters = [...tierSetMinimums.values()].some((v) => v > 0);
@@ -274,7 +279,7 @@ function App() {
         setIsRunning(false);
       }
     }
-  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums, catalystCharges]);
+  }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums, catalystCharges, bypassLimit]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -306,6 +311,7 @@ function App() {
             <GearPanel
               profile={profile}
               onBlockedChange={handleBlockedChange}
+              onBypassLimitChange={handleBypassLimitChange}
               onAxesChange={handleAxesChange}
               onTierSetMinimumsChange={handleTierSetMinimumsChange}
               onCatalystChargesChange={handleCatalystChargesChange}

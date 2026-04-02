@@ -28,6 +28,8 @@ interface GearPanelProps {
   onCatalystChargesChange?: (charges: number | null) => void;
   /** Called whenever the augmented profile (with catalyst/unowned items) changes. */
   onAugmentedProfileChange?: (profile: SimcProfile) => void;
+  /** Called when the user toggles the bypass-limit override. */
+  onBypassLimitChange?: (bypassed: boolean) => void;
 }
 
 /**
@@ -62,7 +64,7 @@ function buildInitialSelection(profile: SimcProfile): Set<string> {
   return selected;
 }
 
-export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange, onCatalystChargesChange, onAugmentedProfileChange }: GearPanelProps) {
+export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTierSetMinimumsChange, onCatalystChargesChange, onAugmentedProfileChange, onBypassLimitChange }: GearPanelProps) {
   // Selection uses original slot keys (finger1:N, trinket1:N), never merged names
   const [selection, setSelection] = useState<Set<string>>(() =>
     buildInitialSelection(profile),
@@ -696,6 +698,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
         <CombinationCounter
           axes={allAxes}
           onBlockedChange={onBlockedChange}
+          onBypassLimitChange={onBypassLimitChange}
           tierSetMinimums={tierSetMinimums}
           profile={augmentedProfile}
           weaponBlocked={weaponWarning != null}
