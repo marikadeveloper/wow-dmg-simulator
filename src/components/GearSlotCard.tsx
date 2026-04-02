@@ -4,6 +4,7 @@ import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-ca
 import { GEM_LOOKUP, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
 import { FEATURES } from '../lib/features';
 import UnownedItemSearch from './UnownedItemSearch';
+import CopyModifyDropdown from './CopyModifyDropdown';
 import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
 /** Lookup maps built once from season presets. */
@@ -98,6 +99,8 @@ interface GearSlotCardProps {
   realSlots?: string[];
   /** Called when user adds an unowned item via search */
   onAddUnownedItem?: (slot: string, item: GearItem) => void;
+  /** Called when user creates a copy-and-modify variant of an item */
+  onCopyModifyItem?: (slot: string, item: GearItem) => void;
   /** Character spec (e.g. "fury", "protection") — passed to UnownedItemSearch for off-hand filtering */
   spec?: string;
 }
@@ -113,6 +116,7 @@ export default function GearSlotCard({
   delay = 0,
   realSlots,
   onAddUnownedItem,
+  onCopyModifyItem,
   spec,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
@@ -120,15 +124,17 @@ export default function GearSlotCard({
   const label = SLOT_LABELS[slot] ?? slot;
   const icon = SLOT_ICONS[slot] ?? '\u{2699}';
 
-  // Track equipped/vault/bag/upgraded/catalyst/unowned items with their original indices
+  // Track equipped/vault/bag/upgraded/catalyst/unowned/copyModified items with their original indices
   const equippedWithIdx: Array<[GearItem, number]> = [];
   const vaultWithIdx: Array<[GearItem, number]> = [];
   const bagWithIdx: Array<[GearItem, number]> = [];
   const upgradedWithIdx: Array<[GearItem, number]> = [];
   const catalystWithIdx: Array<[GearItem, number]> = [];
   const unownedWithIdx: Array<[GearItem, number]> = [];
+  const copyModifiedWithIdx: Array<[GearItem, number]> = [];
   items.forEach((item, idx) => {
     if (item.isEquipped) equippedWithIdx.push([item, idx]);
+    else if (item.isCopyModified) copyModifiedWithIdx.push([item, idx]);
     else if (item.isCatalyst) catalystWithIdx.push([item, idx]);
     else if (item.isUpgraded) upgradedWithIdx.push([item, idx]);
     else if (item.isUnowned) unownedWithIdx.push([item, idx]);
@@ -232,11 +238,30 @@ export default function GearSlotCard({
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
             equippedTrackRank={equippedTrackRank}
+            onCopyModify={onCopyModifyItem ? (newItem) => onCopyModifyItem(item.slot, newItem) : undefined}
           />
         ))}
 
         {/* Separator between equipped and vault/bag/upgraded items */}
         {equippedWithIdx.length > 0 && (vaultWithIdx.length > 0 || bagWithIdx.length > 0 || upgradedWithIdx.length > 0) && (
+          <div className="border-t border-zinc-800/30 my-1.5" />
+        )}
+
+        {/* Copy-modified items (from copy and modify feature) */}
+        {copyModifiedWithIdx.map(([item, idx]) => (
+          <ItemRow
+            key={`mod-${item.id}-${idx}`}
+            item={item}
+            cached={itemNames[item.id] ?? null}
+            badge="modified"
+            selected={selectedIndices.has(idx)}
+            onToggle={() => onToggle(slot, idx)}
+            equippedTrackRank={equippedTrackRank}
+          />
+        ))}
+
+        {/* Separator between copy-modified and upgraded/catalyst items */}
+        {copyModifiedWithIdx.length > 0 && (upgradedWithIdx.length > 0 || catalystWithIdx.length > 0 || vaultWithIdx.length > 0 || bagWithIdx.length > 0) && (
           <div className="border-t border-zinc-800/30 my-1.5" />
         )}
 
@@ -281,6 +306,7 @@ export default function GearSlotCard({
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
             equippedTrackRank={equippedTrackRank}
+            onCopyModify={onCopyModifyItem ? (newItem) => onCopyModifyItem(item.slot, newItem) : undefined}
           />
         ))}
 
@@ -299,11 +325,12 @@ export default function GearSlotCard({
             selected={selectedIndices.has(idx)}
             onToggle={() => onToggle(slot, idx)}
             equippedTrackRank={equippedTrackRank}
+            onCopyModify={onCopyModifyItem ? (newItem) => onCopyModifyItem(item.slot, newItem) : undefined}
           />
         ))}
 
         {/* Separator before unowned items */}
-        {unownedWithIdx.length > 0 && (equippedWithIdx.length > 0 || bagWithIdx.length > 0 || vaultWithIdx.length > 0 || upgradedWithIdx.length > 0 || catalystWithIdx.length > 0) && (
+        {unownedWithIdx.length > 0 && (equippedWithIdx.length > 0 || bagWithIdx.length > 0 || vaultWithIdx.length > 0 || upgradedWithIdx.length > 0 || catalystWithIdx.length > 0 || copyModifiedWithIdx.length > 0) && (
           <div className="border-t border-zinc-800/30 my-1.5" />
         )}
 
@@ -375,14 +402,16 @@ const TRACK_RANK: Record<string, number> = {
 interface ItemRowProps {
   item: GearItem;
   cached: CachedItem | null;
-  badge: 'equipped' | 'bag' | 'vault' | 'upgraded' | 'catalyst' | 'unowned';
+  badge: 'equipped' | 'bag' | 'vault' | 'upgraded' | 'catalyst' | 'unowned' | 'modified';
   selected: boolean;
   onToggle: () => void;
   /** Numeric track rank of the equipped item (-1 if unknown). */
   equippedTrackRank: number;
+  /** Called when user creates a copy-and-modify variant. */
+  onCopyModify?: (newItem: GearItem) => void;
 }
 
-function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }: ItemRowProps) {
+function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, onCopyModify }: ItemRowProps) {
   // Prefer parsed name from SimC string, then cached Wowhead name, then fallback
   const displayName = item.name ?? getItemDisplayName(item.id, cached);
   const isEquipped = badge === 'equipped';
@@ -390,6 +419,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
   const isUpgraded = badge === 'upgraded';
   const isCatalyst = badge === 'catalyst';
   const isUnowned = badge === 'unowned';
+  const isCopyModified = badge === 'modified';
 
   // Gem socket indicators
   const socketCount = item.gemIds.length;
@@ -417,9 +447,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
   const hasEnchant = item.enchantId != null && item.enchantId > 0;
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onToggle}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(); } }}
       className={[
         'w-full flex items-center gap-2 py-1.5 px-1.5 -mx-1.5 rounded-md transition-all cursor-pointer',
         'hover:bg-zinc-800/40',
@@ -428,13 +460,15 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
             ? 'bg-amber-500/5'
             : isUpgraded
               ? 'bg-amber-500/5'
-              : isCatalyst
-                ? 'bg-cyan-500/5'
-                : isUnowned
-                  ? 'bg-amber-500/5'
-                  : isVault
-                    ? 'bg-violet-500/5'
-                    : 'bg-zinc-800/30'
+              : isCopyModified
+                ? 'bg-amber-500/5'
+                : isCatalyst
+                  ? 'bg-cyan-500/5'
+                  : isUnowned
+                    ? 'bg-amber-500/5'
+                    : isVault
+                      ? 'bg-violet-500/5'
+                      : 'bg-zinc-800/30'
           : 'opacity-60',
       ].join(' ')}
       aria-pressed={selected}
@@ -448,13 +482,15 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
               ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
               : isUpgraded
                 ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
-                : isCatalyst
-                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
-                  : isUnowned
-                    ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
-                    : isVault
-                      ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
-                      : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
+                : isCopyModified
+                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                  : isCatalyst
+                    ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
+                    : isUnowned
+                      ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                      : isVault
+                        ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
+                        : 'bg-zinc-600/30 border-zinc-500/50 text-zinc-300'
             : 'border-zinc-700/50 text-transparent',
         ].join(' ')}
       >
@@ -605,25 +641,35 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
         )}
       </div>
 
-      {/* Badge */}
-      <span
-        className={[
-          'shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded',
-          isEquipped
-            ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
-            : isUpgraded
+      {/* Copy and modify button + Badge */}
+      <span className="shrink-0 flex items-center gap-1.5">
+        {onCopyModify && !isCopyModified && (
+          <CopyModifyDropdown
+            item={item}
+            onCopyModify={onCopyModify}
+          />
+        )}
+        <span
+          className={[
+            'text-[10px] font-medium px-1.5 py-0.5 rounded',
+            isEquipped
               ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
-              : isCatalyst
-                ? 'bg-cyan-500/10 text-cyan-400/80 border border-cyan-500/15'
-                : isUnowned
+              : isUpgraded
+                ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                : isCopyModified
                   ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
-                  : isVault
-                    ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
-                    : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
-        ].join(' ')}
-      >
-        {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isCatalyst ? 'catalyst' : isUnowned ? 'unowned' : isVault ? 'vault' : 'bag'}
+                  : isCatalyst
+                    ? 'bg-cyan-500/10 text-cyan-400/80 border border-cyan-500/15'
+                    : isUnowned
+                      ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                      : isVault
+                        ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
+                        : 'bg-zinc-800/60 text-zinc-500 border border-zinc-700/30',
+          ].join(' ')}
+        >
+          {isEquipped ? 'equipped' : isUpgraded ? 'upgraded' : isCopyModified ? 'modified' : isCatalyst ? 'catalyst' : isUnowned ? 'unowned' : isVault ? 'vault' : 'bag'}
+        </span>
       </span>
-    </button>
+    </div>
   );
 }

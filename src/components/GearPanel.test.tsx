@@ -53,7 +53,7 @@ function getItemButtons() {
   const gearCards = document.querySelectorAll('.gear-card');
   const buttons: HTMLElement[] = [];
   gearCards.forEach((card) => {
-    card.querySelectorAll<HTMLElement>('button[aria-pressed]').forEach((btn) => {
+    card.querySelectorAll<HTMLElement>('[aria-pressed]').forEach((btn) => {
       buttons.push(btn);
     });
   });

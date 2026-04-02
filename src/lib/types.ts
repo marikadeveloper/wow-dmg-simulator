@@ -54,6 +54,8 @@ export interface GearItem {
   isUnowned?: boolean;
   /** true = this is a two-handed weapon (inv_type 17) that occupies main_hand and clears off_hand */
   isTwoHand?: boolean;
+  /** true = this item is a copy-and-modify variant (e.g. upgraded copy, enchant removed) */
+  isCopyModified?: boolean;
 }
 
 /** The fully parsed SimC addon export string. */

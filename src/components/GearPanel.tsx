@@ -76,6 +76,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
   const [catalystItems, setCatalystItems] = useState<Map<string, GearItem[]>>(new Map());
   const [unownedItems, setUnownedItems] = useState<Map<string, GearItem[]>>(new Map());
+  const [copyModifiedItems, setCopyModifiedItems] = useState<Map<string, GearItem[]>>(new Map());
 
   // Reset all local state when the profile changes (new character imported)
   const profileIdRef = useRef(profile);
@@ -91,6 +92,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     setCatalystCharges(null);
     setCatalystItems(new Map());
     setUnownedItems(new Map());
+    setCopyModifiedItems(new Map());
     saveUnownedItems(new Map()); // clear persisted unowned items
   }, [profile]);
 
@@ -118,15 +120,25 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     return { ...profile, gear };
   }, [profile, upgradeItems]);
 
-  const profileWithCatalyst = useMemo((): SimcProfile => {
-    if (catalystItems.size === 0) return profileWithUpgrades;
+  const profileWithCopyModified = useMemo((): SimcProfile => {
+    if (copyModifiedItems.size === 0) return profileWithUpgrades;
     const gear: Record<string, GearItem[]> = {};
     for (const [slot, items] of Object.entries(profileWithUpgrades.gear)) {
+      const mods = copyModifiedItems.get(slot) ?? [];
+      gear[slot] = mods.length > 0 ? [...items, ...mods] : items;
+    }
+    return { ...profileWithUpgrades, gear };
+  }, [profileWithUpgrades, copyModifiedItems]);
+
+  const profileWithCatalyst = useMemo((): SimcProfile => {
+    if (catalystItems.size === 0) return profileWithCopyModified;
+    const gear: Record<string, GearItem[]> = {};
+    for (const [slot, items] of Object.entries(profileWithCopyModified.gear)) {
       const cats = catalystItems.get(slot) ?? [];
       gear[slot] = cats.length > 0 ? [...items, ...cats] : items;
     }
-    return { ...profileWithUpgrades, gear };
-  }, [profileWithUpgrades, catalystItems]);
+    return { ...profileWithCopyModified, gear };
+  }, [profileWithCopyModified, catalystItems]);
 
   const augmentedProfile = useMemo((): SimcProfile => {
     if (unownedItems.size === 0) return profileWithCatalyst;
@@ -252,6 +264,37 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     // Prefetch item data for the tooltip
     getItemData(item.id);
   }, [profile.gear, upgradeItems, catalystItems, unownedItems]);
+
+  // ── Copy and modify (issue #4) ────────────────────────────────────────────
+
+  const handleCopyModifyItem = useCallback((slot: string, item: GearItem) => {
+    setCopyModifiedItems((prev) => {
+      const next = new Map(prev);
+      const existing = next.get(slot) ?? [];
+      // Generate a stable key to detect duplicates: same item id + same bonusIds + same enchant + same gems
+      const key = `${item.id}:${item.bonusIds.join('/')}:${item.enchantId ?? 'none'}:${item.gemIds.join('/')}`;
+      const isDuplicate = existing.some((e) => {
+        const eKey = `${e.id}:${e.bonusIds.join('/')}:${e.enchantId ?? 'none'}:${e.gemIds.join('/')}`;
+        return eKey === key;
+      });
+      if (isDuplicate) return prev;
+      next.set(slot, [...existing, item]);
+      return next;
+    });
+
+    // Auto-select the new copy-modified item
+    setTimeout(() => {
+      setSelection((prev) => {
+        const next = new Set(prev);
+        const baseLen = profile.gear[slot]?.length ?? 0;
+        const upgradeLen = upgradeItems.get(slot)?.length ?? 0;
+        const existingMods = copyModifiedItems.get(slot)?.length ?? 0;
+        const newIdx = baseLen + upgradeLen + existingMods;
+        next.add(`${slot}:${newIdx}`);
+        return next;
+      });
+    }, 0);
+  }, [profile.gear, upgradeItems, copyModifiedItems]);
 
   // Report catalyst charges to parent
   useEffect(() => {
@@ -602,6 +645,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     0,
   );
 
+  const totalCopyModified = Object.values(augmentedProfile.gear).reduce(
+    (sum, items) => sum + items.filter((i) => i.isCopyModified).length,
+    0,
+  );
+
   return (
     <div className="animate-in">
       {/* Section header */}
@@ -628,6 +676,11 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
           {totalCatalyst > 0 && (
             <span className="text-cyan-500/70">
               {totalCatalyst} catalyst {totalCatalyst === 1 ? 'item' : 'items'}
+            </span>
+          )}
+          {totalCopyModified > 0 && (
+            <span className="text-amber-500/70">
+              {totalCopyModified} modified {totalCopyModified === 1 ? 'item' : 'items'}
             </span>
           )}
           {totalUnowned > 0 && (
@@ -661,6 +714,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
                 delay={index * 30}
                 realSlots={realSlots ? [...realSlots] : [slot]}
                 onAddUnownedItem={handleAddUnownedItem}
+                onCopyModifyItem={handleCopyModifyItem}
                 spec={profile.spec}
               />
             );
@@ -679,6 +733,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
               delay={index * 30}
               realSlots={[slot]}
               onAddUnownedItem={handleAddUnownedItem}
+              onCopyModifyItem={handleCopyModifyItem}
               spec={profile.spec}
             />
           );
