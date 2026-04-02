@@ -584,11 +584,23 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
                 ))}
               </span>
             )}
-            {hasEnchant && (
-              <span className="text-[11px] text-emerald-400/90 truncate">
-                {getEnchantDisplayName(item.enchantId!)}
-              </span>
-            )}
+            {hasEnchant && (() => {
+              const enchantPreset = ENCHANT_BY_ID.get(item.enchantId!);
+              return enchantPreset ? (
+                <a
+                  href={buildWowheadItemUrl(enchantPreset.wowheadItemId)}
+                  onClick={(e) => e.preventDefault()}
+                  className="text-[11px] text-emerald-400/90 truncate"
+                  data-wh-icon-size="small"
+                >
+                  {getEnchantDisplayName(item.enchantId!)}
+                </a>
+              ) : (
+                <span className="text-[11px] text-emerald-400/90 truncate">
+                  {getEnchantDisplayName(item.enchantId!)}
+                </span>
+              );
+            })()}
           </div>
         )}
       </div>

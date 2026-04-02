@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { ENCHANT_PRESETS, type EnchantPreset } from '../lib/presets/season-config';
+import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
 // ── Slot category definitions ────────────────────────────────────────────────
 
@@ -72,6 +73,9 @@ export default function EnchantOptimization({
     }
     return map;
   }, []);
+
+  // Refresh Wowhead tooltips when selection changes
+  useWowheadTooltips([selectedEnchantIds, enchantableSlotCount]);
 
   const selectedCount = selectedEnchantIds.size;
   const hasQ1Selected = useMemo(
@@ -328,7 +332,14 @@ function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: 
       ].join(' ')}
       aria-pressed={selected}
     >
-      <span className="truncate">{name}</span>
+      <a
+        href={buildWowheadItemUrl(enchant.wowheadItemId)}
+        onClick={(e) => e.preventDefault()}
+        className="truncate"
+        data-wh-icon-size="small"
+      >
+        {name}
+      </a>
       <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
         {enchant.stat}
       </span>
