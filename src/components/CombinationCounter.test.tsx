@@ -4,48 +4,28 @@ import CombinationCounter, { WARN_THRESHOLD, BLOCK_THRESHOLD } from './Combinati
 import type { OptimizationAxis } from '../lib/types';
 
 /**
- * Build axes that produce exactly `count` combinations.
- * Uses items in one or two slot axes to hit the target via cartesian product.
+ * Build axes that produce exactly `count` combinations with the additive model.
+ * Creates multiple single-slot axes. Total = 1 (baseline) + sum of non-baseline options.
+ * Each axis has 1 baseline (empty simcLines) + N alternatives.
  */
 function buildAxesForCount(targetCount: number): OptimizationAxis[] {
   if (targetCount <= 1) return [];
 
-  // Try a single axis first
-  if (targetCount <= 50) {
-    return [{
-      id: 'slot:trinket1',
-      label: 'Trinket 1',
-      options: Array.from({ length: targetCount }, (_, i) => ({
-        id: `item_${100 + i}`,
-        label: `Item ${100 + i}`,
-        simcLines: [`trinket1=,id=${100 + i}`],
+  // We need (targetCount - 1) non-baseline options total across all axes.
+  // Use a single axis: 1 baseline + (targetCount - 1) alternatives = targetCount options.
+  const alts = targetCount - 1;
+  return [{
+    id: 'slot:head',
+    label: 'Head',
+    options: [
+      { id: 'item_100_0', label: 'Equipped', simcLines: [] },
+      ...Array.from({ length: alts }, (_, i) => ({
+        id: `item_${101 + i}_${1 + i}`,
+        label: `Item ${101 + i}`,
+        simcLines: [`head=,id=${101 + i}`],
       })),
-    }];
-  }
-
-  // Use two axes: ceil(sqrt) × floor to approximate
-  const a = Math.ceil(Math.sqrt(targetCount));
-  const b = Math.ceil(targetCount / a);
-  return [
-    {
-      id: 'slot:trinket1',
-      label: 'Trinket 1',
-      options: Array.from({ length: a }, (_, i) => ({
-        id: `item_${100 + i}`,
-        label: `Item ${100 + i}`,
-        simcLines: [`trinket1=,id=${100 + i}`],
-      })),
-    },
-    {
-      id: 'slot:trinket2',
-      label: 'Trinket 2',
-      options: Array.from({ length: b }, (_, i) => ({
-        id: `item_${200 + i}`,
-        label: `Item ${200 + i}`,
-        simcLines: [`trinket2=,id=${200 + i}`],
-      })),
-    },
-  ];
+    ],
+  }];
 }
 
 describe('CombinationCounter', () => {
@@ -78,79 +58,22 @@ describe('CombinationCounter', () => {
   });
 
   it('shows blocked state at > 1000 combinations', () => {
-    // 34 × 31 = 1054 > 1000
-    const axes: OptimizationAxis[] = [
-      {
-        id: 'slot:trinket1',
-        label: 'Trinket 1',
-        options: Array.from({ length: 34 }, (_, i) => ({
-          id: `item_${100 + i}`,
-          label: `Item ${100 + i}`,
-          simcLines: [`trinket1=,id=${100 + i}`],
-        })),
-      },
-      {
-        id: 'slot:trinket2',
-        label: 'Trinket 2',
-        options: Array.from({ length: 31 }, (_, i) => ({
-          id: `item_${200 + i}`,
-          label: `Item ${200 + i}`,
-          simcLines: [`trinket2=,id=${200 + i}`],
-        })),
-      },
-    ];
+    // Additive: 1 baseline + 1001 alts = 1002 > 1000
+    const axes = buildAxesForCount(1002);
     const { container } = render(<CombinationCounter axes={axes} />);
     expect(container.querySelector('[data-urgency="blocked"]')).toBeInTheDocument();
     expect(screen.getByText('Too many — deselect some items')).toBeInTheDocument();
   });
 
   it('blocked warning has role="alert" for accessibility', () => {
-    const axes: OptimizationAxis[] = [
-      {
-        id: 'slot:trinket1',
-        label: 'Trinket 1',
-        options: Array.from({ length: 34 }, (_, i) => ({
-          id: `item_${100 + i}`,
-          label: `Item ${100 + i}`,
-          simcLines: [`trinket1=,id=${100 + i}`],
-        })),
-      },
-      {
-        id: 'slot:trinket2',
-        label: 'Trinket 2',
-        options: Array.from({ length: 31 }, (_, i) => ({
-          id: `item_${200 + i}`,
-          label: `Item ${200 + i}`,
-          simcLines: [`trinket2=,id=${200 + i}`],
-        })),
-      },
-    ];
+    const axes = buildAxesForCount(1002);
     render(<CombinationCounter axes={axes} />);
     expect(screen.getByRole('alert')).toHaveTextContent('Too many — deselect some items');
   });
 
   it('calls onBlockedChange(true) when blocked', () => {
     const onBlocked = vi.fn();
-    const axes: OptimizationAxis[] = [
-      {
-        id: 'slot:trinket1',
-        label: 'Trinket 1',
-        options: Array.from({ length: 34 }, (_, i) => ({
-          id: `item_${100 + i}`,
-          label: `Item ${100 + i}`,
-          simcLines: [`trinket1=,id=${100 + i}`],
-        })),
-      },
-      {
-        id: 'slot:trinket2',
-        label: 'Trinket 2',
-        options: Array.from({ length: 31 }, (_, i) => ({
-          id: `item_${200 + i}`,
-          label: `Item ${200 + i}`,
-          simcLines: [`trinket2=,id=${200 + i}`],
-        })),
-      },
-    ];
+    const axes = buildAxesForCount(1002);
     render(<CombinationCounter axes={axes} onBlockedChange={onBlocked} />);
     expect(onBlocked).toHaveBeenCalledWith(true);
   });
@@ -195,7 +118,7 @@ describe('CombinationCounter', () => {
       },
     ];
     render(<CombinationCounter axes={axes} />);
-    // Shows each factor in the breakdown: "2 Trinket 1 × 2 Ring 1 Enchant × 2 Ring 2 Enchant"
+    // Shows each factor in the breakdown: "1 Trinket 1 + 1 Ring 1 Enchant + 1 Ring 2 Enchant"
     expect(screen.getByText(/Trinket 1/)).toBeInTheDocument();
     expect(screen.getByText(/Ring 1 Enchant/)).toBeInTheDocument();
     expect(screen.getByText(/Ring 2 Enchant/)).toBeInTheDocument();

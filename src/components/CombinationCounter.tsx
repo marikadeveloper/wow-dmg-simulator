@@ -171,7 +171,7 @@ export default function CombinationCounter({ axes, onBlockedChange, tierSetMinim
                 <span className="flex items-center gap-0.5 flex-wrap">
                   {breakdown.map((f, i) => (
                     <span key={f.label} className="whitespace-nowrap">
-                      {i > 0 && <span className="text-zinc-600 mx-0.5">&times;</span>}
+                      {i > 0 && <span className="text-zinc-600 mx-0.5">+</span>}
                       <span className="text-zinc-400 tabular-nums">{f.optionCount}</span>
                       {' '}{f.label}
                     </span>

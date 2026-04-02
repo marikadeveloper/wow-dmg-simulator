@@ -146,9 +146,10 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
     const axes = assembleAxes(augmented, selection, [], []);
     const count = countCombinations(axes);
 
-    // Catalyst generates tier copies for non-tier items in hands AND legs.
-    // Expected: back(2) × chest(2) × wrist(3) × hands(2) × legs(2) × trinkets(C(6,2)=15) = 720
-    expect(count).toBe(720);
+    // Additive model: each slot varies independently from baseline.
+    // Trinkets: 2 equipped + 4 vault → 1 baseline + 2×4 = 9 pairs, 8 non-baseline
+    // back(1) + chest(1) + wrist(2) + hands(1) + legs(1) + trinkets(8) + baseline(1) = 15
+    expect(count).toBe(15);
 
     const breakdown = getCombinationBreakdown(axes);
     // Should have: trinkets, back, chest, wrist, hands, legs
@@ -158,7 +159,7 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
     // Trinkets should be the biggest contributor
     const trinketFactor = breakdown.find((f) => f.label === 'trinkets');
     expect(trinketFactor).toBeDefined();
-    expect(trinketFactor!.optionCount).toBe(15); // C(6,2) = 15 pairs
+    expect(trinketFactor!.optionCount).toBe(8); // 8 non-baseline pairs
   });
 
   it('adding ring enchants from Raidbots screenshot multiplies the count', () => {
@@ -175,8 +176,13 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
     const axes = assembleAxes(augmented, selection, [], ringEnchants);
     const count = countCombinations(axes);
 
-    // Gear(720) × finger1(5 enchants) × finger2(5 enchants) = 720 × 25 = 18000
-    expect(count).toBe(720 * 5 * 5);
+    // Additive: gear(14 non-baseline) + finger1(5 enchants) + finger2(5 enchants) + baseline = 25
+    // Enchant axes have all options with empty simcLines, so first option is baseline → 4 alts each
+    const enchantAxes = axes.filter((a) => a.id.startsWith('enchant:'));
+    let enchantAlts = 0;
+    for (const ea of enchantAxes) enchantAlts += ea.options.length - 1;
+    // gear alts + enchant alts + baseline
+    expect(count).toBe(14 + enchantAlts + 1);
   });
 
   it('adding gems for socketed items multiplies correctly (with fix)', () => {
@@ -195,11 +201,12 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
 
     const count = countCombinations(axes);
 
-    // Gem axes are conditional on their parent item, but when the parent's slot
-    // has no slot axis (only 1 item selected), they become unconditional.
-    // Expected: gear(720) × 2^(number of gem axes)
-    const expectedGemMultiplier = Math.pow(2, gemAxes.length);
-    expect(count).toBe(720 * expectedGemMultiplier);
+    // Additive model: each gem axis contributes (options - 1) alternative combos.
+    // Orphaned gem axes (parent has no slot axis) are additive too.
+    let gemAlts = 0;
+    for (const ga of gemAxes) gemAlts += ga.options.length - 1;
+    // gear alts(14) + gem alts + baseline(1)
+    expect(count).toBe(14 + gemAlts + 1);
   });
 
   it('combination count with enchants + gems matches expectations', () => {
@@ -217,12 +224,11 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
     const axes = assembleAxes(augmented, selection, [], allEnchants);
     const count = countCombinations(axes);
 
-    // Enchant axes are unconditional and multiply with gear.
-    // Count enchant axes and verify the total matches.
+    // Additive: gear alts + enchant alts + baseline
     const enchantAxes = axes.filter((a) => a.id.startsWith('enchant:') && a.options.length > 1);
-    let enchantMultiplier = 1;
-    for (const ea of enchantAxes) enchantMultiplier *= ea.options.length;
-    expect(count).toBe(720 * enchantMultiplier);
+    let enchantAlts = 0;
+    for (const ea of enchantAxes) enchantAlts += ea.options.length - 1;
+    expect(count).toBe(14 + enchantAlts + 1);
 
     const breakdown = getCombinationBreakdown(axes);
     // Verify the breakdown shows each factor

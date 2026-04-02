@@ -77,25 +77,64 @@ export function buildGearAxes(
     const allItems = [...itemsA, ...itemsB];
     if (allItems.length < 2) continue;
 
-    // Generate all C(N,2) unordered pairs
+    // Generate pairs where at least one equipped item is kept.
+    // This matches Raidbots' approach: swap one trinket/ring at a time, never
+    // both simultaneously. With 2 equipped + K alternatives → 1 + 2K pairs.
+    // Fallback to C(N,2) if fewer than 2 equipped items (edge case).
+    const equipped = allItems.filter((item) => item.isEquipped);
+    const nonEquipped = allItems.filter((item) => !item.isEquipped);
+
     const options: OptimizationOption[] = [];
-    for (let i = 0; i < allItems.length; i++) {
-      for (let j = i + 1; j < allItems.length; j++) {
-        const a = allItems[i];
-        const b = allItems[j];
-        // If both items are equipped, this pair is the baseline — use empty
-        // simcLines so the combinator can identify it as the no-override combo
-        const isBaseline = a.isEquipped && b.isEquipped;
+
+    if (equipped.length >= 2) {
+      // Baseline pair: both equipped items (empty simcLines = no overrides)
+      options.push({
+        id: `pair_${equipped[0].id}_${equipped[1].id}`,
+        label: `${equipped[0].name ?? `#${equipped[0].id}`} + ${equipped[1].name ?? `#${equipped[1].id}`}`,
+        simcLines: [],
+      });
+
+      // Swap one at a time: keep equipped[0], replace equipped[1]
+      for (const alt of nonEquipped) {
         options.push({
-          id: `pair_${a.id}_${b.id}`,
-          label: `${a.name ?? `#${a.id}`} + ${b.name ?? `#${b.id}`}`,
-          simcLines: isBaseline
-            ? []
-            : [
-                buildItemSimcLine(a, slotA),
-                buildItemSimcLine(b, slotB),
-              ],
+          id: `pair_${equipped[0].id}_${alt.id}`,
+          label: `${equipped[0].name ?? `#${equipped[0].id}`} + ${alt.name ?? `#${alt.id}`}`,
+          simcLines: [
+            buildItemSimcLine(equipped[0], slotA),
+            buildItemSimcLine(alt, slotB),
+          ],
         });
+      }
+
+      // Swap the other: replace equipped[0], keep equipped[1]
+      for (const alt of nonEquipped) {
+        options.push({
+          id: `pair_${alt.id}_${equipped[1].id}`,
+          label: `${alt.name ?? `#${alt.id}`} + ${equipped[1].name ?? `#${equipped[1].id}`}`,
+          simcLines: [
+            buildItemSimcLine(alt, slotA),
+            buildItemSimcLine(equipped[1], slotB),
+          ],
+        });
+      }
+    } else {
+      // Fallback: fewer than 2 equipped items — generate all C(N,2) pairs
+      for (let i = 0; i < allItems.length; i++) {
+        for (let j = i + 1; j < allItems.length; j++) {
+          const a = allItems[i];
+          const b = allItems[j];
+          const isBaseline = a.isEquipped && b.isEquipped;
+          options.push({
+            id: `pair_${a.id}_${b.id}`,
+            label: `${a.name ?? `#${a.id}`} + ${b.name ?? `#${b.id}`}`,
+            simcLines: isBaseline
+              ? []
+              : [
+                  buildItemSimcLine(a, slotA),
+                  buildItemSimcLine(b, slotB),
+                ],
+          });
+        }
       }
     }
 

@@ -133,7 +133,7 @@ describe('ring pair axes', () => {
 
     const ringAxis = axes.find((a) => a.id === 'slot:rings');
     expect(ringAxis).toBeDefined();
-    // C(3,2) = 3 pairs
+    // 2 equipped + 1 non-equipped → 1 baseline + 2×1 swaps = 3 pairs
     expect(ringAxis!.options).toHaveLength(3);
   });
 
@@ -152,9 +152,13 @@ describe('ring pair axes', () => {
 
     const ringAxis = axes.find((a) => a.id === 'slot:rings');
     expect(ringAxis).toBeDefined();
-    expect(ringAxis!.options).toHaveLength(3); // C(3,2) = 3 pairs
+    expect(ringAxis!.options).toHaveLength(3); // 1 baseline + 2 swaps
 
-    const pair = ringAxis!.options[0];
+    // First option is baseline (both equipped, empty simcLines)
+    expect(ringAxis!.options[0].simcLines).toHaveLength(0);
+
+    // Second option: keep equipped[0], swap equipped[1] → alt
+    const pair = ringAxis!.options[1];
     expect(pair.simcLines).toHaveLength(2);
     expect(pair.simcLines[0]).toBe('finger1=,id=100,enchant_id=7340');
     expect(pair.simcLines[1]).toBe('finger2=,id=102');
@@ -214,8 +218,8 @@ describe('ring pair axes', () => {
     const axes = buildGearAxes(profile, selection);
 
     const ringAxis = axes.find((a) => a.id === 'slot:rings');
-    // C(4,2) = 6 pairs
-    expect(ringAxis!.options).toHaveLength(6);
+    // 2 equipped + 2 non-equipped → 1 baseline + 2×2 swaps = 5 pairs
+    expect(ringAxis!.options).toHaveLength(5);
   });
 
   it('pair option id contains both item ids', () => {
@@ -229,8 +233,12 @@ describe('ring pair axes', () => {
     const selection = new Set(['finger1:0', 'finger1:1', 'finger2:0']);
     const axes = buildGearAxes(profile, selection);
 
-    const pair = axes.find((a) => a.id === 'slot:rings')!.options[0];
-    expect(pair.id).toBe('pair_100_101');
+    // First option is baseline (both equipped items)
+    const baseline = axes.find((a) => a.id === 'slot:rings')!.options[0];
+    expect(baseline.id).toBe('pair_100_200');
+    // Second option: keep equipped[0]=100, swap to alt=101
+    const swap = axes.find((a) => a.id === 'slot:rings')!.options[1];
+    expect(swap.id).toBe('pair_100_101');
   });
 });
 
@@ -250,7 +258,7 @@ describe('trinket pair axes', () => {
 
     const trinketAxis = axes.find((a) => a.id === 'slot:trinkets');
     expect(trinketAxis).toBeDefined();
-    // C(3,2) = 3 pairs
+    // 2 equipped + 1 non-equipped → 1 baseline + 2×1 swaps = 3 pairs
     expect(trinketAxis!.options).toHaveLength(3);
   });
 
@@ -267,8 +275,10 @@ describe('trinket pair axes', () => {
 
     const trinketAxis = axes.find((a) => a.id === 'slot:trinkets');
     expect(trinketAxis).toBeDefined();
-    // C(3,2) = 3 pairs
-    const pair = trinketAxis!.options[0];
+    // First option is baseline (empty simcLines)
+    expect(trinketAxis!.options[0].simcLines).toHaveLength(0);
+    // Second option: keep equipped[0]=500, swap to alt=501
+    const pair = trinketAxis!.options[1];
     expect(pair.simcLines).toHaveLength(2);
     expect(pair.simcLines[0]).toBe('trinket1=,id=500');
     expect(pair.simcLines[1]).toBe('trinket2=,id=501');
@@ -291,7 +301,7 @@ describe('trinket pair axes', () => {
     expect(axes.find((a) => a.id === 'slot:trinket2')).toBeUndefined();
   });
 
-  it('generates C(4,2)=6 pairs for 4 trinkets', () => {
+  it('generates 5 pairs for 4 trinkets (2 equipped + 2 non-equipped)', () => {
     const profile = makeProfile({
       trinket1: [
         makeItem({ slot: 'trinket1', id: 500, isEquipped: true }),
@@ -305,7 +315,8 @@ describe('trinket pair axes', () => {
     const selection = new Set(['trinket1:0', 'trinket1:1', 'trinket2:0', 'trinket2:1']);
     const axes = buildGearAxes(profile, selection);
 
-    expect(axes.find((a) => a.id === 'slot:trinkets')!.options).toHaveLength(6);
+    // 2 equipped + 2 non-equipped → 1 baseline + 2×2 swaps = 5 pairs
+    expect(axes.find((a) => a.id === 'slot:trinkets')!.options).toHaveLength(5);
   });
 });
 

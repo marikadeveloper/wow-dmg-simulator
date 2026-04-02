@@ -26,13 +26,13 @@ describe('countCombinations', () => {
     expect(countCombinations(axes)).toBe(3);
   });
 
-  it('returns cartesian product for multiple unconditional axes', () => {
+  it('returns additive count for multiple unconditional axes', () => {
     const axes: OptimizationAxis[] = [
       {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] }, // baseline
           { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
@@ -40,22 +40,23 @@ describe('countCombinations', () => {
         id: 'slot:trinket2',
         label: 'Trinket 2',
         options: [
-          { id: 'item_300_0', label: 'C', simcLines: ['trinket2=,id=300'] },
+          { id: 'item_300_0', label: 'C', simcLines: [] }, // baseline
           { id: 'item_400_1', label: 'D', simcLines: ['trinket2=,id=400'] },
           { id: 'item_500_2', label: 'E', simcLines: ['trinket2=,id=500'] },
         ],
       },
     ];
-    expect(countCombinations(axes)).toBe(6); // 2 × 3
+    // Additive: 1 baseline + 1 trinket1 alt + 2 trinket2 alts = 4
+    expect(countCombinations(axes)).toBe(4);
   });
 
-  it('does not multiply axes with 0 options', () => {
+  it('does not count axes with 0 options', () => {
     const axes: OptimizationAxis[] = [
       {
         id: 'slot:trinket1',
         label: 'Trinket 1',
         options: [
-          { id: 'item_100_0', label: 'A', simcLines: ['trinket1=,id=100'] },
+          { id: 'item_100_0', label: 'A', simcLines: [] }, // baseline
           { id: 'item_200_1', label: 'B', simcLines: ['trinket1=,id=200'] },
         ],
       },
@@ -65,6 +66,7 @@ describe('countCombinations', () => {
         options: [],
       },
     ];
+    // 1 baseline + 1 alt = 2
     expect(countCombinations(axes)).toBe(2);
   });
 
@@ -122,9 +124,13 @@ describe('countCombinations', () => {
         ],
       },
     ];
-    // Item A: 3 gem options, Item B: 1 → slot contributes (3 + 1) = 4
-    // × 2 enchant options = 8
-    expect(countCombinations(axes)).toBe(8);
+    // Additive: 1 baseline
+    // + 1 (Item B, head swap, no gems)
+    // + 2 (baseline gem variations for Item A: 3 total - 1 baseline = 2)
+    // + 2 (enchant axis: 2 options, both non-baseline since all have empty simcLines)
+    // But enchant options all have empty simcLines, so first is treated as baseline → 1 alt
+    // Total: 1 + 1 + 2 + 1 = 5
+    expect(countCombinations(axes)).toBe(5);
   });
 
   it('counts gems correctly for paired slots (trinkets/rings)', () => {
@@ -215,7 +221,7 @@ describe('generateCombinations', () => {
     expect(combos).toHaveLength(2);
   });
 
-  it('generates cartesian product for multiple unconditional axes', () => {
+  it('generates additive combos for multiple unconditional axes', () => {
     const axes: OptimizationAxis[] = [
       {
         id: 'slot:trinket1',
@@ -235,7 +241,8 @@ describe('generateCombinations', () => {
       },
     ];
     const combos = generateCombinations(axes);
-    expect(combos).toHaveLength(4); // 2 × 2
+    // Additive: 1 baseline + 1 trinket alt + 1 enchant alt = 3
+    expect(combos).toHaveLength(3);
   });
 
   it('assigns combo_0000 to baseline (no overrides)', () => {
@@ -337,26 +344,18 @@ describe('generateCombinations', () => {
     ];
 
     const combos = generateCombinations(axes);
-    // Item A: 2 gem options × 2 enchant options = 4
-    // Item B: 1 (no gems) × 2 enchant options = 2
-    // Total: 6
-    expect(combos).toHaveLength(6);
+    // Additive model:
+    // 1 baseline (Item A + gem_1 baseline + enchant_7340 baseline)
+    // + 1 Item B swap (head alt, no gems)
+    // + 1 baseline gem variation (gem_2 for Item A)
+    // + 1 enchant alt (enchant_7341)
+    // Total: 4 (but enchant options both have empty simcLines, first is baseline → 1 alt)
+    // So: 1 + 1 + 1 + 1 = 4
+    expect(combos).toHaveLength(4);
 
-    // Verify all combos have an enchant axis selection
-    for (const combo of combos) {
-      expect(combo.axes['enchant:finger1']).toBeDefined();
-    }
-
-    // Item A combos should have gem selections
-    const itemACombos = combos.filter((c) => c.axes['slot:head'] === 'item_100_0');
-    expect(itemACombos).toHaveLength(4);
-    for (const combo of itemACombos) {
-      expect(combo.axes['gem:head:100:socket_0']).toBeDefined();
-    }
-
-    // Item B combos should NOT have gem selections
+    // Item B combo should NOT have gem selections
     const itemBCombos = combos.filter((c) => c.axes['slot:head'] === 'item_200_1');
-    expect(itemBCombos).toHaveLength(2);
+    expect(itemBCombos).toHaveLength(1);
     for (const combo of itemBCombos) {
       expect(combo.axes['gem:head:100:socket_0']).toBeUndefined();
     }
@@ -428,7 +427,7 @@ describe('generateCombinations', () => {
       },
     ];
 
-    // 10 × 10 = 100, cap at 5 should throw
+    // Additive: 1 baseline + 9 trinket1 alts + 9 trinket2 alts = 19, cap at 5 should throw
     expect(() => generateCombinations(axes, 5)).toThrow(CombinationCapExceededError);
   });
 
