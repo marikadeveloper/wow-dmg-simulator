@@ -10,10 +10,18 @@ const GEM_BY_ID = new Map(GEM_PRESETS.map((g) => [g.id, g]));
 const ENCHANT_BY_ID = new Map(ENCHANT_PRESETS.map((e) => [e.id, e]));
 
 /** Wowhead icon CDN base URL. */
-const WOWHEAD_ICON_URL = 'https://wow.zamimg.com/images/wow/icons/small';
+const WOWHEAD_ICON_URL = 'https://wow.zamimg.com/images/wow/icons/large';
 
 /** Default gem icon for unknown gems. */
 const DEFAULT_GEM_ICON = 'inv_misc_gem_01';
+
+/** Default item icon when no icon data is cached. */
+const DEFAULT_ITEM_ICON = 'inv_misc_questionmark';
+
+/** Get the icon URL for an item (from cached Wowhead data). */
+function getItemIconUrl(icon?: string): string {
+  return `${WOWHEAD_ICON_URL}/${icon ?? DEFAULT_ITEM_ICON}.jpg`;
+}
 
 /** Get the icon URL for a gem ID. */
 function getGemIconUrl(id: number): string {
@@ -473,6 +481,19 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
           </svg>
         )}
       </span>
+
+      {/* Item icon */}
+      <img
+        src={getItemIconUrl(cached?.icon)}
+        alt=""
+        width={36}
+        height={36}
+        className={[
+          'shrink-0 rounded-md border border-zinc-700/50',
+          selected ? '' : 'opacity-50',
+        ].join(' ')}
+        loading="lazy"
+      />
 
       {/* Item name + details */}
       <div className="flex-1 min-w-0">

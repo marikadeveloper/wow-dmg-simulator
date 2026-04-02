@@ -11,6 +11,7 @@ export interface CachedItem {
   ilvl: number;
   quality: number; // 0-5
   slot: string;
+  icon?: string; // Wowhead icon filename (e.g. "inv_helmet_leather_raid_d_01")
   fetchedAt: number; // timestamp for TTL
 }
 
@@ -39,6 +40,7 @@ function parseWowheadXml(xml: string, itemId: number): CachedItem | null {
     const quality = parseInt(qualityEl?.getAttribute('id') ?? '0', 10);
     const slotEl = itemEl.querySelector('inventorySlot');
     const slot = slotEl?.textContent ?? '';
+    const icon = itemEl.querySelector('icon')?.textContent ?? undefined;
 
     return {
       id: itemId,
@@ -46,6 +48,7 @@ function parseWowheadXml(xml: string, itemId: number): CachedItem | null {
       ilvl: level,
       quality,
       slot,
+      icon,
       fetchedAt: Date.now(),
     };
   } catch {
