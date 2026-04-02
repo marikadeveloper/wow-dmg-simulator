@@ -542,7 +542,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           <span
             className={[
               'text-sm leading-tight truncate text-left',
-              selected ? qualityColor : 'text-zinc-500',
+              selected ? (trackColor || qualityColor) : 'text-zinc-500',
               selected && (isEquipped || isVault) ? 'font-medium' : 'font-normal',
             ].join(' ')}
           >
