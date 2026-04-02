@@ -23,3 +23,14 @@
 .animate-pulse-slow {
   animation: pulse-slow 2s ease-in-out infinite;
 }
+
+/* Wowhead tooltip overrides — prevent colorLinks from changing our link colors */
+a[data-wh-icon-size] {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Ensure Wowhead tooltips render above everything */
+.wowhead-tooltip {
+  z-index: 9999 !important;
+}

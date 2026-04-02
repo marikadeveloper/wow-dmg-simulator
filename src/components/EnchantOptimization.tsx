@@ -318,7 +318,6 @@ function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: 
     <button
       type="button"
       onClick={onToggle}
-      title={`${enchant.name}\n${enchant.stat}${equipped ? '\nCurrently equipped' : ''}`}
       className={[
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-[11px] transition-all duration-150',
         'cursor-pointer select-none',

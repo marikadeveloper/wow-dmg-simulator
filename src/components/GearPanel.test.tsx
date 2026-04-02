@@ -142,7 +142,7 @@ describe('GearPanel', () => {
     expect(bagBadges.length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renders gem icons with name and stat tooltip', () => {
+  it('renders gem icons with Wowhead tooltip links', () => {
     const profile = makeProfile({
       head: [
         {
@@ -157,9 +157,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Gems shown as icons with name + stat in title tooltip (may appear in both item row and gem picker)
-    expect(screen.getAllByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByTitle(/Flawless Deadly Garnet.*Crit/s).length).toBeGreaterThanOrEqual(1);
+    // Gems are wrapped in Wowhead links for tooltips
+    const gemLinks = document.querySelectorAll('a[href*="wowhead.com/item=240892"], a[href*="wowhead.com/item=240904"]');
+    expect(gemLinks.length).toBeGreaterThanOrEqual(2);
   });
 
   it('shows all 16 slots when profile has full gear', () => {
@@ -463,7 +463,7 @@ describe('GearPanel', () => {
     expect(itemName.className).toContain('text-purple-400');
   });
 
-  it('shows enchant name with stat tooltip for known enchantId', () => {
+  it('shows enchant name for known enchantId', () => {
     // 7964 = Amani Mastery, stat: Mastery
     const profile = makeProfile({
       head: [makeItem({ slot: 'head', id: 1, isEquipped: true, enchantId: 7964 })],
@@ -471,12 +471,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // The enchant name appears both in the item row (with title=stat) and in the
-    // enchant optimization panel (as a chip). Find the one in the item row by its title.
+    // The enchant name appears in the item row and in the enchant optimization panel
     const enchantLabels = screen.getAllByText('Amani Mastery');
     expect(enchantLabels.length).toBeGreaterThanOrEqual(1);
-    const itemRowLabel = enchantLabels.find((el) => el.getAttribute('title') === 'Mastery');
-    expect(itemRowLabel).toBeDefined();
   });
 
   it('shows fallback label for unknown enchant IDs', () => {
@@ -489,7 +486,7 @@ describe('GearPanel', () => {
     expect(screen.getByText('Enchant #9999')).toBeInTheDocument();
   });
 
-  it('shows gem icon with name and stat tooltip for known gem IDs', () => {
+  it('shows gem icon with Wowhead tooltip link for known gem IDs', () => {
     const profile = makeProfile({
       head: [{
         slot: 'head',
@@ -502,11 +499,11 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    const gemIcons = screen.getAllByTitle(/Flawless Masterful Peridot.*Haste \+ Mastery/s);
-    expect(gemIcons.length).toBeGreaterThanOrEqual(1);
+    const gemLink = document.querySelector('a[href*="wowhead.com/item=240892"]');
+    expect(gemLink).not.toBeNull();
   });
 
-  it('shows gem icon with fallback tooltip for unknown gem IDs', () => {
+  it('shows Wowhead tooltip link for unknown gem IDs', () => {
     const profile = makeProfile({
       head: [{
         slot: 'head',
@@ -519,7 +516,8 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    expect(screen.getByTitle('Gem ID: 999999')).toBeInTheDocument();
+    const gemLink = document.querySelector('a[href*="wowhead.com/item=999999"]');
+    expect(gemLink).not.toBeNull();
   });
 
   it('does not show enchant or gem details on item row when item has neither', () => {

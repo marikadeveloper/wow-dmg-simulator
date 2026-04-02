@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { GearItem } from '../lib/types';
 import { getItemData, getItemDisplayName, type CachedItem } from '../lib/item-cache';
-import { GEM_PRESETS, GEM_LOOKUP, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
+import { GEM_LOOKUP, ENCHANT_PRESETS, getGearTrackFromBonusIds } from '../lib/presets/season-config';
 import { FEATURES } from '../lib/features';
 import UnownedItemSearch from './UnownedItemSearch';
+import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
 /** Lookup maps built once from season presets. */
 const GEM_BY_ID = GEM_LOOKUP; // includes Q2 quality variants
@@ -34,19 +35,6 @@ function getEnchantDisplayName(id: number): string {
   return ENCHANT_BY_ID.get(id)?.name ?? `Enchant #${id}`;
 }
 
-/** Get the enchant tooltip (stat it provides). */
-function getEnchantTooltip(id: number): string {
-  const preset = ENCHANT_BY_ID.get(id);
-  if (!preset) return `Enchant ID: ${id}`;
-  return preset.stat;
-}
-
-/** Get the gem tooltip (name + stat). */
-function getGemTooltip(id: number): string {
-  const preset = GEM_BY_ID.get(id);
-  if (!preset) return `Gem ID: ${id}`;
-  return `${preset.name}\n${preset.stat}`;
-}
 
 /** Canonical slot display order matching the WoW paper doll. */
 /** Canonical slot display order matching the WoW paper doll. */
@@ -177,6 +165,9 @@ export default function GearSlotCard({
   })();
 
   const selectedCount = Array.from(selectedIndices).filter((i) => i < items.length).length;
+
+  // Refresh Wowhead tooltips when item data loads
+  useWowheadTooltips([itemNames]);
 
   return (
     <div
@@ -482,18 +473,31 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
         )}
       </span>
 
-      {/* Item icon */}
-      <img
-        src={getItemIconUrl(cached?.icon)}
-        alt=""
-        width={36}
-        height={36}
-        className={[
-          'shrink-0 rounded-md border border-zinc-700/50',
-          selected ? '' : 'opacity-50',
-        ].join(' ')}
-        loading="lazy"
-      />
+      {/* Item icon — wrapped in Wowhead link for tooltip */}
+      <a
+        href={buildWowheadItemUrl(item.id, {
+          bonusIds: item.bonusIds,
+          ilvl: item.ilvl ?? cached?.ilvl ?? undefined,
+          enchantId: item.enchantId ?? undefined,
+          gemIds: item.gemIds.length > 0 ? item.gemIds : undefined,
+          craftingQuality: item.craftingQuality ?? undefined,
+        })}
+        onClick={(e) => e.preventDefault()}
+        className="shrink-0"
+        data-wh-icon-size="small"
+      >
+        <img
+          src={getItemIconUrl(cached?.icon)}
+          alt=""
+          width={36}
+          height={36}
+          className={[
+            'shrink-0 rounded-md border border-zinc-700/50',
+            selected ? '' : 'opacity-50',
+          ].join(' ')}
+          loading="lazy"
+        />
+      </a>
 
       {/* Item name + details */}
       <div className="flex-1 min-w-0">
@@ -563,23 +567,25 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank }:
             {socketCount > 0 && (
               <span className="flex items-center gap-0.5 shrink-0">
                 {item.gemIds.map((gemId, i) => (
-                  <img
+                  <a
                     key={i}
-                    src={getGemIconUrl(gemId)}
-                    alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
-                    title={getGemTooltip(gemId)}
-                    width={16}
-                    height={16}
-                    className="rounded-sm"
-                  />
+                    href={buildWowheadItemUrl(gemId)}
+                    onClick={(e) => e.preventDefault()}
+                    data-wh-icon-size="small"
+                  >
+                    <img
+                      src={getGemIconUrl(gemId)}
+                      alt={GEM_BY_ID.get(gemId)?.name ?? `Gem ${gemId}`}
+                      width={16}
+                      height={16}
+                      className="rounded-sm"
+                    />
+                  </a>
                 ))}
               </span>
             )}
             {hasEnchant && (
-              <span
-                className="text-[11px] text-emerald-400/90 truncate"
-                title={getEnchantTooltip(item.enchantId!)}
-              >
+              <span className="text-[11px] text-emerald-400/90 truncate">
                 {getEnchantDisplayName(item.enchantId!)}
               </span>
             )}

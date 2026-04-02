@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { GEM_PRESETS, type GemPreset } from '../lib/presets/season-config';
+import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
 /** Wowhead icon CDN base URL. */
 const WOWHEAD_ICON_URL = 'https://wow.zamimg.com/images/wow/icons/small';
@@ -149,6 +150,9 @@ export default function GemOptimization({
     }
     return map;
   }, []);
+
+  // Refresh Wowhead tooltips when selection changes
+  useWowheadTooltips([selectedGemIds, totalSockets]);
 
   const selectedCount = selectedGemIds.size;
   const hasRegularSelected = useMemo(
@@ -384,7 +388,6 @@ function GemChip({ gem, family, selected, equipped, onToggle, isRegular }: GemCh
     <button
       type="button"
       onClick={onToggle}
-      title={`${gem.name}\n${gem.stat}${equipped ? '\nCurrently equipped' : ''}`}
       className={[
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-[11px] transition-all duration-150',
         'cursor-pointer select-none',
@@ -395,14 +398,21 @@ function GemChip({ gem, family, selected, equipped, onToggle, isRegular }: GemCh
       ].join(' ')}
       aria-pressed={selected}
     >
-      {/* Gem icon */}
-      <img
-        src={getGemIconUrl(gem)}
-        alt=""
-        width={14}
-        height={14}
-        className="rounded-sm shrink-0"
-      />
+      {/* Gem icon — wrapped in Wowhead link for tooltip */}
+      <a
+        href={buildWowheadItemUrl(gem.id)}
+        onClick={(e) => e.preventDefault()}
+        className="inline-flex shrink-0"
+        data-wh-icon-size="small"
+      >
+        <img
+          src={getGemIconUrl(gem)}
+          alt=""
+          width={14}
+          height={14}
+          className="rounded-sm shrink-0"
+        />
+      </a>
       <span className="truncate">{shortName}</span>
       <span className={`text-[10px] ${selected ? 'opacity-70' : 'text-zinc-700'}`}>
         {gem.stat}
