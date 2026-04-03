@@ -183,6 +183,8 @@ export function getKeystoneIlvl(keystoneLevel: number, isVault = false): number 
  * Filter loot items to only those usable by a given class.
  * Checks armor type compatibility and class restrictions.
  */
+const ARMOR_SLOTS = new Set(['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet']);
+
 export function getItemsForClass(items: LootItem[], className: string): LootItem[] {
   const classArmor = CLASS_ARMOR_TYPE[className];
   return items.filter((item) => {
@@ -190,10 +192,12 @@ export function getItemsForClass(items: LootItem[], className: string): LootItem
     if (item.classRestrictions && !item.classRestrictions.includes(className)) {
       return false;
     }
+    // Armor items must match the class's armor type.
+    // If an armor-slot item is missing armorType, exclude it (data error).
+    if (item.armorType) return item.armorType === classArmor;
+    if (ARMOR_SLOTS.has(item.slot)) return false;
     // Non-armor items (trinkets, rings, necks, cloaks, weapons) are available to all
-    if (!item.armorType) return true;
-    // Armor items must match the class's armor type
-    return item.armorType === classArmor;
+    return true;
   });
 }
 
@@ -340,7 +344,7 @@ export const RAID_INSTANCES: RaidInstance[] = [
           { itemId: 249303, name: 'Waistcord of the Judged', slot: 'waist', armorType: 'mail' },
           { itemId: 249314, name: 'Twisted Twilight Sash', slot: 'waist', armorType: 'leather' },
           { itemId: 249327, name: 'Void-Skinned Bracers', slot: 'wrist', armorType: 'leather' },
-          { itemId: 249380, name: 'Hate-Tied Waistchain', slot: 'waist' },
+          { itemId: 249380, name: 'Hate-Tied Waistchain', slot: 'waist', armorType: 'plate' },
           { itemId: 249382, name: 'Canopy Walker\'s Footwraps', slot: 'feet', armorType: 'leather' },
         ],
       },

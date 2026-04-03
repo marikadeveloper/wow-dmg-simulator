@@ -143,6 +143,24 @@ if (RAID_INSTANCES.length === 0) {
   pass(`${RAID_INSTANCES.length} raids, ${allRaidItems.size} unique raid items`);
 }
 
+// Armor type validation for all loot items
+const ARMOR_SLOTS = new Set(['head', 'shoulder', 'chest', 'wrist', 'hands', 'waist', 'legs', 'feet']);
+const allLootItems = [
+  ...RAID_INSTANCES.flatMap((r) => r.encounters.flatMap((e) => e.items)),
+  ...MYTHIC_PLUS_DUNGEONS.flatMap((d) => d.items),
+  ...WORLD_BOSSES.flatMap((w) => w.items),
+];
+let missingArmorType = 0;
+for (const item of allLootItems) {
+  if (ARMOR_SLOTS.has(item.slot) && !item.armorType) {
+    fail(`Item ${item.itemId} ("${item.name}") in slot "${item.slot}" is missing armorType`);
+    missingArmorType++;
+  }
+}
+if (missingArmorType === 0) {
+  pass('All armor-slot items have armorType set');
+}
+
 // M+ dungeons
 if (MYTHIC_PLUS_DUNGEONS.length === 0) {
   warn('MYTHIC_PLUS_DUNGEONS is empty — Droptimizer M+ source will have no data');
