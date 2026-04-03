@@ -29,6 +29,9 @@ export interface LootItem {
   /** If set, only these WoW class keywords can use this item.
    *  undefined = available to all classes that match armorType (or all classes for non-armor). */
   classRestrictions?: string[];
+  /** Extra ranks added to the boss tier for "very rare" drops (e.g. +2 for end-boss specials).
+   *  undefined = 0. A value of 2 means the item drops at bossTier + 2 rank. */
+  bonusRankOffset?: number;
 }
 
 /** A raid boss encounter with its loot. */
@@ -118,10 +121,10 @@ export const CLASS_ARMOR_TYPE: Record<string, 'cloth' | 'leather' | 'mail' | 'pl
 // Boss tier: 1 = early bosses, 2 = early-mid, 3 = mid-late, 4 = end boss.
 
 export const RAID_ILVL_MAP: Record<RaidDifficulty, Record<number, number>> = {
-  lfr:    { 1: 233, 2: 237, 3: 240, 4: 243 },
-  normal: { 1: 246, 2: 250, 3: 253, 4: 256 },
-  heroic: { 1: 259, 2: 263, 3: 266, 4: 269 },
-  mythic: { 1: 272, 2: 276, 3: 279, 4: 282 },
+  lfr:    { 1: 233, 2: 237, 3: 240, 4: 243, 5: 246, 6: 250 },
+  normal: { 1: 246, 2: 250, 3: 253, 4: 256, 5: 259, 6: 263 },
+  heroic: { 1: 259, 2: 263, 3: 266, 4: 269, 5: 272, 6: 276 },
+  mythic: { 1: 272, 2: 276, 3: 279, 4: 282, 5: 285, 6: 289 },
 };
 
 /** Raid difficulty display labels with associated gear track names. */
@@ -267,6 +270,7 @@ export function getTierPieceId(className: string, slot: string): number | undefi
 
 export const RAID_INSTANCES: RaidInstance[] = [
   // ── The Voidspire (6 bosses) ──────────────────────────────────────────────
+  // Boss tiers and item assignments verified against Raidbots Droptimizer output.
   {
     id: 'the_voidspire',
     name: 'The Voidspire',
@@ -276,24 +280,36 @@ export const RAID_INSTANCES: RaidInstance[] = [
         name: 'Imperator Averzian',
         bossTier: 1,
         items: [
-          { itemId: 249308, name: 'Despotic Raiment', slot: 'chest', armorType: 'cloth' },
-          { itemId: 249309, name: 'Sunbound Breastplate', slot: 'chest', armorType: 'plate' },
-          { itemId: 249310, name: 'Robes of the Voidbound', slot: 'chest', armorType: 'mail' },
-          { itemId: 249337, name: 'Ribbon of Coiled Malice', slot: 'neck' },
+          { itemId: 249319, name: 'Endless March Waistwrap', slot: 'waist', armorType: 'cloth' },
+          { itemId: 249323, name: 'Leggings of the Devouring Advance', slot: 'legs', armorType: 'cloth' },
+          { itemId: 249335, name: 'Imperator\'s Banner', slot: 'back' },
           { itemId: 249339, name: 'Gloom-Spattered Dreadscale', slot: 'trinket' },
-          { itemId: 249370, name: 'Draconic Nullcape', slot: 'back' },
+          { itemId: 249380, name: 'Hate-Tied Waistchain', slot: 'waist', armorType: 'plate' },
+          { itemId: 249303, name: 'Waistcord of the Judged', slot: 'waist', armorType: 'mail' },
+          { itemId: 249314, name: 'Twisted Twilight Sash', slot: 'waist', armorType: 'leather' },
+          { itemId: 249311, name: 'Lightblood Greaves', slot: 'legs', armorType: 'plate' },
+          { itemId: 249312, name: 'Nightblade\'s Pantaloons', slot: 'legs', armorType: 'leather' },
+          { itemId: 249324, name: 'Eternal Flame Scaleguards', slot: 'legs', armorType: 'mail' },
+          // Class set backs (all classes share back slot, no armor type)
+          { itemId: 250055, name: 'Voidbreaker\'s Encryption', slot: 'back' },
         ],
       },
       {
         id: 'vorasius',
         name: 'Vorasius',
-        bossTier: 1,
+        bossTier: 2,
         items: [
           { itemId: 249276, name: 'Grimoire of the Eternal Light', slot: 'off_hand' },
           { itemId: 249315, name: 'Voracious Wristwraps', slot: 'wrist', armorType: 'cloth' },
           { itemId: 249325, name: 'Untethered Berserker\'s Grips', slot: 'hands', armorType: 'mail' },
+          { itemId: 249304, name: 'Fallen King\'s Cuffs', slot: 'wrist', armorType: 'mail' },
+          { itemId: 249326, name: 'Light\'s March Bracers', slot: 'wrist', armorType: 'plate' },
+          { itemId: 249327, name: 'Void-Skinned Bracers', slot: 'wrist', armorType: 'leather' },
+          { itemId: 249336, name: 'Signet of the Starved Beast', slot: 'finger' },
           { itemId: 249342, name: 'Heart of Ancient Hunger', slot: 'trinket' },
           { itemId: 249925, name: 'Hungering Victory', slot: 'main_hand' },
+          // Class set wrists
+          { itemId: 250056, name: 'Voidbreaker\'s Bracers', slot: 'wrist', armorType: 'cloth' },
         ],
       },
       {
@@ -303,12 +319,15 @@ export const RAID_INSTANCES: RaidInstance[] = [
         items: [
           { itemId: 249281, name: 'Blade of the Final Twilight', slot: 'main_hand' },
           { itemId: 249293, name: 'Weight of Command', slot: 'main_hand' },
-          { itemId: 249304, name: 'Fallen King\'s Cuffs', slot: 'wrist', armorType: 'mail' },
-          { itemId: 249312, name: 'Nightblade\'s Pantaloons', slot: 'legs', armorType: 'leather' },
-          { itemId: 249316, name: 'Crown of the Fractured Tyrant', slot: 'head', armorType: 'plate' },
+          { itemId: 249308, name: 'Despotic Raiment', slot: 'chest', armorType: 'cloth' },
+          { itemId: 249309, name: 'Sunbound Breastplate', slot: 'chest', armorType: 'plate' },
+          { itemId: 249310, name: 'Robes of the Voidbound', slot: 'chest', armorType: 'mail' },
+          { itemId: 249322, name: 'Radiant Clutchtender\'s Jerkin', slot: 'chest', armorType: 'leather' },
+          { itemId: 249337, name: 'Ribbon of Coiled Malice', slot: 'neck' },
           { itemId: 249340, name: 'Wraps of Cosmic Madness', slot: 'trinket' },
           { itemId: 249341, name: 'Volatile Void Suffuser', slot: 'trinket' },
-          { itemId: 249368, name: 'Eternal Voidsong Chain', slot: 'neck' },
+          // Class set shoulders
+          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
         ],
       },
       {
@@ -318,12 +337,15 @@ export const RAID_INSTANCES: RaidInstance[] = [
         items: [
           { itemId: 249280, name: 'Emblazoned Sunglaive', slot: 'main_hand' },
           { itemId: 249287, name: 'Clutchmates\' Caress', slot: 'main_hand' },
-          { itemId: 249306, name: 'Devouring Night\'s Visage', slot: 'head', armorType: 'leather' },
-          { itemId: 249321, name: 'Vaelgor\'s Fearsome Grasp', slot: 'hands', armorType: 'leather' },
-          { itemId: 249331, name: 'Ezzorak\'s Gloombind', slot: 'waist', armorType: 'plate' },
+          { itemId: 249305, name: 'Slippers of the Midnight Flame', slot: 'feet', armorType: 'cloth' },
+          { itemId: 249320, name: 'Sabatons of Obscurement', slot: 'feet', armorType: 'mail' },
+          { itemId: 249332, name: 'Parasite Stompers', slot: 'feet', armorType: 'plate' },
           { itemId: 249334, name: 'Void-Claimed Shinkickers', slot: 'feet', armorType: 'leather' },
           { itemId: 249346, name: 'Vaelgor\'s Final Stare', slot: 'trinket' },
-          { itemId: 249336, name: 'Signet of the Starved Beast', slot: 'finger' },
+          { itemId: 249370, name: 'Draconic Nullcape', slot: 'back' },
+          // Class set backs + feet
+          { itemId: 250055, name: 'Voidbreaker\'s Encryption', slot: 'back' },
+          { itemId: 250062, name: 'Voidbreaker\'s Treads', slot: 'feet', armorType: 'cloth' },
         ],
       },
       {
@@ -334,13 +356,20 @@ export const RAID_INSTANCES: RaidInstance[] = [
           { itemId: 249294, name: 'Blade of the Blind Verdict', slot: 'main_hand' },
           { itemId: 249295, name: 'Turalyon\'s False Echo', slot: 'main_hand' },
           { itemId: 249275, name: 'Bulwark of Noble Resolve', slot: 'off_hand' },
-          { itemId: 249311, name: 'Lightblood Greaves', slot: 'legs', armorType: 'plate' },
+          { itemId: 249306, name: 'Devouring Night\'s Visage', slot: 'head', armorType: 'leather' },
+          { itemId: 249316, name: 'Crown of the Fractured Tyrant', slot: 'head', armorType: 'plate' },
+          { itemId: 249317, name: 'Frenzy\'s Rebuke', slot: 'head', armorType: 'mail' },
           { itemId: 249313, name: 'Light-Judged Spaulders', slot: 'shoulder', armorType: 'plate' },
-          { itemId: 249326, name: 'Light\'s March Bracers', slot: 'wrist', armorType: 'plate' },
+          { itemId: 249318, name: 'Nullwalker\'s Dread Epaulettes', slot: 'shoulder', armorType: 'mail' },
+          { itemId: 249333, name: 'Blooming Barklight Spaulders', slot: 'shoulder', armorType: 'leather' },
+          { itemId: 249321, name: 'Vaelgor\'s Fearsome Grasp', slot: 'hands', armorType: 'leather' },
           { itemId: 249330, name: 'War Chaplain\'s Grips', slot: 'hands', armorType: 'cloth' },
+          { itemId: 249307, name: 'Emberborn Grasps', slot: 'hands', armorType: 'plate' },
           { itemId: 249344, name: 'Light Company Guidon', slot: 'trinket' },
           { itemId: 249369, name: 'Bond of Light', slot: 'finger' },
           { itemId: 249808, name: 'Litany of Lightblind Wrath', slot: 'trinket' },
+          // Class set shoulders
+          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
         ],
       },
       {
@@ -351,22 +380,12 @@ export const RAID_INSTANCES: RaidInstance[] = [
           { itemId: 249298, name: 'Tormentor\'s Bladed Fists', slot: 'main_hand' },
           { itemId: 249302, name: 'Inescapable Reach', slot: 'main_hand' },
           { itemId: 260423, name: 'Arator\'s Swift Remembrance', slot: 'main_hand' },
-          { itemId: 249305, name: 'Slippers of the Midnight Flame', slot: 'feet', armorType: 'cloth' },
-          { itemId: 249317, name: 'Frenzy\'s Rebuke', slot: 'head', armorType: 'mail' },
-          { itemId: 249318, name: 'Nullwalker\'s Dread Epaulettes', slot: 'shoulder', armorType: 'mail' },
-          { itemId: 249319, name: 'Endless March Waistwrap', slot: 'waist', armorType: 'cloth' },
-          { itemId: 249320, name: 'Sabatons of Obscurement', slot: 'feet', armorType: 'mail' },
-          { itemId: 249323, name: 'Leggings of the Devouring Advance', slot: 'legs', armorType: 'cloth' },
           { itemId: 249329, name: 'Gaze of the Unrestrained', slot: 'head', armorType: 'cloth' },
-          { itemId: 249332, name: 'Parasite Stompers', slot: 'feet', armorType: 'plate' },
-          { itemId: 249333, name: 'Blooming Barklight Spaulders', slot: 'shoulder', armorType: 'leather' },
+          { itemId: 249331, name: 'Ezzorak\'s Gloombind', slot: 'waist', armorType: 'plate' },
           { itemId: 249345, name: 'Ranger-Captain\'s Iridescent Insignia', slot: 'trinket' },
-          { itemId: 249809, name: 'Locus-Walker\'s Ribbon', slot: 'trinket' },
-          { itemId: 249303, name: 'Waistcord of the Judged', slot: 'waist', armorType: 'mail' },
-          { itemId: 249314, name: 'Twisted Twilight Sash', slot: 'waist', armorType: 'leather' },
-          { itemId: 249327, name: 'Void-Skinned Bracers', slot: 'wrist', armorType: 'leather' },
-          { itemId: 249380, name: 'Hate-Tied Waistchain', slot: 'waist', armorType: 'plate' },
+          { itemId: 249368, name: 'Eternal Voidsong Chain', slot: 'neck', bonusRankOffset: 2 },
           { itemId: 249382, name: 'Canopy Walker\'s Footwraps', slot: 'feet', armorType: 'leather' },
+          { itemId: 249809, name: 'Locus-Walker\'s Ribbon', slot: 'trinket' },
         ],
       },
     ],
@@ -384,12 +403,13 @@ export const RAID_INSTANCES: RaidInstance[] = [
         items: [
           { itemId: 249283, name: "Belo'melorn, the Shattered Talon", slot: 'main_hand' },
           { itemId: 249284, name: "Belo'ren's Swift Talon", slot: 'main_hand' },
-          { itemId: 249307, name: 'Emberborn Grasps', slot: 'hands', armorType: 'plate' },
-          { itemId: 249322, name: "Radiant Clutchtender's Jerkin", slot: 'chest', armorType: 'leather' },
-          { itemId: 249324, name: 'Eternal Flame Scaleguards', slot: 'legs', armorType: 'mail' },
+          { itemId: 249328, name: 'Echoing Void Mantle', slot: 'shoulder', armorType: 'cloth' },
           { itemId: 249376, name: 'Whisper-Inscribed Sash', slot: 'waist', armorType: 'cloth' },
           { itemId: 249806, name: 'Radiant Plume', slot: 'trinket' },
           { itemId: 249919, name: "Sin'dorei Band of Hope", slot: 'finger' },
+          // Class set shoulders + waist
+          { itemId: 250057, name: 'Voidbreaker\'s Sage Cord', slot: 'waist', armorType: 'cloth' },
+          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
         ],
       },
       {
@@ -397,11 +417,17 @@ export const RAID_INSTANCES: RaidInstance[] = [
         name: 'Midnight Falls',
         bossTier: 4,
         items: [
-          { itemId: 249328, name: 'Echoing Void Mantle', slot: 'shoulder', armorType: 'cloth' },
+          { itemId: 249286, name: 'Brazier of the Dissonant Dirge', slot: 'main_hand' },
           { itemId: 249377, name: 'Darkstrider Treads', slot: 'feet', armorType: 'mail' },
+          { itemId: 249810, name: 'Shadow of the Empyrean Requiem', slot: 'trinket' },
+          { itemId: 249912, name: 'Robes of Endless Oblivion', slot: 'chest', armorType: 'cloth' },
+          { itemId: 249920, name: 'Eye of Midnight', slot: 'finger', bonusRankOffset: 2 },
           { itemId: 249921, name: 'Thalassian Dawnguard', slot: 'off_hand' },
           { itemId: 249807, name: 'The Eternal Egg', slot: 'trinket' },
+          { itemId: 250247, name: 'Amulet of the Abyssal Hymn', slot: 'neck' },
           { itemId: 260235, name: 'Umbral Plume', slot: 'trinket' },
+          // Class set shoulders
+          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
         ],
       },
     ],
@@ -420,11 +446,13 @@ export const RAID_INSTANCES: RaidInstance[] = [
           { itemId: 249278, name: 'Alnscorned Spire', slot: 'main_hand' },
           { itemId: 249922, name: 'Tome of Alnscorned Regret', slot: 'off_hand' },
           { itemId: 249371, name: 'Scornbane Waistguard', slot: 'waist', armorType: 'plate' },
-          { itemId: 249373, name: 'Dream-Scorched Striders', slot: 'feet', armorType: 'leather' },
+          { itemId: 249373, name: 'Dream-Scorched Striders', slot: 'feet', armorType: 'cloth' },
           { itemId: 249374, name: "Scorn-Scarred Shul'ka's Belt", slot: 'waist', armorType: 'mail' },
           { itemId: 249381, name: 'Greaves of the Unformed', slot: 'feet', armorType: 'plate' },
           { itemId: 249343, name: 'Gaze of the Alnseer', slot: 'trinket' },
           { itemId: 249805, name: "Undreamt God's Oozing Vestige", slot: 'trinket' },
+          // Class set feet
+          { itemId: 250062, name: 'Voidbreaker\'s Treads', slot: 'feet', armorType: 'cloth' },
         ],
       },
     ],

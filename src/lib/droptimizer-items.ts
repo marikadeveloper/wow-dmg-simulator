@@ -106,13 +106,15 @@ export function resolveDroptimizerItems(
  * Compute the bonus_ids for a raid drop item.
  * Format: [4799, 4786, rankBonusId] where rankBonusId encodes the ilvl.
  * Boss tier maps directly to rank within the gear track.
+ * bonusRankOffset adds extra ranks for "very rare" drops (e.g. end-boss specials).
  */
-function getRaidDropBonusIds(difficulty: RaidDifficulty, bossTier: number): number[] {
+function getRaidDropBonusIds(difficulty: RaidDifficulty, bossTier: number, bonusRankOffset = 0): number[] {
   const trackName = RAID_DIFFICULTY_TRACK[difficulty];
   const trackRange = TRACK_BONUS_RANGES.find((t) => t.name === trackName);
   if (!trackRange) return [];
   // Boss tier maps to rank: tier 1 → rank 1, tier 2 → rank 2, etc.
-  const rankBonusId = trackRange.startBonusId + (bossTier - 1);
+  // Very rare items get extra ranks (e.g. +2 for end-boss specials)
+  const rankBonusId = trackRange.startBonusId + (bossTier - 1) + bonusRankOffset;
   return [...RAID_DROP_BONUS_IDS, rankBonusId];
 }
 
@@ -129,10 +131,13 @@ function resolveRaidItems(
   const items: DroptimizerItem[] = [];
   for (const raid of raids) {
     for (const enc of raid.encounters) {
-      const ilvl = RAID_ILVL_MAP[difficulty]?.[enc.bossTier] ?? 0;
-      const bonusIds = getRaidDropBonusIds(difficulty, enc.bossTier);
       const classItems = filterByClass ? getItemsForClass(enc.items, className) : enc.items;
       for (const item of classItems) {
+        const offset = item.bonusRankOffset ?? 0;
+        const effectiveTier = enc.bossTier + offset;
+        const ilvl = RAID_ILVL_MAP[difficulty]?.[effectiveTier]
+          ?? RAID_ILVL_MAP[difficulty]?.[enc.bossTier] ?? 0;
+        const bonusIds = getRaidDropBonusIds(difficulty, enc.bossTier, offset);
         items.push({
           key: `raid_${item.itemId}_${enc.id}`,
           itemId: item.itemId,
