@@ -132,19 +132,22 @@ export default function TalentComparison({
           ) : (
             <div className="px-3.5 py-3">
               {/* Active build callout */}
-              {activeTalentName && (
-                <div className="flex items-center gap-2 mb-3 px-2.5 py-2 rounded-md bg-amber-500/6 border border-amber-500/15">
-                  <svg className="w-3.5 h-3.5 text-accent-amber/70 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M8 14V6" />
-                    <path d="M8 6L4 2" />
-                    <path d="M8 6L12 2" />
-                  </svg>
-                  <span className="text-[11px] text-text-muted">
-                    Active build:{' '}
-                    <span className="text-accent-amber/90 font-medium">{activeTalentName}</span>
+              <div className="flex items-center gap-2 mb-3 px-2.5 py-2 rounded-md bg-amber-500/6 border border-amber-500/15">
+                <svg className="w-3.5 h-3.5 text-accent-amber/70 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 14V6" />
+                  <path d="M8 6L4 2" />
+                  <path d="M8 6L12 2" />
+                </svg>
+                <span className="text-[11px] text-text-muted">
+                  Active build:{' '}
+                  <span className="text-accent-amber/90 font-medium">
+                    {activeTalentName ?? 'Custom Build'}
                   </span>
-                </div>
-              )}
+                  {!activeTalentName && (
+                    <span className="text-text-disabled"> (doesn't match any saved loadout)</span>
+                  )}
+                </span>
+              </div>
 
               {/* Select / Deselect all */}
               <div className="flex items-center gap-3 mb-2.5">

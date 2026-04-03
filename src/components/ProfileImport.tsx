@@ -1,7 +1,11 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { parseSimcString } from '../lib/parser';
-import { saveLastInput, loadLastInput, clearLastInput } from '../lib/profile-store';
+import {
+  clearLastInput,
+  loadLastInput,
+  saveLastInput,
+} from '../lib/profile-store';
 import type { SimcProfile } from '../lib/types';
 
 /** Validation result — either a valid profile or an error message. */
@@ -19,7 +23,9 @@ async function enrichWeaponTypes(profile: SimcProfile): Promise<void> {
 
   const ids = weaponItems.map((i) => i.id);
   try {
-    const typeMap = await invoke<Record<string, number>>('lookup_item_types', { itemIds: ids });
+    const typeMap = await invoke<Record<string, number>>('lookup_item_types', {
+      itemIds: ids,
+    });
     for (const item of weaponItems) {
       if (typeMap[String(item.id)] === 17) {
         item.isTwoHand = true;
@@ -37,11 +43,15 @@ function validate(input: string): ParseResult {
   }
 
   // Must contain at least one key=value line that looks like SimC
-  const hasClassLine = /^(warrior|paladin|hunter|rogue|priest|deathknight|shaman|mage|warlock|monk|druid|demonhunter|evoker)=/m.test(trimmed);
+  const hasClassLine =
+    /^(warrior|paladin|hunter|rogue|priest|deathknight|shaman|mage|warlock|monk|druid|demonhunter|evoker)=/m.test(
+      trimmed,
+    );
   if (!hasClassLine) {
     return {
       ok: false,
-      error: 'This doesn\u2019t look like a SimC export. Open the SimulationCraft addon in-game, copy the full text, and paste it here.',
+      error:
+        'This doesn\u2019t look like a SimC export. Open the SimulationCraft addon in-game, copy the full text, and paste it here.',
     };
   }
 
@@ -50,18 +60,20 @@ function validate(input: string): ParseResult {
   if (!profile.characterName) {
     return {
       ok: false,
-      error: 'Could not find a character name. Make sure you\u2019re pasting the full export from the SimC addon.',
+      error:
+        'Could not find a character name. Make sure you\u2019re pasting the full export from the SimC addon.',
     };
   }
 
-  const equippedCount = Object.values(profile.gear).filter(
-    (items) => items.some((i) => i.isEquipped),
+  const equippedCount = Object.values(profile.gear).filter((items) =>
+    items.some((i) => i.isEquipped),
   ).length;
 
   if (equippedCount === 0) {
     return {
       ok: false,
-      error: 'No equipped gear found. The export may be incomplete \u2014 try copying it again from the addon.',
+      error:
+        'No equipped gear found. The export may be incomplete \u2014 try copying it again from the addon.',
     };
   }
 
@@ -221,53 +233,58 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       )
     : 0;
 
-  const activeTalentName = profile?.savedLoadouts?.find(
-    (l) => l.talentString === profile.talentString,
-  )?.name ?? null;
+  const activeTalentName =
+    profile?.savedLoadouts?.find((l) => l.talentString === profile.talentString)
+      ?.name ?? null;
+  const savedLoadoutCount = profile?.savedLoadouts?.length ?? 0;
 
   return (
-    <div className="w-full">
+    <div className='w-full'>
       {/* Character summary — shown when profile is valid */}
       {profile && (
-        <div className="mb-4 flex items-center gap-3 animate-in">
-          <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-md bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
-              <span className="text-accent-amber text-sm font-bold">
+        <div className='mb-4 flex items-center gap-3 animate-in'>
+          <div className='flex items-center gap-2.5'>
+            <div className='h-9 w-9 rounded-md bg-amber-500/15 border border-amber-500/25 flex items-center justify-center'>
+              <span className='text-accent-amber text-sm font-bold'>
                 {profile.level}
               </span>
             </div>
             <div>
-              <div className="flex items-baseline gap-2">
-                <h2 className="text-base font-semibold text-amber-50 tracking-tight">
+              <div className='flex items-baseline gap-2'>
+                <h2 className='text-base font-semibold text-amber-50 tracking-tight'>
                   {profile.characterName}
                 </h2>
-                <span className="text-xs text-text-muted">
+                <span className='text-xs text-text-muted'>
                   {formatRealm(profile.realm)}-{profile.region.toUpperCase()}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
-                <span className="text-accent-amber/80 font-medium">
+              <div className='flex items-center gap-1.5 text-xs text-text-tertiary'>
+                <span className='text-accent-amber/80 font-medium'>
                   {formatSpec(profile.spec)}
                 </span>
-                <span className="text-text-faint">&middot;</span>
-                <span>
-                  {totalEquipped} equipped
-                </span>
+                <span className='text-text-faint'>&middot;</span>
+                <span>{totalEquipped} equipped</span>
                 {totalBag > 0 && (
                   <>
-                    <span className="text-text-faint">&middot;</span>
+                    <span className='text-text-faint'>&middot;</span>
+                    <span>{totalBag} in bags</span>
+                  </>
+                )}
+                {profile.talentString && (
+                  <>
+                    <span className='text-text-faint'>&middot;</span>
                     <span>
-                      {totalBag} in bags
+                      <span className='text-text-faint'>Talents:</span>{' '}
+                      <span className='text-accent-amber/80 font-medium'>
+                        {activeTalentName ?? 'Custom Build'}
+                      </span>
                     </span>
                   </>
                 )}
-                {activeTalentName && (
+                {savedLoadoutCount > 0 && (
                   <>
-                    <span className="text-text-faint">&middot;</span>
-                    <span>
-                      <span className="text-text-faint">Talents:</span>{' '}
-                      <span className="text-accent-amber/80 font-medium">{activeTalentName}</span>
-                    </span>
+                    <span className='text-text-faint'>&middot;</span>
+                    <span>{savedLoadoutCount} saved {savedLoadoutCount === 1 ? 'loadout' : 'loadouts'}</span>
                   </>
                 )}
               </div>
@@ -277,7 +294,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       )}
 
       {/* Textarea + error */}
-      <div className="relative group">
+      <div className='relative group'>
         <textarea
           ref={textareaRef}
           value={input}
@@ -285,7 +302,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
           onPaste={handlePaste}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholder="Paste your SimulationCraft addon export here&hellip;"
+          placeholder='Paste your SimulationCraft addon export here&hellip;'
           spellCheck={false}
           rows={profile ? 3 : 6}
           className={[
@@ -306,15 +323,18 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
         {hasInput && (
           <button
             onClick={handleClear}
-            className="absolute top-2.5 right-2.5 p-1 rounded text-text-faint hover:text-text-secondary hover:bg-surface-hover transition-colors"
-            title="Clear"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            className='absolute top-2.5 right-2.5 p-1 rounded text-text-faint hover:text-text-secondary hover:bg-surface-hover transition-colors'
+            title='Clear'>
+            <svg
+              width='14'
+              height='14'
+              viewBox='0 0 14 14'
+              fill='none'>
               <path
-                d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+                d='M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
               />
             </svg>
           </button>
@@ -323,28 +343,43 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
 
       {/* Error message */}
       {error && (
-        <div className="mt-2.5 flex items-start gap-2 text-sm animate-in">
+        <div className='mt-2.5 flex items-start gap-2 text-sm animate-in'>
           <svg
-            className="mt-0.5 shrink-0 text-accent-red"
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-          >
-            <circle cx="7.5" cy="7.5" r="6" stroke="currentColor" strokeWidth="1.2" />
-            <path d="M7.5 4.5V8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            <circle cx="7.5" cy="10" r="0.75" fill="currentColor" />
+            className='mt-0.5 shrink-0 text-accent-red'
+            width='15'
+            height='15'
+            viewBox='0 0 15 15'
+            fill='none'>
+            <circle
+              cx='7.5'
+              cy='7.5'
+              r='6'
+              stroke='currentColor'
+              strokeWidth='1.2'
+            />
+            <path
+              d='M7.5 4.5V8'
+              stroke='currentColor'
+              strokeWidth='1.2'
+              strokeLinecap='round'
+            />
+            <circle
+              cx='7.5'
+              cy='10'
+              r='0.75'
+              fill='currentColor'
+            />
           </svg>
-          <p className="text-accent-red/90 leading-snug">{error}</p>
+          <p className='text-accent-red/90 leading-snug'>{error}</p>
         </div>
       )}
 
       {/* Idle hint — only shown when empty and no profile */}
       {!hasInput && !profile && (
-        <p className="mt-2 text-xs text-text-faint leading-relaxed">
+        <p className='mt-2 text-xs text-text-faint leading-relaxed'>
           Open the{' '}
-          <span className="text-text-muted">SimulationCraft addon</span> in WoW, go
-          to the export tab, and copy everything.
+          <span className='text-text-muted'>SimulationCraft addon</span> in WoW,
+          go to the export tab, and copy everything.
         </p>
       )}
     </div>
