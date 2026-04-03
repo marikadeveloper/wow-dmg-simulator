@@ -221,6 +221,10 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       )
     : 0;
 
+  const activeTalentName = profile?.savedLoadouts?.find(
+    (l) => l.talentString === profile.talentString,
+  )?.name ?? null;
+
   return (
     <div className="w-full">
       {/* Character summary — shown when profile is valid */}
@@ -254,6 +258,15 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
                     <span className="text-text-faint">&middot;</span>
                     <span>
                       {totalBag} in bags
+                    </span>
+                  </>
+                )}
+                {activeTalentName && (
+                  <>
+                    <span className="text-text-faint">&middot;</span>
+                    <span>
+                      <span className="text-text-faint">Talents:</span>{' '}
+                      <span className="text-accent-amber/80 font-medium">{activeTalentName}</span>
                     </span>
                   </>
                 )}

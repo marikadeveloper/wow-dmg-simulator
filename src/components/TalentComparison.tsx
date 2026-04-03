@@ -21,6 +21,7 @@ export default function TalentComparison({
 
   const loadouts = profile.savedLoadouts ?? [];
   const selectedCount = selectedLoadoutNames.size;
+  const activeTalentName = loadouts.find((l) => l.talentString === profile.talentString)?.name ?? null;
 
   // Detect duplicate talent strings (same build saved under different names)
   const duplicateStrings = useMemo(() => {
@@ -130,6 +131,21 @@ export default function TalentComparison({
             </div>
           ) : (
             <div className="px-3.5 py-3">
+              {/* Active build callout */}
+              {activeTalentName && (
+                <div className="flex items-center gap-2 mb-3 px-2.5 py-2 rounded-md bg-amber-500/6 border border-amber-500/15">
+                  <svg className="w-3.5 h-3.5 text-accent-amber/70 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 14V6" />
+                    <path d="M8 6L4 2" />
+                    <path d="M8 6L12 2" />
+                  </svg>
+                  <span className="text-[11px] text-text-muted">
+                    Active build:{' '}
+                    <span className="text-accent-amber/90 font-medium">{activeTalentName}</span>
+                  </span>
+                </div>
+              )}
+
               {/* Select / Deselect all */}
               <div className="flex items-center gap-3 mb-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-60" />
