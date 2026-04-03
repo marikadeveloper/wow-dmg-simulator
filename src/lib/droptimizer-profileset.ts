@@ -16,6 +16,7 @@
 import type { SimcProfile, CombinationSpec } from './types';
 import type { DroptimizerItem } from './droptimizer-items';
 import { DUAL_WIELD_SPECS, SOCKET_BONUS_ID } from './presets/season-config';
+import { SOCKETABLE_DROPTIMIZER_SLOTS } from './presets/loot-tables';
 
 /** Options controlling profileset generation. */
 export interface DroptimizerProfileSetOptions {
@@ -82,12 +83,19 @@ export function generateDroptimizerCombinations(
 
       // Build the SimC item line for this drop
       const simcLine = buildDropItemLine(profile, item, targetSlot, options);
+      const overrideLines = [simcLine];
+
+      // When swapping main_hand, clear off_hand if the character has one
+      // (matches Raidbots behavior: off_hand=,)
+      if (targetSlot === 'main_hand' && profile.gear.off_hand?.length) {
+        overrideLines.push('off_hand=,');
+      }
 
       const comboName = `combo_${String(comboIndex).padStart(4, '0')}`;
       combinations.push({
         name: comboName,
         axes: { [`drop:${targetSlot}`]: `item_${item.itemId}` },
-        overrideLines: [simcLine],
+        overrideLines,
       });
 
       meta.set(comboName, {
@@ -153,11 +161,12 @@ function shouldSkipUniqueEquipped(
 /**
  * Build the SimC gear line for a drop item being placed in a target slot.
  *
- * Handles:
- * - Enchant inheritance from the currently equipped item in the same slot (12.24)
- * - Gem/socket inheritance from equipped item (12.25)
- * - Vault socket bonus_id if enabled (12.20)
- * - Preferred gem if set (12.19)
+ * Matches the Raidbots Droptimizer format:
+ * - Uses bonus_id= (raid drop IDs + rank) instead of ilevel= for raids
+ * - Falls back to ilevel= for M+/world boss items without bonus_ids
+ * - Adds socket bonus_id (13668) for socketable slots (neck, ring)
+ * - Inherits enchant from currently equipped item (12.24)
+ * - Inherits gems per-slot from equipped item (12.25)
  */
 function buildDropItemLine(
   profile: SimcProfile,
@@ -165,13 +174,7 @@ function buildDropItemLine(
   targetSlot: string,
   options: DroptimizerProfileSetOptions,
 ): string {
-  // Start with base item line: slot=,id=ITEMID
   const parts: string[] = [`${targetSlot}=,id=${item.itemId}`];
-
-  // Set ilvl directly (SimC resolves stats from id + ilevel)
-  if (item.ilvl > 0) {
-    parts.push(`ilevel=${item.ilvl}`);
-  }
 
   // Inherit enchant from currently equipped item in this slot
   const equippedEnchant = getEquippedEnchant(profile, targetSlot);
@@ -179,22 +182,37 @@ function buildDropItemLine(
     parts.push(`enchant_id=${equippedEnchant}`);
   }
 
-  // Build bonus_ids
-  const bonusIds: number[] = [];
+  // Build bonus_ids: raid drop IDs + rank + optional socket
+  const bonusIds: number[] = [...item.bonusIds];
+
+  // Add socket bonus for socketable slots (neck, ring) — Raidbots uses 13668
+  const genericSlot = targetSlot.replace(/\d+$/, ''); // finger1 → finger
+  const needsSocket = SOCKETABLE_DROPTIMIZER_SLOTS.has(genericSlot) || SOCKETABLE_DROPTIMIZER_SLOTS.has(item.slot);
+  if (needsSocket) {
+    bonusIds.push(13668);
+  }
+
+  // Vault socket bonus_id
   if (options.addVaultSocket && (SOCKET_BONUS_ID as number) !== 0) {
     bonusIds.push(SOCKET_BONUS_ID);
   }
+
   if (bonusIds.length > 0) {
     parts.push(`bonus_id=${bonusIds.join('/')}`);
+  } else if (item.ilvl > 0) {
+    // Fallback for items without bonus_ids (M+, world boss)
+    parts.push(`ilevel=${item.ilvl}`);
   }
 
-  // Gem: use preferred gem if set, otherwise inherit from equipped item
-  if (options.preferredGemId != null) {
-    parts.push(`gem_id=${options.preferredGemId}`);
-  } else {
-    const equippedGems = getEquippedGems(profile, targetSlot);
-    if (equippedGems) {
-      parts.push(`gem_id=${equippedGems}`);
+  // Gem: use preferred gem if set, otherwise inherit per-slot from equipped
+  if (needsSocket || options.addVaultSocket) {
+    if (options.preferredGemId != null) {
+      parts.push(`gem_id=${options.preferredGemId}`);
+    } else {
+      const equippedGems = getGemsFromSlot(profile, targetSlot);
+      if (equippedGems) {
+        parts.push(`gem_id=${equippedGems}`);
+      }
     }
   }
 
@@ -212,26 +230,7 @@ function getEquippedEnchant(profile: SimcProfile, slot: string): number | undefi
   return equipped?.enchantId;
 }
 
-/**
- * Get the gem_id string from the currently equipped item in a given slot.
- * Falls back to neck → finger1 → finger2 for gem inheritance.
- * Returns undefined if no gems are equipped.
- */
-function getEquippedGems(profile: SimcProfile, slot: string): string | undefined {
-  // First try the target slot itself
-  const directGems = getGemsFromSlot(profile, slot);
-  if (directGems) return directGems;
-
-  // Fall back to neck → finger1 → finger2 (common gem sources)
-  for (const fallbackSlot of ['neck', 'finger1', 'finger2']) {
-    if (fallbackSlot === slot) continue;
-    const gems = getGemsFromSlot(profile, fallbackSlot);
-    if (gems) return gems;
-  }
-
-  return undefined;
-}
-
+/** Get the gem_id string from the currently equipped item in a given slot. */
 function getGemsFromSlot(profile: SimcProfile, slot: string): string | undefined {
   const items = profile.gear[slot];
   if (!items) return undefined;

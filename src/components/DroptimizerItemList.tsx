@@ -102,6 +102,7 @@ export default function DroptimizerItemList({
           name: `${baseItem.name} (Catalyst)`,
           slot: mapping.slot,
           ilvl: baseItem.ilvl,
+          bonusIds: [...baseItem.bonusIds],
           sourceLabel: `${baseItem.sourceLabel} (Catalyst)`,
           sourceGroupId: baseItem.sourceGroupId,
           sourceGroupName: baseItem.sourceGroupName,

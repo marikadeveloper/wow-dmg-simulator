@@ -132,6 +132,27 @@ export const RAID_DIFFICULTY_LABELS: Record<RaidDifficulty, { label: string; tra
   mythic: { label: 'Mythic', track: 'Myth' },
 };
 
+/**
+ * Raid drop base bonus IDs. These are added to every raid loot item's bonus_id
+ * list alongside the gear track rank bonus_id. SimC needs these to properly
+ * resolve raid drop items. Values confirmed from Raidbots Droptimizer output.
+ */
+export const RAID_DROP_BONUS_IDS = [4799, 4786];
+
+/**
+ * Map raid difficulty to the gear track name.
+ * Boss tier maps to rank within the track (tier 1 → rank 1, tier 2 → rank 2, etc.)
+ */
+export const RAID_DIFFICULTY_TRACK: Record<RaidDifficulty, string> = {
+  lfr:    'Veteran',
+  normal: 'Champion',
+  heroic: 'Hero',
+  mythic: 'Myth',
+};
+
+/** Slots that should receive a socket bonus_id (13668) in Droptimizer. */
+export const SOCKETABLE_DROPTIMIZER_SLOTS = new Set(['neck', 'finger']);
+
 // ── Keystone Level → ilvl Table ─────────────────────────────────────────────
 
 export const KEYSTONE_ILVL_TABLE: KeystoneIlvlEntry[] = [

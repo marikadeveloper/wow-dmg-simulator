@@ -12,6 +12,8 @@ import {
   WORLD_BOSSES,
   RAID_ILVL_MAP,
   WORLD_BOSS_ILVL,
+  RAID_DROP_BONUS_IDS,
+  RAID_DIFFICULTY_TRACK,
   getItemsForClass,
   getKeystoneIlvl,
   type RaidDifficulty,
@@ -20,6 +22,7 @@ import {
   TIER_SETS,
   CLASS_TO_TIER_SET_ID,
   TIER_SLOT_ORDER,
+  TRACK_BONUS_RANGES,
 } from './presets/season-config';
 
 /** A resolved droptimizer item ready for display. */
@@ -32,8 +35,14 @@ export interface DroptimizerItem {
   name: string;
   /** Equip slot (generic: 'finger', 'trinket', not 'finger1'). */
   slot: string;
-  /** Computed item level for this source config. */
+  /** Computed item level for this source config (for display). */
   ilvl: number;
+  /**
+   * Bonus IDs that SimC needs to resolve this item at the correct ilvl.
+   * For raid drops: [4799, 4786, rankBonusId].
+   * For M+ / world boss: may use ilevel= fallback if no bonus_ids known.
+   */
+  bonusIds: number[];
   /** Source label (boss name, dungeon name, "World Boss", "Catalyst"). */
   sourceLabel: string;
   /** Source group key for group-by-source (raid instance id, dungeon id, etc.). */
@@ -93,6 +102,20 @@ export function resolveDroptimizerItems(
   }
 }
 
+/**
+ * Compute the bonus_ids for a raid drop item.
+ * Format: [4799, 4786, rankBonusId] where rankBonusId encodes the ilvl.
+ * Boss tier maps directly to rank within the gear track.
+ */
+function getRaidDropBonusIds(difficulty: RaidDifficulty, bossTier: number): number[] {
+  const trackName = RAID_DIFFICULTY_TRACK[difficulty];
+  const trackRange = TRACK_BONUS_RANGES.find((t) => t.name === trackName);
+  if (!trackRange) return [];
+  // Boss tier maps to rank: tier 1 → rank 1, tier 2 → rank 2, etc.
+  const rankBonusId = trackRange.startBonusId + (bossTier - 1);
+  return [...RAID_DROP_BONUS_IDS, rankBonusId];
+}
+
 function resolveRaidItems(
   difficulty: RaidDifficulty,
   raidIds: string[] | null,
@@ -107,6 +130,7 @@ function resolveRaidItems(
   for (const raid of raids) {
     for (const enc of raid.encounters) {
       const ilvl = RAID_ILVL_MAP[difficulty]?.[enc.bossTier] ?? 0;
+      const bonusIds = getRaidDropBonusIds(difficulty, enc.bossTier);
       const classItems = filterByClass ? getItemsForClass(enc.items, className) : enc.items;
       for (const item of classItems) {
         items.push({
@@ -115,6 +139,7 @@ function resolveRaidItems(
           name: item.name,
           slot: item.slot,
           ilvl,
+          bonusIds,
           sourceLabel: enc.name,
           sourceGroupId: raid.id,
           sourceGroupName: raid.name,
@@ -148,6 +173,7 @@ function resolveMplusItems(
         name: item.name,
         slot: item.slot,
         ilvl,
+        bonusIds: [], // M+ items use ilevel= fallback
         sourceLabel: dg.name,
         sourceGroupId: dg.id,
         sourceGroupName: dg.name,
@@ -170,6 +196,7 @@ function resolveWorldBossItems(className: string, filterByClass: boolean): Dropt
         name: item.name,
         slot: item.slot,
         ilvl: WORLD_BOSS_ILVL,
+        bonusIds: [], // World boss items use ilevel= fallback
         sourceLabel: wb.name,
         sourceGroupId: wb.id,
         sourceGroupName: wb.name,
@@ -197,6 +224,7 @@ function resolveCatalystItems(className: string): DroptimizerItem[] {
       name: `${tierSet.name} (${slot})`,
       slot,
       ilvl: 0, // Catalyst ilvl depends on the source item — shown as "varies"
+      bonusIds: [],
       sourceLabel: 'Catalyst',
       sourceGroupId: 'catalyst',
       sourceGroupName: 'Catalyst',

@@ -42,6 +42,7 @@ function makeItem(overrides?: Partial<DroptimizerItem>): DroptimizerItem {
     name: 'Test Drop',
     slot: 'head',
     ilvl: 272,
+    bonusIds: [4799, 4786, 12796],
     sourceLabel: 'Boss Name',
     sourceGroupId: 'raid_1',
     sourceGroupName: 'Test Raid',
@@ -64,13 +65,23 @@ describe('generateDroptimizerCombinations', () => {
     expect(meta.size).toBe(2);
   });
 
-  it('sets ilevel on the item line', () => {
+  it('uses bonus_id for raid items instead of ilevel', () => {
     const profile = makeProfile();
-    const items = [makeItem({ itemId: 501, ilvl: 272 })];
+    const items = [makeItem({ itemId: 501, ilvl: 272, bonusIds: [4799, 4786, 12796] })];
     const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
 
     const line = combinations[1].overrideLines[0];
-    expect(line).toContain('ilevel=272');
+    expect(line).toContain('bonus_id=4799/4786/12796');
+    expect(line).not.toContain('ilevel=');
+  });
+
+  it('falls back to ilevel for items without bonus_ids', () => {
+    const profile = makeProfile();
+    const items = [makeItem({ itemId: 501, ilvl: 266, bonusIds: [] })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    const line = combinations[1].overrideLines[0];
+    expect(line).toContain('ilevel=266');
   });
 
   // ── 12.24: Enchant inheritance ──────────────────────────────────────────
@@ -106,14 +117,24 @@ describe('generateDroptimizerCombinations', () => {
     expect(line).toContain('gem_id=240888');
   });
 
-  it('falls back to neck gems when target slot has no gems', () => {
+  it('does not add gems to non-socketable slots', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'head', itemId: 501 })];
     const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
 
-    // head has no gems, should fall back to neck's gems
+    // head is not a socketable droptimizer slot — no gems
     const line = combinations[1].overrideLines[0];
-    expect(line).toContain('gem_id=240888');
+    expect(line).not.toContain('gem_id');
+  });
+
+  it('adds socket bonus_id and inherits gems for ring drops', () => {
+    const profile = makeProfile();
+    const items = [makeItem({ slot: 'finger', itemId: 501 })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    // finger1 version should get finger1's gem, finger2 version should get finger2's gem (if any)
+    const line1 = combinations[1].overrideLines[0]; // finger1
+    expect(line1).toContain('13668'); // socket bonus_id
   });
 
   it('uses preferred gem over inherited gems', () => {
