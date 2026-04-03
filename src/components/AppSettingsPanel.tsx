@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { CURRENT_SEASON } from '../lib/presets/season-config';
+import type { UpdateCheckResult } from './UpdateChecker';
 
 interface AppConfig {
   simcBinaryPath: string | null;
@@ -16,7 +17,7 @@ interface BinaryStatus {
 
 interface AppSettingsPanelProps {
   onConfigChange?: () => void;
-  onCheckForUpdates?: () => Promise<void>;
+  onCheckForUpdates?: () => Promise<UpdateCheckResult>;
 }
 
 export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: AppSettingsPanelProps) {
@@ -29,7 +30,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
   const [refreshing, setRefreshing] = useState(false);
   const [refreshResult, setRefreshResult] = useState<{ ok: boolean; message: string } | null>(null);
   const [checkingUpdates, setCheckingUpdates] = useState(false);
-  const [updateCheckResult, setUpdateCheckResult] = useState<string | null>(null);
+  const [updateCheckResult, setUpdateCheckResult] = useState<UpdateCheckResult | null>(null);
 
   // Load config on mount
   useEffect(() => {
@@ -120,10 +121,10 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
     setCheckingUpdates(true);
     setUpdateCheckResult(null);
     try {
-      await onCheckForUpdates();
-      setUpdateCheckResult('checked');
+      const result = await onCheckForUpdates();
+      setUpdateCheckResult(result);
     } catch {
-      setUpdateCheckResult('error');
+      setUpdateCheckResult({ status: 'error', message: 'Could not check for updates' });
     } finally {
       setCheckingUpdates(false);
     }
@@ -358,12 +359,17 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   >
                     {checkingUpdates ? 'Checking...' : 'Check for updates'}
                   </button>
-                  {updateCheckResult === 'checked' && (
-                    <span className="text-[11px] text-text-muted">
-                      Check complete — see banner above if an update is available
+                  {updateCheckResult?.status === 'available' && (
+                    <span className="text-[11px] text-accent-emerald">
+                      v{updateCheckResult.version} available — see banner above
                     </span>
                   )}
-                  {updateCheckResult === 'error' && (
+                  {updateCheckResult?.status === 'up-to-date' && (
+                    <span className="text-[11px] text-text-muted">
+                      You're on the latest version
+                    </span>
+                  )}
+                  {updateCheckResult?.status === 'error' && (
                     <span className="text-[11px] text-accent-red">
                       Could not check for updates
                     </span>

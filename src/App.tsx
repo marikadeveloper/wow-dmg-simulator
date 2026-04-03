@@ -345,6 +345,14 @@ function App() {
           <ProfileImport onProfileParsed={handleProfileParsed} />
         </section>
 
+        {/* App Settings — always visible */}
+        <section className="mb-8">
+          <AppSettingsPanel
+            onConfigChange={handleConfigChange}
+            onCheckForUpdates={() => updateCheckerRef.current?.checkForUpdates() ?? Promise.resolve({ status: 'error' as const, message: 'Update checker not available' })}
+          />
+        </section>
+
         {/* Zone 2 — Gear & Optimization Panel */}
         {profile && (
           <section className="mb-8">
@@ -363,12 +371,6 @@ function App() {
         {/* Zone 3 — Simulation Settings + Run Controls */}
         {profile && (
           <section className="mb-8">
-            <div className="mb-3">
-              <AppSettingsPanel
-                onConfigChange={handleConfigChange}
-                onCheckForUpdates={() => updateCheckerRef.current?.checkForUpdates() ?? Promise.resolve()}
-              />
-            </div>
 
             <SimSettingsPanel
               settings={simSettings}

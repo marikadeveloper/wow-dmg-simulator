@@ -10,16 +10,21 @@ type UpdateState =
   | { phase: 'error'; message: string }
   | { phase: 'dismissed' };
 
+export type UpdateCheckResult =
+  | { status: 'available'; version: string }
+  | { status: 'up-to-date' }
+  | { status: 'error'; message: string };
+
 export interface UpdateCheckerHandle {
-  checkForUpdates: () => Promise<void>;
+  checkForUpdates: () => Promise<UpdateCheckResult>;
 }
 
 const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_props, ref) {
   const [state, setState] = useState<UpdateState>({ phase: 'idle' });
   const updateRef = useRef<Awaited<ReturnType<typeof import('@tauri-apps/plugin-updater').check>> | null>(null);
 
-  const checkForUpdates = useCallback(async () => {
-    if (!(window as any).__TAURI__) return;
+  const checkForUpdates = useCallback(async (): Promise<UpdateCheckResult> => {
+    if (!(window as any).__TAURI__) return { status: 'error', message: 'Not running in Tauri' };
 
     setState({ phase: 'checking' });
     updateRef.current = null;
@@ -30,7 +35,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
 
       if (!update) {
         setState({ phase: 'up-to-date' });
-        return;
+        return { status: 'up-to-date' };
       }
 
       updateRef.current = update;
@@ -39,11 +44,11 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
         version: update.version,
         body: update.body ?? null,
       });
+      return { status: 'available', version: update.version };
     } catch (err) {
-      setState({
-        phase: 'error',
-        message: err instanceof Error ? err.message : String(err),
-      });
+      const message = err instanceof Error ? err.message : String(err);
+      setState({ phase: 'error', message });
+      return { status: 'error', message };
     }
   }, []);
 
