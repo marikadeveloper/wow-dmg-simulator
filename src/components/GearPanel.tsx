@@ -515,12 +515,18 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   }, [augmentedProfile]);
 
   // Collect equipped enchant IDs (from all items marked isEquipped across all slots)
+  // Include both Q1 and Q2 variants: Q2 enchant ID = Q1 enchant ID + 1
   const equippedEnchantIds = useMemo(() => {
     const ids = new Set<number>();
     for (const items of Object.values(augmentedProfile.gear)) {
       for (const item of items) {
         if (item.isEquipped && item.enchantId != null) {
-          ids.add(item.enchantId);
+          const eid = item.enchantId;
+          ids.add(eid);
+          // Q1/Q2 enchants come in consecutive pairs (even=Q1, odd=Q2).
+          // Mark both so the "Equipped" badge shows on either quality chip.
+          if (eid % 2 === 0) ids.add(eid + 1);  // Q1 equipped → also mark Q2
+          else ids.add(eid - 1);                  // Q2 equipped → also mark Q1
         }
       }
     }
