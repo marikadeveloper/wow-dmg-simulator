@@ -25,6 +25,7 @@ import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, Combination
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
 import { filterCombinationsByCatalystCharges } from './lib/catalyst-generator';
 import DroptimizerPanel from './components/DroptimizerPanel';
+import DroptimizerResults from './components/DroptimizerResults';
 import { runDroptimizerSim, SmartSimCancelledError as DroptimizerCancelledError } from './lib/droptimizer-runner';
 import type { DroptimizerItem } from './lib/droptimizer-items';
 import type { DroptimizerProfileSetOptions } from './lib/droptimizer-profileset';
@@ -53,6 +54,9 @@ function App() {
 
   // Navigation tab
   const [activeTab, setActiveTab] = useState<AppTab>('topgear');
+
+  // Droptimizer results metadata
+  const [droptimizerMeta, setDroptimizerMeta] = useState<Map<string, import('./lib/droptimizer-profileset').DroptimizerComboMeta>>(new Map());
 
   const updateCheckerRef = useRef<UpdateCheckerHandle>(null);
 
@@ -335,6 +339,7 @@ function App() {
 
       if (runId !== runIdRef.current) return;
       setSimResults(result.results);
+      setDroptimizerMeta(result.meta);
     } catch (err) {
       if (runId !== runIdRef.current) return;
       if (err instanceof DroptimizerCancelledError) {
@@ -633,11 +638,15 @@ function App() {
               </div>
             )}
 
-            {/* Results */}
+            {/* Droptimizer results */}
             {simResults && simResults.length > 0 && (
-              <div className="mt-3 space-y-3">
-                <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
-                <SimResultsTopGear results={simResults} axes={[]} />
+              <div className="mt-3">
+                <DroptimizerResults
+                  results={simResults}
+                  meta={droptimizerMeta}
+                  elapsedMs={elapsedMs}
+                  characterName={profile.characterName}
+                />
               </div>
             )}
 

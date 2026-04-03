@@ -253,18 +253,18 @@ Last updated: 2026-04-02
 
 | #     | Story                                                                     | Status |
 | ----- | ------------------------------------------------------------------------- | ------ |
-| 12.30 | Boss/Dungeon Summary view: items grouped by encounter + DPS delta         | ⬜     |
-| 12.31 | Per-boss metrics: Expected Value, Best Drop, Priority rank                | ⬜     |
-| 12.32 | Priority ranking algorithm (EV grouping → upgrade probability → best)     | ⬜     |
-| 12.33 | Sort options: Priority / Boss Order / Expected Value / Best               | ⬜     |
-| 12.34 | Item Ranking view: flat list sorted by DPS delta                          | ⬜     |
-| 12.35 | Equipped baseline always shown with "Current Gear" label                  | ⬜     |
-| 12.36 | Upgrade/downgrade highlighting                                            | ⬜     |
-| 12.37 | Ring/trinket slot variations with "N variations hidden" toggle            | ⬜     |
-| 12.38 | Relative DPS toggle (% vs absolute)                                       | ⬜     |
-| 12.39 | DPS distribution chart per item                                           | ⬜     |
-| 12.40 | Results header: "Droptimizer • Source • Difficulty - Name - DPS"          | ⬜     |
+| 12.30 | Boss/Dungeon Summary view: items grouped by encounter + DPS delta         | ✅     |
+| 12.31 | Per-boss metrics: Expected Value, Best Drop, Priority rank                | ✅     |
+| 12.32 | Priority ranking algorithm (EV grouping → upgrade probability → best)     | ✅     |
+| 12.33 | Sort options: Priority / Boss Order / Expected Value / Best               | ✅     |
+| 12.34 | Item Ranking view: flat list sorted by DPS delta                          | ✅     |
+| 12.35 | Equipped baseline always shown with "Current Gear" label                  | ✅     |
+| 12.36 | Upgrade/downgrade highlighting                                            | ✅     |
+| 12.37 | Ring/trinket slot variations with "N variations hidden" toggle            | ✅     |
+| 12.38 | Relative DPS toggle (% vs absolute)                                       | ✅     |
+| 12.39 | DPS distribution chart per item                                           | ✅     |
+| 12.40 | Results header: "Droptimizer • Source • Difficulty - Name - DPS"          | ✅     |
 
-**Sub-epic status: ⬜ 0/11 stories done**
+**Sub-epic status: ✅ 11/11 stories done**
 
-**Epic status: ⬜ 29/40 stories done**
+**Epic status: ✅ 40/40 stories done**
