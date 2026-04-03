@@ -72,7 +72,10 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   );
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
-  const [selectedLoadoutNames, setSelectedLoadoutNames] = useState<Set<string>>(new Set());
+  const [selectedLoadoutNames, setSelectedLoadoutNames] = useState<Set<string>>(() => {
+    const active = profile.savedLoadouts?.find((l) => l.talentString === profile.talentString);
+    return active ? new Set([active.name]) : new Set();
+  });
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [upgradeItems, setUpgradeItems] = useState<Map<string, GearItem[]>>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
@@ -89,7 +92,8 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     setSelection(buildInitialSelection(profile));
     setSelectedGemIds(new Set());
     setSelectedEnchantIds(new Set());
-    setSelectedLoadoutNames(new Set());
+    const activeLoadout = profile.savedLoadouts?.find((l) => l.talentString === profile.talentString);
+    setSelectedLoadoutNames(activeLoadout ? new Set([activeLoadout.name]) : new Set());
     setTierSetMinimums(new Map());
     setUpgradeItems(new Map());
     setCatalystCharges(null);
