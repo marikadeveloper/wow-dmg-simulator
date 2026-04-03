@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import type { SimcProfile, SavedLoadout } from '../lib/types';
+import { talentBuildsEqual } from '../lib/talent-decoder';
 
 // ── Component ────────────────────────────────────────────────────────────────
 
@@ -21,17 +22,18 @@ export default function TalentComparison({
 
   const loadouts = profile.savedLoadouts ?? [];
   const selectedCount = selectedLoadoutNames.size;
-  const activeTalentName = loadouts.find((l) => l.talentString === profile.talentString)?.name ?? null;
+  const activeTalentName = loadouts.find((l) => talentBuildsEqual(l.talentString, profile.talentString))?.name ?? null;
 
-  // Detect duplicate talent strings (same build saved under different names)
-  const duplicateStrings = useMemo(() => {
-    const seen = new Map<string, number>();
-    for (const loadout of loadouts) {
-      seen.set(loadout.talentString, (seen.get(loadout.talentString) ?? 0) + 1);
-    }
-    const dupes = new Set<string>();
-    for (const [str, count] of seen) {
-      if (count > 1) dupes.add(str);
+  // Detect duplicate talent builds (same purchased nodes saved under different names)
+  const duplicateIndices = useMemo(() => {
+    const dupes = new Set<number>();
+    for (let i = 0; i < loadouts.length; i++) {
+      for (let j = i + 1; j < loadouts.length; j++) {
+        if (talentBuildsEqual(loadouts[i].talentString, loadouts[j].talentString)) {
+          dupes.add(i);
+          dupes.add(j);
+        }
+      }
     }
     return dupes;
   }, [loadouts]);
@@ -176,13 +178,13 @@ export default function TalentComparison({
 
               {/* Loadout chips */}
               <div className="flex flex-wrap gap-1.5">
-                {loadouts.map((loadout) => (
+                {loadouts.map((loadout, idx) => (
                   <LoadoutChip
                     key={loadout.name}
                     loadout={loadout}
                     selected={selectedLoadoutNames.has(loadout.name)}
-                    isActive={loadout.talentString === profile.talentString}
-                    isDuplicate={duplicateStrings.has(loadout.talentString)}
+                    isActive={talentBuildsEqual(loadout.talentString, profile.talentString)}
+                    isDuplicate={duplicateIndices.has(idx)}
                     onToggle={() => onToggleLoadout(loadout.name)}
                   />
                 ))}

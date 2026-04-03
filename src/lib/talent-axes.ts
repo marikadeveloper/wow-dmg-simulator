@@ -1,4 +1,5 @@
 import type { SimcProfile, OptimizationAxis, OptimizationOption } from './types';
+import { talentBuildsEqual } from './talent-decoder';
 
 /**
  * Build an OptimizationAxis for talent build comparison.
@@ -27,8 +28,9 @@ export function buildTalentAxes(
   // Each selected saved loadout
   for (const loadout of profile.savedLoadouts ?? []) {
     if (!selectedNames.has(loadout.name)) continue;
-    // Skip if this loadout has the same talent string as the active one
-    if (loadout.talentString === profile.talentString) continue;
+    // Skip if this loadout is functionally the same as the active build
+    // (compares purchased talent nodes, ignoring auto-granted differences)
+    if (talentBuildsEqual(loadout.talentString, profile.talentString)) continue;
     options.push({
       id: `talent_${loadout.name}`,
       label: loadout.name,

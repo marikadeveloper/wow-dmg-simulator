@@ -16,6 +16,7 @@ import { generateCatalystItems } from '../lib/catalyst-generator';
 import type { TierSetMinimums } from '../lib/tier-set-filter';
 import { getItemData } from '../lib/item-cache';
 import { saveUnownedItems, loadUnownedItems } from '../lib/unowned-store';
+import { talentBuildsEqual } from '../lib/talent-decoder';
 
 interface GearPanelProps {
   profile: SimcProfile;
@@ -73,7 +74,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
   const [selectedLoadoutNames, setSelectedLoadoutNames] = useState<Set<string>>(() => {
-    const active = profile.savedLoadouts?.find((l) => l.talentString === profile.talentString);
+    const active = profile.savedLoadouts?.find((l) => talentBuildsEqual(l.talentString, profile.talentString));
     return active ? new Set([active.name]) : new Set();
   });
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
@@ -92,7 +93,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     setSelection(buildInitialSelection(profile));
     setSelectedGemIds(new Set());
     setSelectedEnchantIds(new Set());
-    const activeLoadout = profile.savedLoadouts?.find((l) => l.talentString === profile.talentString);
+    const activeLoadout = profile.savedLoadouts?.find((l) => talentBuildsEqual(l.talentString, profile.talentString));
     setSelectedLoadoutNames(activeLoadout ? new Set([activeLoadout.name]) : new Set());
     setTierSetMinimums(new Map());
     setUpgradeItems(new Map());

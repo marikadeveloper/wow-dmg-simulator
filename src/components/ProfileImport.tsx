@@ -7,6 +7,7 @@ import {
   saveLastInput,
 } from '../lib/profile-store';
 import type { SimcProfile } from '../lib/types';
+import { talentBuildsEqual } from '../lib/talent-decoder';
 
 /** Validation result — either a valid profile or an error message. */
 type ParseResult =
@@ -234,7 +235,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
     : 0;
 
   const activeTalentName =
-    profile?.savedLoadouts?.find((l) => l.talentString === profile.talentString)
+    profile?.savedLoadouts?.find((l) => talentBuildsEqual(l.talentString, profile.talentString))
       ?.name ?? null;
   const savedLoadoutCount = profile?.savedLoadouts?.length ?? 0;
 
