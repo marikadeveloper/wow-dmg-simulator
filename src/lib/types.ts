@@ -110,6 +110,46 @@ export interface SimResult {
   axes: Record<string, string>;
 }
 
+// ── Droptimizer types ───────────────────────────────────────────────────────
+
+/** Droptimizer loot source category. */
+export type DroptimizerSourceType = 'raid' | 'mythicplus' | 'worldboss' | 'catalyst';
+
+/** Raid source configuration. */
+export interface RaidSourceConfig {
+  type: 'raid';
+  /** Selected difficulty. */
+  difficulty: 'lfr' | 'normal' | 'heroic' | 'mythic';
+  /** Selected raid instance IDs. null = all raids. */
+  raidIds: string[] | null;
+}
+
+/** Mythic+ source configuration. */
+export interface MythicPlusSourceConfig {
+  type: 'mythicplus';
+  /** Selected dungeon IDs. null = all dungeons. */
+  dungeonIds: string[] | null;
+  /** Selected keystone level. */
+  keystoneLevel: number;
+}
+
+/** World boss source configuration. */
+export interface WorldBossSourceConfig {
+  type: 'worldboss';
+}
+
+/** Catalyst source configuration. */
+export interface CatalystSourceConfig {
+  type: 'catalyst';
+}
+
+/** Union of all Droptimizer source configurations. */
+export type DroptimizerSourceConfig =
+  | RaidSourceConfig
+  | MythicPlusSourceConfig
+  | WorldBossSourceConfig
+  | CatalystSourceConfig;
+
 /** Persisted app configuration. */
 export interface AppConfig {
   /** Override path for the SimC binary (null = use bundled sidecar) */

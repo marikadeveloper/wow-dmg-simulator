@@ -24,6 +24,9 @@ import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
 import { filterCombinationsByCatalystCharges } from './lib/catalyst-generator';
+import DroptimizerPanel from './components/DroptimizerPanel';
+
+export type AppTab = 'topgear' | 'droptimizer';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
@@ -44,6 +47,9 @@ function App() {
   // Smart Sim stage tracking
   const [smartSimStage, setSmartSimStage] = useState<{ current: number; total: number; label: string; combos: number } | null>(null);
   const [smartSimStageResults, setSmartSimStageResults] = useState<StageResult[]>([]);
+
+  // Navigation tab
+  const [activeTab, setActiveTab] = useState<AppTab>('topgear');
 
   const updateCheckerRef = useRef<UpdateCheckerHandle>(null);
 
@@ -296,7 +302,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-3">
               <h1 className="text-lg font-semibold tracking-tight text-text-heading">
-                Top Gear
+                SimC Gear Optimizer
               </h1>
               <span className="text-xs text-text-faint font-medium">
                 Local SimC
@@ -353,8 +359,44 @@ function App() {
           />
         </section>
 
-        {/* Zone 2 — Gear & Optimization Panel */}
+        {/* Mode tabs — visible after character is loaded */}
         {profile && (
+          <nav className="mb-8">
+            <div className="flex gap-1 border-b border-border-primary">
+              <button
+                onClick={() => setActiveTab('topgear')}
+                className={[
+                  'relative px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-colors',
+                  activeTab === 'topgear'
+                    ? 'text-amber-500'
+                    : 'text-text-muted hover:text-text-secondary',
+                ].join(' ')}
+              >
+                Top Gear
+                {activeTab === 'topgear' && (
+                  <span className="absolute inset-x-0 -bottom-px h-0.5 bg-amber-500 rounded-full" />
+                )}
+              </button>
+              <button
+                onClick={() => setActiveTab('droptimizer')}
+                className={[
+                  'relative px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-colors',
+                  activeTab === 'droptimizer'
+                    ? 'text-amber-500'
+                    : 'text-text-muted hover:text-text-secondary',
+                ].join(' ')}
+              >
+                Droptimizer
+                {activeTab === 'droptimizer' && (
+                  <span className="absolute inset-x-0 -bottom-px h-0.5 bg-amber-500 rounded-full" />
+                )}
+              </button>
+            </div>
+          </nav>
+        )}
+
+        {/* Zone 2 — Gear & Optimization Panel (Top Gear mode) */}
+        {profile && activeTab === 'topgear' && (
           <section className="mb-8">
             <GearPanel
               profile={profile}
@@ -368,8 +410,8 @@ function App() {
           </section>
         )}
 
-        {/* Zone 3 — Simulation Settings + Run Controls */}
-        {profile && (
+        {/* Zone 3 — Simulation Settings + Run Controls (Top Gear mode) */}
+        {profile && activeTab === 'topgear' && (
           <section className="mb-8">
 
             <SimSettingsPanel
@@ -474,6 +516,13 @@ function App() {
                 <span>Simulation failed: {simError}</span>
               </div>
             )}
+          </section>
+        )}
+
+        {/* Droptimizer mode */}
+        {profile && activeTab === 'droptimizer' && (
+          <section className="mb-8">
+            <DroptimizerPanel profile={profile} />
           </section>
         )}
       </div>
