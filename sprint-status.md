@@ -210,13 +210,13 @@ Last updated: 2026-04-02
 | #     | Story                                                                          | Status |
 | ----- | ------------------------------------------------------------------------------ | ------ |
 | 12.7  | App navigation: Top Gear / Droptimizer tabs after character loaded             | ✅     |
-| 12.8  | Source selector UI: clickable cards for each source type                       | ⬜     |
-| 12.9  | Raid source: difficulty selector (RF/Normal/Heroic/Mythic + gear track label)  | ⬜     |
-| 12.10 | M+ source: dungeon selector (All/individual) + keystone level selector         | ⬜     |
-| 12.11 | World bosses source: no difficulty selector (fixed ilvl)                       | ⬜     |
-| 12.12 | Catalyst source: tier pieces for character's class/spec                        | ⬜     |
+| 12.8  | Source selector UI: clickable cards for each source type                       | ✅     |
+| 12.9  | Raid source: difficulty selector (RF/Normal/Heroic/Mythic + gear track label)  | ✅     |
+| 12.10 | M+ source: dungeon selector (All/individual) + keystone level selector         | ✅     |
+| 12.11 | World bosses source: no difficulty selector (fixed ilvl)                       | ✅     |
+| 12.12 | Catalyst source: tier pieces for character's class/spec                        | ✅     |
 
-**Sub-epic status: ⬜ 1/6 stories done**
+**Sub-epic status: ✅ 6/6 stories done**
 
 ### 12C — Item List & Configuration
 
@@ -267,4 +267,4 @@ Last updated: 2026-04-02
 
 **Sub-epic status: ⬜ 0/11 stories done**
 
-**Epic status: ⬜ 7/40 stories done**
+**Epic status: ⬜ 12/40 stories done**
