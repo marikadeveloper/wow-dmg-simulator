@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import type { SimcProfile, DroptimizerSourceType, DroptimizerSourceConfig } from '../lib/types';
 import {
   RAID_INSTANCES,
@@ -16,10 +16,16 @@ import {
   CLASS_TO_TIER_SET_ID,
   TIER_SLOT_ORDER,
 } from '../lib/presets/season-config';
-import DroptimizerItemList from './DroptimizerItemList';
+import DroptimizerItemList, { type DroptimizerItemListState } from './DroptimizerItemList';
+import type { DroptimizerItem } from '../lib/droptimizer-items';
+import type { DroptimizerProfileSetOptions } from '../lib/droptimizer-profileset';
 
 interface DroptimizerPanelProps {
   profile: SimcProfile;
+  /** Called when "Run Droptimizer" is clicked with the items and options. */
+  onRunDroptimizer?: (items: DroptimizerItem[], options: DroptimizerProfileSetOptions) => void;
+  /** Whether a simulation is currently running. */
+  isRunning?: boolean;
 }
 
 const RAID_DIFFICULTIES: RaidDifficulty[] = ['lfr', 'normal', 'heroic', 'mythic'];
@@ -78,7 +84,7 @@ const SOURCE_CARDS: SourceCardDef[] = [
 
 // ── Main component ─────────────────────────────────────────────────────────
 
-export default function DroptimizerPanel({ profile }: DroptimizerPanelProps) {
+export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning }: DroptimizerPanelProps) {
   const [sourceConfig, setSourceConfig] = useState<DroptimizerSourceConfig>({
     type: 'raid',
     difficulty: 'heroic',
@@ -86,6 +92,19 @@ export default function DroptimizerPanel({ profile }: DroptimizerPanelProps) {
   });
 
   const className = profile.className ?? profile.spec?.split(' ')[0]?.toLowerCase() ?? '';
+
+  // Track current item list state from the child component
+  const itemListStateRef = useRef<DroptimizerItemListState | null>(null);
+
+  const handleItemListStateChange = useCallback((state: DroptimizerItemListState) => {
+    itemListStateRef.current = state;
+  }, []);
+
+  const handleRun = useCallback(() => {
+    const state = itemListStateRef.current;
+    if (!state || state.items.length === 0) return;
+    onRunDroptimizer?.(state.items, state.options);
+  }, [onRunDroptimizer]);
 
   // ── Source card click handler ──────────────────────────────────────────────
 
@@ -180,7 +199,26 @@ export default function DroptimizerPanel({ profile }: DroptimizerPanelProps) {
         profile={profile}
         sourceConfig={sourceConfig}
         className={className}
+        onStateChange={handleItemListStateChange}
       />
+
+      {/* Run button */}
+      {onRunDroptimizer && (
+        <div className="mt-4">
+          <button
+            onClick={handleRun}
+            disabled={isRunning}
+            className={[
+              'w-full rounded-lg py-2.5 text-xs font-semibold uppercase tracking-wider transition-all',
+              isRunning
+                ? 'border border-border-primary bg-surface-secondary text-text-faint cursor-not-allowed'
+                : 'bg-amber-500/15 border border-amber-500/30 text-amber-500 hover:bg-amber-500/20 active:bg-amber-500/25',
+            ].join(' ')}
+          >
+            {isRunning ? 'Running...' : 'Run Droptimizer'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -25,6 +25,9 @@ import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, Combination
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
 import { filterCombinationsByCatalystCharges } from './lib/catalyst-generator';
 import DroptimizerPanel from './components/DroptimizerPanel';
+import { runDroptimizerSim, SmartSimCancelledError as DroptimizerCancelledError } from './lib/droptimizer-runner';
+import type { DroptimizerItem } from './lib/droptimizer-items';
+import type { DroptimizerProfileSetOptions } from './lib/droptimizer-profileset';
 
 export type AppTab = 'topgear' | 'droptimizer';
 
@@ -288,6 +291,69 @@ function App() {
     }
   }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums, catalystCharges, bypassLimit]);
 
+  // ── Droptimizer run handler ───────────────────────────────────────────────
+
+  const handleRunDroptimizer = useCallback(async (
+    items: DroptimizerItem[],
+    options: DroptimizerProfileSetOptions,
+  ) => {
+    if (!profile || isRunning || items.length === 0) return;
+
+    setIsRunning(true);
+    setSimError(null);
+    setSimResults(null);
+    setSmartSimStage(null);
+    setSmartSimStageResults([]);
+
+    const runId = ++runIdRef.current;
+
+    try {
+      const settings = toSimSettings(simSettings);
+      const result = await runDroptimizerSim(
+        {
+          profile,
+          items,
+          settings,
+          options,
+          smartSimTargetErrors: simSettings.smartSimTargetErrors,
+        },
+        {
+          onStageStart: (stage, totalStages, comboCount, label) => {
+            if (runId !== runIdRef.current) return;
+            setSmartSimStage({ current: stage, total: totalStages, label, combos: comboCount });
+            setSimProgress({ current: 0, total: 0 });
+          },
+          onStageComplete: (stageResult) => {
+            if (runId !== runIdRef.current) return;
+            setSmartSimStageResults((prev) => [...prev, stageResult]);
+          },
+          runSimC: async (simcContent: string) => {
+            return invoke<string>('run_top_gear', { simcContent });
+          },
+        },
+      );
+
+      if (runId !== runIdRef.current) return;
+      setSimResults(result.results);
+    } catch (err) {
+      if (runId !== runIdRef.current) return;
+      if (err instanceof DroptimizerCancelledError) {
+        if (err.partialResults.length > 0) {
+          setSimResults(err.partialResults);
+        }
+        return;
+      }
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg !== 'Simulation cancelled') {
+        setSimError(msg);
+      }
+    } finally {
+      if (runId === runIdRef.current) {
+        setIsRunning(false);
+      }
+    }
+  }, [profile, simSettings, isRunning]);
+
   const { theme, setTheme } = useTheme();
 
   return (
@@ -522,7 +588,65 @@ function App() {
         {/* Droptimizer mode */}
         {profile && activeTab === 'droptimizer' && (
           <section className="mb-8">
-            <DroptimizerPanel profile={profile} />
+            <DroptimizerPanel
+              profile={profile}
+              onRunDroptimizer={handleRunDroptimizer}
+              isRunning={isRunning}
+            />
+
+            {/* Sim settings (shared with Top Gear) */}
+            <div className="mt-6">
+              <SimSettingsPanel
+                settings={simSettings}
+                onSettingsChange={setSimSettings}
+                profile={profile}
+              />
+            </div>
+
+            {/* Cancel button while running */}
+            {isRunning && (
+              <div className="mt-4">
+                <button
+                  onClick={handleCancelSimulation}
+                  className="w-full rounded-lg border border-red-500/30 bg-red-500/10 py-2 text-xs font-semibold uppercase tracking-wider text-accent-red hover:bg-red-500/15 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+
+            {/* Progress bar */}
+            <div className="mt-3">
+              <SimProgressBar
+                current={simProgress.current}
+                total={simProgress.total}
+                elapsedMs={elapsedMs}
+                isActive={isRunning}
+                smartSimStage={smartSimStage}
+              />
+            </div>
+
+            {/* SimC log output */}
+            {(isRunning || simLogLines.length > 0) && (
+              <div className="mt-2">
+                <SimLogPanel lines={simLogLines} isActive={isRunning} />
+              </div>
+            )}
+
+            {/* Results */}
+            {simResults && simResults.length > 0 && (
+              <div className="mt-3 space-y-3">
+                <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
+                <SimResultsTopGear results={simResults} axes={[]} />
+              </div>
+            )}
+
+            {/* Error */}
+            {simError && (
+              <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-accent-red">
+                <span>Simulation failed: {simError}</span>
+              </div>
+            )}
           </section>
         )}
       </div>

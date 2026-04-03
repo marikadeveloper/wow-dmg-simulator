@@ -239,15 +239,15 @@ Last updated: 2026-04-02
 
 | #     | Story                                                                     | Status |
 | ----- | ------------------------------------------------------------------------- | ------ |
-| 12.23 | ProfileSet generation: one profileset per drop (single-swap vs baseline)  | ⬜     |
-| 12.24 | Enchants inherited from currently equipped item in same slot              | ⬜     |
-| 12.25 | Gems/sockets inherited from current neck or first ring                    | ⬜     |
-| 12.26 | Rings tried in both slots; trinkets tried in both slots automatically     | ⬜     |
-| 12.27 | Unique-Equipped constraint: skip duplicate ring/trinket in same combo     | ⬜     |
-| 12.28 | Reuse Smart Sim (Epic 11) for multi-stage adaptive precision              | ⬜     |
-| 12.29 | Dual wield classes try weapons in both hands                              | ⬜     |
+| 12.23 | ProfileSet generation: one profileset per drop (single-swap vs baseline)  | ✅     |
+| 12.24 | Enchants inherited from currently equipped item in same slot              | ✅     |
+| 12.25 | Gems/sockets inherited from current neck or first ring                    | ✅     |
+| 12.26 | Rings tried in both slots; trinkets tried in both slots automatically     | ✅     |
+| 12.27 | Unique-Equipped constraint: skip duplicate ring/trinket in same combo     | ✅     |
+| 12.28 | Reuse Smart Sim (Epic 11) for multi-stage adaptive precision              | ✅     |
+| 12.29 | Dual wield classes try weapons in both hands                              | ✅     |
 
-**Sub-epic status: ⬜ 0/7 stories done**
+**Sub-epic status: ✅ 7/7 stories done**
 
 ### 12E — Results Display
 
@@ -267,4 +267,4 @@ Last updated: 2026-04-02
 
 **Sub-epic status: ⬜ 0/11 stories done**
 
-**Epic status: ⬜ 22/40 stories done**
+**Epic status: ⬜ 29/40 stories done**

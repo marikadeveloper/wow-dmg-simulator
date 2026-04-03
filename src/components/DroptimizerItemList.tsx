@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { SimcProfile, DroptimizerSourceConfig } from '../lib/types';
 import {
   resolveDroptimizerItems,
@@ -8,13 +8,22 @@ import {
   type DroptimizerItem,
   type GroupByMode,
 } from '../lib/droptimizer-items';
+import type { DroptimizerProfileSetOptions } from '../lib/droptimizer-profileset';
 import { GEM_PRESETS, GEAR_TRACKS } from '../lib/presets/season-config';
 import { CATALYST_MAPPINGS } from '../lib/presets/loot-tables';
+
+/** Emitted whenever the resolved item list or configuration options change. */
+export interface DroptimizerItemListState {
+  items: DroptimizerItem[];
+  options: DroptimizerProfileSetOptions;
+}
 
 interface DroptimizerItemListProps {
   profile: SimcProfile;
   sourceConfig: DroptimizerSourceConfig;
   className: string;
+  /** Called whenever the resolved items or options change. */
+  onStateChange?: (state: DroptimizerItemListState) => void;
 }
 
 // ── Reusable checkbox ───────────────────────────────────────────────────────
@@ -59,6 +68,7 @@ export default function DroptimizerItemList({
   profile,
   sourceConfig,
   className,
+  onStateChange,
 }: DroptimizerItemListProps) {
   const [groupBy, setGroupBy] = useState<GroupByMode>('slot');
   const [includeCatalyst, setIncludeCatalyst] = useState(true);
@@ -116,6 +126,19 @@ export default function DroptimizerItemList({
     () => [...baseItems, ...catalystItems, ...offSpecItems],
     [baseItems, catalystItems, offSpecItems],
   );
+
+  // Notify parent of state changes
+  useEffect(() => {
+    onStateChange?.({
+      items: allItems,
+      options: {
+        preferredGemId,
+        addVaultSocket,
+        upgradeTrack,
+        upgradeAllEquipped,
+      },
+    });
+  }, [allItems, preferredGemId, addVaultSocket, upgradeTrack, upgradeAllEquipped, onStateChange]);
 
   // Group items
   const groups = useMemo(
