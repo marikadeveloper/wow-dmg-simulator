@@ -112,7 +112,7 @@ export default function RunSimulationButton({
 
         {/* Combo count pill — only when enabled and not running */}
         {!isDisabled && !isRunning && combinationCount > 1 && (
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-950/30 text-amber-200/80 border border-amber-800/20">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-950/30 text-accent-amber/80 border border-amber-800/20">
             {combinationCount.toLocaleString()} {combinationCount === 1 ? 'combo' : 'combos'}
           </span>
         )}

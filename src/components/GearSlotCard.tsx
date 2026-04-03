@@ -373,18 +373,18 @@ export default function GearSlotCard({
 const QUALITY_COLORS: Record<number, string> = {
   0: 'text-text-muted',     // Poor (grey)
   1: 'text-text-secondary', // Common (white)
-  2: 'text-green-400',      // Uncommon
-  3: 'text-blue-400',       // Rare
-  4: 'text-purple-400',     // Epic
-  5: 'text-orange-400',     // Legendary
+  2: 'text-accent-green',      // Uncommon
+  3: 'text-accent-blue',       // Rare
+  4: 'text-accent-purple',     // Epic
+  5: 'text-accent-orange',     // Legendary
 };
 
 /** CSS classes for gear track badges. */
 const TRACK_COLORS: Record<string, string> = {
-  Myth: 'text-orange-400',
-  Hero: 'text-purple-400',
-  Champion: 'text-blue-400',
-  Veteran: 'text-green-400',
+  Myth: 'text-accent-orange',
+  Hero: 'text-accent-purple',
+  Champion: 'text-accent-blue',
+  Veteran: 'text-accent-green',
   Adventurer: 'text-text-tertiary',
 };
 
@@ -479,17 +479,17 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           'shrink-0 flex items-center justify-center w-4 h-4 rounded border transition-colors',
           selected
             ? isEquipped
-              ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+              ? 'bg-amber-500/20 border-amber-500/50 text-accent-amber'
               : isUpgraded
-                ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                ? 'bg-amber-500/20 border-amber-500/50 text-accent-amber'
                 : isCopyModified
-                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                  ? 'bg-amber-500/20 border-amber-500/50 text-accent-amber'
                   : isCatalyst
-                    ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
+                    ? 'bg-cyan-500/20 border-cyan-500/50 text-accent-cyan'
                     : isUnowned
-                      ? 'bg-amber-500/20 border-amber-500/50 text-amber-400'
+                      ? 'bg-amber-500/20 border-amber-500/50 text-accent-amber'
                       : isVault
-                        ? 'bg-violet-500/20 border-violet-500/50 text-violet-400'
+                        ? 'bg-violet-500/20 border-violet-500/50 text-accent-violet'
                         : 'bg-surface-tertiary border-border-input text-text-secondary'
             : 'border-border-input text-transparent',
         ].join(' ')}
@@ -550,7 +550,7 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           </span>
           {isUpgrade && (
             <svg
-              className="shrink-0 w-3 h-3 text-emerald-400"
+              className="shrink-0 w-3 h-3 text-accent-emerald"
               viewBox="0 0 12 12"
               fill="currentColor"
               aria-label="Higher gear track than equipped"
@@ -576,11 +576,11 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
               <span className="text-text-tertiary">{ilvl}</span>
             )}
             {isCrafted ? (
-              <span className="flex items-center gap-1 text-amber-400/90">
+              <span className="flex items-center gap-1 text-accent-amber/90">
                 Crafted
                 {isMaxCraftingQuality && (
                   <svg
-                    className="w-3 h-3 text-amber-400"
+                    className="w-3 h-3 text-accent-amber"
                     viewBox="0 0 12 12"
                     fill="currentColor"
                     aria-label="Max crafting quality"
@@ -626,13 +626,13 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
                 <a
                   href={buildWowheadItemUrl(enchantPreset.wowheadItemId)}
                   onClick={(e) => e.preventDefault()}
-                  className="text-[11px] text-emerald-400/90 truncate"
+                  className="text-[11px] text-accent-emerald/90 truncate"
                   data-wh-icon-size="small"
                 >
                   {getEnchantDisplayName(item.enchantId!)}
                 </a>
               ) : (
-                <span className="text-[11px] text-emerald-400/90 truncate">
+                <span className="text-[11px] text-accent-emerald/90 truncate">
                   {getEnchantDisplayName(item.enchantId!)}
                 </span>
               );
@@ -653,17 +653,17 @@ function ItemRow({ item, cached, badge, selected, onToggle, equippedTrackRank, o
           className={[
             'text-[10px] font-medium px-1.5 py-0.5 rounded',
             isEquipped
-              ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+              ? 'bg-amber-500/10 text-accent-amber/80 border border-amber-500/15'
               : isUpgraded
-                ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                ? 'bg-amber-500/10 text-accent-amber/80 border border-amber-500/15'
                 : isCopyModified
-                  ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                  ? 'bg-amber-500/10 text-accent-amber/80 border border-amber-500/15'
                   : isCatalyst
-                    ? 'bg-cyan-500/10 text-cyan-400/80 border border-cyan-500/15'
+                    ? 'bg-cyan-500/10 text-accent-cyan/80 border border-cyan-500/15'
                     : isUnowned
-                      ? 'bg-amber-500/10 text-amber-400/80 border border-amber-500/15'
+                      ? 'bg-amber-500/10 text-accent-amber/80 border border-amber-500/15'
                       : isVault
-                        ? 'bg-violet-500/10 text-violet-400/80 border border-violet-500/15'
+                        ? 'bg-violet-500/10 text-accent-violet/80 border border-violet-500/15'
                         : 'bg-surface-secondary text-text-muted border border-border-tertiary',
           ].join(' ')}
         >

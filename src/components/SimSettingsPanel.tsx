@@ -618,7 +618,7 @@ export default function SimSettingsPanel({
           <div className="flex items-center gap-2 mb-3">
             <button
               onClick={() => update({ raidBuffs: { ...DEFAULT_RAID_BUFFS } })}
-              className="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/25 transition-colors"
+              className="px-3 py-1 rounded-md text-xs font-semibold bg-amber-500/15 text-accent-amber border border-amber-500/25 hover:bg-amber-500/25 transition-colors"
             >
               Optimal Raid Buffs
             </button>
@@ -764,7 +764,7 @@ function CheckboxItem({
             height="10"
             viewBox="0 0 10 10"
             fill="none"
-            className="text-amber-400"
+            className="text-accent-amber"
           >
             <path
               d="M2 5.5L4 7.5L8 3"

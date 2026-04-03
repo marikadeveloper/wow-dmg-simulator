@@ -45,7 +45,7 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
             <>
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
-                <span className="text-red-400/80">SimC not found</span>
+                <span className="text-accent-red/80">SimC not found</span>
               </span>
               {status?.error && (
                 <span className="text-text-faint max-w-xs truncate" title={status.error}>

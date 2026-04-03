@@ -151,7 +151,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
           <span className="text-xs text-text-secondary tracking-wide flex-1 min-w-0">
             {state.phase === 'available' && (
               <>
-                <span className="text-amber-200/90 font-medium">v{state.version}</span>
+                <span className="text-accent-amber/90 font-medium">v{state.version}</span>
                 <span className="text-text-muted mx-1.5">&mdash;</span>
                 <span>Update available</span>
               </>
@@ -162,7 +162,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
               </span>
             )}
             {state.phase === 'installing' && (
-              <span className="text-amber-300/80">Installing &mdash; restarting shortly</span>
+              <span className="text-accent-amber/80">Installing &mdash; restarting shortly</span>
             )}
           </span>
 
@@ -171,7 +171,7 @@ const UpdateChecker = forwardRef<UpdateCheckerHandle>(function UpdateChecker(_pr
             <button
               onClick={handleUpdate}
               className="shrink-0 px-3 py-1 text-[11px] font-medium tracking-wide
-                         bg-amber-500/15 text-amber-300 border border-amber-500/25 rounded
+                         bg-amber-500/15 text-accent-amber border border-amber-500/25 rounded
                          hover:bg-amber-500/25 hover:border-amber-500/40
                          active:bg-amber-500/30
                          transition-all duration-150 cursor-pointer"

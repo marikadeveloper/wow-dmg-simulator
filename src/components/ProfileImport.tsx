@@ -228,7 +228,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
         <div className="mb-4 flex items-center gap-3 animate-in">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-md bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
-              <span className="text-amber-400 text-sm font-bold">
+              <span className="text-accent-amber text-sm font-bold">
                 {profile.level}
               </span>
             </div>
@@ -242,7 +242,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
                 </span>
               </div>
               <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
-                <span className="text-amber-400/80 font-medium">
+                <span className="text-accent-amber/80 font-medium">
                   {formatSpec(profile.spec)}
                 </span>
                 <span className="text-text-faint">&middot;</span>
@@ -312,7 +312,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
       {error && (
         <div className="mt-2.5 flex items-start gap-2 text-sm animate-in">
           <svg
-            className="mt-0.5 shrink-0 text-red-400"
+            className="mt-0.5 shrink-0 text-accent-red"
             width="15"
             height="15"
             viewBox="0 0 15 15"
@@ -322,7 +322,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
             <path d="M7.5 4.5V8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
             <circle cx="7.5" cy="10" r="0.75" fill="currentColor" />
           </svg>
-          <p className="text-red-300/90 leading-snug">{error}</p>
+          <p className="text-accent-red/90 leading-snug">{error}</p>
         </div>
       )}
 

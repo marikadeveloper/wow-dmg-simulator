@@ -803,7 +803,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
 
       {/* Weapon validation warning */}
       {weaponWarning && (
-        <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-red-300">
+        <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-accent-red">
           <svg className="w-3.5 h-3.5 mt-0.5 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="8" cy="8" r="6" />
             <path d="M8 5v3" /><circle cx="8" cy="10.5" r="0.5" fill="currentColor" />

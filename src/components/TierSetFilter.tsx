@@ -25,7 +25,7 @@ function PieceCountButton({
       className={[
         'px-2 py-0.5 rounded text-[11px] font-medium tabular-nums transition-all duration-150',
         isSelected
-          ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+          ? 'bg-amber-500/15 text-accent-amber border border-amber-500/30'
           : 'bg-surface-tertiary text-text-muted border border-border-tertiary hover:text-text-tertiary hover:border-border-input',
       ].join(' ')}
     >
@@ -130,7 +130,7 @@ export default function TierSetFilter({
             Tier Sets
           </span>
           {activeFilterCount > 0 && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400/80 border border-amber-500/15 font-medium">
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-accent-amber/80 border border-amber-500/15 font-medium">
               {activeFilterCount} {activeFilterCount === 1 ? 'filter' : 'filters'}
             </span>
           )}

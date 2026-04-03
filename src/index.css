@@ -29,6 +29,18 @@
   --color-border-input: var(--border-input);
   --color-border-focus: var(--border-focus);
 
+  /* ── Accent text tokens (theme-adaptive) ── */
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-red: var(--accent-red);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-green: var(--accent-green);
+  --color-accent-violet: var(--accent-violet);
+
   /* ── Misc tokens ── */
   --color-bar-track: var(--bar-track);
 }
@@ -44,12 +56,12 @@
   --surface-hover: #f4f4f5;               /* zinc-100 */
   --surface-selected: #f4f4f5;            /* zinc-100 */
 
-  --text-primary: #18181b;                /* zinc-900 */
-  --text-secondary: #3f3f46;              /* zinc-700 */
-  --text-tertiary: #71717a;               /* zinc-500 */
-  --text-muted: #a1a1aa;                  /* zinc-400 */
-  --text-faint: #a1a1aa;                  /* zinc-400 */
-  --text-disabled: #d4d4d8;               /* zinc-300 */
+  --text-primary: #18181b;                /* zinc-900  — 17.5:1 on white */
+  --text-secondary: #3f3f46;              /* zinc-700  —  9.7:1 on white */
+  --text-tertiary: #52525b;               /* zinc-600  —  7.7:1 on white */
+  --text-muted: #71717a;                  /* zinc-500  —  4.8:1 on white */
+  --text-faint: #71717a;                  /* zinc-500  —  4.8:1 on white (decorative) */
+  --text-disabled: #a1a1aa;               /* zinc-400  —  2.6:1 (WCAG-exempt: disabled) */
   --text-heading: #18181b;                /* zinc-900 */
 
   --border-primary: #e4e4e7;              /* zinc-200 */
@@ -58,11 +70,23 @@
   --border-input: #d4d4d8;               /* zinc-300 */
   --border-focus: rgba(245,158,11,0.6);   /* amber-500/60 */
 
+  /* Accent text: 800-shade for AA contrast on all light surfaces (all ≥ 4.5:1 on zinc-200) */
+  --accent-amber: #92400e;               /* amber-800  — 5.6:1 on tertiary */
+  --accent-emerald: #065f46;              /* emerald-800 — 6.1:1 on tertiary */
+  --accent-red: #991b1b;                  /* red-800    — 7.8:1 on tertiary */
+  --accent-cyan: #155e75;                 /* cyan-800   — 5.7:1 on tertiary */
+  --accent-purple: #6b21a8;               /* purple-800 — 8.3:1 on tertiary */
+  --accent-blue: #1e40af;                 /* blue-800   — 8.0:1 on tertiary */
+  --accent-teal: #115e59;                 /* teal-800   — 6.0:1 on tertiary */
+  --accent-orange: #9a3412;               /* orange-800 — 5.8:1 on tertiary */
+  --accent-green: #166534;                /* green-800  — 5.6:1 on tertiary */
+  --accent-violet: #5b21b6;               /* violet-800 — 8.5:1 on tertiary */
+
   --bar-track: #e4e4e7;                   /* zinc-200 */
   --bar-neutral-rgb: 113,113,122;         /* zinc-500 */
 }
 
-/* ── Dark theme (improved readability) ───────── */
+/* ── Dark theme ──────────────────────────────── */
 .dark {
   --surface-page: #09090b;                /* zinc-950 */
   --surface-primary: rgba(24,24,27,0.5);  /* zinc-900/50 */
@@ -73,19 +97,31 @@
   --surface-hover: rgba(39,39,42,0.4);    /* zinc-800/40 */
   --surface-selected: rgba(39,39,42,0.3); /* zinc-800/30 */
 
-  --text-primary: #f4f4f5;               /* zinc-100 */
-  --text-secondary: #d4d4d8;             /* zinc-300 */
-  --text-tertiary: #a1a1aa;              /* zinc-400 */
-  --text-muted: #71717a;                 /* zinc-500 */
-  --text-faint: #52525b;                 /* zinc-600 — was zinc-700, bumped for readability */
-  --text-disabled: #52525b;              /* zinc-600 — was zinc-700, bumped for readability */
+  --text-primary: #f4f4f5;               /* zinc-100  — 17.1:1 on zinc-950 */
+  --text-secondary: #d4d4d8;             /* zinc-300  — 12.3:1 on zinc-950 */
+  --text-tertiary: #a1a1aa;              /* zinc-400  —  7.8:1 on zinc-950 */
+  --text-muted: #a1a1aa;                 /* zinc-400  —  7.8:1 on zinc-950 */
+  --text-faint: #71717a;                 /* zinc-500  —  4.1:1 (large-text / decorative) */
+  --text-disabled: #52525b;              /* zinc-600  —  2.6:1 (WCAG-exempt: disabled) */
   --text-heading: #fffbeb;               /* amber-50 */
 
   --border-primary: rgba(39,39,42,0.6);   /* zinc-800/60 */
   --border-secondary: rgba(39,39,42,0.4); /* zinc-800/40 */
-  --border-tertiary: rgba(63,63,70,0.3);  /* zinc-700/30 — was zinc-800/30, bumped for readability */
+  --border-tertiary: rgba(63,63,70,0.3);  /* zinc-700/30 */
   --border-input: rgba(63,63,70,0.5);     /* zinc-700/50 */
   --border-focus: rgba(245,158,11,0.4);   /* amber-500/40 */
+
+  /* Accent text: 400-shade for readability on dark (all ≥ 7:1) */
+  --accent-amber: #fbbf24;               /* amber-400  — 11.9:1 */
+  --accent-emerald: #34d399;              /* emerald-400 — 10.4:1 */
+  --accent-red: #f87171;                  /* red-400    —  7.2:1 */
+  --accent-cyan: #22d3ee;                 /* cyan-400   — 10.9:1 */
+  --accent-purple: #c084fc;               /* purple-400 —  7.3:1 */
+  --accent-blue: #60a5fa;                 /* blue-400   —  7.0:1 */
+  --accent-teal: #2dd4bf;                 /* teal-400   — 10.0:1 */
+  --accent-orange: #fb923c;               /* orange-400 —  8.4:1 */
+  --accent-green: #4ade80;                /* green-400  — 10.4:1 */
+  --accent-violet: #a78bfa;               /* violet-400 —  7.0:1 */
 
   --bar-track: rgba(39,39,42,0.8);        /* zinc-800/80 */
   --bar-neutral-rgb: 161,161,170;         /* zinc-400 */

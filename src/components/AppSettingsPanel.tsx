@@ -246,8 +246,8 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   className={[
                     'mt-2 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug',
                     validationResult.ok
-                      ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-300'
-                      : 'bg-red-500/10 border border-red-500/20 text-red-300',
+                      ? 'bg-emerald-500/10 border border-emerald-500/20 text-accent-emerald'
+                      : 'bg-red-500/10 border border-red-500/20 text-accent-red',
                   ].join(' ')}
                 >
                   {validationResult.ok ? (
@@ -326,7 +326,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                   {refreshing ? 'Downloading...' : 'Refresh item database'}
                 </button>
                 {refreshResult && (
-                  <span className={`text-[11px] ${refreshResult.ok ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <span className={`text-[11px] ${refreshResult.ok ? 'text-accent-emerald' : 'text-accent-red'}`}>
                     {refreshResult.message}
                   </span>
                 )}
@@ -364,7 +364,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                     </span>
                   )}
                   {updateCheckResult === 'error' && (
-                    <span className="text-[11px] text-red-400">
+                    <span className="text-[11px] text-accent-red">
                       Could not check for updates
                     </span>
                   )}

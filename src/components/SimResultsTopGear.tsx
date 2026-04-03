@@ -250,7 +250,7 @@ export default function SimResultsTopGear({
                 isBaselineRow
                   ? 'text-teal-500/80'
                   : isBest
-                    ? 'text-amber-400 font-bold'
+                    ? 'text-accent-amber font-bold'
                     : 'text-text-faint',
               ].join(' ')}
             >
@@ -261,7 +261,7 @@ export default function SimResultsTopGear({
             <div className="flex items-center gap-1 min-w-0 flex-1 overflow-hidden">
               {isBaselineRow ? (
                 <>
-                  <span className="inline-block px-1.5 py-0.5 rounded text-[9px] leading-none uppercase tracking-wider font-medium bg-teal-500/10 text-teal-400/80 border border-teal-500/15">
+                  <span className="inline-block px-1.5 py-0.5 rounded text-[9px] leading-none uppercase tracking-wider font-medium bg-teal-500/10 text-accent-teal/80 border border-teal-500/15">
                     Equipped
                   </span>
                   <span className="text-[10px] text-text-faint ml-0.5">
@@ -276,7 +276,7 @@ export default function SimResultsTopGear({
                       className={[
                         'inline-block px-1.5 py-0.5 rounded text-[9px] leading-none truncate max-w-[140px]',
                         isBest
-                          ? 'bg-amber-500/10 text-amber-300/80 border border-amber-500/15'
+                          ? 'bg-amber-500/10 text-accent-amber/80 border border-amber-500/15'
                           : 'bg-surface-secondary text-text-muted border border-border-input',
                       ].join(' ')}
                       title={`${c.axisLabel}: ${c.optionLabel}`}
@@ -322,9 +322,9 @@ export default function SimResultsTopGear({
                   <span
                     className={
                       delta > 0
-                        ? 'text-emerald-400'
+                        ? 'text-accent-emerald'
                         : delta < 0
-                          ? 'text-red-400'
+                          ? 'text-accent-red'
                           : 'text-text-faint'
                     }
                   >
@@ -384,9 +384,9 @@ export default function SimResultsTopGear({
                     className={[
                       'tabular-nums',
                       delta > 0
-                        ? 'text-emerald-400'
+                        ? 'text-accent-emerald'
                         : delta < 0
-                          ? 'text-red-400'
+                          ? 'text-accent-red'
                           : 'text-text-tertiary',
                     ].join(' ')}
                   >
@@ -423,7 +423,7 @@ export default function SimResultsTopGear({
                       <span
                         className={[
                           'inline-flex items-center gap-1',
-                          isDiff ? 'text-amber-300/90' : 'text-text-tertiary',
+                          isDiff ? 'text-accent-amber/90' : 'text-text-tertiary',
                         ].join(' ')}
                       >
                         {isDiff && (
@@ -455,7 +455,7 @@ export default function SimResultsTopGear({
           {baseline && (
             <button
               onClick={scrollToEquipped}
-              className="px-2 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider text-teal-400/70 border border-teal-500/20 hover:border-teal-500/40 hover:text-teal-300 bg-teal-500/5 hover:bg-teal-500/10 transition-all"
+              className="px-2 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wider text-accent-teal/70 border border-teal-500/20 hover:border-teal-500/40 hover:text-accent-teal bg-teal-500/5 hover:bg-teal-500/10 transition-all"
             >
               Go to Equipped
             </button>

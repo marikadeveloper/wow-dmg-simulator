@@ -90,7 +90,7 @@ export default function CatalystCharges({
             Catalyst Charges
           </h3>
           {isEnabled && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400/80 border border-cyan-500/15 tabular-nums">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-cyan-500/10 text-accent-cyan/80 border border-cyan-500/15 tabular-nums">
               {catalystCharges} {catalystCharges === 1 ? 'charge' : 'charges'}
             </span>
           )}
@@ -190,7 +190,7 @@ export default function CatalystCharges({
                           className={[
                             'w-7 h-7 rounded text-xs font-medium transition-all',
                             catalystCharges === n
-                              ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
+                              ? 'bg-cyan-500/20 text-accent-cyan border border-cyan-500/40'
                               : 'bg-surface-secondary text-text-muted border border-border-tertiary hover:text-text-secondary hover:border-border-input',
                           ].join(' ')}
                         >

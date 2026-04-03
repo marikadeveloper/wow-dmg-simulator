@@ -458,9 +458,9 @@ describe('GearPanel', () => {
 
     render(<GearPanel profile={profile} />);
 
-    // Wait for item cache to resolve (quality 4 = epic = purple-400)
+    // Wait for item cache to resolve (quality 4 = epic = accent-purple)
     const itemName = await screen.findByText('Test Item 1');
-    expect(itemName.className).toContain('text-purple-400');
+    expect(itemName.className).toContain('text-accent-purple');
   });
 
   it('shows enchant name for known enchantId', () => {

@@ -69,7 +69,7 @@ export default function SimProgressBar({
                       isComplete
                         ? 'text-amber-500/50'
                         : isCurrent
-                          ? 'text-amber-400/90'
+                          ? 'text-accent-amber/90'
                           : 'text-text-faint',
                     ].join(' ')}
                   >
@@ -99,7 +99,7 @@ export default function SimProgressBar({
           ) : (
             <>
               {smartSimStage ? smartSimStage.label : 'Simulating'}
-              <span className="text-amber-400/90 ml-1.5 tabular-nums">
+              <span className="text-accent-amber/90 ml-1.5 tabular-nums">
                 {current}
               </span>
               <span className="text-text-faint mx-0.5">/</span>

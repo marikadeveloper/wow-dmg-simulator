@@ -385,8 +385,8 @@ function App() {
                     className={[
                       'flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug',
                       issue.severity === 'error'
-                        ? 'bg-red-500/10 border border-red-500/20 text-red-300'
-                        : 'bg-amber-500/8 border border-amber-500/15 text-amber-300/90',
+                        ? 'bg-red-500/10 border border-red-500/20 text-accent-red'
+                        : 'bg-amber-500/8 border border-amber-500/15 text-accent-amber/90',
                     ].join(' ')}
                   >
                     <svg
@@ -457,7 +457,7 @@ function App() {
 
             {/* Simulation error message */}
             {simError && (
-              <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-red-300">
+              <div className="mt-3 flex items-start gap-2 px-3 py-2 rounded-md text-xs leading-snug bg-red-500/10 border border-red-500/20 text-accent-red">
                 <svg
                   className="mt-0.5 shrink-0"
                   width="13"

@@ -14,25 +14,25 @@ const CREST_ACCENT: Record<string, { border: string; bg: string; text: string; d
   veteran: {
     border: 'border-green-500/30',
     bg: 'bg-green-500/5',
-    text: 'text-green-400',
+    text: 'text-accent-green',
     dot: 'bg-green-400',
   },
   champion: {
     border: 'border-blue-500/30',
     bg: 'bg-blue-500/5',
-    text: 'text-blue-400',
+    text: 'text-accent-blue',
     dot: 'bg-blue-400',
   },
   hero: {
     border: 'border-purple-500/30',
     bg: 'bg-purple-500/5',
-    text: 'text-purple-400',
+    text: 'text-accent-purple',
     dot: 'bg-purple-400',
   },
   myth: {
     border: 'border-orange-500/30',
     bg: 'bg-orange-500/5',
-    text: 'text-orange-400',
+    text: 'text-accent-orange',
     dot: 'bg-orange-400',
   },
 };
@@ -124,7 +124,7 @@ export default function UpgradeBudget({
             Upgrade Budget
           </h3>
           {hasUpgrades && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400/80 border border-amber-500/15 tabular-nums">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-accent-amber/80 border border-amber-500/15 tabular-nums">
               upgrades applied
             </span>
           )}
@@ -208,7 +208,7 @@ export default function UpgradeBudget({
                   className={[
                     'px-3 py-1.5 rounded-md text-xs font-medium transition-all',
                     hasBudget
-                      ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 cursor-pointer'
+                      ? 'bg-amber-500/15 text-accent-amber border border-amber-500/30 hover:bg-amber-500/25 cursor-pointer'
                       : 'bg-surface-tertiary text-text-faint border border-border-tertiary cursor-not-allowed',
                   ].join(' ')}
                 >

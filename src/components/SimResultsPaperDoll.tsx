@@ -258,7 +258,7 @@ function SlotCard({
             <span
               className={[
                 'text-[10px] tabular-nums font-mono',
-                changed ? 'text-amber-400/60' : 'text-text-faint',
+                changed ? 'text-accent-amber/60' : 'text-text-faint',
               ].join(' ')}
             >
               {ilvl}
@@ -270,7 +270,7 @@ function SlotCard({
         <div
           className={[
             'text-[11px] leading-tight truncate',
-            changed ? 'text-amber-200/90' : 'text-text-tertiary',
+            changed ? 'text-accent-amber/90' : 'text-text-tertiary',
           ].join(' ')}
           title={itemName}
         >
@@ -288,7 +288,7 @@ function SlotCard({
                 key={i}
                 className={[
                   'text-[8px] leading-none',
-                  mod.changed ? 'text-amber-400/60' : 'text-text-faint',
+                  mod.changed ? 'text-accent-amber/60' : 'text-text-faint',
                 ].join(' ')}
                 title={mod.label}
               >
@@ -344,12 +344,12 @@ export default function SimResultsPaperDoll({
             Best Gear
           </h3>
           {changeCount > 0 && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400/80 border border-amber-500/15 font-medium">
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-accent-amber/80 border border-amber-500/15 font-medium">
               {changeCount} {changeCount === 1 ? 'change' : 'changes'}
             </span>
           )}
         </div>
-        <span className="text-[11px] tabular-nums font-mono text-amber-400/80">
+        <span className="text-[11px] tabular-nums font-mono text-accent-amber/80">
           {formatDps(best.dps)} DPS
         </span>
       </div>

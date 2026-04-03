@@ -57,7 +57,7 @@ export default function SimResultsSummary({
           /* Already optimal */
           <div className="flex items-center gap-2.5">
             <svg
-              className="w-4 h-4 text-emerald-400/80 shrink-0"
+              className="w-4 h-4 text-accent-emerald/80 shrink-0"
               viewBox="0 0 16 16"
               fill="none"
               stroke="currentColor"
@@ -84,7 +84,7 @@ export default function SimResultsSummary({
               {/* Upgrade arrow */}
               <div className="flex items-center justify-center w-7 h-7 rounded-md bg-emerald-500/10 border border-emerald-500/20">
                 <svg
-                  className="w-3.5 h-3.5 text-emerald-400"
+                  className="w-3.5 h-3.5 text-accent-emerald"
                   viewBox="0 0 14 14"
                   fill="none"
                   stroke="currentColor"
@@ -103,7 +103,7 @@ export default function SimResultsSummary({
                     {formatDps(best.dps)}
                   </span>
                   <span className="text-[11px] text-text-faint">DPS</span>
-                  <span className="text-xs font-medium tabular-nums text-emerald-400">
+                  <span className="text-xs font-medium tabular-nums text-accent-emerald">
                     +{formatDps(delta)} (+{deltaPct.toFixed(1)}%)
                   </span>
                   {withinNoise && (

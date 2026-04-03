@@ -12,10 +12,10 @@ import {
 
 /** Crest icon colors per track for the cost display. */
 const CREST_COLORS: Record<string, string> = {
-  Myth: 'text-orange-400',
-  Hero: 'text-purple-400',
-  Champion: 'text-blue-400',
-  Veteran: 'text-green-400',
+  Myth: 'text-accent-orange',
+  Hero: 'text-accent-purple',
+  Champion: 'text-accent-blue',
+  Veteran: 'text-accent-green',
   Adventurer: 'text-text-tertiary',
 };
 
@@ -264,7 +264,7 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
                   setOpen(false);
                 }}
               >
-                <span className="text-xs text-red-400/80">Remove enchant</span>
+                <span className="text-xs text-accent-red/80">Remove enchant</span>
               </button>
             )}
 
@@ -279,7 +279,7 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
                   setOpen(false);
                 }}
               >
-                <span className="text-xs text-red-400/80">Remove gems</span>
+                <span className="text-xs text-accent-red/80">Remove gems</span>
               </button>
             )}
 
@@ -294,7 +294,7 @@ export default function CopyModifyDropdown({ item, onCopyModify }: CopyModifyDro
                   setOpen(false);
                 }}
               >
-                <span className="text-xs text-red-400/80">Remove socket</span>
+                <span className="text-xs text-accent-red/80">Remove socket</span>
               </button>
             )}
           </div>

@@ -174,7 +174,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
         type="button"
         onClick={() => setIsOpen(true)}
         className="w-full flex items-center justify-center gap-1.5 py-2 mt-1 rounded-md
-                   text-[11px] font-medium text-text-faint hover:text-amber-400/80
+                   text-[11px] font-medium text-text-faint hover:text-accent-amber/80
                    border border-dashed border-border-primary hover:border-amber-500/30
                    bg-transparent hover:bg-amber-500/[0.03]
                    transition-all duration-200 cursor-pointer group"
@@ -260,7 +260,7 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
               type="button"
               onClick={handleConfirmAdd}
               className="ml-auto px-3 py-1 rounded text-[11px] font-medium
-                         bg-amber-500/15 text-amber-400 border border-amber-500/25
+                         bg-amber-500/15 text-accent-amber border border-amber-500/25
                          hover:bg-amber-500/25 transition-colors cursor-pointer"
             >
               Add
@@ -397,18 +397,18 @@ const QUALITY_DOT: Record<number, string> = {
 const QUALITY_TEXT: Record<number, string> = {
   0: 'text-text-muted',
   1: 'text-text-secondary',
-  2: 'text-green-400',
-  3: 'text-blue-400',
-  4: 'text-purple-400',
-  5: 'text-orange-400',
+  2: 'text-accent-green',
+  3: 'text-accent-blue',
+  4: 'text-accent-purple',
+  5: 'text-accent-orange',
 };
 
 /** Active track button styles matching WoW gear track colors. */
 const TRACK_BUTTON_ACTIVE: Record<string, string> = {
-  Myth: 'bg-orange-500/15 border-orange-500/40 text-orange-400',
-  Hero: 'bg-purple-500/15 border-purple-500/40 text-purple-400',
-  Champion: 'bg-blue-500/15 border-blue-500/40 text-blue-400',
-  Veteran: 'bg-green-500/15 border-green-500/40 text-green-400',
+  Myth: 'bg-orange-500/15 border-orange-500/40 text-accent-orange',
+  Hero: 'bg-purple-500/15 border-purple-500/40 text-accent-purple',
+  Champion: 'bg-blue-500/15 border-blue-500/40 text-accent-blue',
+  Veteran: 'bg-green-500/15 border-green-500/40 text-accent-green',
   Adventurer: 'bg-zinc-500/15 border-zinc-500/40 text-text-secondary',
 };
 

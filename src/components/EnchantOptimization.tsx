@@ -275,7 +275,7 @@ function EnchantSlotSection({
 
       {/* Enchant consistency warning */}
       {hasEnchantWarning && (
-        <div className="flex items-start gap-1.5 mb-1.5 px-2 py-1.5 rounded text-[11px] leading-snug bg-amber-500/8 border border-amber-500/20 text-amber-400/90">
+        <div className="flex items-start gap-1.5 mb-1.5 px-2 py-1.5 rounded text-[11px] leading-snug bg-amber-500/8 border border-amber-500/20 text-accent-amber/90">
           <svg className="w-3 h-3 mt-0.5 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M8 2L1 14h14L8 2z" />
             <path d="M8 6v4" /><circle cx="8" cy="12" r="0.5" fill="currentColor" />
@@ -326,7 +326,7 @@ function EnchantChip({ enchant, selected, equipped, onToggle, isQ2: isQ2Chip }: 
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-[11px] transition-all duration-150',
         'cursor-pointer select-none',
         selected
-          ? 'border-emerald-500/40 bg-emerald-500/8 text-emerald-400 font-medium'
+          ? 'border-emerald-500/40 bg-emerald-500/8 text-accent-emerald font-medium'
           : `border-border-secondary hover:bg-emerald-500/5 ${isQ2Chip ? 'text-text-faint' : 'text-text-muted'} hover:text-text-secondary`,
         isQ2Chip && !selected ? 'opacity-70' : '',
       ].join(' ')}
