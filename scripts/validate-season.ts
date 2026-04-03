@@ -4,7 +4,17 @@ import {
   SOCKET_BONUS_ID,
   GEM_PRESETS,
   ENCHANT_PRESETS,
+  TIER_SLOT_ORDER,
 } from '../src/lib/presets/season-config';
+
+import {
+  RAID_INSTANCES,
+  MYTHIC_PLUS_DUNGEONS,
+  WORLD_BOSSES,
+  CATALYST_MAPPINGS,
+  RAID_ILVL_MAP,
+  KEYSTONE_ILVL_TABLE,
+} from '../src/lib/presets/loot-tables';
 
 let errors = 0;
 let warnings = 0;
@@ -102,6 +112,93 @@ if (ENCHANT_PRESETS.length === 0) {
     fail(`Duplicate enchant id found in ENCHANT_PRESETS`);
   }
   pass(`${ENCHANT_PRESETS.length} enchant presets validated`);
+}
+
+// ── Loot tables ─────────────────────────────────────────────────────────────
+
+// Raid instances
+if (RAID_INSTANCES.length === 0) {
+  warn('RAID_INSTANCES is empty — Droptimizer raid source will have no data');
+} else {
+  const allRaidItems = new Set<number>();
+  for (const raid of RAID_INSTANCES) {
+    if (raid.encounters.length === 0) {
+      fail(`Raid "${raid.name}" has no encounters`);
+    }
+    for (const enc of raid.encounters) {
+      if (enc.items.length === 0) {
+        fail(`Encounter "${enc.name}" in "${raid.name}" has no items`);
+      }
+      if (enc.bossTier < 1 || enc.bossTier > 4) {
+        fail(`Encounter "${enc.name}" has invalid bossTier=${enc.bossTier} (must be 1-4)`);
+      }
+      for (const item of enc.items) {
+        if (allRaidItems.has(item.itemId)) {
+          warn(`Duplicate item ID ${item.itemId} ("${item.name}") in raid loot tables`);
+        }
+        allRaidItems.add(item.itemId);
+      }
+    }
+  }
+  pass(`${RAID_INSTANCES.length} raids, ${allRaidItems.size} unique raid items`);
+}
+
+// M+ dungeons
+if (MYTHIC_PLUS_DUNGEONS.length === 0) {
+  warn('MYTHIC_PLUS_DUNGEONS is empty — Droptimizer M+ source will have no data');
+} else {
+  let totalDungeonItems = 0;
+  for (const dg of MYTHIC_PLUS_DUNGEONS) {
+    if (dg.items.length === 0) {
+      fail(`Dungeon "${dg.name}" has no items`);
+    }
+    totalDungeonItems += dg.items.length;
+  }
+  pass(`${MYTHIC_PLUS_DUNGEONS.length} dungeons, ${totalDungeonItems} total dungeon items`);
+}
+
+// World bosses
+if (WORLD_BOSSES.length === 0) {
+  warn('WORLD_BOSSES is empty — Droptimizer world boss source will have no data');
+} else {
+  for (const wb of WORLD_BOSSES) {
+    if (wb.items.length === 0) {
+      fail(`World boss "${wb.name}" has no items`);
+    }
+  }
+  pass(`${WORLD_BOSSES.length} world bosses validated`);
+}
+
+// Raid ilvl map
+for (const diff of ['lfr', 'normal', 'heroic', 'mythic'] as const) {
+  const tiers = RAID_ILVL_MAP[diff];
+  if (!tiers || Object.keys(tiers).length === 0) {
+    fail(`RAID_ILVL_MAP missing entry for "${diff}"`);
+  }
+}
+pass('RAID_ILVL_MAP has all 4 difficulties');
+
+// Keystone ilvl table
+if (KEYSTONE_ILVL_TABLE.length === 0) {
+  fail('KEYSTONE_ILVL_TABLE is empty');
+} else {
+  pass(`${KEYSTONE_ILVL_TABLE.length} keystone ilvl entries`);
+}
+
+// Catalyst mappings
+if (CATALYST_MAPPINGS.length === 0) {
+  warn('CATALYST_MAPPINGS is empty — catalyst feature disabled');
+} else {
+  for (const cm of CATALYST_MAPPINGS) {
+    if (!TIER_SLOT_ORDER.includes(cm.slot as typeof TIER_SLOT_ORDER[number])) {
+      fail(`Catalyst mapping has invalid slot "${cm.slot}"`);
+    }
+    if (cm.sourceItemIds.length === 0) {
+      warn(`Catalyst mapping for slot "${cm.slot}" has no source items`);
+    }
+  }
+  const totalCatalystItems = CATALYST_MAPPINGS.reduce((sum, cm) => sum + cm.sourceItemIds.length, 0);
+  pass(`${CATALYST_MAPPINGS.length} catalyst slots, ${totalCatalystItems} source items`);
 }
 
 // ── Summary ──────────────────────────────────────────────────────────────────

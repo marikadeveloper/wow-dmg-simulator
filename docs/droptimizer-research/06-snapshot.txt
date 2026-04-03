@@ -1,0 +1,1752 @@
+uid=1_0 RootWebArea "Droptimizer • World Bosses - Smarika - 72,949 DPS - Raidbots" url="https://www.raidbots.com/simbot/report/x2R8kveCBjPT6AJJ4jT149"
+  uid=1_1 ignored
+    uid=1_2 ignored
+      uid=1_3 generic
+        uid=1_4 ignored
+          uid=1_5 generic
+            uid=1_6 ignored
+              uid=1_7 ignored
+                uid=7_0 link url="https://www.raidbots.com/"
+                  uid=7_1 ignored
+                    uid=7_2 image
+                uid=1_11 ignored
+                uid=1_12 link "LOGIN" url="https://www.raidbots.com/auth"
+                  uid=1_13 StaticText "LOGIN"
+                    uid=1_14 InlineTextBox "LOGIN"
+                uid=7_3 generic
+                  uid=7_4 link "ENGLISH"
+                    uid=7_5 StaticText "ENGLISH"
+                      uid=1_14 InlineTextBox "ENGLISH"
+                    uid=7_6 ignored
+                uid=1_19 link
+                  uid=1_20 button
+                    uid=1_21 ignored
+                      uid=1_22 image
+          uid=1_23 ignored
+            uid=1_24 ignored
+              uid=1_25 ignored
+                uid=1_26 generic
+                  uid=1_27 StaticText "Raidbots/SimC are up-to-date with March 31st hotfixes"
+                    uid=1_14 InlineTextBox "Raidbots/SimC are up-to-date with March 31st hotfixes"
+            uid=1_28 generic
+              uid=1_29 link "Sign up for Raidbots Premium!" url="https://www.raidbots.com/account"
+                uid=1_30 StaticText "Sign up for Raidbots Premium!"
+                  uid=1_14 InlineTextBox "Sign up for Raidbots Premium!"
+              uid=1_31 StaticText "Skip the line, run larger sims, and more!"
+                uid=1_14 InlineTextBox "Skip the line, run larger sims, and more!"
+            uid=1_32 generic
+              uid=1_33 generic
+                uid=7_7 ignored
+                  uid=7_8 generic
+                    uid=7_9 link "« Back to Droptimizer" url="https://www.raidbots.com/simbot/droptimizer"
+                      uid=7_10 StaticText "« Back to "
+                        uid=1_14 InlineTextBox "« Back to "
+                      uid=7_11 StaticText "Droptimizer"
+                        uid=1_14 InlineTextBox "Droptimizer"
+                  uid=7_12 ignored
+                    uid=7_13 ignored
+                      uid=7_14 ignored
+                        uid=7_15 ignored
+                          uid=7_16 ignored
+                            uid=7_17 image url="https://www.raidbots.com/wowapi/character/eu/nemesis/smarika/image/inset"
+                            uid=7_18 ignored
+                          uid=7_19 ignored
+                            uid=7_20 heading "SMARIKA" level="1"
+                              uid=7_21 StaticText "SMARIKA"
+                                uid=1_14 InlineTextBox "SMARIKA"
+                            uid=7_22 paragraph
+                              uid=7_23 StaticText "Blood Elf"
+                                uid=1_14 InlineTextBox "Blood Elf"
+                              uid=7_24 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=7_25 StaticText "Frost Mage"
+                                uid=1_14 InlineTextBox "Frost Mage"
+                            uid=7_26 paragraph
+                              uid=7_27 StaticText "Droptimizer • World Bosses"
+                                uid=1_14 InlineTextBox "Droptimizer • World Bosses"
+                          uid=7_28 ignored
+                          uid=7_29 ignored
+                            uid=7_30 ignored
+                              uid=7_31 ignored
+                                uid=7_32 generic
+                                  uid=7_33 link "Smarika on WoW Armory" url="https://worldofwarcraft.com/en-gb/character/nemesis/smarika"
+                                uid=7_34 generic
+                                  uid=7_35 link "Smarika on Warcraft Logs" url="https://www.warcraftlogs.com/character/eu/nemesis/smarika"
+                                uid=7_36 generic
+                                  uid=7_37 link "Smarika on Raider.IO" url="https://raider.io/characters/eu/nemesis/smarika"
+                              uid=7_38 generic
+                                uid=7_39 button "RUN SIM AGAIN"
+                                  uid=7_40 StaticText "RUN SIM AGAIN"
+                                    uid=1_14 InlineTextBox "RUN SIM AGAIN"
+                        uid=7_41 separator orientation="horizontal"
+                        uid=7_42 ignored
+                          uid=7_43 ignored
+                            uid=7_44 ignored
+                              uid=7_45 ignored
+                                uid=7_46 ignored
+                                  uid=7_47 generic
+                                    uid=7_48 generic
+                                      uid=7_49 generic
+                                        uid=7_50 link url="https://www.wowhead.com/item=250060?bonus=12667:41:12801:13440:13338:13575:3157&ench=8017&ilvl=272&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_51 ignored
+                                uid=7_52 ignored
+                                  uid=7_53 generic
+                                    uid=7_54 generic
+                                      uid=7_55 generic
+                                        uid=7_56 link url="https://www.wowhead.com/item=259916?bonus=6652:13668:12790&gems=240967&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_57 ignored
+                                uid=7_58 ignored
+                                  uid=7_59 generic
+                                    uid=7_60 generic
+                                      uid=7_61 generic
+                                        uid=7_62 link url="https://www.wowhead.com/item=258578?bonus=13439:6652:13577:12699:12790&ench=7972&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_63 ignored
+                                uid=7_64 ignored
+                                  uid=7_65 generic
+                                    uid=7_66 generic
+                                      uid=7_67 generic
+                                        uid=7_68 link url="https://www.wowhead.com/item=260312?bonus=13439:40:13577:12699:12790&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_69 ignored
+                                uid=7_70 ignored
+                                  uid=7_71 generic
+                                    uid=7_72 generic
+                                      uid=7_73 generic
+                                        uid=7_74 link url="https://www.wowhead.com/item=250063?bonus=6652:13440:13336:13575:12798&ench=7987&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_75 ignored
+                                uid=7_76 ignored
+                                  uid=7_77 generic
+                                    uid=7_78 generic
+                                      uid=7_79 generic
+                                        uid=7_80 link url="https://www.wowhead.com/item=239648?bonus=12214:12497:12066:8960:12384:8791:12667&ilvl=259&spec=64&hero=40&crafted-stats=32:49&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707&crafting-quality=8"
+                                        uid=7_81 generic
+                                          uid=7_82 image "Crafting Quality 5" url="https://www.raidbots.com/images/crafting-quality-5.png"
+                              uid=7_83 ignored
+                                uid=7_84 ignored
+                                  uid=7_85 generic
+                                    uid=7_86 generic
+                                      uid=7_87 generic
+                                        uid=7_88 link url="https://www.wowhead.com/item=250061?bonus=6652:13439:12790:13337:13574:3148&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_89 ignored
+                                uid=7_90 ignored
+                                  uid=7_91 generic
+                                    uid=7_92 generic
+                                      uid=7_93 generic
+                                        uid=7_94 link url="https://www.wowhead.com/item=251102?bonus=12795:13440:6652:12667:13577:12699&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_95 ignored
+                                uid=7_96 ignored
+                                  uid=7_97 generic
+                                    uid=7_98 generic
+                                      uid=7_99 generic
+                                        uid=7_100 link url="https://www.wowhead.com/item=250059?bonus=6652:13440:13339:13575:12798&ench=7939&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_101 ignored
+                                uid=7_102 ignored
+                                  uid=7_103 generic
+                                    uid=7_104 generic
+                                      uid=7_105 generic
+                                        uid=7_106 link url="https://www.wowhead.com/item=249630?bonus=12793:6652:13577&ench=7992&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_107 ignored
+                                uid=7_108 ignored
+                                  uid=7_109 generic
+                                    uid=7_110 generic
+                                      uid=7_111 generic
+                                        uid=7_112 link url="https://www.wowhead.com/item=251217?bonus=12793:13440:42:13668:12699&ench=7969&gems=240898&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_113 ignored
+                                uid=7_114 ignored
+                                  uid=7_115 generic
+                                    uid=7_116 generic
+                                      uid=7_117 generic
+                                        uid=7_118 link url="https://www.wowhead.com/item=193708?bonus=12793:13440:6652:13668:12699&ench=7969&gems=240908&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_119 ignored
+                                uid=7_120 ignored
+                                  uid=7_121 generic
+                                    uid=7_122 generic
+                                      uid=7_123 generic
+                                        uid=7_124 link url="https://www.wowhead.com/item=264507?bonus=12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_125 ignored
+                                uid=7_126 ignored
+                                  uid=7_127 generic
+                                    uid=7_128 generic
+                                      uid=7_129 generic
+                                        uid=7_130 link url="https://www.wowhead.com/item=250144?bonus=13439:6652:12699:12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_131 ignored
+                                uid=7_132 ignored
+                                  uid=7_133 generic
+                                    uid=7_134 generic
+                                      uid=7_135 generic
+                                        uid=7_136 link url="https://www.wowhead.com/item=193707?bonus=13440:6652:12701:12798&ench=8039&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=7_137 ignored
+                                uid=7_138 ignored
+                                  uid=7_139 generic
+                                    uid=7_140 image "Empty slot for off_hand" url="https://www.raidbots.com/images/paperdoll/UI-PaperDoll-Slot-SecondaryHand.png"
+                          uid=7_141 generic
+                            uid=7_142 StaticText "264"
+                              uid=1_14 InlineTextBox "264"
+                        uid=7_143 ignored
+                          uid=7_144 ignored
+                            uid=7_145 generic
+                              uid=7_146 image "Show Full Tree"
+                            uid=7_147 ignored
+                              uid=7_148 generic
+                                uid=7_149 generic "Spellslinger"
+                                  uid=7_150 generic
+                                    uid=7_151 image "Spellslinger" url="https://www.raidbots.com/static/images/TalentFrame/orig/elements/talents-heroclass-mage-spellslinger.png"
+                                    uid=7_152 ignored
+                              uid=7_153 ignored
+                                uid=7_154 ignored
+                                  uid=7_155 ignored
+                                    uid=7_156 generic
+                                      uid=7_157 generic
+                                        uid=7_158 generic
+                                          uid=7_159 generic
+                                            uid=7_160 link url="https://www.wowhead.com/spell=30455?def=85244&rank=1&spellModifier=137020"
+                                  uid=7_161 ignored
+                                    uid=7_162 generic
+                                      uid=7_163 generic
+                                        uid=7_164 generic
+                                          uid=7_165 ignored
+                                            uid=7_166 generic
+                                              uid=7_167 link url="https://www.wowhead.com/spell=1248829?def=139306&rank=1&spellModifier=137020"
+                                      uid=7_168 image
+                                      uid=7_169 image
+                                  uid=7_170 ignored
+                                    uid=7_171 generic
+                                      uid=7_172 generic
+                                        uid=7_173 generic
+                                          uid=7_174 generic
+                                            uid=7_175 link url="https://www.wowhead.com/spell=112965?def=85230&rank=1&spellModifier=137020"
+                                  uid=7_176 ignored
+                                    uid=7_177 generic
+                                      uid=7_178 generic
+                                        uid=7_179 generic
+                                          uid=7_180 generic
+                                            uid=7_181 link url="https://www.wowhead.com/spell=1248825?def=85223&rank=1&spellModifier=137020"
+                                  uid=7_182 ignored
+                                    uid=7_183 generic
+                                      uid=7_184 generic
+                                        uid=7_185 generic
+                                          uid=7_186 generic
+                                            uid=7_187 link url="https://www.wowhead.com/spell=1246832?def=140955&rank=1&spellModifier=137020"
+                                  uid=7_188 ignored
+                                    uid=7_189 generic
+                                      uid=7_190 generic
+                                        uid=7_191 generic
+                                          uid=7_192 generic
+                                            uid=7_193 link url="https://www.wowhead.com/spell=44614?def=85246&rank=1&spellModifier=137020"
+                                  uid=7_194 ignored
+                                    uid=7_195 generic
+                                      uid=7_196 generic
+                                        uid=7_197 generic
+                                          uid=7_198 ignored
+                                            uid=7_199 generic
+                                              uid=7_200 link url="https://www.wowhead.com/spell=1244110?def=138960&rank=1&spellModifier=137020"
+                                      uid=7_201 image
+                                      uid=7_202 image
+                                  uid=7_203 ignored
+                                    uid=7_204 generic
+                                      uid=7_205 generic
+                                        uid=7_206 generic
+                                          uid=7_207 generic
+                                            uid=7_208 link url="https://www.wowhead.com/spell=84714?def=85245&rank=1&spellModifier=137020"
+                                  uid=7_209 ignored
+                                    uid=7_210 generic
+                                      uid=7_211 generic
+                                        uid=7_212 generic
+                                          uid=7_213 generic
+                                            uid=7_214 link url="https://www.wowhead.com/spell=190447?def=85247&rank=1&spellModifier=137020"
+                                  uid=7_215 ignored
+                                    uid=7_216 generic
+                                      uid=7_217 generic
+                                        uid=7_218 generic
+                                          uid=7_219 generic
+                                            uid=7_220 link url="https://www.wowhead.com/spell=205021?def=85219&rank=1&spellModifier=137020"
+                                  uid=7_221 ignored
+                                    uid=7_222 generic
+                                      uid=7_223 generic
+                                        uid=7_224 generic
+                                          uid=7_225 generic
+                                            uid=7_226 link url="https://www.wowhead.com/spell=385167?def=107434&rank=1&spellModifier=137020"
+                                  uid=7_227 ignored
+                                    uid=7_228 generic
+                                      uid=7_229 generic
+                                        uid=7_230 generic
+                                          uid=7_231 generic
+                                            uid=7_232 link url="https://www.wowhead.com/spell=460590?def=85237&rank=1&spellModifier=137020"
+                                  uid=7_233 ignored
+                                    uid=7_234 generic
+                                      uid=7_235 generic
+                                        uid=7_236 generic
+                                          uid=7_237 generic
+                                            uid=7_238 link url="https://www.wowhead.com/spell=205030?def=85248&rank=1&spellModifier=137020"
+                                  uid=7_239 ignored
+                                    uid=7_240 generic
+                                      uid=7_241 generic
+                                        uid=7_242 generic
+                                          uid=7_243 generic
+                                            uid=7_244 link url="https://www.wowhead.com/spell=56377?def=85229&rank=1&spellModifier=137020"
+                                  uid=7_245 ignored
+                                    uid=7_246 generic
+                                      uid=7_247 generic
+                                        uid=7_248 generic
+                                          uid=7_249 generic
+                                            uid=7_250 link url="https://www.wowhead.com/spell=379993?def=139179&rank=1&spellModifier=137020"
+                                  uid=7_251 ignored
+                                    uid=7_252 generic
+                                      uid=7_253 generic
+                                        uid=7_254 generic
+                                          uid=7_255 ignored
+                                            uid=7_256 generic
+                                              uid=7_257 link url="https://www.wowhead.com/spell=418733?def=132886&rank=1&spellModifier=137020"
+                                      uid=7_258 image
+                                      uid=7_259 image
+                                  uid=7_260 ignored
+                                    uid=7_261 generic
+                                      uid=7_262 generic
+                                        uid=7_263 generic
+                                          uid=7_264 generic
+                                            uid=7_265 link url="https://www.wowhead.com/spell=417489?def=139308&rank=1&spellModifier=137020"
+                                  uid=7_266 ignored
+                                    uid=7_267 generic
+                                      uid=7_268 generic
+                                        uid=7_269 generic
+                                          uid=7_270 generic
+                                            uid=7_271 link url="https://www.wowhead.com/spell=378448?def=85217&rank=1&spellModifier=137020"
+                                  uid=7_272 ignored
+                                    uid=7_273 generic
+                                      uid=7_274 generic
+                                        uid=7_275 generic
+                                          uid=7_276 generic
+                                            uid=7_277 link url="https://www.wowhead.com/spell=1246811?def=139187&rank=1&spellModifier=137020"
+                                  uid=7_278 ignored
+                                    uid=7_279 generic
+                                      uid=7_280 generic
+                                        uid=7_281 generic
+                                          uid=7_282 generic
+                                            uid=7_283 link url="https://www.wowhead.com/spell=1247025?def=141559&rank=1&spellModifier=137020"
+                                  uid=7_284 ignored
+                                    uid=7_285 generic
+                                      uid=7_286 generic
+                                        uid=7_287 generic
+                                          uid=7_288 ignored
+                                            uid=7_289 generic
+                                              uid=7_290 link url="https://www.wowhead.com/spell=378406?def=85240&rank=1&spellModifier=137020"
+                                      uid=7_291 image
+                                      uid=7_292 image
+                                  uid=7_293 ignored
+                                    uid=7_294 generic
+                                      uid=7_295 generic
+                                        uid=7_296 generic
+                                          uid=7_297 generic
+                                            uid=7_298 link url="https://www.wowhead.com/spell=1247759?def=139186&rank=2&spellModifier=137020"
+                                      uid=7_299 generic
+                                        uid=7_300 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=7_301 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_302 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=7_303 ignored
+                                    uid=7_304 generic
+                                      uid=7_305 generic
+                                        uid=7_306 generic
+                                          uid=7_307 generic
+                                            uid=7_308 link url="https://www.wowhead.com/spell=1247799?def=140956&rank=1&spellModifier=137020"
+                                  uid=7_309 ignored
+                                    uid=7_310 generic
+                                      uid=7_311 generic
+                                        uid=7_312 generic
+                                          uid=7_313 generic
+                                            uid=7_314 link url="https://www.wowhead.com/spell=1247769?def=139183&rank=1&spellModifier=137020"
+                                  uid=7_315 ignored
+                                    uid=7_316 generic
+                                      uid=7_317 generic
+                                        uid=7_318 generic
+                                          uid=7_319 generic
+                                            uid=7_320 link url="https://www.wowhead.com/spell=378947?def=139177&rank=1&spellModifier=137020"
+                                  uid=7_321 ignored
+                                    uid=7_322 generic
+                                      uid=7_323 generic
+                                        uid=7_324 generic
+                                          uid=7_325 generic
+                                            uid=7_326 link url="https://www.wowhead.com/spell=1247544?def=141600&rank=1&spellModifier=137020"
+                                  uid=7_327 ignored
+                                    uid=7_328 generic
+                                      uid=7_329 generic
+                                        uid=7_330 generic
+                                          uid=7_331 ignored
+                                            uid=7_332 generic
+                                              uid=7_333 link url="https://www.wowhead.com/spell=205024?def=141602&rank=1&spellModifier=137020"
+                                      uid=7_334 image
+                                      uid=7_335 image
+                                  uid=7_336 ignored
+                                    uid=7_337 generic
+                                      uid=7_338 generic
+                                        uid=7_339 generic
+                                          uid=7_340 generic
+                                            uid=7_341 link url="https://www.wowhead.com/spell=1247729?def=85251&rank=1&spellModifier=137020"
+                                  uid=7_342 ignored
+                                    uid=7_343 generic
+                                      uid=7_344 generic
+                                        uid=7_345 generic
+                                          uid=7_346 generic
+                                            uid=7_347 link url="https://www.wowhead.com/spell=1247798?def=85253&rank=1&spellModifier=137020"
+                                  uid=7_348 ignored
+                                    uid=7_349 generic
+                                      uid=7_350 generic
+                                        uid=7_351 generic
+                                          uid=7_352 generic
+                                            uid=7_353 link url="https://www.wowhead.com/spell=1262935?def=141797&rank=4&spellModifier=137020"
+                                      uid=7_354 generic
+                                        uid=7_355 StaticText "4"
+                                          uid=1_14 InlineTextBox "4"
+                                        uid=7_356 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_357 StaticText "4"
+                                          uid=1_14 InlineTextBox "4"
+                                uid=7_358 ignored
+                                  uid=7_359 ignored
+                                    uid=7_360 generic
+                                      uid=7_361 generic
+                                        uid=7_362 generic
+                                          uid=7_363 generic
+                                            uid=7_364 link url="https://www.wowhead.com/spell=342245?def=85177&rank=1&spellModifier=137020"
+                                  uid=7_365 ignored
+                                    uid=7_366 generic
+                                      uid=7_367 generic
+                                        uid=7_368 generic
+                                          uid=7_369 generic
+                                            uid=7_370 link url="https://www.wowhead.com/spell=45438?def=85184&rank=1&spellModifier=137020"
+                                  uid=7_371 ignored
+                                    uid=7_372 generic
+                                      uid=7_373 generic
+                                        uid=7_374 generic
+                                          uid=7_375 ignored
+                                            uid=7_376 generic
+                                              uid=7_377 link url="https://www.wowhead.com/spell=1244090?def=138962&rank=1&spellModifier=137020"
+                                      uid=7_378 image
+                                      uid=7_379 image
+                                  uid=7_380 ignored
+                                    uid=7_381 generic
+                                      uid=7_382 generic
+                                        uid=7_383 generic
+                                          uid=7_384 generic
+                                            uid=7_385 link url="https://www.wowhead.com/spell=342249?def=85162&rank=2&spellModifier=137020"
+                                      uid=7_386 generic
+                                        uid=7_387 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=7_388 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_389 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=7_390 ignored
+                                    uid=7_391 generic
+                                      uid=7_392 generic
+                                        uid=7_393 generic
+                                          uid=7_394 generic
+                                            uid=7_395 link url="https://www.wowhead.com/spell=382424?def=85185&rank=2&spellModifier=137020"
+                                      uid=7_396 generic
+                                        uid=7_397 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=7_398 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_399 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=7_400 ignored
+                                    uid=7_401 generic
+                                      uid=7_402 generic
+                                        uid=7_403 generic
+                                          uid=7_404 generic
+                                            uid=7_405 link url="https://www.wowhead.com/spell=1250315?def=85168&rank=1&spellModifier=137020"
+                                  uid=7_406 ignored
+                                    uid=7_407 generic
+                                      uid=7_408 generic
+                                        uid=7_409 generic
+                                          uid=7_410 generic
+                                            uid=7_411 link url="https://www.wowhead.com/spell=383092?def=85176&rank=2&spellModifier=137020"
+                                      uid=7_412 generic
+                                        uid=7_413 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=7_414 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_415 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=7_416 ignored
+                                    uid=7_417 generic
+                                      uid=7_418 generic
+                                        uid=7_419 generic
+                                          uid=7_420 generic
+                                            uid=7_421 link url="https://www.wowhead.com/spell=458437?def=138970&rank=1&spellModifier=137020"
+                                  uid=7_422 ignored
+                                    uid=7_423 generic
+                                      uid=7_424 generic
+                                        uid=7_425 generic
+                                          uid=7_426 generic
+                                            uid=7_427 link url="https://www.wowhead.com/spell=55342?def=85186&rank=1&spellModifier=137020"
+                                  uid=7_428 ignored
+                                    uid=7_429 generic
+                                      uid=7_430 generic
+                                        uid=7_431 generic
+                                          uid=7_432 generic
+                                            uid=7_433 link url="https://www.wowhead.com/spell=382297?def=85164&rank=1&spellModifier=137020"
+                                  uid=7_434 ignored
+                                    uid=7_435 generic
+                                      uid=7_436 generic
+                                        uid=7_437 generic
+                                          uid=7_438 ignored
+                                            uid=7_439 generic
+                                              uid=7_440 link url="https://www.wowhead.com/spell=157980?def=130650&rank=1&spellModifier=137020"
+                                      uid=7_441 image
+                                      uid=7_442 image
+                                  uid=7_443 ignored
+                                    uid=7_444 generic
+                                      uid=7_445 generic
+                                        uid=7_446 generic
+                                          uid=7_447 generic
+                                            uid=7_448 link url="https://www.wowhead.com/spell=475?def=85178&rank=1&spellModifier=137020"
+                                  uid=7_449 ignored
+                                    uid=7_450 generic
+                                      uid=7_451 generic
+                                        uid=7_452 generic
+                                          uid=7_453 ignored
+                                            uid=7_454 generic
+                                              uid=7_455 link url="https://www.wowhead.com/spell=212653?def=85166&rank=1&spellModifier=137020"
+                                      uid=7_456 image
+                                      uid=7_457 image
+                                  uid=7_458 ignored
+                                    uid=7_459 generic
+                                      uid=7_460 generic
+                                        uid=7_461 generic
+                                          uid=7_462 generic
+                                            uid=7_463 link url="https://www.wowhead.com/spell=390218?def=138971&rank=1&spellModifier=137020"
+                                  uid=7_464 ignored
+                                    uid=7_465 generic
+                                      uid=7_466 generic
+                                        uid=7_467 generic
+                                          uid=7_468 generic
+                                            uid=7_469 link url="https://www.wowhead.com/spell=1270847?def=141349&rank=1&spellModifier=137020"
+                                  uid=7_470 ignored
+                                    uid=7_471 generic
+                                      uid=7_472 generic
+                                        uid=7_473 generic
+                                          uid=7_474 generic
+                                            uid=7_475 link url="https://www.wowhead.com/spell=110959?def=120889&rank=1&spellModifier=137020"
+                                  uid=7_476 ignored
+                                    uid=7_477 generic
+                                      uid=7_478 generic
+                                        uid=7_479 generic
+                                          uid=7_480 generic
+                                            uid=7_481 link url="https://www.wowhead.com/spell=382493?def=85190&rank=1&spellModifier=137020"
+                                  uid=7_482 ignored
+                                    uid=7_483 generic
+                                      uid=7_484 generic
+                                        uid=7_485 generic
+                                          uid=7_486 generic
+                                            uid=7_487 link url="https://www.wowhead.com/spell=382490?def=85158&rank=1&spellModifier=137020"
+                                  uid=7_488 ignored
+                                    uid=7_489 generic
+                                      uid=7_490 generic
+                                        uid=7_491 generic
+                                          uid=7_492 generic
+                                            uid=7_493 link url="https://www.wowhead.com/spell=382293?def=85173&rank=1&spellModifier=137020"
+                                      uid=7_494 generic
+                                        uid=7_495 StaticText "1"
+                                          uid=1_14 InlineTextBox "1"
+                                        uid=7_496 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=7_497 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=7_498 ignored
+                                    uid=7_499 generic
+                                      uid=7_500 generic
+                                        uid=7_501 generic
+                                          uid=7_502 generic
+                                            uid=7_503 link url="https://www.wowhead.com/spell=210476?def=138969&rank=1&spellModifier=137020"
+                                  uid=7_504 ignored
+                                    uid=7_505 generic
+                                      uid=7_506 generic
+                                        uid=7_507 generic
+                                          uid=7_508 generic
+                                            uid=7_509 link url="https://www.wowhead.com/spell=1244105?def=138968&rank=1&spellModifier=137020"
+                                  uid=7_510 ignored
+                                    uid=7_511 generic
+                                      uid=7_512 generic
+                                        uid=7_513 generic
+                                          uid=7_514 generic
+                                            uid=7_515 link url="https://www.wowhead.com/spell=461261?def=141352&rank=1&spellModifier=137020"
+                                  uid=7_516 ignored
+                                    uid=7_517 generic
+                                      uid=7_518 generic
+                                        uid=7_519 generic
+                                          uid=7_520 generic
+                                            uid=7_521 link url="https://www.wowhead.com/spell=382268?def=85156&rank=1&spellModifier=137020"
+                                  uid=7_522 ignored
+                                    uid=7_523 generic
+                                      uid=7_524 generic
+                                        uid=7_525 generic
+                                          uid=7_526 generic
+                                            uid=7_527 link url="https://www.wowhead.com/spell=1244107?def=138967&rank=1&spellModifier=137020"
+                                  uid=7_528 ignored
+                                    uid=7_529 generic
+                                      uid=7_530 generic
+                                        uid=7_531 generic
+                                          uid=7_532 generic
+                                            uid=7_533 link url="https://www.wowhead.com/spell=1265517?def=85145&rank=1&spellModifier=137020"
+                                  uid=7_534 ignored
+                                    uid=7_535 generic
+                                      uid=7_536 generic
+                                        uid=7_537 generic
+                                          uid=7_538 generic
+                                            uid=7_539 link url="https://www.wowhead.com/spell=387807?def=85192&rank=1&spellModifier=137020"
+                                  uid=7_540 ignored
+                                    uid=7_541 generic
+                                      uid=7_542 generic
+                                        uid=7_543 generic
+                                          uid=7_544 generic
+                                            uid=7_545 link url="https://www.wowhead.com/spell=386828?def=85160&rank=1&spellModifier=137020"
+                                  uid=7_546 ignored
+                                    uid=7_547 generic
+                                      uid=7_548 generic
+                                        uid=7_549 generic
+                                          uid=7_550 generic
+                                            uid=7_551 link url="https://www.wowhead.com/spell=455428?def=85150&rank=1&spellModifier=137020"
+                                  uid=7_552 ignored
+                                    uid=7_553 generic
+                                      uid=7_554 generic
+                                        uid=7_555 generic
+                                          uid=7_556 generic
+                                            uid=7_557 link url="https://www.wowhead.com/spell=414659?def=85144&rank=1&spellModifier=137020"
+                                  uid=7_558 ignored
+                                    uid=7_559 generic
+                                      uid=7_560 generic
+                                        uid=7_561 generic
+                                          uid=7_562 ignored
+                                            uid=7_563 generic
+                                              uid=7_564 link url="https://www.wowhead.com/spell=1244031?def=130892&rank=1&spellModifier=137020"
+                                      uid=7_565 image
+                                      uid=7_566 image
+                                  uid=7_567 ignored
+                                    uid=7_568 generic
+                                      uid=7_569 generic
+                                        uid=7_570 generic
+                                          uid=7_571 generic
+                                            uid=7_572 link url="https://www.wowhead.com/spell=1244069?def=138965&rank=1&spellModifier=137020"
+                                uid=7_573 ignored
+                                  uid=7_574 ignored
+                                    uid=7_575 generic
+                                      uid=7_576 generic
+                                        uid=7_577 generic
+                                          uid=7_578 generic
+                                            uid=7_579 link url="https://www.wowhead.com/spell=1280165?def=122277&rank=1&spellModifier=137020"
+                                  uid=7_580 ignored
+                                    uid=7_581 generic
+                                      uid=7_582 generic
+                                        uid=7_583 generic
+                                          uid=7_584 generic
+                                            uid=7_585 link url="https://www.wowhead.com/spell=444719?def=122278&rank=1&spellModifier=137020"
+                                  uid=7_586 ignored
+                                    uid=7_587 generic
+                                      uid=7_588 generic
+                                        uid=7_589 generic
+                                          uid=7_590 generic
+                                            uid=7_591 link url="https://www.wowhead.com/spell=444256?def=122276&rank=1&spellModifier=137020"
+                                  uid=7_592 ignored
+                                    uid=7_593 generic
+                                      uid=7_594 generic
+                                        uid=7_595 generic
+                                          uid=7_596 ignored
+                                            uid=7_597 generic
+                                              uid=7_598 link url="https://www.wowhead.com/spell=444675?def=140701&rank=1&spellModifier=137020"
+                                      uid=7_599 image
+                                      uid=7_600 image
+                                  uid=7_601 ignored
+                                    uid=7_602 generic
+                                      uid=7_603 generic
+                                        uid=7_604 generic
+                                          uid=7_605 ignored
+                                            uid=7_606 generic
+                                              uid=7_607 link url="https://www.wowhead.com/spell=444752?def=122274&rank=1&spellModifier=137020"
+                                      uid=7_608 image
+                                      uid=7_609 image
+                                  uid=7_610 ignored
+                                    uid=7_611 generic
+                                      uid=7_612 generic
+                                        uid=7_613 generic
+                                          uid=7_614 generic
+                                            uid=7_615 link url="https://www.wowhead.com/spell=444483?def=122271&rank=1&spellModifier=137020"
+                                  uid=7_616 ignored
+                                    uid=7_617 generic
+                                      uid=7_618 generic
+                                        uid=7_619 generic
+                                          uid=7_620 ignored
+                                            uid=7_621 generic
+                                              uid=7_622 link url="https://www.wowhead.com/spell=444827?def=122275&rank=1&spellModifier=137020"
+                                      uid=7_623 image
+                                      uid=7_624 image
+                                  uid=7_625 ignored
+                                    uid=7_626 generic
+                                      uid=7_627 generic
+                                        uid=7_628 generic
+                                          uid=7_629 generic
+                                            uid=7_630 link url="https://www.wowhead.com/spell=1261080?def=140674&rank=1&spellModifier=137020"
+                                  uid=7_631 ignored
+                                    uid=7_632 generic
+                                      uid=7_633 generic
+                                        uid=7_634 generic
+                                          uid=7_635 generic
+                                            uid=7_636 link url="https://www.wowhead.com/spell=444968?def=122273&rank=1&spellModifier=137020"
+                                  uid=7_637 ignored
+                                    uid=7_638 generic
+                                      uid=7_639 generic
+                                        uid=7_640 generic
+                                          uid=7_641 generic
+                                            uid=7_642 link url="https://www.wowhead.com/spell=470021?def=133074&rank=1&spellModifier=137020"
+                                  uid=7_643 ignored
+                                    uid=7_644 generic
+                                      uid=7_645 generic
+                                        uid=7_646 generic
+                                          uid=7_647 generic
+                                            uid=7_648 link url="https://www.wowhead.com/spell=444986?def=122270&rank=1&spellModifier=137020"
+                                  uid=7_649 ignored
+                                    uid=7_650 generic
+                                      uid=7_651 generic
+                                        uid=7_652 generic
+                                          uid=7_653 generic
+                                            uid=7_654 link url="https://www.wowhead.com/spell=1261082?def=140673&rank=1&spellModifier=137020"
+                                  uid=7_655 ignored
+                                    uid=7_656 generic
+                                      uid=7_657 generic
+                                        uid=7_658 generic
+                                          uid=7_659 generic
+                                            uid=7_660 link url="https://www.wowhead.com/spell=443783?def=122269&rank=1&spellModifier=137020"
+                      uid=7_661 generic
+                        uid=7_662 StaticText "The sim generated some warning/error messages. Check the "SimC Notifications" section for more details."
+                          uid=1_14 InlineTextBox "The sim generated some warning/error messages. Check the "SimC Notifications" section for more details."
+                      uid=7_663 ignored
+                        uid=7_664 ignored
+                          uid=7_665 ignored
+                            uid=7_666 ignored
+                              uid=7_667 heading "BOSS SUMMARY" level="3"
+                                uid=7_668 StaticText "BOSS"
+                                  uid=1_14 InlineTextBox "BOSS"
+                                uid=7_669 StaticText " SUMMARY"
+                                  uid=1_14 InlineTextBox " SUMMARY"
+                            uid=7_670 ignored
+                              uid=7_671 generic
+                                uid=7_672 StaticText "Sort"
+                                  uid=1_14 InlineTextBox "Sort"
+                              uid=7_673 generic
+                                uid=7_674 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                              uid=7_675 generic
+                                uid=7_676 StaticText "Boss Order"
+                                  uid=1_14 InlineTextBox "Boss Order"
+                              uid=7_677 generic
+                                uid=7_678 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                              uid=7_679 generic
+                                uid=7_680 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                            uid=7_681 LabelText
+                              uid=7_682 checkbox "Relative DPS"
+                              uid=7_683 ignored
+                                uid=7_684 ignored
+                                  uid=7_685 ignored
+                              uid=7_686 StaticText "Relative DPS"
+                                uid=1_14 InlineTextBox "Relative DPS"
+                        uid=7_687 ignored
+                          uid=7_688 ignored
+                          uid=7_689 ignored
+                            uid=7_690 paragraph
+                              uid=7_691 StaticText "Cragpine"
+                                uid=1_14 InlineTextBox "Cragpine"
+                          uid=7_692 ignored
+                            uid=7_693 ignored
+                              uid=7_694 ignored
+                                uid=7_695 ignored
+                                  uid=7_696 ignored
+                                    uid=7_697 generic
+                                      uid=7_698 generic
+                                        uid=7_699 generic
+                                          uid=7_700 link url="https://www.wowhead.com/item=250462?bonus=12786&ilvl=250&spec=64&hero=40&crafted-stats=32:36&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=7_701 paragraph
+                                      uid=7_702 generic description="607 DPS"
+                                        uid=7_703 StaticText "0.8"
+                                          uid=1_14 InlineTextBox "0.8"
+                                        uid=7_704 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_705 ignored
+                                  uid=7_706 ignored
+                                    uid=7_707 generic
+                                      uid=7_708 generic
+                                        uid=7_709 generic
+                                          uid=7_710 link url="https://www.wowhead.com/item=250461?bonus=13668:12786&gems=240967&ilvl=250&spec=64&hero=40&pcs=250060:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=7_711 generic
+                                          uid=7_712 generic
+                                            uid=7_713 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                            uid=7_714 generic
+                                              uid=7_715 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=7_716 paragraph
+                                      uid=7_717 generic description="-533 DPS"
+                                        uid=7_718 StaticText "-0.7"
+                                          uid=1_14 InlineTextBox "-0.7"
+                                        uid=7_719 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_720 ignored
+                                  uid=7_721 ignored
+                                    uid=7_722 generic
+                                      uid=7_723 generic
+                                        uid=7_724 generic
+                                          uid=7_725 link url="https://www.wowhead.com/item=250456?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_726 paragraph
+                                      uid=7_727 generic description="-2,899 DPS"
+                                        uid=7_728 StaticText "-4.0"
+                                          uid=1_14 InlineTextBox "-4.0"
+                                        uid=7_729 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_730 ignored
+                                  uid=7_731 ignored
+                                    uid=7_732 generic
+                                      uid=7_733 generic
+                                        uid=7_734 generic
+                                          uid=7_735 link url="https://www.wowhead.com/item=250063?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=7_736 generic description="Catalyst"
+                                          uid=7_737 generic
+                                            uid=7_738 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=7_739 paragraph
+                                      uid=7_740 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=7_741 ignored
+                            uid=7_742 ignored
+                              uid=7_743 ignored
+                                uid=7_744 paragraph
+                                  uid=7_745 StaticText "+152"
+                                    uid=1_14 InlineTextBox "+152"
+                                uid=7_746 paragraph
+                                  uid=7_747 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_748 paragraph
+                                uid=7_749 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=7_750 ignored
+                            uid=7_751 ignored
+                              uid=7_752 ignored
+                                uid=7_753 paragraph
+                                  uid=7_754 StaticText "+607"
+                                    uid=1_14 InlineTextBox "+607"
+                                uid=7_755 paragraph
+                                  uid=7_756 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_757 paragraph
+                                uid=7_758 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=7_759 ignored
+                            uid=7_760 ignored
+                              uid=7_761 ignored
+                                uid=7_762 paragraph
+                                  uid=7_763 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=7_764 paragraph
+                                uid=7_765 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=7_766 separator orientation="horizontal"
+                        uid=7_767 ignored
+                          uid=7_768 ignored
+                          uid=7_769 ignored
+                            uid=7_770 paragraph
+                              uid=7_771 StaticText "Thorm'belan"
+                                uid=1_14 InlineTextBox "Thorm'belan"
+                          uid=7_772 ignored
+                            uid=7_773 ignored
+                              uid=7_774 ignored
+                                uid=7_775 ignored
+                                  uid=7_776 ignored
+                                    uid=7_777 generic
+                                      uid=7_778 generic
+                                        uid=7_779 generic
+                                          uid=7_780 link url="https://www.wowhead.com/item=250462?bonus=12786&ilvl=250&spec=64&hero=40&crafted-stats=32:36&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=7_781 paragraph
+                                      uid=7_782 generic description="607 DPS"
+                                        uid=7_783 StaticText "0.8"
+                                          uid=1_14 InlineTextBox "0.8"
+                                        uid=7_784 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_785 ignored
+                                  uid=7_786 ignored
+                                    uid=7_787 generic
+                                      uid=7_788 generic
+                                        uid=7_789 generic
+                                          uid=7_790 link url="https://www.wowhead.com/item=250456?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_791 paragraph
+                                      uid=7_792 generic description="-2,899 DPS"
+                                        uid=7_793 StaticText "-4.0"
+                                          uid=1_14 InlineTextBox "-4.0"
+                                        uid=7_794 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_795 ignored
+                                  uid=7_796 ignored
+                                    uid=7_797 generic
+                                      uid=7_798 generic
+                                        uid=7_799 generic
+                                          uid=7_800 link url="https://www.wowhead.com/item=250452?bonus=12786&ench=8039&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_801 paragraph
+                                      uid=7_802 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=7_803 ignored
+                                  uid=7_804 ignored
+                                    uid=7_805 generic
+                                      uid=7_806 generic
+                                        uid=7_807 generic
+                                          uid=7_808 link url="https://www.wowhead.com/item=250063?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=7_809 generic description="Catalyst"
+                                          uid=7_810 generic
+                                            uid=7_811 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=7_812 paragraph
+                                      uid=7_813 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=7_814 ignored
+                            uid=7_815 ignored
+                              uid=7_816 ignored
+                                uid=7_817 paragraph
+                                  uid=7_818 StaticText "+152"
+                                    uid=1_14 InlineTextBox "+152"
+                                uid=7_819 paragraph
+                                  uid=7_820 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_821 paragraph
+                                uid=7_822 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=7_823 ignored
+                            uid=7_824 ignored
+                              uid=7_825 ignored
+                                uid=7_826 paragraph
+                                  uid=7_827 StaticText "+607"
+                                    uid=1_14 InlineTextBox "+607"
+                                uid=7_828 paragraph
+                                  uid=7_829 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_830 paragraph
+                                uid=7_831 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=7_832 ignored
+                            uid=7_833 ignored
+                              uid=7_834 ignored
+                                uid=7_835 paragraph
+                                  uid=7_836 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=7_837 paragraph
+                                uid=7_838 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=7_839 separator orientation="horizontal"
+                        uid=7_840 ignored
+                          uid=7_841 ignored
+                          uid=7_842 ignored
+                            uid=7_843 paragraph
+                              uid=7_844 StaticText "Lu'ashal"
+                                uid=1_14 InlineTextBox "Lu'ashal"
+                          uid=7_845 ignored
+                            uid=7_846 ignored
+                              uid=7_847 ignored
+                                uid=7_848 ignored
+                                  uid=7_849 ignored
+                                    uid=7_850 generic
+                                      uid=7_851 generic
+                                        uid=7_852 generic
+                                          uid=7_853 link url="https://www.wowhead.com/item=250462?bonus=12786&ilvl=250&spec=64&hero=40&crafted-stats=32:36&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=7_854 paragraph
+                                      uid=7_855 generic description="607 DPS"
+                                        uid=7_856 StaticText "0.8"
+                                          uid=1_14 InlineTextBox "0.8"
+                                        uid=7_857 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_858 ignored
+                                  uid=7_859 ignored
+                                    uid=7_860 generic
+                                      uid=7_861 generic
+                                        uid=7_862 generic
+                                          uid=7_863 link url="https://www.wowhead.com/item=250456?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_864 paragraph
+                                      uid=7_865 generic description="-2,899 DPS"
+                                        uid=7_866 StaticText "-4.0"
+                                          uid=1_14 InlineTextBox "-4.0"
+                                        uid=7_867 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_868 ignored
+                                  uid=7_869 ignored
+                                    uid=7_870 generic
+                                      uid=7_871 generic
+                                        uid=7_872 generic
+                                          uid=7_873 link url="https://www.wowhead.com/item=250063?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=7_874 generic description="Catalyst"
+                                          uid=7_875 generic
+                                            uid=7_876 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=7_877 paragraph
+                                      uid=7_878 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=7_879 ignored
+                                  uid=7_880 ignored
+                                    uid=7_881 generic
+                                      uid=7_882 generic
+                                        uid=7_883 generic
+                                          uid=7_884 link url="https://www.wowhead.com/item=250447?bonus=12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_885 paragraph
+                                      uid=7_886 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=7_887 ignored
+                            uid=7_888 ignored
+                              uid=7_889 ignored
+                                uid=7_890 paragraph
+                                  uid=7_891 StaticText "+152"
+                                    uid=1_14 InlineTextBox "+152"
+                                uid=7_892 paragraph
+                                  uid=7_893 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_894 paragraph
+                                uid=7_895 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=7_896 ignored
+                            uid=7_897 ignored
+                              uid=7_898 ignored
+                                uid=7_899 paragraph
+                                  uid=7_900 StaticText "+607"
+                                    uid=1_14 InlineTextBox "+607"
+                                uid=7_901 paragraph
+                                  uid=7_902 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_903 paragraph
+                                uid=7_904 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=7_905 ignored
+                            uid=7_906 ignored
+                              uid=7_907 ignored
+                                uid=7_908 paragraph
+                                  uid=7_909 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=7_910 paragraph
+                                uid=7_911 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=7_912 separator orientation="horizontal"
+                        uid=7_913 ignored
+                          uid=7_914 ignored
+                          uid=7_915 ignored
+                            uid=7_916 paragraph
+                              uid=7_917 StaticText "Predaxas"
+                                uid=1_14 InlineTextBox "Predaxas"
+                          uid=7_918 ignored
+                            uid=7_919 ignored
+                              uid=7_920 ignored
+                                uid=7_921 ignored
+                                  uid=7_922 ignored
+                                    uid=7_923 generic
+                                      uid=7_924 generic
+                                        uid=7_925 generic
+                                          uid=7_926 link url="https://www.wowhead.com/item=250462?bonus=12786&ilvl=250&spec=64&hero=40&crafted-stats=32:36&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=7_927 paragraph
+                                      uid=7_928 generic description="607 DPS"
+                                        uid=7_929 StaticText "0.8"
+                                          uid=1_14 InlineTextBox "0.8"
+                                        uid=7_930 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_931 ignored
+                                  uid=7_932 ignored
+                                    uid=7_933 generic
+                                      uid=7_934 generic
+                                        uid=7_935 generic
+                                          uid=7_936 link url="https://www.wowhead.com/item=250460?bonus=13668:12786&ench=7969&gems=240898&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:193708:264507:250144:193707"
+                                        uid=7_937 generic
+                                          uid=7_938 generic
+                                            uid=7_939 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=7_940 generic
+                                              uid=7_941 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=7_942 paragraph
+                                      uid=7_943 generic description="-714 DPS"
+                                        uid=7_944 StaticText "-1.0"
+                                          uid=1_14 InlineTextBox "-1.0"
+                                        uid=7_945 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_946 ignored
+                                  uid=7_947 ignored
+                                    uid=7_948 generic
+                                      uid=7_949 generic
+                                        uid=7_950 generic
+                                          uid=7_951 link url="https://www.wowhead.com/item=250456?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_952 paragraph
+                                      uid=7_953 generic description="-2,899 DPS"
+                                        uid=7_954 StaticText "-4.0"
+                                          uid=1_14 InlineTextBox "-4.0"
+                                        uid=7_955 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_956 ignored
+                                  uid=7_957 ignored
+                                    uid=7_958 generic
+                                      uid=7_959 generic
+                                        uid=7_960 generic
+                                          uid=7_961 link url="https://www.wowhead.com/item=250448?bonus=12786&ench=8039&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=7_962 paragraph
+                                      uid=7_963 generic description="-3,590 DPS"
+                                        uid=7_964 StaticText "-5.0"
+                                          uid=1_14 InlineTextBox "-5.0"
+                                        uid=7_965 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=7_966 ignored
+                                  uid=7_967 ignored
+                                    uid=7_968 generic
+                                      uid=7_969 generic
+                                        uid=7_970 generic
+                                          uid=7_971 link url="https://www.wowhead.com/item=250063?bonus=12786&ench=7987&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=7_972 generic description="Catalyst"
+                                          uid=7_973 generic
+                                            uid=7_974 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=7_975 paragraph
+                                      uid=7_976 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=7_977 ignored
+                            uid=7_978 ignored
+                              uid=7_979 ignored
+                                uid=7_980 paragraph
+                                  uid=7_981 StaticText "+121"
+                                    uid=1_14 InlineTextBox "+121"
+                                uid=7_982 paragraph
+                                  uid=7_983 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_984 paragraph
+                                uid=7_985 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=7_986 ignored
+                            uid=7_987 ignored
+                              uid=7_988 ignored
+                                uid=7_989 paragraph
+                                  uid=7_990 StaticText "+607"
+                                    uid=1_14 InlineTextBox "+607"
+                                uid=7_991 paragraph
+                                  uid=7_992 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=7_993 paragraph
+                                uid=7_994 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=7_995 ignored
+                            uid=7_996 ignored
+                              uid=7_997 ignored
+                                uid=7_998 paragraph
+                                  uid=7_999 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=7_1000 paragraph
+                                uid=7_1001 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=7_1002 separator orientation="horizontal"
+                        uid=7_1003 paragraph
+                          uid=7_1004 StaticText "DPS compared to your current gear. Highlighted icons indicate "
+                            uid=1_14 InlineTextBox "DPS compared to your current gear. Highlighted icons indicate "
+                          uid=7_1005 StaticText "0.10"
+                            uid=1_14 InlineTextBox "0.10"
+                          uid=7_1006 StaticText "% or better DPS increase.  "
+                            uid=1_14 InlineTextBox "% or better DPS increase.  "
+                          uid=7_1007 link "More Info" url="https://support.raidbots.com/article/59-droptimizer-how-does-it-work"
+                            uid=7_1008 StaticText "More Info"
+                              uid=1_14 InlineTextBox "More Info"
+                      uid=7_1009 ignored
+                        uid=7_1010 generic
+                          uid=7_1011 ignored
+                            uid=7_1012 ignored
+                              uid=7_1013 generic
+                                uid=7_1014 StaticText "Droptimizer"
+                                  uid=1_14 InlineTextBox "Droptimizer"
+                                uid=7_1015 StaticText " ("
+                                  uid=1_14 InlineTextBox " ("
+                                uid=7_1016 StaticText "DPS"
+                                  uid=1_14 InlineTextBox "DPS"
+                                uid=7_1017 StaticText ")"
+                                  uid=1_14 InlineTextBox ")"
+                              uid=7_1018 ignored
+                              uid=7_1019 paragraph
+                                uid=7_1020 button "GO TO EQUIPPED"
+                                  uid=7_1021 StaticText "GO TO EQUIPPED"
+                                    uid=1_14 InlineTextBox "GO TO EQUIPPED"
+                              uid=7_1022 LabelText
+                                uid=7_1023 checkbox "Show All Variations"
+                                uid=7_1024 ignored
+                                  uid=7_1025 ignored
+                                    uid=7_1026 ignored
+                                uid=7_1027 StaticText "Show All Variations"
+                                  uid=1_14 InlineTextBox "Show All Variations"
+                              uid=7_1028 LabelText
+                                uid=7_1029 checkbox "Relative DPS"
+                                uid=7_1030 ignored
+                                  uid=7_1031 ignored
+                                    uid=7_1032 ignored
+                                uid=7_1033 StaticText "Relative DPS"
+                                  uid=1_14 InlineTextBox "Relative DPS"
+                          uid=7_1034 ignored
+                            uid=7_1035 ignored
+                          uid=7_1036 list
+                            uid=7_1037 listitem level="1"
+                              uid=7_1038 generic
+                                uid=7_1039 ignored
+                                  uid=7_1040 generic
+                                  uid=7_1041 ignored
+                                    uid=7_1042 ignored
+                                      uid=7_1043 generic
+                                        uid=7_1044 generic
+                                          uid=7_1045 generic
+                                            uid=7_1046 link url="https://www.wowhead.com/item=250462?bonus=12786&ilvl=250&spec=64&crafted-stats=32:36"
+                                      uid=7_1047 generic
+                                        uid=7_1048 paragraph
+                                          uid=7_1049 StaticText "Forgotten Farstrider's Insignia"
+                                            uid=1_14 InlineTextBox "Forgotten Farstrider's Insignia"
+                                        uid=7_1050 ignored
+                                          uid=7_1051 paragraph
+                                            uid=7_1052 StaticText "250"
+                                              uid=1_14 InlineTextBox "250"
+                                          uid=7_1053 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=7_1054 paragraph
+                                            uid=7_1055 StaticText "Trinket 2"
+                                              uid=1_14 InlineTextBox "Trinket 2"
+                                          uid=7_1056 paragraph
+                                            uid=7_1057 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=7_1058 paragraph
+                                            uid=7_1059 StaticText "Cragpine"
+                                              uid=1_14 InlineTextBox "Cragpine"
+                                  uid=7_1060 ignored
+                                    uid=7_1061 paragraph
+                                      uid=7_1062 StaticText "72,949"
+                                        uid=1_14 InlineTextBox "72,949"
+                                  uid=7_1063 ignored
+                                    uid=7_1064 paragraph
+                                      uid=7_1065 StaticText "+607"
+                                        uid=1_14 InlineTextBox "+607"
+                                  uid=7_1066 paragraph
+                                    uid=7_1067 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=7_1068 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=7_1069 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=7_1070 ignored
+                                uid=7_1071 image "DPS Distribution Min: 65,121 Mean: 72,949.4 Max: 79,825.4 Std Dev: 1,884.7 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=7_1072 listitem level="1"
+                              uid=7_1073 generic
+                                uid=7_1074 ignored
+                                  uid=7_1075 generic
+                                  uid=7_1076 ignored
+                                    uid=7_1077 paragraph
+                                      uid=7_1078 StaticText "Equipped"
+                                        uid=1_14 InlineTextBox "Equipped"
+                                    uid=7_1079 ignored
+                                      uid=7_1080 paragraph
+                                        uid=7_1081 StaticText "Current Gear"
+                                          uid=1_14 InlineTextBox "Current Gear"
+                                  uid=7_1082 ignored
+                                    uid=7_1083 paragraph
+                                      uid=7_1084 StaticText "72,342"
+                                        uid=1_14 InlineTextBox "72,342"
+                                  uid=7_1085 ignored
+                                    uid=7_1086 paragraph
+                                      uid=7_1087 StaticText "—"
+                                        uid=1_14 InlineTextBox "—"
+                                  uid=7_1088 ignored
+                                uid=7_1089 image "DPS Distribution Min: 65,308.3 Mean: 72,342.4 Max: 79,938.7 Std Dev: 1,856.7 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=7_1090 listitem level="1"
+                              uid=7_1091 generic
+                                uid=7_1092 ignored
+                                  uid=7_1093 generic
+                                  uid=7_1094 ignored
+                                    uid=7_1095 ignored
+                                      uid=7_1096 generic
+                                        uid=7_1097 generic
+                                          uid=7_1098 generic
+                                            uid=7_1099 link url="https://www.wowhead.com/item=250461?bonus=13668:12786&ench=240967&gems=240967&ilvl=250&spec=64"
+                                          uid=7_1100 generic
+                                            uid=7_1101 generic
+                                              uid=7_1102 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                              uid=7_1103 generic
+                                                uid=7_1104 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=7_1105 generic
+                                        uid=7_1106 paragraph
+                                          uid=7_1107 StaticText "Chain of the Ancient Watcher"
+                                            uid=1_14 InlineTextBox "Chain of the Ancient Watcher"
+                                        uid=7_1108 ignored
+                                          uid=7_1109 paragraph
+                                            uid=7_1110 StaticText "250"
+                                              uid=1_14 InlineTextBox "250"
+                                          uid=7_1111 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=7_1112 paragraph
+                                            uid=7_1113 StaticText "Neck"
+                                              uid=1_14 InlineTextBox "Neck"
+                                          uid=7_1114 paragraph
+                                            uid=7_1115 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=7_1116 paragraph
+                                            uid=7_1117 StaticText "Cragpine"
+                                              uid=1_14 InlineTextBox "Cragpine"
+                                  uid=7_1118 ignored
+                                    uid=7_1119 paragraph
+                                      uid=7_1120 StaticText "71,810"
+                                        uid=1_14 InlineTextBox "71,810"
+                                  uid=7_1121 ignored
+                                    uid=7_1122 paragraph
+                                      uid=7_1123 StaticText "-533"
+                                        uid=1_14 InlineTextBox "-533"
+                                  uid=7_1124 ignored
+                                uid=7_1125 image "DPS Distribution Min: 65,824.8 Mean: 71,809.8 Max: 79,597 Std Dev: 2,012.7 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=7_1126 listitem level="1"
+                              uid=7_1127 generic
+                                uid=7_1128 ignored
+                                  uid=7_1129 generic
+                                  uid=7_1130 ignored
+                                    uid=7_1131 ignored
+                                      uid=7_1132 generic
+                                        uid=7_1133 generic
+                                          uid=7_1134 generic
+                                            uid=7_1135 link url="https://www.wowhead.com/item=250460?bonus=13668:12786&ench=7969&gems=240898&ilvl=250&spec=64"
+                                          uid=7_1136 generic
+                                            uid=7_1137 generic
+                                              uid=7_1138 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                              uid=7_1139 generic
+                                                uid=7_1140 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=7_1141 generic
+                                        uid=7_1142 paragraph
+                                          uid=7_1143 StaticText "Encroaching Shadow Signet"
+                                            uid=1_14 InlineTextBox "Encroaching Shadow Signet"
+                                        uid=7_1144 ignored
+                                          uid=7_1145 paragraph
+                                            uid=7_1146 StaticText "250"
+                                              uid=1_14 InlineTextBox "250"
+                                          uid=7_1147 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=7_1148 paragraph
+                                            uid=7_1149 StaticText "Finger 1"
+                                              uid=1_14 InlineTextBox "Finger 1"
+                                          uid=7_1150 paragraph
+                                            uid=7_1151 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=7_1152 paragraph
+                                            uid=7_1153 StaticText "Predaxas"
+                                              uid=1_14 InlineTextBox "Predaxas"
+                                  uid=7_1154 ignored
+                                    uid=7_1155 paragraph
+                                      uid=7_1156 StaticText "71,628"
+                                        uid=1_14 InlineTextBox "71,628"
+                                  uid=7_1157 ignored
+                                    uid=7_1158 paragraph
+                                      uid=7_1159 StaticText "-714"
+                                        uid=1_14 InlineTextBox "-714"
+                                  uid=7_1160 paragraph
+                                    uid=7_1161 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=7_1162 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=7_1163 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=7_1164 ignored
+                                uid=7_1165 image "DPS Distribution Min: 66,684.2 Mean: 71,628.4 Max: 76,430.1 Std Dev: 1,857.7 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=7_1166 listitem level="1"
+                              uid=7_1167 generic
+                                uid=7_1168 ignored
+                                  uid=7_1169 generic
+                                  uid=7_1170 ignored
+                                    uid=7_1171 ignored
+                                      uid=7_1172 generic
+                                        uid=7_1173 generic
+                                          uid=7_1174 generic
+                                            uid=7_1175 link url="https://www.wowhead.com/item=250456?bonus=12786&ench=7987&ilvl=250&spec=64"
+                                      uid=7_1176 generic
+                                        uid=7_1177 paragraph
+                                          uid=7_1178 StaticText "Wretched Scholar's Gilded Robe"
+                                            uid=1_14 InlineTextBox "Wretched Scholar's Gilded Robe"
+                                        uid=7_1179 ignored
+                                          uid=7_1180 paragraph
+                                            uid=7_1181 StaticText "250"
+                                              uid=1_14 InlineTextBox "250"
+                                          uid=7_1182 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=7_1183 paragraph
+                                            uid=7_1184 StaticText "Chest"
+                                              uid=1_14 InlineTextBox "Chest"
+                                          uid=7_1185 paragraph
+                                            uid=7_1186 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=7_1187 paragraph
+                                            uid=7_1188 StaticText "Cragpine"
+                                              uid=1_14 InlineTextBox "Cragpine"
+                                  uid=7_1189 ignored
+                                    uid=7_1190 paragraph
+                                      uid=7_1191 StaticText "69,444"
+                                        uid=1_14 InlineTextBox "69,444"
+                                  uid=7_1192 ignored
+                                    uid=7_1193 paragraph
+                                      uid=7_1194 StaticText "-2,899"
+                                        uid=1_14 InlineTextBox "-2,899"
+                                    uid=7_1195 generic
+                                      uid=7_1196 generic "[object Object]"
+                                        uid=7_1197 paragraph
+                                          uid=7_1198 StaticText "·"
+                                            uid=1_14 InlineTextBox "·"
+                                  uid=7_1199 ignored
+                                uid=7_1200 image "DPS Distribution Min: 64,149.8 Mean: 69,443.5 Max: 74,296.8 Std Dev: 1,746.8 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=7_1201 listitem level="1"
+                              uid=7_1202 generic
+                                uid=7_1203 ignored
+                                  uid=7_1204 generic
+                                  uid=7_1205 ignored
+                                    uid=7_1206 ignored
+                                      uid=7_1207 generic
+                                        uid=7_1208 generic
+                                          uid=7_1209 generic
+                                            uid=7_1210 link url="https://www.wowhead.com/item=250448?bonus=12786&ench=8039&ilvl=250&spec=64"
+                                      uid=7_1211 generic
+                                        uid=7_1212 paragraph
+                                          uid=7_1213 StaticText "Voidbender's Spire"
+                                            uid=1_14 InlineTextBox "Voidbender's Spire"
+                                        uid=7_1214 ignored
+                                          uid=7_1215 paragraph
+                                            uid=7_1216 StaticText "250"
+                                              uid=1_14 InlineTextBox "250"
+                                          uid=7_1217 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=7_1218 paragraph
+                                            uid=7_1219 StaticText "Main Hand"
+                                              uid=1_14 InlineTextBox "Main Hand"
+                                          uid=7_1220 paragraph
+                                            uid=7_1221 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=7_1222 paragraph
+                                            uid=7_1223 StaticText "Predaxas"
+                                              uid=1_14 InlineTextBox "Predaxas"
+                                  uid=7_1224 ignored
+                                    uid=7_1225 paragraph
+                                      uid=7_1226 StaticText "68,752"
+                                        uid=1_14 InlineTextBox "68,752"
+                                  uid=7_1227 ignored
+                                    uid=7_1228 paragraph
+                                      uid=7_1229 StaticText "-3,590"
+                                        uid=1_14 InlineTextBox "-3,590"
+                                    uid=7_1230 generic
+                                      uid=7_1231 generic "[object Object]"
+                                        uid=7_1232 paragraph
+                                          uid=7_1233 StaticText "·"
+                                            uid=1_14 InlineTextBox "·"
+                                  uid=7_1234 ignored
+                                uid=7_1235 image "DPS Distribution Min: 63,262.1 Mean: 68,752 Max: 73,761.3 Std Dev: 1,975.4 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                          uid=7_1236 ignored
+                            uid=7_1237 LabelText
+                              uid=7_1238 checkbox "Show Smart Sim Stage"
+                              uid=7_1239 ignored
+                                uid=7_1240 ignored
+                                  uid=7_1241 ignored
+                              uid=7_1242 StaticText "Show Smart Sim Stage"
+                                uid=1_14 InlineTextBox "Show Smart Sim Stage"
+                      uid=7_1243 separator orientation="horizontal"
+                      uid=7_1244 ignored
+                        uid=7_1245 ignored
+                          uid=7_1246 generic
+                            uid=7_1247 LabelText
+                              uid=7_1248 ignored
+                                uid=7_1249 generic
+                                  uid=7_1250 StaticText "SimC Notifications"
+                                    uid=1_14 InlineTextBox "SimC Notifications"
+                                uid=7_1251 ignored
+                                uid=7_1252 generic
+                                  uid=7_1253 image
+                      uid=7_1254 separator orientation="horizontal"
+                      uid=7_1255 ignored
+                        uid=7_1256 generic
+                          uid=7_1257 LabelText
+                            uid=7_1258 ignored
+                              uid=7_1259 generic
+                                uid=7_1260 StaticText "Raw Input"
+                                  uid=1_14 InlineTextBox "Raw Input"
+                              uid=7_1261 ignored
+                              uid=7_1262 generic
+                                uid=7_1263 image
+                        uid=7_1264 separator orientation="horizontal"
+                        uid=7_1265 ignored
+                          uid=7_1266 generic
+                            uid=7_1267 LabelText
+                              uid=7_1268 ignored
+                                uid=7_1269 generic
+                                  uid=7_1270 StaticText "Original Addon Input"
+                                    uid=1_14 InlineTextBox "Original Addon Input"
+                                uid=7_1271 ignored
+                                uid=7_1272 generic
+                                  uid=7_1273 image
+                      uid=7_1274 separator orientation="horizontal"
+                    uid=7_1275 ignored
+                      uid=7_1276 generic
+                        uid=7_1277 ignored
+                          uid=7_1278 StaticText "Simulation Details"
+                            uid=1_14 InlineTextBox "Simulation Details"
+                        uid=7_1279 ignored
+                          uid=7_1280 heading "PATCHWERK" level="5"
+                            uid=7_1281 StaticText "PATCHWERK"
+                              uid=1_14 InlineTextBox "PATCHWERK"
+                        uid=7_1282 ignored
+                          uid=7_1283 ignored
+                            uid=7_1284 paragraph
+                              uid=7_1285 StaticText "5 minutes"
+                                uid=1_14 InlineTextBox "5 minutes"
+                            uid=7_1286 ignored
+                              uid=7_1287 generic "By default, SimC varies fight length for each iteration to avoid overly specific results. ,[object Object],In this sim, fight length varies from ,240, to ,360, seconds."
+                                uid=7_1288 button "?"
+                                  uid=7_1289 ignored
+                                    uid=7_1290 paragraph
+                                      uid=7_1291 StaticText "?"
+                                        uid=1_14 InlineTextBox "?"
+                          uid=7_1292 paragraph
+                            uid=7_1293 StaticText "1"
+                              uid=1_14 InlineTextBox "1"
+                            uid=7_1294 StaticText " boss target"
+                              uid=1_14 InlineTextBox " boss target"
+                        uid=7_1295 ignored
+                          uid=7_1296 ignored
+                            uid=7_1297 generic
+                              uid=7_1298 link url="https://www.wowhead.com/item=241308?"
+                          uid=7_1299 ignored
+                            uid=7_1300 generic
+                              uid=7_1301 link url="https://www.wowhead.com/item=241326?"
+                          uid=7_1302 ignored
+                            uid=7_1303 generic
+                              uid=7_1304 link url="https://www.wowhead.com/item=255845?"
+                          uid=7_1305 ignored
+                            uid=7_1306 generic
+                              uid=7_1307 link url="https://www.wowhead.com/item=259085?"
+                          uid=7_1308 ignored
+                            uid=7_1309 generic
+                              uid=7_1310 link url="https://www.wowhead.com/spell=2825?"
+                          uid=7_1311 ignored
+                            uid=7_1312 generic
+                              uid=7_1313 link url="https://www.wowhead.com/spell=1459?"
+                          uid=7_1314 ignored
+                            uid=7_1315 generic
+                              uid=7_1316 link url="https://www.wowhead.com/spell=21562?"
+                          uid=7_1317 ignored
+                            uid=7_1318 generic
+                              uid=7_1319 link url="https://www.wowhead.com/spell=1126?"
+                          uid=7_1320 ignored
+                            uid=7_1321 generic
+                              uid=7_1322 link url="https://www.wowhead.com/spell=6673?"
+                          uid=7_1323 ignored
+                            uid=7_1324 generic
+                              uid=7_1325 link url="https://www.wowhead.com/spell=8647?"
+                          uid=7_1326 ignored
+                            uid=7_1327 generic
+                              uid=7_1328 link url="https://www.wowhead.com/spell=1490?"
+                          uid=7_1329 ignored
+                            uid=7_1330 generic
+                              uid=7_1331 link url="https://www.wowhead.com/spell=257284?"
+                          uid=7_1332 ignored
+                            uid=7_1333 generic
+                              uid=7_1334 link url="https://www.wowhead.com/spell=462854?"
+                          uid=7_1335 ignored
+                            uid=7_1336 generic
+                              uid=7_1337 link url="https://www.wowhead.com/spell=10060?"
+                        uid=7_1338 separator orientation="horizontal"
+                        uid=7_1339 ignored
+                          uid=7_1340 ignored
+                            uid=7_1341 ignored
+                              uid=7_1342 paragraph
+                                uid=7_1343 StaticText "Sim Run"
+                                  uid=1_14 InlineTextBox "Sim Run"
+                            uid=7_1344 ignored
+                            uid=7_1345 ignored
+                              uid=7_1346 paragraph description="Wed Apr 01 2026 14:36:09 GMT+0200 (Central European Summer Time)"
+                                uid=7_1347 StaticText "just now"
+                                  uid=1_14 InlineTextBox "just now"
+                          uid=7_1348 separator orientation="horizontal"
+                        uid=7_1349 ignored
+                          uid=7_1350 ignored
+                            uid=7_1351 ignored
+                              uid=7_1352 paragraph
+                                uid=7_1353 StaticText "Margin of Error"
+                                  uid=1_14 InlineTextBox "Margin of Error"
+                            uid=7_1354 ignored
+                            uid=7_1355 paragraph
+                              uid=7_1356 StaticText "~71 DPS (0.1%)"
+                                uid=1_14 InlineTextBox "~71 DPS (0.1%)"
+                          uid=7_1357 separator orientation="horizontal"
+                        uid=7_1358 ignored
+                          uid=7_1359 ignored
+                            uid=7_1360 generic "Number of simulated fights run"
+                              uid=7_1361 paragraph
+                                uid=7_1362 StaticText "Iterations"
+                                  uid=1_14 InlineTextBox "Iterations"
+                            uid=7_1363 ignored
+                            uid=7_1364 paragraph
+                              uid=7_1365 StaticText "2,773 (Smart Sim)"
+                                uid=1_14 InlineTextBox "2,773 (Smart Sim)"
+                          uid=7_1366 separator orientation="horizontal"
+                        uid=7_1367 ignored
+                          uid=7_1368 ignored
+                            uid=7_1369 ignored
+                              uid=7_1370 paragraph
+                                uid=7_1371 StaticText "Actors"
+                                  uid=1_14 InlineTextBox "Actors"
+                            uid=7_1372 ignored
+                            uid=7_1373 paragraph
+                              uid=7_1374 StaticText "8"
+                                uid=1_14 InlineTextBox "8"
+                          uid=7_1375 separator orientation="horizontal"
+                        uid=7_1376 ignored
+                          uid=7_1377 ignored
+                            uid=7_1378 ignored
+                              uid=7_1379 paragraph
+                                uid=7_1380 StaticText "Processing Time"
+                                  uid=1_14 InlineTextBox "Processing Time"
+                            uid=7_1381 ignored
+                            uid=7_1382 paragraph
+                              uid=7_1383 StaticText "0:06"
+                                uid=1_14 InlineTextBox "0:06"
+                          uid=7_1384 separator orientation="horizontal"
+                        uid=7_1385 ignored
+                          uid=7_1386 ignored
+                            uid=7_1387 ignored
+                              uid=7_1388 paragraph
+                                uid=7_1389 StaticText "SimC Version"
+                                  uid=1_14 InlineTextBox "SimC Version"
+                            uid=7_1390 ignored
+                            uid=7_1391 ignored
+                              uid=7_1392 ignored
+                                uid=7_1393 paragraph
+                                  uid=7_1394 StaticText "Weekly"
+                                    uid=1_14 InlineTextBox "Weekly"
+                          uid=7_1395 separator orientation="horizontal"
+                        uid=7_1396 ignored
+                          uid=7_1397 ignored
+                            uid=7_1398 ignored
+                              uid=7_1399 paragraph
+                                uid=7_1400 StaticText "SimC Build Date"
+                                  uid=1_14 InlineTextBox "SimC Build Date"
+                            uid=7_1401 ignored
+                            uid=7_1402 paragraph
+                              uid=7_1403 StaticText "Mar 31, 6:27 pm"
+                                uid=1_14 InlineTextBox "Mar 31, 6:27 pm"
+                          uid=7_1404 separator orientation="horizontal"
+                        uid=7_1405 ignored
+                          uid=7_1406 ignored
+                            uid=7_1407 ignored
+                              uid=7_1408 paragraph
+                                uid=7_1409 StaticText "SimC Git Hash"
+                                  uid=1_14 InlineTextBox "SimC Git Hash"
+                            uid=7_1410 ignored
+                            uid=7_1411 ignored
+                              uid=7_1412 paragraph
+                                uid=7_1413 link "be0e4ec93c" url="https://github.com/simulationcraft/simc/commits/be0e4ec93c"
+                                  uid=7_1414 StaticText "be0e4ec93c"
+                                    uid=1_14 InlineTextBox "be0e4ec93c"
+                          uid=7_1415 separator orientation="horizontal"
+                        uid=7_1416 ignored
+                          uid=7_1417 ignored
+                            uid=7_1418 ignored
+                              uid=7_1419 paragraph
+                                uid=7_1420 StaticText "Bleeding"
+                                  uid=1_14 InlineTextBox "Bleeding"
+                            uid=7_1421 ignored
+                            uid=7_1422 paragraph
+                              uid=7_1423 StaticText "Disabled"
+                                uid=1_14 InlineTextBox "Disabled"
+                          uid=7_1424 separator orientation="horizontal"
+                        uid=7_1425 ignored
+                          uid=7_1426 ignored
+                            uid=7_1427 paragraph
+                              uid=7_1428 StaticText "Raw Files"
+                                uid=1_14 InlineTextBox "Raw Files"
+                            uid=7_1429 ignored
+                            uid=7_1430 generic
+                              uid=7_1431 link "⋯" description="More Options"
+                                uid=7_1432 paragraph
+                                  uid=7_1433 StaticText "⋯"
+                                    uid=1_14 InlineTextBox "⋯"
+                          uid=7_1434 separator orientation="horizontal"
+                        uid=7_1435 ignored
+                          uid=7_1436 paragraph
+                            uid=7_1437 StaticText "Report disabled for large simulation"
+                              uid=1_14 InlineTextBox "Report disabled for large simulation"
+                      uid=7_1438 ignored
+                        uid=7_1439 ignored
+                          uid=7_1440 LabelText
+                            uid=7_1441 StaticText "Share Report URL"
+                              uid=1_14 InlineTextBox "Share Report URL"
+                          uid=7_1442 textbox disableable disabled value="https://www.raidbots.com/simbot/report/x2R8kveCBjPT6AJJ4jT149"
+                            uid=7_1443 generic
+                              uid=7_1444 StaticText "https://www.raidbots.com/simbot/report/x2R8kveCBjPT6AJJ4jT149"
+                                uid=1_14 InlineTextBox "https://www.raidbots.com/simbot/report/x2R8kveCBjPT6AJJ4jT149"
+                        uid=7_1445 button "COPY TO CLIPBOARD"
+                          uid=7_1446 StaticText "COPY TO CLIPBOARD"
+                            uid=1_14 InlineTextBox "COPY TO CLIPBOARD"
+          uid=1_621 generic
+            uid=1_622 contentinfo
+              uid=1_623 ignored
+                uid=1_624 ignored
+                  uid=1_625 ignored
+                    uid=1_626 ignored
+                      uid=1_627 heading "ETC" level="4"
+                        uid=1_628 StaticText "ETC"
+                          uid=1_14 InlineTextBox "ETC"
+                      uid=1_629 ignored
+                        uid=1_630 paragraph
+                          uid=1_631 link "Developers" url="https://www.raidbots.com/developers"
+                            uid=1_632 StaticText "Developers"
+                              uid=1_14 InlineTextBox "Developers"
+                        uid=1_633 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_634 paragraph
+                          uid=1_635 link "Blog Archive" url="https://medium.com/raidbots"
+                            uid=1_636 StaticText "Blog Archive"
+                              uid=1_14 InlineTextBox "Blog Archive"
+                        uid=1_637 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_638 paragraph
+                          uid=1_639 link "Terms of Use" url="https://www.raidbots.com/tou"
+                            uid=1_640 StaticText "Terms of Use"
+                              uid=1_14 InlineTextBox "Terms of Use"
+                        uid=1_641 paragraph
+                          uid=1_642 link "Privacy Policy" url="https://www.raidbots.com/privacy"
+                            uid=1_643 StaticText "Privacy Policy"
+                              uid=1_14 InlineTextBox "Privacy Policy"
+                    uid=1_644 ignored
+                      uid=1_645 heading "CONTACT" level="4"
+                        uid=1_646 StaticText "CONTACT"
+                          uid=1_14 InlineTextBox "CONTACT"
+                      uid=1_647 ignored
+                        uid=1_648 paragraph
+                          uid=1_649 link "Support / Help" url="https://support.raidbots.com/"
+                            uid=1_650 StaticText "Support / Help"
+                              uid=1_14 InlineTextBox "Support / Help"
+                        uid=1_651 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_652 paragraph
+                          uid=1_653 link "Raidbots Discord" url="https://discord.gg/86EF64Q"
+                            uid=1_654 StaticText "Raidbots Discord"
+                              uid=1_14 InlineTextBox "Raidbots Discord"
+                        uid=1_655 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_656 paragraph
+                          uid=1_657 StaticText "Made by Seriallos"
+                            uid=1_14 InlineTextBox "Made by Seriallos"
+          uid=1_658 generic
+            uid=1_659 generic
+              uid=1_660 generic
+                uid=1_661 heading "REPORTS" level="3"
+                  uid=1_662 StaticText "REPORTS"
+                    uid=1_14 InlineTextBox "REPORTS"
+                uid=1_663 paragraph
+                  uid=1_664 StaticText "Create an account to save reports"
+                    uid=1_14 InlineTextBox "Create an account to save reports"
+          uid=1_665 ignored
+            uid=1_666 ignored
+          uid=1_667 ignored
+          uid=1_668 ignored
+            uid=1_669 ignored
+          uid=1_670 ignored

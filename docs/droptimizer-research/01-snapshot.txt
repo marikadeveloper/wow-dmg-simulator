@@ -1,0 +1,779 @@
+uid=1_0 RootWebArea "Droptimizer - Raidbots" url="https://www.raidbots.com/simbot/droptimizer"
+  uid=1_1 ignored
+    uid=1_2 ignored
+      uid=1_3 generic
+        uid=1_4 ignored
+          uid=1_5 generic
+            uid=1_6 ignored
+              uid=1_7 ignored
+                uid=1_8 link url="https://www.raidbots.com/"
+                  uid=1_9 ignored
+                    uid=1_10 image
+                uid=1_11 ignored
+                uid=1_12 link "LOGIN" url="https://www.raidbots.com/auth"
+                  uid=1_13 StaticText "LOGIN"
+                    uid=1_14 InlineTextBox "LOGIN"
+                uid=1_15 generic
+                  uid=1_16 link "ENGLISH"
+                    uid=1_17 StaticText "ENGLISH"
+                      uid=1_14 InlineTextBox "ENGLISH"
+                    uid=1_18 ignored
+                uid=1_19 link
+                  uid=1_20 button
+                    uid=1_21 ignored
+                      uid=1_22 image
+          uid=1_23 ignored
+            uid=1_24 ignored
+              uid=1_25 ignored
+                uid=1_26 generic
+                  uid=1_27 StaticText "Raidbots/SimC are up-to-date with March 31st hotfixes"
+                    uid=1_14 InlineTextBox "Raidbots/SimC are up-to-date with March 31st hotfixes"
+            uid=1_28 generic
+              uid=1_29 link "Sign up for Raidbots Premium!" url="https://www.raidbots.com/account"
+                uid=1_30 StaticText "Sign up for Raidbots Premium!"
+                  uid=1_14 InlineTextBox "Sign up for Raidbots Premium!"
+              uid=1_31 StaticText "Skip the line, run larger sims, and more!"
+                uid=1_14 InlineTextBox "Skip the line, run larger sims, and more!"
+            uid=1_32 generic
+              uid=1_33 generic
+                uid=1_34 generic
+                  uid=1_35 ignored
+                    uid=1_36 link "TOP GEAR" url="https://www.raidbots.com/simbot/topgear"
+                      uid=1_37 ignored
+                        uid=1_38 generic
+                          uid=1_39 image
+                        uid=1_40 generic
+                          uid=1_41 StaticText "TOP GEAR"
+                            uid=1_14 InlineTextBox "TOP GEAR"
+                    uid=1_42 link "DROPTIMIZER" url="https://www.raidbots.com/simbot/droptimizer"
+                      uid=1_43 ignored
+                        uid=1_44 generic
+                          uid=1_45 image
+                        uid=1_46 generic
+                          uid=1_47 StaticText "DROPTIMIZER"
+                            uid=1_14 InlineTextBox "DROPTIMIZER"
+                    uid=1_48 link "QUICK SIM" url="https://www.raidbots.com/simbot/quick"
+                      uid=1_49 ignored
+                        uid=1_50 generic
+                          uid=1_51 image
+                        uid=1_52 generic
+                          uid=1_53 StaticText "QUICK SIM"
+                            uid=1_14 InlineTextBox "QUICK SIM"
+                    uid=1_54 link "ADVANCED" url="https://www.raidbots.com/simbot/advanced"
+                      uid=1_55 ignored
+                        uid=1_56 generic
+                          uid=1_57 image
+                        uid=1_58 generic
+                          uid=1_59 StaticText "ADVANCED"
+                            uid=1_14 InlineTextBox "ADVANCED"
+                    uid=1_60 generic
+                      uid=1_61 link "MORE"
+                        uid=1_62 StaticText "MORE"
+                          uid=1_14 InlineTextBox "MORE"
+                        uid=1_63 ignored
+                uid=1_64 ignored
+                  uid=1_65 generic
+                    uid=1_66 ignored
+                      uid=1_67 ignored
+                        uid=1_68 image
+                        uid=1_69 heading "LOAD FROM ARMORY" level="4"
+                          uid=1_70 StaticText "LOAD FROM ARMORY"
+                            uid=1_14 InlineTextBox "LOAD FROM ARMORY"
+                      uid=1_71 ignored
+                        uid=1_72 ignored
+                          uid=1_73 ignored
+                            uid=1_74 ignored
+                              uid=1_75 LabelText
+                                uid=1_76 StaticText "Region"
+                                  uid=1_14 InlineTextBox "Region"
+                              uid=1_77 generic
+                                uid=1_78 combobox expandable haspopup="menu" value="US"
+                                  uid=1_79 MenuListPopup
+                                    uid=1_80 option "US" selectable selected value="US"
+                                    uid=1_81 option "EU" selectable value="EU"
+                                    uid=1_82 option "KR" selectable value="KR"
+                                    uid=1_83 option "TW" selectable value="TW"
+                                uid=1_84 generic
+                          uid=1_85 ignored
+                            uid=1_86 ignored
+                              uid=1_87 LabelText
+                                uid=1_88 StaticText "Realm"
+                                  uid=1_14 InlineTextBox "Realm"
+                              uid=1_89 generic
+                                uid=1_90 generic
+                                uid=1_91 log live="polite" relevant="additions text"
+                                uid=1_92 generic
+                                  uid=1_93 generic
+                                    uid=1_94 generic
+                                      uid=1_95 StaticText "Select..."
+                                        uid=1_14 InlineTextBox "Select..."
+                                    uid=1_96 ignored
+                                      uid=1_97 combobox autocomplete="list" description="Select..." expandable haspopup="menu"
+                                        uid=1_98 generic
+                                  uid=1_99 ignored
+                                    uid=1_100 ignored
+                          uid=1_101 ignored
+                            uid=1_102 ignored
+                              uid=1_103 ignored
+                                uid=1_104 ignored
+                                  uid=1_105 LabelText
+                                    uid=1_106 StaticText "Character"
+                                      uid=1_14 InlineTextBox "Character"
+                                  uid=1_107 search
+                                    uid=1_108 generic
+                              uid=1_109 ignored
+                        uid=1_110 ignored
+                      uid=1_111 ignored
+                        uid=1_112 ignored
+                          uid=1_113 separator orientation="horizontal"
+                        uid=1_114 ignored
+                          uid=1_115 heading "OR" level="6"
+                            uid=1_116 StaticText "OR"
+                              uid=1_14 InlineTextBox "OR"
+                        uid=1_117 ignored
+                          uid=1_118 separator orientation="horizontal"
+                      uid=1_119 ignored
+                        uid=1_120 image
+                        uid=1_121 heading "LOAD FROM SIMC ADDON" level="4"
+                          uid=1_122 StaticText "LOAD FROM SIMC ADDON"
+                            uid=1_14 InlineTextBox "LOAD FROM SIMC ADDON"
+                      uid=1_123 ignored
+                        uid=1_124 LabelText
+                          uid=1_125 StaticText "Copy/paste the text from the SimulationCraft addon."
+                            uid=1_14 InlineTextBox "Copy/paste the text from the SimulationCraft addon."
+                          uid=1_126 StaticText " "
+                            uid=1_14 InlineTextBox " "
+                          uid=1_127 link "How to install and use the SimC addon" url="https://support.raidbots.com/article/54-installing-and-using-the-simulationcraft-addon"
+                            uid=1_128 StaticText "How to install and use the SimC addon"
+                              uid=1_14 InlineTextBox "How to install and use the SimC addon"
+                        uid=1_129 ignored
+                          uid=1_130 LabelText
+                          uid=1_131 textbox multiline
+                            uid=1_132 generic
+                    uid=1_133 separator orientation="horizontal"
+                    uid=1_134 ignored
+                      uid=1_135 paragraph
+                        uid=1_136 StaticText "Load your character from the Armory or SimC addon above"
+                          uid=1_14 InlineTextBox "Load your character from the Armory or SimC addon above"
+                    uid=1_137 separator orientation="horizontal"
+                    uid=1_138 ignored
+                      uid=1_139 ignored
+                        uid=1_140 LabelText
+                          uid=1_141 ignored
+                            uid=1_142 ignored
+                              uid=1_143 ignored
+                                uid=1_144 generic
+                                  uid=1_145 image
+                                uid=1_146 generic
+                                  uid=1_147 StaticText "Simulation Options:"
+                                    uid=1_14 InlineTextBox "Simulation Options:"
+                            uid=1_148 ignored
+                            uid=1_149 generic
+                              uid=1_150 image
+                        uid=1_151 ignored
+                          uid=1_152 ignored
+                            uid=1_153 ignored
+                              uid=1_154 ignored
+                                uid=1_155 ignored
+                                  uid=1_156 LabelText
+                                    uid=1_157 StaticText "Fight Style"
+                                      uid=1_14 InlineTextBox "Fight Style"
+                                  uid=1_158 generic
+                                    uid=1_159 combobox expandable haspopup="menu" value="Patchwerk"
+                                      uid=1_160 MenuListPopup
+                                        uid=1_161 option "Patchwerk" selectable selected value="Patchwerk"
+                                        uid=1_162 option "Dungeon Slice" selectable value="Dungeon Slice"
+                                        uid=1_163 option "Target Dummy" selectable value="Target Dummy"
+                                        uid=1_164 option "Execute Patchwerk" selectable value="Execute Patchwerk"
+                                        uid=1_165 option "Hectic Add Cleave" selectable value="Hectic Add Cleave"
+                                        uid=1_166 option "Light Movement" selectable value="Light Movement"
+                                        uid=1_167 option "Heavy Movement" selectable value="Heavy Movement"
+                                        uid=1_168 option "Casting Patchwerk" selectable value="Casting Patchwerk"
+                                        uid=1_169 option "Cleave Add" selectable value="Cleave Add"
+                                    uid=1_170 generic
+                                  uid=1_171 paragraph
+                                    uid=1_172 StaticText "No movement, single target"
+                                      uid=1_14 InlineTextBox "No movement, single target"
+                              uid=1_173 ignored
+                                uid=1_174 ignored
+                                  uid=1_175 LabelText
+                                    uid=1_176 StaticText "Number of Bosses"
+                                      uid=1_14 InlineTextBox "Number of Bosses"
+                                  uid=1_177 generic
+                                    uid=1_178 combobox expandable haspopup="menu" value="1 Boss"
+                                      uid=1_179 MenuListPopup
+                                        uid=1_180 option "1 Boss" selectable selected value="1 Boss"
+                                        uid=1_181 option "2 Bosses" selectable value="2 Bosses"
+                                        uid=1_182 option "3 Bosses" selectable value="3 Bosses"
+                                        uid=1_183 option "4 Bosses" selectable value="4 Bosses"
+                                        uid=1_184 option "5 Bosses" selectable value="5 Bosses"
+                                        uid=1_185 option "6 Bosses" selectable value="6 Bosses"
+                                        uid=1_186 option "7 Bosses" selectable value="7 Bosses"
+                                        uid=1_187 option "8 Bosses" selectable value="8 Bosses"
+                                        uid=1_188 option "9 Bosses" selectable value="9 Bosses"
+                                        uid=1_189 option "10 Bosses" selectable value="10 Bosses"
+                                    uid=1_190 generic
+                                  uid=1_191 paragraph
+                                    uid=1_192 StaticText "Default and best for single target sims"
+                                      uid=1_14 InlineTextBox "Default and best for single target sims"
+                              uid=1_193 ignored
+                                uid=1_194 ignored
+                                  uid=1_195 LabelText
+                                    uid=1_196 StaticText "Fight Length"
+                                      uid=1_14 InlineTextBox "Fight Length"
+                                  uid=1_197 generic
+                                    uid=1_198 combobox expandable haspopup="menu" value="5 minutes"
+                                      uid=1_199 MenuListPopup
+                                        uid=1_200 option "20 seconds" selectable value="20 seconds"
+                                        uid=1_201 option "40 seconds" selectable value="40 seconds"
+                                        uid=1_202 option "1 minute" selectable value="1 minute"
+                                        uid=1_203 option "1 minute, 30 seconds" selectable value="1 minute, 30 seconds"
+                                        uid=1_204 option "2 minutes" selectable value="2 minutes"
+                                        uid=1_205 option "3 minutes" selectable value="3 minutes"
+                                        uid=1_206 option "4 minutes" selectable value="4 minutes"
+                                        uid=1_207 option "5 minutes" selectable selected value="5 minutes"
+                                        uid=1_208 option "6 minutes" selectable value="6 minutes"
+                                        uid=1_209 option "7 minutes" selectable value="7 minutes"
+                                        uid=1_210 option "8 minutes" selectable value="8 minutes"
+                                        uid=1_211 option "9 minutes" selectable value="9 minutes"
+                                        uid=1_212 option "10 minutes" selectable value="10 minutes"
+                                    uid=1_213 generic
+                                  uid=1_214 paragraph
+                                    uid=1_215 StaticText "By default, fight length will vary up to 20% for each iteration"
+                                      uid=1_14 InlineTextBox "By default, fight length will vary up to 20% for "
+                                      uid=1_14 InlineTextBox "each iteration"
+                              uid=1_216 ignored
+                                uid=1_217 ignored
+                                  uid=1_218 LabelText
+                                    uid=1_219 StaticText "SimC Version"
+                                      uid=1_14 InlineTextBox "SimC Version"
+                                  uid=1_220 generic
+                                    uid=1_221 combobox expandable haspopup="menu" value="Weekly"
+                                      uid=1_222 MenuListPopup
+                                        uid=1_223 option "Weekly" selectable selected value="Weekly"
+                                        uid=1_224 option "Nightly" selectable value="Nightly"
+                                        uid=1_225 option "Latest" selectable value="Latest"
+                                    uid=1_226 generic
+                                  uid=1_227 paragraph
+                                    uid=1_228 StaticText "Built from source every Monday"
+                                      uid=1_14 InlineTextBox "Built from source every Monday"
+                            uid=1_229 heading "TRINKETS" level="5"
+                              uid=1_230 StaticText "TRINKETS"
+                                uid=1_14 InlineTextBox "TRINKETS"
+                            uid=1_231 ignored
+                              uid=1_232 ignored
+                                uid=1_233 generic
+                                  uid=1_234 link url="https://www.wowhead.com/item=264507?"
+                              uid=1_235 heading "CRUCIBLE OF ERRATIC ENERGIES" level="6"
+                                uid=1_236 StaticText "CRUCIBLE OF ERRATIC ENERGIES"
+                                  uid=1_14 InlineTextBox "CRUCIBLE OF ERRATIC ENERGIES"
+                            uid=1_237 ignored
+                              uid=1_238 ignored
+                                uid=1_239 ignored
+                                  uid=1_240 LabelText
+                                    uid=1_241 checkbox "[object Object]" checked
+                                    uid=1_242 ignored
+                                      uid=1_243 image
+                                    uid=1_244 ignored
+                                      uid=1_245 generic "[object Object]"
+                                        uid=1_246 ignored
+                                          uid=1_247 ignored
+                                            uid=1_248 ignored
+                                          uid=1_249 ignored
+                                        uid=1_250 paragraph
+                                          uid=1_251 StaticText "Violence"
+                                            uid=1_14 InlineTextBox "Violence"
+                              uid=1_252 ignored
+                                uid=1_253 ignored
+                                  uid=1_254 LabelText
+                                    uid=1_255 checkbox "[object Object]" checked
+                                    uid=1_256 ignored
+                                      uid=1_257 image
+                                    uid=1_258 ignored
+                                      uid=1_259 generic "[object Object]"
+                                        uid=1_260 ignored
+                                          uid=1_261 ignored
+                                            uid=1_262 ignored
+                                          uid=1_263 ignored
+                                        uid=1_264 paragraph
+                                          uid=1_265 StaticText "Sustenance"
+                                            uid=1_14 InlineTextBox "Sustenance"
+                              uid=1_266 ignored
+                                uid=1_267 ignored
+                                  uid=1_268 LabelText
+                                    uid=1_269 checkbox "[object Object]" checked
+                                    uid=1_270 ignored
+                                      uid=1_271 image
+                                    uid=1_272 ignored
+                                      uid=1_273 generic "[object Object]"
+                                        uid=1_274 ignored
+                                          uid=1_275 ignored
+                                            uid=1_276 ignored
+                                          uid=1_277 ignored
+                                        uid=1_278 paragraph
+                                          uid=1_279 StaticText "Predation"
+                                            uid=1_14 InlineTextBox "Predation"
+                            uid=1_280 paragraph
+                              uid=1_281 StaticText "You can use nearly any"
+                                uid=1_14 InlineTextBox "You can use nearly any"
+                              uid=1_282 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=1_283 link "SimC expansion-specific options" url="https://github.com/simulationcraft/simc/wiki/ExpansionOptions"
+                                uid=1_284 StaticText "SimC expansion-specific options"
+                                  uid=1_14 InlineTextBox "SimC expansion-specific options"
+                              uid=1_285 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=1_286 StaticText "in the Custom APL and SimC Options"
+                                uid=1_14 InlineTextBox "in the Custom APL and SimC Options"
+                            uid=1_287 ignored
+                              uid=1_288 heading "RAID BUFF PRESETS" level="4"
+                                uid=1_289 StaticText "RAID BUFF PRESETS"
+                                  uid=1_14 InlineTextBox "RAID BUFF PRESETS"
+                              uid=1_290 generic
+                                uid=1_291 button "OPTIMAL RAID BUFFS"
+                                  uid=1_292 StaticText "OPTIMAL RAID BUFFS"
+                                    uid=1_14 InlineTextBox "OPTIMAL RAID BUFFS"
+                                uid=1_293 button "NO BUFFS"
+                                  uid=1_294 StaticText "NO BUFFS"
+                                    uid=1_14 InlineTextBox "NO BUFFS"
+                              uid=1_295 heading "CONSUMABLES" level="5"
+                                uid=1_296 StaticText "CONSUMABLES"
+                                  uid=1_14 InlineTextBox "CONSUMABLES"
+                              uid=1_297 paragraph
+                                uid=1_298 StaticText ""SimC Default" uses the default consumables defined in the class APL/module. To verify, you can run a Quick Sim and check buffs to see what was used."
+                                  uid=1_14 InlineTextBox ""SimC Default" uses the default consumables defined in the class APL/module. To verify, you can run a Quick Sim and check buffs to see what was used."
+                              uid=1_299 ignored
+                                uid=1_300 ignored
+                                  uid=1_301 ignored
+                                    uid=1_302 LabelText
+                                      uid=1_303 StaticText "Potion"
+                                        uid=1_14 InlineTextBox "Potion"
+                                    uid=1_304 generic
+                                      uid=1_305 generic
+                                      uid=1_306 log live="polite" relevant="additions text"
+                                      uid=1_307 generic
+                                        uid=1_308 generic
+                                          uid=1_309 ignored
+                                            uid=1_310 ignored
+                                              uid=1_311 paragraph
+                                                uid=1_312 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=1_313 ignored
+                                            uid=1_314 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=1_315 generic
+                                        uid=1_316 ignored
+                                          uid=1_317 ignored
+                                uid=1_318 ignored
+                                  uid=1_319 ignored
+                                    uid=1_320 LabelText
+                                      uid=1_321 StaticText "Food"
+                                        uid=1_14 InlineTextBox "Food"
+                                    uid=1_322 generic
+                                      uid=1_323 generic
+                                      uid=1_324 log live="polite" relevant="additions text"
+                                      uid=1_325 generic
+                                        uid=1_326 generic
+                                          uid=1_327 ignored
+                                            uid=1_328 ignored
+                                              uid=1_329 paragraph
+                                                uid=1_330 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=1_331 ignored
+                                            uid=1_332 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=1_333 generic
+                                        uid=1_334 ignored
+                                          uid=1_335 ignored
+                                uid=1_336 ignored
+                                  uid=1_337 ignored
+                                    uid=1_338 LabelText
+                                      uid=1_339 StaticText "Flask"
+                                        uid=1_14 InlineTextBox "Flask"
+                                    uid=1_340 generic
+                                      uid=1_341 generic
+                                      uid=1_342 log live="polite" relevant="additions text"
+                                      uid=1_343 generic
+                                        uid=1_344 generic
+                                          uid=1_345 ignored
+                                            uid=1_346 ignored
+                                              uid=1_347 paragraph
+                                                uid=1_348 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=1_349 ignored
+                                            uid=1_350 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=1_351 generic
+                                        uid=1_352 ignored
+                                          uid=1_353 ignored
+                                uid=1_354 ignored
+                                  uid=1_355 ignored
+                                    uid=1_356 LabelText
+                                      uid=1_357 StaticText "Augmentation"
+                                        uid=1_14 InlineTextBox "Augmentation"
+                                    uid=1_358 generic
+                                      uid=1_359 generic
+                                      uid=1_360 log live="polite" relevant="additions text"
+                                      uid=1_361 generic
+                                        uid=1_362 generic
+                                          uid=1_363 ignored
+                                            uid=1_364 ignored
+                                              uid=1_365 paragraph
+                                                uid=1_366 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=1_367 ignored
+                                            uid=1_368 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=1_369 generic
+                                        uid=1_370 ignored
+                                          uid=1_371 ignored
+                                uid=1_372 ignored
+                                  uid=1_373 ignored
+                                    uid=1_374 ignored
+                                      uid=1_375 ignored
+                                        uid=1_376 ignored
+                                          uid=1_377 ignored
+                                            uid=1_378 generic
+                                          uid=1_379 generic "[object Object]"
+                                            uid=1_380 LabelText
+                                              uid=1_381 StaticText "Weapon Rune"
+                                                uid=1_14 InlineTextBox "Weapon Rune"
+                                        uid=1_382 ignored
+                                          uid=1_383 LabelText
+                                          uid=1_384 generic
+                                            uid=1_385 combobox expandable haspopup="menu" value="SimC Default"
+                                              uid=1_386 MenuListPopup
+                                                uid=1_387 option "SimC Default" selectable selected value="SimC Default"
+                                                uid=1_388 option "[Main Hand] Refulgent Whetstone (AP)" selectable value="[Main Hand] Refulgent Whetstone (AP)"
+                                                uid=1_389 option "[Main Hand] Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Main Hand] Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=1_390 option "[Main Hand] Oil of Dawn (Holy Damage)" selectable value="[Main Hand] Oil of Dawn (Holy Damage)"
+                                                uid=1_391 option "[Main Hand] Smuggler's Enchanted Edge (Damage)" selectable value="[Main Hand] Smuggler's Enchanted Edge (Damage)"
+                                                uid=1_392 option "[Dual Wield] Refulgent Whetstone (AP)" selectable value="[Dual Wield] Refulgent Whetstone (AP)"
+                                                uid=1_393 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=1_394 option "[Dual Wield] Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Oil of Dawn (Holy Damage)"
+                                                uid=1_395 option "[Dual Wield] Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Smuggler's Enchanted Edge (Damage)"
+                                                uid=1_396 option "[Dual Wield] Refulgent Whetstone (AP) / Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=1_397 option "[Dual Wield] Refulgent Whetstone (AP) / Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Oil of Dawn (Holy Damage)"
+                                                uid=1_398 option "[Dual Wield] Refulgent Whetstone (AP) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=1_399 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Oil of Dawn (Holy Damage)"
+                                                uid=1_400 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=1_401 option "[Dual Wield] Oil of Dawn (Holy Damage) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Oil of Dawn (Holy Damage) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=1_402 option "[Main Hand] Laced Zoomshots (Haste - Hunter)" selectable value="[Main Hand] Laced Zoomshots (Haste - Hunter)"
+                                                uid=1_403 option "[Main Hand] Weighted Boomshots (Damage - Hunter)" selectable value="[Main Hand] Weighted Boomshots (Damage - Hunter)"
+                                                uid=1_404 option "TWW - [Main Hand] Ironclaw Whetstone (AP)" selectable value="TWW - [Main Hand] Ironclaw Whetstone (AP)"
+                                                uid=1_405 option "TWW - [Main Hand] Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Main Hand] Oil of Deep Toxins (Direct Damage)"
+                                                uid=1_406 option "TWW - [Main Hand] Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Main Hand] Algari Mana Oil (Crit/Haste)"
+                                                uid=1_407 option "TWW - [Dual Wield] Ironclaw Whetstone (AP)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP)"
+                                                uid=1_408 option "TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage)"
+                                                uid=1_409 option "TWW - [Dual Wield] Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Algari Mana Oil (Crit/Haste)"
+                                                uid=1_410 option "TWW - [Dual Wield] Ironclaw Whetstone (AP) / Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP) / Oil of Deep Toxins (Direct Damage)"
+                                                uid=1_411 option "TWW - [Dual Wield] Ironclaw Whetstone (AP) / Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP) / Algari Mana Oil (Crit/Haste)"
+                                                uid=1_412 option "TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage) / Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage) / Algari Mana Oil (Crit/Haste)"
+                                                uid=1_413 option "Dragonflight - AP (Main Hand)" selectable value="Dragonflight - AP (Main Hand)"
+                                                uid=1_414 option "Dragonflight - AP (Both Hands)" selectable value="Dragonflight - AP (Both Hands)"
+                                                uid=1_415 option "Dragonflight - AP + Buzzing (Crit)" selectable value="Dragonflight - AP + Buzzing (Crit)"
+                                                uid=1_416 option "Dragonflight - AP + Howling (Haste)" selectable value="Dragonflight - AP + Howling (Haste)"
+                                                uid=1_417 option "Dragonflight - AP + Hissing (Mastery)" selectable value="Dragonflight - AP + Hissing (Mastery)"
+                                                uid=1_418 option "Dragonflight - Howling (Haste) + Hissing (Mastery)" selectable value="Dragonflight - Howling (Haste) + Hissing (Mastery)"
+                                                uid=1_419 option "Dragonflight - Buzzing (Crit) + Hissing (Mastery)" selectable value="Dragonflight - Buzzing (Crit) + Hissing (Mastery)"
+                                                uid=1_420 option "Dragonflight - Buzzing (Crit) + Howling (Haste)" selectable value="Dragonflight - Buzzing (Crit) + Howling (Haste)"
+                                                uid=1_421 option "Dragonflight - Hissing (Mastery) (Both Hands)" selectable value="Dragonflight - Hissing (Mastery) (Both Hands)"
+                                                uid=1_422 option "Dragonflight - Howling (Haste) (Both Hands)" selectable value="Dragonflight - Howling (Haste) (Both Hands)"
+                                                uid=1_423 option "Dragonflight - Buzzing (Crit) (Both Hands)" selectable value="Dragonflight - Buzzing (Crit) (Both Hands)"
+                                                uid=1_424 option "Dragonflight - Hissing (Mastery) (Main Hand)" selectable value="Dragonflight - Hissing (Mastery) (Main Hand)"
+                                                uid=1_425 option "Dragonflight - Buzzing (Crit) (Main Hand)" selectable value="Dragonflight - Buzzing (Crit) (Main Hand)"
+                                                uid=1_426 option "Dragonflight - Howling (Haste) (Main Hand)" selectable value="Dragonflight - Howling (Haste) (Main Hand)"
+                                                uid=1_427 option "Dragonflight - Completely Safe Rockets (Hunter)" selectable value="Dragonflight - Completely Safe Rockets (Hunter)"
+                                                uid=1_428 option "Dragonflight - Endless Stack of Needles (Hunter)" selectable value="Dragonflight - Endless Stack of Needles (Hunter)"
+                                                uid=1_429 option "Disabled" selectable value="Disabled"
+                                            uid=1_430 generic
+                              uid=1_431 heading "RAID BUFFS" level="5"
+                                uid=1_432 StaticText "RAID BUFFS"
+                                  uid=1_14 InlineTextBox "RAID BUFFS"
+                              uid=1_433 paragraph
+                                uid=1_434 StaticText "If your character provides one of these buffs, it may be used even if disabled here"
+                                  uid=1_14 InlineTextBox "If your character provides one of these buffs, it may be used even if disabled here"
+                              uid=1_435 ignored
+                                uid=1_436 ignored
+                                  uid=1_437 ignored
+                                    uid=1_438 ignored
+                                      uid=1_439 LabelText
+                                        uid=1_440 checkbox "Bloodlust" checked
+                                        uid=1_441 ignored
+                                          uid=1_442 image
+                                        uid=1_443 StaticText "Bloodlust"
+                                          uid=1_14 InlineTextBox "Bloodlust"
+                                uid=1_444 ignored
+                                  uid=1_445 ignored
+                                    uid=1_446 ignored
+                                      uid=1_447 LabelText
+                                        uid=1_448 checkbox "Arcane Intellect" checked
+                                        uid=1_449 ignored
+                                          uid=1_450 image
+                                        uid=1_451 StaticText "Arcane Intellect"
+                                          uid=1_14 InlineTextBox "Arcane Intellect"
+                                uid=1_452 ignored
+                                  uid=1_453 ignored
+                                    uid=1_454 ignored
+                                      uid=1_455 LabelText
+                                        uid=1_456 checkbox "Power Word: Fortitude" checked
+                                        uid=1_457 ignored
+                                          uid=1_458 image
+                                        uid=1_459 StaticText "Power Word: Fortitude"
+                                          uid=1_14 InlineTextBox "Power Word: Fortitude"
+                                uid=1_460 ignored
+                                  uid=1_461 ignored
+                                    uid=1_462 ignored
+                                      uid=1_463 LabelText
+                                        uid=1_464 checkbox "Mark of the Wild"
+                                        uid=1_465 ignored
+                                          uid=1_466 ignored
+                                            uid=1_467 ignored
+                                        uid=1_468 StaticText "Mark of the Wild"
+                                          uid=1_14 InlineTextBox "Mark of the Wild"
+                                uid=1_469 ignored
+                                  uid=1_470 ignored
+                                    uid=1_471 ignored
+                                      uid=1_472 LabelText
+                                        uid=1_473 checkbox "Battle Shout"
+                                        uid=1_474 ignored
+                                          uid=1_475 ignored
+                                            uid=1_476 ignored
+                                        uid=1_477 StaticText "Battle Shout"
+                                          uid=1_14 InlineTextBox "Battle Shout"
+                                uid=1_478 ignored
+                                  uid=1_479 ignored
+                                    uid=1_480 ignored
+                                      uid=1_481 LabelText
+                                        uid=1_482 checkbox "Mystic Touch (5% Physical Damage)"
+                                        uid=1_483 ignored
+                                          uid=1_484 ignored
+                                            uid=1_485 ignored
+                                        uid=1_486 StaticText "Mystic Touch (5% Physical Damage)"
+                                          uid=1_14 InlineTextBox "Mystic Touch (5% Physical "
+                                          uid=1_14 InlineTextBox "Damage)"
+                                uid=1_487 ignored
+                                  uid=1_488 ignored
+                                    uid=1_489 ignored
+                                      uid=1_490 LabelText
+                                        uid=1_491 checkbox "Chaos Brand (3% Magic Damage)"
+                                        uid=1_492 ignored
+                                          uid=1_493 ignored
+                                            uid=1_494 ignored
+                                        uid=1_495 StaticText "Chaos Brand (3% Magic Damage)"
+                                          uid=1_14 InlineTextBox "Chaos Brand (3% Magic Damage)"
+                                uid=1_496 ignored
+                                  uid=1_497 ignored
+                                    uid=1_498 ignored
+                                      uid=1_499 LabelText
+                                        uid=1_500 checkbox "Skyfury"
+                                        uid=1_501 ignored
+                                          uid=1_502 ignored
+                                            uid=1_503 ignored
+                                        uid=1_504 StaticText "Skyfury"
+                                          uid=1_14 InlineTextBox "Skyfury"
+                                uid=1_505 ignored
+                                  uid=1_506 ignored
+                                    uid=1_507 ignored
+                                      uid=1_508 LabelText
+                                        uid=1_509 checkbox "Hunter's Mark"
+                                        uid=1_510 ignored
+                                          uid=1_511 ignored
+                                            uid=1_512 ignored
+                                        uid=1_513 StaticText "Hunter's Mark"
+                                          uid=1_14 InlineTextBox "Hunter's Mark"
+                                uid=1_514 ignored
+                                  uid=1_515 ignored
+                                    uid=1_516 ignored
+                                      uid=1_517 LabelText
+                                        uid=1_518 checkbox "Power Infusion (Beta)"
+                                        uid=1_519 ignored
+                                          uid=1_520 ignored
+                                            uid=1_521 ignored
+                                        uid=1_522 StaticText "Power Infusion (Beta)"
+                                          uid=1_14 InlineTextBox "Power Infusion (Beta)"
+                                    uid=1_523 generic "May not work for all specs!"
+                                      uid=1_524 button "?"
+                                        uid=1_525 ignored
+                                          uid=1_526 paragraph
+                                            uid=1_527 StaticText "?"
+                                              uid=1_14 InlineTextBox "?"
+                                uid=1_528 ignored
+                                  uid=1_529 ignored
+                                    uid=1_530 ignored
+                                      uid=1_531 LabelText
+                                        uid=1_532 checkbox "Bleeding"
+                                        uid=1_533 ignored
+                                          uid=1_534 ignored
+                                            uid=1_535 ignored
+                                        uid=1_536 StaticText "Bleeding"
+                                          uid=1_14 InlineTextBox "Bleeding"
+                                    uid=1_537 generic "Affects Bloodseeker talent for Survival Hunters"
+                                      uid=1_538 button "?"
+                                        uid=1_539 ignored
+                                          uid=1_540 paragraph
+                                            uid=1_541 StaticText "?"
+                                              uid=1_14 InlineTextBox "?"
+                              uid=1_542 heading "MISC OPTIONS" level="5"
+                                uid=1_543 StaticText "MISC OPTIONS"
+                                  uid=1_14 InlineTextBox "MISC OPTIONS"
+                              uid=1_544 ignored
+                                uid=1_545 ignored
+                                  uid=1_546 ignored
+                                    uid=1_547 ignored
+                                      uid=1_548 LabelText
+                                        uid=1_549 checkbox "Detailed SimC Report"
+                                        uid=1_550 ignored
+                                          uid=1_551 ignored
+                                            uid=1_552 ignored
+                                        uid=1_553 StaticText "Detailed SimC Report"
+                                          uid=1_14 InlineTextBox "Detailed SimC Report"
+                              uid=1_554 generic
+                                uid=1_555 button "SHOW FEWER OPTIONS"
+                                  uid=1_556 StaticText "SHOW FEWER OPTIONS"
+                                    uid=1_14 InlineTextBox "SHOW FEWER OPTIONS"
+                            uid=1_557 ignored
+                              uid=1_558 link "Restore Default Options"
+                                uid=1_559 StaticText "Restore Default Options"
+                                  uid=1_14 InlineTextBox "Restore Default Options"
+                    uid=1_560 separator orientation="horizontal"
+                    uid=1_561 ignored
+                      uid=1_562 generic
+                        uid=1_563 LabelText
+                          uid=1_564 ignored
+                            uid=1_565 ignored
+                              uid=1_566 ignored
+                                uid=1_567 generic
+                                  uid=1_568 image
+                                uid=1_569 generic
+                                  uid=1_570 StaticText "Custom APL and SimC Options:"
+                                    uid=1_14 InlineTextBox "Custom APL and SimC Options:"
+                                uid=1_571 generic
+                                  uid=1_572 StaticText "SimC Defaults"
+                                    uid=1_14 InlineTextBox "SimC Defaults"
+                            uid=1_573 ignored
+                            uid=1_574 generic
+                              uid=1_575 image
+                    uid=1_576 separator orientation="horizontal"
+                    uid=1_577 generic
+                      uid=1_578 LabelText
+                        uid=1_579 ignored
+                          uid=1_580 ignored
+                            uid=1_581 ignored
+                              uid=1_582 generic
+                                uid=1_583 image
+                              uid=1_584 generic
+                                uid=1_585 StaticText "Report and Notification Options"
+                                  uid=1_14 InlineTextBox "Report and Notification Options"
+                          uid=1_586 ignored
+                          uid=1_587 generic
+                            uid=1_588 image
+                    uid=1_589 separator orientation="horizontal"
+                    uid=1_590 ignored
+                      uid=1_591 generic
+                        uid=1_592 LabelText
+                          uid=1_593 ignored
+                            uid=1_594 ignored
+                              uid=1_595 ignored
+                                uid=1_596 generic
+                                  uid=1_597 image
+                                uid=1_598 generic
+                                  uid=1_599 StaticText "Show Simc Input"
+                                    uid=1_14 InlineTextBox "Show Simc Input"
+                            uid=1_600 ignored
+                            uid=1_601 generic
+                              uid=1_602 image
+                    uid=1_603 generic
+                      uid=1_604 ignored
+                        uid=1_605 generic
+                          uid=1_606 button "RUN DROPTIMIZER"
+                            uid=1_607 ignored
+                              uid=1_608 generic
+                                uid=1_609 StaticText "RUN DROPTIMIZER"
+                                  uid=1_14 InlineTextBox "RUN DROPTIMIZER"
+                      uid=1_610 LabelText
+                        uid=1_611 checkbox "High Precision (2x more precise, 4x slower)" checked
+                        uid=1_612 ignored
+                          uid=1_613 image
+                        uid=1_614 StaticText "High Precision (2x more precise, 4x slower)"
+                          uid=1_14 InlineTextBox "High Precision (2x more precise, 4x slower)"
+                    uid=1_615 generic
+                      uid=1_616 StaticText "Results are only as good as the SimulationCraft model for your spec! Check other trusted sources to figure out if your spec is well supported and/or "
+                        uid=1_14 InlineTextBox "Results are only as good as the SimulationCraft model for your spec! Check other trusted sources to figure out if your spec is well supported "
+                        uid=1_14 InlineTextBox "and/or "
+                      uid=1_617 link "dive into SimulationCraft" url="https://github.com/simulationcraft/simc#how-can-i-contribute"
+                        uid=1_618 StaticText "dive into SimulationCraft"
+                          uid=1_14 InlineTextBox "dive into SimulationCraft"
+                      uid=1_619 StaticText " "
+                        uid=1_14 InlineTextBox " "
+                      uid=1_620 StaticText "itself and get involved!"
+                        uid=1_14 InlineTextBox "itself and get involved!"
+          uid=1_621 generic
+            uid=1_622 contentinfo
+              uid=1_623 ignored
+                uid=1_624 ignored
+                  uid=1_625 ignored
+                    uid=1_626 ignored
+                      uid=1_627 heading "ETC" level="4"
+                        uid=1_628 StaticText "ETC"
+                          uid=1_14 InlineTextBox "ETC"
+                      uid=1_629 ignored
+                        uid=1_630 paragraph
+                          uid=1_631 link "Developers" url="https://www.raidbots.com/developers"
+                            uid=1_632 StaticText "Developers"
+                              uid=1_14 InlineTextBox "Developers"
+                        uid=1_633 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_634 paragraph
+                          uid=1_635 link "Blog Archive" url="https://medium.com/raidbots"
+                            uid=1_636 StaticText "Blog Archive"
+                              uid=1_14 InlineTextBox "Blog Archive"
+                        uid=1_637 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_638 paragraph
+                          uid=1_639 link "Terms of Use" url="https://www.raidbots.com/tou"
+                            uid=1_640 StaticText "Terms of Use"
+                              uid=1_14 InlineTextBox "Terms of Use"
+                        uid=1_641 paragraph
+                          uid=1_642 link "Privacy Policy" url="https://www.raidbots.com/privacy"
+                            uid=1_643 StaticText "Privacy Policy"
+                              uid=1_14 InlineTextBox "Privacy Policy"
+                    uid=1_644 ignored
+                      uid=1_645 heading "CONTACT" level="4"
+                        uid=1_646 StaticText "CONTACT"
+                          uid=1_14 InlineTextBox "CONTACT"
+                      uid=1_647 ignored
+                        uid=1_648 paragraph
+                          uid=1_649 link "Support / Help" url="https://support.raidbots.com/"
+                            uid=1_650 StaticText "Support / Help"
+                              uid=1_14 InlineTextBox "Support / Help"
+                        uid=1_651 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_652 paragraph
+                          uid=1_653 link "Raidbots Discord" url="https://discord.gg/86EF64Q"
+                            uid=1_654 StaticText "Raidbots Discord"
+                              uid=1_14 InlineTextBox "Raidbots Discord"
+                        uid=1_655 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_656 paragraph
+                          uid=1_657 StaticText "Made by Seriallos"
+                            uid=1_14 InlineTextBox "Made by Seriallos"
+          uid=1_658 generic
+            uid=1_659 generic
+              uid=1_660 generic
+                uid=1_661 heading "REPORTS" level="3"
+                  uid=1_662 StaticText "REPORTS"
+                    uid=1_14 InlineTextBox "REPORTS"
+                uid=1_663 paragraph
+                  uid=1_664 StaticText "Create an account to save reports"
+                    uid=1_14 InlineTextBox "Create an account to save reports"
+          uid=1_665 ignored
+            uid=1_666 ignored
+          uid=1_667 ignored
+          uid=1_668 ignored
+            uid=1_669 ignored
+          uid=1_670 ignored

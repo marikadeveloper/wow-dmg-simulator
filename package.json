@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "season:validate": "tsx scripts/validate-season.ts",
     "build:item-db": "tsx scripts/build-item-db.ts",
+    "build:loot-db": "tsx scripts/build-loot-db.ts",
     "download:simc": "bash scripts/download-simc.sh"
   },
   "dependencies": {

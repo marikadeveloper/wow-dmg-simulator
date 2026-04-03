@@ -1,0 +1,2815 @@
+uid=1_0 RootWebArea "Droptimizer - Raidbots" url="https://www.raidbots.com/simbot/droptimizer"
+  uid=1_1 ignored
+    uid=1_2 ignored
+      uid=1_3 generic
+        uid=1_4 ignored
+          uid=1_5 generic
+            uid=1_6 ignored
+              uid=1_7 ignored
+                uid=9_0 link url="https://www.raidbots.com/"
+                  uid=9_1 ignored
+                    uid=9_2 image
+                uid=1_11 ignored
+                uid=1_12 link "LOGIN" url="https://www.raidbots.com/auth"
+                  uid=1_13 StaticText "LOGIN"
+                    uid=1_14 InlineTextBox "LOGIN"
+                uid=9_3 generic
+                  uid=9_4 link "ENGLISH"
+                    uid=9_5 StaticText "ENGLISH"
+                      uid=1_14 InlineTextBox "ENGLISH"
+                    uid=9_6 ignored
+                uid=1_19 link
+                  uid=1_20 button
+                    uid=1_21 ignored
+                      uid=1_22 image
+          uid=1_23 ignored
+            uid=1_24 ignored
+              uid=1_25 ignored
+                uid=1_26 generic
+                  uid=1_27 StaticText "Raidbots/SimC are up-to-date with March 31st hotfixes"
+                    uid=1_14 InlineTextBox "Raidbots/SimC are up-to-date with March 31st hotfixes"
+            uid=1_28 generic
+              uid=1_29 link "Sign up for Raidbots Premium!" url="https://www.raidbots.com/account"
+                uid=1_30 StaticText "Sign up for Raidbots Premium!"
+                  uid=1_14 InlineTextBox "Sign up for Raidbots Premium!"
+              uid=1_31 StaticText "Skip the line, run larger sims, and more!"
+                uid=1_14 InlineTextBox "Skip the line, run larger sims, and more!"
+            uid=1_32 generic
+              uid=1_33 generic
+                uid=8_0 generic
+                  uid=9_7 ignored
+                    uid=9_8 link "TOP GEAR" url="https://www.raidbots.com/simbot/topgear"
+                      uid=9_9 ignored
+                        uid=9_10 generic
+                          uid=9_11 image
+                        uid=9_12 generic
+                          uid=9_13 StaticText "TOP GEAR"
+                            uid=1_14 InlineTextBox "TOP GEAR"
+                    uid=9_14 link "DROPTIMIZER" url="https://www.raidbots.com/simbot/droptimizer"
+                      uid=9_15 ignored
+                        uid=9_16 generic
+                          uid=9_17 image
+                        uid=9_18 generic
+                          uid=9_19 StaticText "DROPTIMIZER"
+                            uid=1_14 InlineTextBox "DROPTIMIZER"
+                    uid=9_20 link "QUICK SIM" url="https://www.raidbots.com/simbot/quick"
+                      uid=9_21 ignored
+                        uid=9_22 generic
+                          uid=9_23 image
+                        uid=9_24 generic
+                          uid=9_25 StaticText "QUICK SIM"
+                            uid=1_14 InlineTextBox "QUICK SIM"
+                    uid=9_26 link "ADVANCED" url="https://www.raidbots.com/simbot/advanced"
+                      uid=9_27 ignored
+                        uid=9_28 generic
+                          uid=9_29 image
+                        uid=9_30 generic
+                          uid=9_31 StaticText "ADVANCED"
+                            uid=1_14 InlineTextBox "ADVANCED"
+                    uid=9_32 generic
+                      uid=9_33 link "MORE"
+                        uid=9_34 StaticText "MORE"
+                          uid=1_14 InlineTextBox "MORE"
+                        uid=9_35 ignored
+                uid=8_30 ignored
+                  uid=8_31 generic
+                    uid=8_32 ignored
+                      uid=8_33 ignored
+                        uid=8_34 image
+                        uid=8_35 heading "LOAD FROM ARMORY" level="4"
+                          uid=8_36 StaticText "LOAD FROM ARMORY"
+                            uid=1_14 InlineTextBox "LOAD FROM ARMORY"
+                      uid=8_37 ignored
+                        uid=8_38 ignored
+                          uid=8_39 ignored
+                            uid=8_40 ignored
+                              uid=8_41 LabelText
+                                uid=8_42 StaticText "Region"
+                                  uid=1_14 InlineTextBox "Region"
+                              uid=8_43 generic
+                                uid=8_44 combobox expandable haspopup="menu" value="US"
+                                  uid=8_45 MenuListPopup
+                                    uid=8_46 option "US" selectable selected value="US"
+                                    uid=8_47 option "EU" selectable value="EU"
+                                    uid=8_48 option "KR" selectable value="KR"
+                                    uid=8_49 option "TW" selectable value="TW"
+                                uid=8_50 generic
+                          uid=8_51 ignored
+                            uid=8_52 ignored
+                              uid=8_53 LabelText
+                                uid=8_54 StaticText "Realm"
+                                  uid=1_14 InlineTextBox "Realm"
+                              uid=8_55 generic
+                                uid=8_56 generic
+                                uid=8_57 log live="polite" relevant="additions text"
+                                uid=8_58 generic
+                                  uid=8_59 generic
+                                    uid=8_60 generic
+                                      uid=8_61 StaticText "Select..."
+                                        uid=1_14 InlineTextBox "Select..."
+                                    uid=8_62 ignored
+                                      uid=8_63 combobox autocomplete="list" description="Select..." expandable haspopup="menu"
+                                        uid=8_64 generic
+                                  uid=8_65 ignored
+                                    uid=8_66 ignored
+                          uid=8_67 ignored
+                            uid=8_68 ignored
+                              uid=8_69 ignored
+                                uid=8_70 ignored
+                                  uid=8_71 LabelText
+                                    uid=8_72 StaticText "Character"
+                                      uid=1_14 InlineTextBox "Character"
+                                  uid=8_73 search
+                                    uid=8_74 generic
+                              uid=8_75 ignored
+                        uid=8_76 ignored
+                      uid=8_77 ignored
+                        uid=8_78 ignored
+                          uid=8_79 separator orientation="horizontal"
+                        uid=8_80 ignored
+                          uid=8_81 heading "OR" level="6"
+                            uid=8_82 StaticText "OR"
+                              uid=1_14 InlineTextBox "OR"
+                        uid=8_83 ignored
+                          uid=8_84 separator orientation="horizontal"
+                      uid=8_85 ignored
+                        uid=8_86 image
+                        uid=8_87 heading "LOAD FROM SIMC ADDON" level="4"
+                          uid=8_88 StaticText "LOAD FROM SIMC ADDON"
+                            uid=1_14 InlineTextBox "LOAD FROM SIMC ADDON"
+                      uid=8_89 ignored
+                        uid=8_90 LabelText
+                          uid=8_91 StaticText "Copy/paste the text from the SimulationCraft addon."
+                            uid=1_14 InlineTextBox "Copy/paste the text from the SimulationCraft addon."
+                          uid=8_92 StaticText " "
+                            uid=1_14 InlineTextBox " "
+                          uid=8_93 link "How to install and use the SimC addon" url="https://support.raidbots.com/article/54-installing-and-using-the-simulationcraft-addon"
+                            uid=8_94 StaticText "How to install and use the SimC addon"
+                              uid=1_14 InlineTextBox "How to install and use the SimC addon"
+                        uid=8_95 ignored
+                          uid=8_96 LabelText
+                          uid=8_97 textbox multiline value="# Smarika - Frost - 2026-04-01 12:31 - EU/Nemesis
+# SimC Addon 12.0.1-04
+# WoW 12.0.1.66709, TOC 120001
+# Requires SimulationCraft 1000-01 or newer
+
+mage="Smarika"
+level=90
+race=blood_elf
+region=eu
+server=nemesis
+role=spell
+professions=herbalism=100/mining=100
+spec=frost
+# loot_spec=frost
+
+talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZmYmxMzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAsAw22YmZGMbDjZYDAAgZ2AmxwAmBD
+
+# Saved Loadout: pvp bng
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzML2MzgZYmZmZmhZmxMzMzsMjZmlZBAAAWAAgFAAAgNA2WGzMzALGzMzYBAAAMzgBjBMwA
+# Saved Loadout: pvp
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMWmZmZBzMYeAmZMzMzmZmxMzMzsMjZmlZBAAAWAAgFAAAAAstMmZmBWmxYmZZBAAAAMYMgBA
+# Saved Loadout: R - wowhead
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmxMmZxMzMzMmBAAAmZmZZZmxGAAAAAAYDgttxMzMYWmHwYG2AAAYmFgZYMgZwA
+# Saved Loadout: M - murlock
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsMegZGMzYMzMzMLmZGmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMzYBAAgZ2AmBGwMYA
+# Saved Loadout: R - V - 1
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZm5BY2GGzwCAAAzsBMDMgZwA
+# Saved Loadout: M - icy veins
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA22GzMzgZbYMDbAAAMzGwMGGwMYA
+# Saved Loadout: R - Chimearus
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmBz2wYG2AAAYmNgZYMgZwA
+# Saved Loadout: pvp
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzMLWMzgZYmZmZmZxMzYmxMAAAwMzMLLzM2AAgFAAAgNA2WGzMzALGjZGLAAAMzCwMMGgBD
+# Saved Loadout: R - V - Alleria
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZmFmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMDbAAAMzGwMwAmBD
+# Saved Loadout: R - V - 5
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzswMzgZMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYBgtlxMzMY2GGzwCAAAzsBMDzMgZwA
+# Saved Loadout: r - v - 2
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZgZmZMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMDz2wYGWAAAYmNgZgBMDGA
+# Saved Loadout: R - V - 3
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMPwsMmZgZmZmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmZY2GGzwCAAAzsBMDMgZwA
+# Saved Loadout: R - Adam
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwGAAAzsBMDMgZwA
+# Saved Loadout: R - C - 2
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgNA2WGzMzgZbYMDLAAAMzCwMwAmBD
+# Saved Loadout: R - V - 4
+# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsgZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAsAAAAsBw2yYmZGMbDjZYBAAgZ2AmBGwMYA
+# Saved Loadout: R - V - 6
+# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwCAAAzsBMDMgZwA
+
+# Voidbreaker's Veil (272)
+head=,id=250060,enchant_id=8017,bonus_id=12667/41/12801/13440/13338/13575/3157
+# Preyseeker's Choker (263)
+neck=,id=259916,gem_id=240967,bonus_id=6652/13668/12790
+# Lightbinder Shoulderguards (263)
+shoulder=,id=258578,enchant_id=7972,bonus_id=13439/6652/13577/12699/12790
+# Defiant Defender's Drape (263)
+back=,id=260312,bonus_id=13439/40/13577/12699/12790
+# Voidbreaker's Robe (276)
+chest=,id=250063,enchant_id=7987,bonus_id=6652/13440/13336/13575/12798
+# Martyr's Bindings (259)
+wrist=,id=239648,bonus_id=12214/12497/12066/8960/12384/8791/12667,crafted_stats=32/49,crafting_quality=5
+# Voidbreaker's Gloves (263)
+hands=,id=250061,bonus_id=6652/13439/12790/13337/13574/3148
+# Clasp of Compliance (266)
+waist=,id=251102,bonus_id=12795/13440/6652/12667/13577/12699
+# Voidbreaker's Britches (276)
+legs=,id=250059,enchant_id=7939,bonus_id=6652/13440/13339/13575/12798
+# Sprawling Rootpads (259)
+feet=,id=249630,enchant_id=7992,bonus_id=12793/6652/13577
+# Occlusion of Void (259)
+finger1=,id=251217,enchant_id=7969,gem_id=240898,bonus_id=12793/13440/42/13668/12699
+# Platinum Star Band (259)
+finger2=,id=193708,enchant_id=7969,gem_id=240908,bonus_id=12793/13440/6652/13668/12699
+# Crucible of Erratic Energies (250)
+trinket1=,id=264507,bonus_id=12786
+# Emberwing Feather (250)
+trinket2=,id=250144,bonus_id=13439/6652/12699/12786
+# Final Grade (276)
+main_hand=,id=193707,enchant_id=8039,bonus_id=13440/6652/12701/12798
+
+### Gear from Bags
+#
+# Lucky Lynx Locket (220)
+# trinket1=,id=265027,bonus_id=6652/12769/11311
+
+### Additional Character Info
+#
+# catalyst_currencies=3269:8/3378:1/2813:8/3116:8
+#
+# upgrade_currencies=c:3347:210/c:3383:415/c:3341:470/c:3343:25/c:1792:1868/c:3345:60/i:232875:4
+#
+# slot_high_watermarks=0:276:276/1:263:263/2:263:263/3:276:276/4:266:266/5:276:276/6:259:259/7:266:266/8:266:266/9:259:259/10:250:250/11:263:263/12:276:276/13:253:253/14:0:108/15:0:98/16:263:263
+#
+# upgrade_achievements=41886/41887/42767/61809
+
+# Checksum: 40468772"
+                            uid=8_98 generic
+                              uid=8_99 StaticText "# Smarika - Frost - 2026-04-01 12:31 - EU/Nemesis"
+                                uid=1_14 InlineTextBox "# Smarika - Frost - 2026-04-01 12:31 - EU/Nemesis"
+                              uid=8_100 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_101 StaticText "# SimC Addon 12.0.1-04"
+                                uid=1_14 InlineTextBox "# SimC Addon 12.0.1-04"
+                              uid=8_102 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_103 StaticText "# WoW 12.0.1.66709, TOC 120001"
+                                uid=1_14 InlineTextBox "# WoW 12.0.1.66709, TOC 120001"
+                              uid=8_104 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_105 StaticText "# Requires SimulationCraft 1000-01 or newer"
+                                uid=1_14 InlineTextBox "# Requires SimulationCraft 1000-01 or newer"
+                              uid=8_106 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_107 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_108 StaticText "mage="Smarika""
+                                uid=1_14 InlineTextBox "mage="Smarika""
+                              uid=8_109 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_110 StaticText "level=90"
+                                uid=1_14 InlineTextBox "level=90"
+                              uid=8_111 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_112 StaticText "race=blood_elf"
+                                uid=1_14 InlineTextBox "race=blood_elf"
+                              uid=8_113 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_114 StaticText "region=eu"
+                                uid=1_14 InlineTextBox "region=eu"
+                              uid=8_115 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_116 StaticText "server=nemesis"
+                                uid=1_14 InlineTextBox "server=nemesis"
+                              uid=8_117 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_118 StaticText "role=spell"
+                                uid=1_14 InlineTextBox "role=spell"
+                              uid=8_119 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_120 StaticText "professions=herbalism=100/mining=100"
+                                uid=1_14 InlineTextBox "professions=herbalism=100/mining=100"
+                              uid=8_121 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_122 StaticText "spec=frost"
+                                uid=1_14 InlineTextBox "spec=frost"
+                              uid=8_123 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_124 StaticText "# loot_spec=frost"
+                                uid=1_14 InlineTextBox "# loot_spec=frost"
+                              uid=8_125 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_126 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_127 StaticText "talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZmYmxMzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAsAw22YmZGMbDjZYDAAgZ2AmxwAmBD"
+                                uid=1_14 InlineTextBox "talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZmYmxMzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAsAw22YmZGMbDjZYDAAgZ2AmxwAmBD"
+                              uid=8_128 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_129 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_130 StaticText "# Saved Loadout: pvp bng"
+                                uid=1_14 InlineTextBox "# Saved Loadout: pvp bng"
+                              uid=8_131 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_132 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzML2MzgZYmZmZmhZmxMzMzsMjZmlZBAAAWAAgFAAAgNA2WGzMzALGzMzYBAAAMzgBjBMwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzML2MzgZYmZmZmhZmxMzMzsMjZmlZBAAAWAAgFAAAgNA2WGzMzALGzMzYBAAAMzgBjBMwA"
+                              uid=8_133 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_134 StaticText "# Saved Loadout: pvp"
+                                uid=1_14 InlineTextBox "# Saved Loadout: pvp"
+                              uid=8_135 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_136 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMWmZmZBzMYeAmZMzMzmZmxMzMzsMjZmlZBAAAWAAgFAAAAAstMmZmBWmxYmZZBAAAAMYMgBA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMWmZmZBzMYeAmZMzMzmZmxMzMzsMjZmlZBAAAWAAgFAAAAAstMmZmBWmxYmZZBAAAAMYMgBA"
+                              uid=8_137 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_138 StaticText "# Saved Loadout: R - wowhead"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - wowhead"
+                              uid=8_139 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_140 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmxMmZxMzMzMmBAAAmZmZZZmxGAAAAAAYDgttxMzMYWmHwYG2AAAYmFgZYMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmxMmZxMzMzMmBAAAmZmZZZmxGAAAAAAYDgttxMzMYWmHwYG2AAAYmFgZYMgZwA"
+                              uid=8_141 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_142 StaticText "# Saved Loadout: M - murlock"
+                                uid=1_14 InlineTextBox "# Saved Loadout: M - murlock"
+                              uid=8_143 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_144 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsMegZGMzYMzMzMLmZGmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMzYBAAgZ2AmBGwMYA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsMegZGMzYMzMzMLmZGmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMzYBAAgZ2AmBGwMYA"
+                              uid=8_145 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_146 StaticText "# Saved Loadout: R - V - 1"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - 1"
+                              uid=8_147 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_148 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZm5BY2GGzwCAAAzsBMDMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZm5BY2GGzwCAAAzsBMDMgZwA"
+                              uid=8_149 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_150 StaticText "# Saved Loadout: M - icy veins"
+                                uid=1_14 InlineTextBox "# Saved Loadout: M - icy veins"
+                              uid=8_151 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_152 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA22GzMzgZbYMDbAAAMzGwMGGwMYA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMegZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA22GzMzgZbYMDbAAAMzGwMGGwMYA"
+                              uid=8_153 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_154 StaticText "# Saved Loadout: R - Chimearus"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - Chimearus"
+                              uid=8_155 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_156 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmBz2wYG2AAAYmNgZYMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzYmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmBz2wYG2AAAYmNgZYMgZwA"
+                              uid=8_157 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_158 StaticText "# Saved Loadout: pvp"
+                                uid=1_14 InlineTextBox "# Saved Loadout: pvp"
+                              uid=8_159 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_160 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzMLWMzgZYmZmZmZxMzYmxMAAAwMzMLLzM2AAgFAAAgNA2WGzMzALGjZGLAAAMzCwMMGgBD"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNstMzyMzMLWMzgZYmZmZmZxMzYmxMAAAwMzMLLzM2AAgFAAAgNA2WGzMzALGjZGLAAAMzCwMMGgBD"
+                              uid=8_161 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_162 StaticText "# Saved Loadout: R - V - Alleria"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - Alleria"
+                              uid=8_163 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_164 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZmFmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMDbAAAMzGwMwAmBD"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwYZmZmFmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgFA2WGzMzgZbYMDbAAAMzGwMwAmBD"
+                              uid=8_165 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_166 StaticText "# Saved Loadout: R - V - 5"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - 5"
+                              uid=8_167 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_168 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzswMzgZMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYBgtlxMzMY2GGzwCAAAzsBMDzMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzswMzgZMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYBgtlxMzMY2GGzwCAAAzsBMDzMgZwA"
+                              uid=8_169 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_170 StaticText "# Saved Loadout: r - v - 2"
+                                uid=1_14 InlineTextBox "# Saved Loadout: r - v - 2"
+                              uid=8_171 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_172 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZgZmZMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMDz2wYGWAAAYmNgZgBMDGA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZgZmZMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMDz2wYGWAAAYmNgZgBMDGA"
+                              uid=8_173 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_174 StaticText "# Saved Loadout: R - V - 3"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - 3"
+                              uid=8_175 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_176 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMPwsMmZgZmZmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmZY2GGzwCAAAzsBMDMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMPwsMmZgZmZmZmZmZxMzMmxMAAAwMzMLLzM2AAAAAAAbAstMmZmZY2GGzwCAAAzsBMDMgZwA"
+                              uid=8_177 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_178 StaticText "# Saved Loadout: R - Adam"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - Adam"
+                              uid=8_179 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_180 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwGAAAzsBMDMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwGAAAzsBMDMgZwA"
+                              uid=8_181 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_182 StaticText "# Saved Loadout: R - C - 2"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - C - 2"
+                              uid=8_183 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_184 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgNA2WGzMzgZbYMDLAAAMzCwMwAmBD"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMjZmZmZxMzMmxMAAAwMzMLLzM2AAgNAAAgNA2WGzMzgZbYMDLAAAMzCwMwAmBD"
+                              uid=8_185 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_186 StaticText "# Saved Loadout: R - V - 4"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - 4"
+                              uid=8_187 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_188 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsgZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAsAAAAsBw2yYmZGMbDjZYBAAgZ2AmBGwMYA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYNzwMLzMzsgZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAsAAAAsBw2yYmZGMbDjZYBAAgZ2AmBGwMYA"
+                              uid=8_189 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_190 StaticText "# Saved Loadout: R - V - 6"
+                                uid=1_14 InlineTextBox "# Saved Loadout: R - V - 6"
+                              uid=8_191 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_192 StaticText "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwCAAAzsBMDMgZwA"
+                                uid=1_14 InlineTextBox "# talents=CAEAMhlVtghLZL4RZzExaQoBYZGGLzMzsMmZGMzMzMzMzMLmZmxMmBAAAmZmZZZmxGAAAAAAYDgtlxMzMY2GGzwCAAAzsBMDMgZwA"
+                              uid=8_193 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_194 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_195 StaticText "# Voidbreaker's Veil (272)"
+                                uid=1_14 InlineTextBox "# Voidbreaker's Veil (272)"
+                              uid=8_196 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_197 StaticText "head=,id=250060,enchant_id=8017,bonus_id=12667/41/12801/13440/13338/13575/3157"
+                                uid=1_14 InlineTextBox "head=,id=250060,enchant_id=8017,bonus_id=12667/41/12801/13440/13338/13575/3157"
+                              uid=8_198 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_199 StaticText "# Preyseeker's Choker (263)"
+                                uid=1_14 InlineTextBox "# Preyseeker's Choker (263)"
+                              uid=8_200 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_201 StaticText "neck=,id=259916,gem_id=240967,bonus_id=6652/13668/12790"
+                                uid=1_14 InlineTextBox "neck=,id=259916,gem_id=240967,bonus_id=6652/13668/12790"
+                              uid=8_202 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_203 StaticText "# Lightbinder Shoulderguards (263)"
+                                uid=1_14 InlineTextBox "# Lightbinder Shoulderguards (263)"
+                              uid=8_204 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_205 StaticText "shoulder=,id=258578,enchant_id=7972,bonus_id=13439/6652/13577/12699/12790"
+                                uid=1_14 InlineTextBox "shoulder=,id=258578,enchant_id=7972,bonus_id=13439/6652/13577/12699/12790"
+                              uid=8_206 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_207 StaticText "# Defiant Defender's Drape (263)"
+                                uid=1_14 InlineTextBox "# Defiant Defender's Drape (263)"
+                              uid=8_208 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_209 StaticText "back=,id=260312,bonus_id=13439/40/13577/12699/12790"
+                                uid=1_14 InlineTextBox "back=,id=260312,bonus_id=13439/40/13577/12699/12790"
+                              uid=8_210 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_211 StaticText "# Voidbreaker's Robe (276)"
+                                uid=1_14 InlineTextBox "# Voidbreaker's Robe (276)"
+                              uid=8_212 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_213 StaticText "chest=,id=250063,enchant_id=7987,bonus_id=6652/13440/13336/13575/12798"
+                                uid=1_14 InlineTextBox "chest=,id=250063,enchant_id=7987,bonus_id=6652/13440/13336/13575/12798"
+                              uid=8_214 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_215 StaticText "# Martyr's Bindings (259)"
+                                uid=1_14 InlineTextBox "# Martyr's Bindings (259)"
+                              uid=8_216 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_217 StaticText "wrist=,id=239648,bonus_id=12214/12497/12066/8960/12384/8791/12667,crafted_stats=32/49,crafting_quality=5"
+                                uid=1_14 InlineTextBox "wrist=,id=239648,bonus_id=12214/12497/12066/8960/12384/8791/12667,crafted_stats=32/49,crafting_quality=5"
+                              uid=8_218 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_219 StaticText "# Voidbreaker's Gloves (263)"
+                                uid=1_14 InlineTextBox "# Voidbreaker's Gloves (263)"
+                              uid=8_220 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_221 StaticText "hands=,id=250061,bonus_id=6652/13439/12790/13337/13574/3148"
+                                uid=1_14 InlineTextBox "hands=,id=250061,bonus_id=6652/13439/12790/13337/13574/3148"
+                              uid=8_222 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_223 StaticText "# Clasp of Compliance (266)"
+                                uid=1_14 InlineTextBox "# Clasp of Compliance (266)"
+                              uid=8_224 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_225 StaticText "waist=,id=251102,bonus_id=12795/13440/6652/12667/13577/12699"
+                                uid=1_14 InlineTextBox "waist=,id=251102,bonus_id=12795/13440/6652/12667/13577/12699"
+                              uid=8_226 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_227 StaticText "# Voidbreaker's Britches (276)"
+                                uid=1_14 InlineTextBox "# Voidbreaker's Britches (276)"
+                              uid=8_228 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_229 StaticText "legs=,id=250059,enchant_id=7939,bonus_id=6652/13440/13339/13575/12798"
+                                uid=1_14 InlineTextBox "legs=,id=250059,enchant_id=7939,bonus_id=6652/13440/13339/13575/12798"
+                              uid=8_230 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_231 StaticText "# Sprawling Rootpads (259)"
+                                uid=1_14 InlineTextBox "# Sprawling Rootpads (259)"
+                              uid=8_232 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_233 StaticText "feet=,id=249630,enchant_id=7992,bonus_id=12793/6652/13577"
+                                uid=1_14 InlineTextBox "feet=,id=249630,enchant_id=7992,bonus_id=12793/6652/13577"
+                              uid=8_234 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_235 StaticText "# Occlusion of Void (259)"
+                                uid=1_14 InlineTextBox "# Occlusion of Void (259)"
+                              uid=8_236 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_237 StaticText "finger1=,id=251217,enchant_id=7969,gem_id=240898,bonus_id=12793/13440/42/13668/12699"
+                                uid=1_14 InlineTextBox "finger1=,id=251217,enchant_id=7969,gem_id=240898,bonus_id=12793/13440/42/13668/12699"
+                              uid=8_238 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_239 StaticText "# Platinum Star Band (259)"
+                                uid=1_14 InlineTextBox "# Platinum Star Band (259)"
+                              uid=8_240 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_241 StaticText "finger2=,id=193708,enchant_id=7969,gem_id=240908,bonus_id=12793/13440/6652/13668/12699"
+                                uid=1_14 InlineTextBox "finger2=,id=193708,enchant_id=7969,gem_id=240908,bonus_id=12793/13440/6652/13668/12699"
+                              uid=8_242 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_243 StaticText "# Crucible of Erratic Energies (250)"
+                                uid=1_14 InlineTextBox "# Crucible of Erratic Energies (250)"
+                              uid=8_244 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_245 StaticText "trinket1=,id=264507,bonus_id=12786"
+                                uid=1_14 InlineTextBox "trinket1=,id=264507,bonus_id=12786"
+                              uid=8_246 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_247 StaticText "# Emberwing Feather (250)"
+                                uid=1_14 InlineTextBox "# Emberwing Feather (250)"
+                              uid=8_248 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_249 StaticText "trinket2=,id=250144,bonus_id=13439/6652/12699/12786"
+                                uid=1_14 InlineTextBox "trinket2=,id=250144,bonus_id=13439/6652/12699/12786"
+                              uid=8_250 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_251 StaticText "# Final Grade (276)"
+                                uid=1_14 InlineTextBox "# Final Grade (276)"
+                              uid=8_252 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_253 StaticText "main_hand=,id=193707,enchant_id=8039,bonus_id=13440/6652/12701/12798"
+                                uid=1_14 InlineTextBox "main_hand=,id=193707,enchant_id=8039,bonus_id=13440/6652/12701/12798"
+                              uid=8_254 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_255 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_256 StaticText "### Gear from Bags"
+                                uid=1_14 InlineTextBox "### Gear from Bags"
+                              uid=8_257 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_258 StaticText "#"
+                                uid=1_14 InlineTextBox "#"
+                              uid=8_259 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_260 StaticText "# Lucky Lynx Locket (220)"
+                                uid=1_14 InlineTextBox "# Lucky Lynx Locket (220)"
+                              uid=8_261 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_262 StaticText "# trinket1=,id=265027,bonus_id=6652/12769/11311"
+                                uid=1_14 InlineTextBox "# trinket1=,id=265027,bonus_id=6652/12769/11311"
+                              uid=8_263 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_264 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_265 StaticText "### Additional Character Info"
+                                uid=1_14 InlineTextBox "### Additional Character Info"
+                              uid=8_266 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_267 StaticText "#"
+                                uid=1_14 InlineTextBox "#"
+                              uid=8_268 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_269 StaticText "# catalyst_currencies=3269:8/3378:1/2813:8/3116:8"
+                                uid=1_14 InlineTextBox "# catalyst_currencies=3269:8/3378:1/2813:8/3116:8"
+                              uid=8_270 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_271 StaticText "#"
+                                uid=1_14 InlineTextBox "#"
+                              uid=8_272 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_273 StaticText "# upgrade_currencies=c:3347:210/c:3383:415/c:3341:470/c:3343:25/c:1792:1868/c:3345:60/i:232875:4"
+                                uid=1_14 InlineTextBox "# upgrade_currencies=c:3347:210/c:3383:415/c:3341:470/c:3343:25/c:1792:1868/c:3345:60/i:232875:4"
+                              uid=8_274 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_275 StaticText "#"
+                                uid=1_14 InlineTextBox "#"
+                              uid=8_276 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_277 StaticText "# slot_high_watermarks=0:276:276/1:263:263/2:263:263/3:276:276/4:266:266/5:276:276/6:259:259/7:266:266/8:266:266/9:259:259/10:250:250/11:263:263/12:276:276/13:253:253/14:0:108/15:0:98/16:263:263"
+                                uid=1_14 InlineTextBox "#"
+                                uid=1_14 InlineTextBox " "
+                                uid=1_14 InlineTextBox "slot_high_watermarks=0:276:276/1:263:263/2:263:263/3:276:276/4:266:266/5:276:276/6:259:259/7:266:266/8:266:266/9:2"
+                                uid=1_14 InlineTextBox "59:259/10:250:250/11:263:263/12:276:276/13:253:253/14:0:108/15:0:98/16:263:263"
+                              uid=8_278 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_279 StaticText "#"
+                                uid=1_14 InlineTextBox "#"
+                              uid=8_280 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_281 StaticText "# upgrade_achievements=41886/41887/42767/61809"
+                                uid=1_14 InlineTextBox "# upgrade_achievements=41886/41887/42767/61809"
+                              uid=8_282 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_283 LineBreak "
+"
+                                uid=1_14 InlineTextBox "
+"
+                              uid=8_284 StaticText "# Checksum: 40468772"
+                                uid=1_14 InlineTextBox "# Checksum: 40468772"
+                        uid=8_285 ignored
+                          uid=8_286 ignored
+                            uid=8_287 ignored
+                              uid=8_288 paragraph
+                                uid=8_289 StaticText "90"
+                                  uid=1_14 InlineTextBox "90"
+                                uid=8_290 StaticText " "
+                                  uid=1_14 InlineTextBox " "
+                                uid=8_291 StaticText "Blood Elf"
+                                  uid=1_14 InlineTextBox "Blood Elf"
+                                uid=8_292 StaticText " "
+                                  uid=1_14 InlineTextBox " "
+                                uid=8_293 StaticText "Frost"
+                                  uid=1_14 InlineTextBox "Frost"
+                                uid=8_294 StaticText " "
+                                  uid=1_14 InlineTextBox " "
+                                uid=8_295 StaticText "Mage"
+                                  uid=1_14 InlineTextBox "Mage"
+                            uid=8_296 ignored
+                              uid=8_297 ignored
+                                uid=8_298 ignored
+                                  uid=8_299 ignored
+                                    uid=8_300 generic
+                                      uid=8_301 generic
+                                        uid=8_302 generic
+                                          uid=8_303 link url="https://www.wowhead.com/item=250060?bonus=12667:41:12801:13440:13338:13575:3157&ench=8017&ilvl=272&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_304 ignored
+                                  uid=8_305 ignored
+                                    uid=8_306 generic
+                                      uid=8_307 generic
+                                        uid=8_308 generic
+                                          uid=8_309 link url="https://www.wowhead.com/item=259916?bonus=6652:13668:12790&gems=240967&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_310 ignored
+                                  uid=8_311 ignored
+                                    uid=8_312 generic
+                                      uid=8_313 generic
+                                        uid=8_314 generic
+                                          uid=8_315 link url="https://www.wowhead.com/item=258578?bonus=13439:6652:13577:12699:12790&ench=7972&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_316 ignored
+                                  uid=8_317 ignored
+                                    uid=8_318 generic
+                                      uid=8_319 generic
+                                        uid=8_320 generic
+                                          uid=8_321 link url="https://www.wowhead.com/item=260312?bonus=13439:40:13577:12699:12790&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_322 ignored
+                                  uid=8_323 ignored
+                                    uid=8_324 generic
+                                      uid=8_325 generic
+                                        uid=8_326 generic
+                                          uid=8_327 link url="https://www.wowhead.com/item=250063?bonus=6652:13440:13336:13575:12798&ench=7987&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_328 ignored
+                                  uid=8_329 ignored
+                                    uid=8_330 generic
+                                      uid=8_331 generic
+                                        uid=8_332 generic
+                                          uid=8_333 link url="https://www.wowhead.com/item=239648?bonus=12214:12497:12066:8960:12384:8791:12667&ilvl=259&spec=64&hero=40&crafted-stats=32:49&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707&crafting-quality=8"
+                                uid=8_334 ignored
+                                  uid=8_335 ignored
+                                    uid=8_336 generic
+                                      uid=8_337 generic
+                                        uid=8_338 generic
+                                          uid=8_339 link url="https://www.wowhead.com/item=250061?bonus=6652:13439:12790:13337:13574:3148&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_340 ignored
+                                  uid=8_341 ignored
+                                    uid=8_342 generic
+                                      uid=8_343 generic
+                                        uid=8_344 generic
+                                          uid=8_345 link url="https://www.wowhead.com/item=251102?bonus=12795:13440:6652:12667:13577:12699&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_346 ignored
+                                  uid=8_347 ignored
+                                    uid=8_348 generic
+                                      uid=8_349 generic
+                                        uid=8_350 generic
+                                          uid=8_351 link url="https://www.wowhead.com/item=250059?bonus=6652:13440:13339:13575:12798&ench=7939&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_352 ignored
+                                  uid=8_353 ignored
+                                    uid=8_354 generic
+                                      uid=8_355 generic
+                                        uid=8_356 generic
+                                          uid=8_357 link url="https://www.wowhead.com/item=249630?bonus=12793:6652:13577&ench=7992&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_358 ignored
+                                  uid=8_359 ignored
+                                    uid=8_360 generic
+                                      uid=8_361 generic
+                                        uid=8_362 generic
+                                          uid=8_363 link url="https://www.wowhead.com/item=251217?bonus=12793:13440:42:13668:12699&ench=7969&gems=240898&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_364 ignored
+                                  uid=8_365 ignored
+                                    uid=8_366 generic
+                                      uid=8_367 generic
+                                        uid=8_368 generic
+                                          uid=8_369 link url="https://www.wowhead.com/item=193708?bonus=12793:13440:6652:13668:12699&ench=7969&gems=240908&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_370 ignored
+                                  uid=8_371 ignored
+                                    uid=8_372 generic
+                                      uid=8_373 generic
+                                        uid=8_374 generic
+                                          uid=8_375 link url="https://www.wowhead.com/item=264507?bonus=12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_376 ignored
+                                  uid=8_377 ignored
+                                    uid=8_378 generic
+                                      uid=8_379 generic
+                                        uid=8_380 generic
+                                          uid=8_381 link url="https://www.wowhead.com/item=250144?bonus=13439:6652:12699:12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_382 ignored
+                                  uid=8_383 ignored
+                                    uid=8_384 generic
+                                      uid=8_385 generic
+                                        uid=8_386 generic
+                                          uid=8_387 link url="https://www.wowhead.com/item=193707?bonus=13440:6652:12701:12798&ench=8039&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                uid=8_388 ignored
+                                  uid=8_389 ignored
+                                    uid=8_390 generic
+                                      uid=8_391 image "Empty slot for off_hand" url="https://www.raidbots.com/images/paperdoll/UI-PaperDoll-Slot-SecondaryHand.png"
+                            uid=8_392 ignored
+                              uid=8_393 ignored
+                                uid=8_394 generic
+                                  uid=8_395 image "Show Full Tree"
+                                uid=8_396 ignored
+                                  uid=8_397 generic
+                                    uid=8_398 generic "Spellslinger"
+                                      uid=8_399 generic
+                                        uid=8_400 image "Spellslinger" url="https://www.raidbots.com/static/images/TalentFrame/orig/elements/talents-heroclass-mage-spellslinger.png"
+                                        uid=8_401 ignored
+                                  uid=8_402 ignored
+                                    uid=8_403 ignored
+                                      uid=8_404 ignored
+                                        uid=8_405 generic
+                                          uid=8_406 generic
+                                            uid=8_407 generic
+                                              uid=8_408 generic
+                                                uid=8_409 link url="https://www.wowhead.com/spell=30455?def=85244&rank=1&spellModifier=137020"
+                                      uid=8_410 ignored
+                                        uid=8_411 generic
+                                          uid=8_412 generic
+                                            uid=8_413 generic
+                                              uid=8_414 ignored
+                                                uid=8_415 generic
+                                                  uid=8_416 link url="https://www.wowhead.com/spell=1248829?def=139306&rank=1&spellModifier=137020"
+                                          uid=8_417 image
+                                          uid=8_418 image
+                                      uid=8_419 ignored
+                                        uid=8_420 generic
+                                          uid=8_421 generic
+                                            uid=8_422 generic
+                                              uid=8_423 generic
+                                                uid=8_424 link url="https://www.wowhead.com/spell=112965?def=85230&rank=1&spellModifier=137020"
+                                      uid=8_425 ignored
+                                        uid=8_426 generic
+                                          uid=8_427 generic
+                                            uid=8_428 generic
+                                              uid=8_429 generic
+                                                uid=8_430 link url="https://www.wowhead.com/spell=1248825?def=85223&rank=1&spellModifier=137020"
+                                      uid=8_431 ignored
+                                        uid=8_432 generic
+                                          uid=8_433 generic
+                                            uid=8_434 generic
+                                              uid=8_435 generic
+                                                uid=8_436 link url="https://www.wowhead.com/spell=1246832?def=140955&rank=1&spellModifier=137020"
+                                      uid=8_437 ignored
+                                        uid=8_438 generic
+                                          uid=8_439 generic
+                                            uid=8_440 generic
+                                              uid=8_441 generic
+                                                uid=8_442 link url="https://www.wowhead.com/spell=44614?def=85246&rank=1&spellModifier=137020"
+                                      uid=8_443 ignored
+                                        uid=8_444 generic
+                                          uid=8_445 generic
+                                            uid=8_446 generic
+                                              uid=8_447 ignored
+                                                uid=8_448 generic
+                                                  uid=8_449 link url="https://www.wowhead.com/spell=1244110?def=138960&rank=1&spellModifier=137020"
+                                          uid=8_450 image
+                                          uid=8_451 image
+                                      uid=8_452 ignored
+                                        uid=8_453 generic
+                                          uid=8_454 generic
+                                            uid=8_455 generic
+                                              uid=8_456 generic
+                                                uid=8_457 link url="https://www.wowhead.com/spell=84714?def=85245&rank=1&spellModifier=137020"
+                                      uid=8_458 ignored
+                                        uid=8_459 generic
+                                          uid=8_460 generic
+                                            uid=8_461 generic
+                                              uid=8_462 generic
+                                                uid=8_463 link url="https://www.wowhead.com/spell=190447?def=85247&rank=1&spellModifier=137020"
+                                      uid=8_464 ignored
+                                        uid=8_465 generic
+                                          uid=8_466 generic
+                                            uid=8_467 generic
+                                              uid=8_468 generic
+                                                uid=8_469 link url="https://www.wowhead.com/spell=205021?def=85219&rank=1&spellModifier=137020"
+                                      uid=8_470 ignored
+                                        uid=8_471 generic
+                                          uid=8_472 generic
+                                            uid=8_473 generic
+                                              uid=8_474 generic
+                                                uid=8_475 link url="https://www.wowhead.com/spell=385167?def=107434&rank=1&spellModifier=137020"
+                                      uid=8_476 ignored
+                                        uid=8_477 generic
+                                          uid=8_478 generic
+                                            uid=8_479 generic
+                                              uid=8_480 generic
+                                                uid=8_481 link url="https://www.wowhead.com/spell=460590?def=85237&rank=1&spellModifier=137020"
+                                      uid=8_482 ignored
+                                        uid=8_483 generic
+                                          uid=8_484 generic
+                                            uid=8_485 generic
+                                              uid=8_486 generic
+                                                uid=8_487 link url="https://www.wowhead.com/spell=205030?def=85248&rank=1&spellModifier=137020"
+                                      uid=8_488 ignored
+                                        uid=8_489 generic
+                                          uid=8_490 generic
+                                            uid=8_491 generic
+                                              uid=8_492 generic
+                                                uid=8_493 link url="https://www.wowhead.com/spell=56377?def=85229&rank=1&spellModifier=137020"
+                                      uid=8_494 ignored
+                                        uid=8_495 generic
+                                          uid=8_496 generic
+                                            uid=8_497 generic
+                                              uid=8_498 generic
+                                                uid=8_499 link url="https://www.wowhead.com/spell=379993?def=139179&rank=1&spellModifier=137020"
+                                      uid=8_500 ignored
+                                        uid=8_501 generic
+                                          uid=8_502 generic
+                                            uid=8_503 generic
+                                              uid=8_504 ignored
+                                                uid=8_505 generic
+                                                  uid=8_506 link url="https://www.wowhead.com/spell=418733?def=132886&rank=1&spellModifier=137020"
+                                          uid=8_507 image
+                                          uid=8_508 image
+                                      uid=8_509 ignored
+                                        uid=8_510 generic
+                                          uid=8_511 generic
+                                            uid=8_512 generic
+                                              uid=8_513 generic
+                                                uid=8_514 link url="https://www.wowhead.com/spell=417489?def=139308&rank=1&spellModifier=137020"
+                                      uid=8_515 ignored
+                                        uid=8_516 generic
+                                          uid=8_517 generic
+                                            uid=8_518 generic
+                                              uid=8_519 generic
+                                                uid=8_520 link url="https://www.wowhead.com/spell=378448?def=85217&rank=1&spellModifier=137020"
+                                      uid=8_521 ignored
+                                        uid=8_522 generic
+                                          uid=8_523 generic
+                                            uid=8_524 generic
+                                              uid=8_525 generic
+                                                uid=8_526 link url="https://www.wowhead.com/spell=1246811?def=139187&rank=1&spellModifier=137020"
+                                      uid=8_527 ignored
+                                        uid=8_528 generic
+                                          uid=8_529 generic
+                                            uid=8_530 generic
+                                              uid=8_531 generic
+                                                uid=8_532 link url="https://www.wowhead.com/spell=1247025?def=141559&rank=1&spellModifier=137020"
+                                      uid=8_533 ignored
+                                        uid=8_534 generic
+                                          uid=8_535 generic
+                                            uid=8_536 generic
+                                              uid=8_537 ignored
+                                                uid=8_538 generic
+                                                  uid=8_539 link url="https://www.wowhead.com/spell=378406?def=85240&rank=1&spellModifier=137020"
+                                          uid=8_540 image
+                                          uid=8_541 image
+                                      uid=8_542 ignored
+                                        uid=8_543 generic
+                                          uid=8_544 generic
+                                            uid=8_545 generic
+                                              uid=8_546 generic
+                                                uid=8_547 link url="https://www.wowhead.com/spell=1247759?def=139186&rank=2&spellModifier=137020"
+                                          uid=8_548 generic
+                                            uid=8_549 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                            uid=8_550 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_551 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                      uid=8_552 ignored
+                                        uid=8_553 generic
+                                          uid=8_554 generic
+                                            uid=8_555 generic
+                                              uid=8_556 generic
+                                                uid=8_557 link url="https://www.wowhead.com/spell=1247799?def=140956&rank=1&spellModifier=137020"
+                                      uid=8_558 ignored
+                                        uid=8_559 generic
+                                          uid=8_560 generic
+                                            uid=8_561 generic
+                                              uid=8_562 generic
+                                                uid=8_563 link url="https://www.wowhead.com/spell=1247769?def=139183&rank=1&spellModifier=137020"
+                                      uid=8_564 ignored
+                                        uid=8_565 generic
+                                          uid=8_566 generic
+                                            uid=8_567 generic
+                                              uid=8_568 generic
+                                                uid=8_569 link url="https://www.wowhead.com/spell=378947?def=139177&rank=1&spellModifier=137020"
+                                      uid=8_570 ignored
+                                        uid=8_571 generic
+                                          uid=8_572 generic
+                                            uid=8_573 generic
+                                              uid=8_574 generic
+                                                uid=8_575 link url="https://www.wowhead.com/spell=1247544?def=141600&rank=1&spellModifier=137020"
+                                      uid=8_576 ignored
+                                        uid=8_577 generic
+                                          uid=8_578 generic
+                                            uid=8_579 generic
+                                              uid=8_580 ignored
+                                                uid=8_581 generic
+                                                  uid=8_582 link url="https://www.wowhead.com/spell=205024?def=141602&rank=1&spellModifier=137020"
+                                          uid=8_583 image
+                                          uid=8_584 image
+                                      uid=8_585 ignored
+                                        uid=8_586 generic
+                                          uid=8_587 generic
+                                            uid=8_588 generic
+                                              uid=8_589 generic
+                                                uid=8_590 link url="https://www.wowhead.com/spell=1247729?def=85251&rank=1&spellModifier=137020"
+                                      uid=8_591 ignored
+                                        uid=8_592 generic
+                                          uid=8_593 generic
+                                            uid=8_594 generic
+                                              uid=8_595 generic
+                                                uid=8_596 link url="https://www.wowhead.com/spell=1247798?def=85253&rank=1&spellModifier=137020"
+                                      uid=8_597 ignored
+                                        uid=8_598 generic
+                                          uid=8_599 generic
+                                            uid=8_600 generic
+                                              uid=8_601 generic
+                                                uid=8_602 link url="https://www.wowhead.com/spell=1262935?def=141797&rank=4&spellModifier=137020"
+                                          uid=8_603 generic
+                                            uid=8_604 StaticText "4"
+                                              uid=1_14 InlineTextBox "4"
+                                            uid=8_605 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_606 StaticText "4"
+                                              uid=1_14 InlineTextBox "4"
+                                    uid=8_607 ignored
+                                      uid=8_608 ignored
+                                        uid=8_609 generic
+                                          uid=8_610 generic
+                                            uid=8_611 generic
+                                              uid=8_612 generic
+                                                uid=8_613 link url="https://www.wowhead.com/spell=342245?def=85177&rank=1&spellModifier=137020"
+                                      uid=8_614 ignored
+                                        uid=8_615 generic
+                                          uid=8_616 generic
+                                            uid=8_617 generic
+                                              uid=8_618 generic
+                                                uid=8_619 link url="https://www.wowhead.com/spell=45438?def=85184&rank=1&spellModifier=137020"
+                                      uid=8_620 ignored
+                                        uid=8_621 generic
+                                          uid=8_622 generic
+                                            uid=8_623 generic
+                                              uid=8_624 ignored
+                                                uid=8_625 generic
+                                                  uid=8_626 link url="https://www.wowhead.com/spell=1244090?def=138962&rank=1&spellModifier=137020"
+                                          uid=8_627 image
+                                          uid=8_628 image
+                                      uid=8_629 ignored
+                                        uid=8_630 generic
+                                          uid=8_631 generic
+                                            uid=8_632 generic
+                                              uid=8_633 generic
+                                                uid=8_634 link url="https://www.wowhead.com/spell=342249?def=85162&rank=2&spellModifier=137020"
+                                          uid=8_635 generic
+                                            uid=8_636 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                            uid=8_637 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_638 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                      uid=8_639 ignored
+                                        uid=8_640 generic
+                                          uid=8_641 generic
+                                            uid=8_642 generic
+                                              uid=8_643 generic
+                                                uid=8_644 link url="https://www.wowhead.com/spell=382424?def=85185&rank=2&spellModifier=137020"
+                                          uid=8_645 generic
+                                            uid=8_646 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                            uid=8_647 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_648 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                      uid=8_649 ignored
+                                        uid=8_650 generic
+                                          uid=8_651 generic
+                                            uid=8_652 generic
+                                              uid=8_653 generic
+                                                uid=8_654 link url="https://www.wowhead.com/spell=1250315?def=85168&rank=1&spellModifier=137020"
+                                      uid=8_655 ignored
+                                        uid=8_656 generic
+                                          uid=8_657 generic
+                                            uid=8_658 generic
+                                              uid=8_659 generic
+                                                uid=8_660 link url="https://www.wowhead.com/spell=383092?def=85176&rank=2&spellModifier=137020"
+                                          uid=8_661 generic
+                                            uid=8_662 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                            uid=8_663 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_664 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                      uid=8_665 ignored
+                                        uid=8_666 generic
+                                          uid=8_667 generic
+                                            uid=8_668 generic
+                                              uid=8_669 generic
+                                                uid=8_670 link url="https://www.wowhead.com/spell=458437?def=138970&rank=1&spellModifier=137020"
+                                      uid=8_671 ignored
+                                        uid=8_672 generic
+                                          uid=8_673 generic
+                                            uid=8_674 generic
+                                              uid=8_675 generic
+                                                uid=8_676 link url="https://www.wowhead.com/spell=55342?def=85186&rank=1&spellModifier=137020"
+                                      uid=8_677 ignored
+                                        uid=8_678 generic
+                                          uid=8_679 generic
+                                            uid=8_680 generic
+                                              uid=8_681 generic
+                                                uid=8_682 link url="https://www.wowhead.com/spell=382297?def=85164&rank=1&spellModifier=137020"
+                                      uid=8_683 ignored
+                                        uid=8_684 generic
+                                          uid=8_685 generic
+                                            uid=8_686 generic
+                                              uid=8_687 ignored
+                                                uid=8_688 generic
+                                                  uid=8_689 link url="https://www.wowhead.com/spell=157980?def=130650&rank=1&spellModifier=137020"
+                                          uid=8_690 image
+                                          uid=8_691 image
+                                      uid=8_692 ignored
+                                        uid=8_693 generic
+                                          uid=8_694 generic
+                                            uid=8_695 generic
+                                              uid=8_696 generic
+                                                uid=8_697 link url="https://www.wowhead.com/spell=475?def=85178&rank=1&spellModifier=137020"
+                                      uid=8_698 ignored
+                                        uid=8_699 generic
+                                          uid=8_700 generic
+                                            uid=8_701 generic
+                                              uid=8_702 ignored
+                                                uid=8_703 generic
+                                                  uid=8_704 link url="https://www.wowhead.com/spell=212653?def=85166&rank=1&spellModifier=137020"
+                                          uid=8_705 image
+                                          uid=8_706 image
+                                      uid=8_707 ignored
+                                        uid=8_708 generic
+                                          uid=8_709 generic
+                                            uid=8_710 generic
+                                              uid=8_711 generic
+                                                uid=8_712 link url="https://www.wowhead.com/spell=390218?def=138971&rank=1&spellModifier=137020"
+                                      uid=8_713 ignored
+                                        uid=8_714 generic
+                                          uid=8_715 generic
+                                            uid=8_716 generic
+                                              uid=8_717 generic
+                                                uid=8_718 link url="https://www.wowhead.com/spell=1270847?def=141349&rank=1&spellModifier=137020"
+                                      uid=8_719 ignored
+                                        uid=8_720 generic
+                                          uid=8_721 generic
+                                            uid=8_722 generic
+                                              uid=8_723 generic
+                                                uid=8_724 link url="https://www.wowhead.com/spell=110959?def=120889&rank=1&spellModifier=137020"
+                                      uid=8_725 ignored
+                                        uid=8_726 generic
+                                          uid=8_727 generic
+                                            uid=8_728 generic
+                                              uid=8_729 generic
+                                                uid=8_730 link url="https://www.wowhead.com/spell=382493?def=85190&rank=1&spellModifier=137020"
+                                      uid=8_731 ignored
+                                        uid=8_732 generic
+                                          uid=8_733 generic
+                                            uid=8_734 generic
+                                              uid=8_735 generic
+                                                uid=8_736 link url="https://www.wowhead.com/spell=382490?def=85158&rank=1&spellModifier=137020"
+                                      uid=8_737 ignored
+                                        uid=8_738 generic
+                                          uid=8_739 generic
+                                            uid=8_740 generic
+                                              uid=8_741 generic
+                                                uid=8_742 link url="https://www.wowhead.com/spell=382293?def=85173&rank=1&spellModifier=137020"
+                                          uid=8_743 generic
+                                            uid=8_744 StaticText "1"
+                                              uid=1_14 InlineTextBox "1"
+                                            uid=8_745 StaticText "/"
+                                              uid=1_14 InlineTextBox "/"
+                                            uid=8_746 StaticText "2"
+                                              uid=1_14 InlineTextBox "2"
+                                      uid=8_747 ignored
+                                        uid=8_748 generic
+                                          uid=8_749 generic
+                                            uid=8_750 generic
+                                              uid=8_751 generic
+                                                uid=8_752 link url="https://www.wowhead.com/spell=210476?def=138969&rank=1&spellModifier=137020"
+                                      uid=8_753 ignored
+                                        uid=8_754 generic
+                                          uid=8_755 generic
+                                            uid=8_756 generic
+                                              uid=8_757 generic
+                                                uid=8_758 link url="https://www.wowhead.com/spell=1244105?def=138968&rank=1&spellModifier=137020"
+                                      uid=8_759 ignored
+                                        uid=8_760 generic
+                                          uid=8_761 generic
+                                            uid=8_762 generic
+                                              uid=8_763 generic
+                                                uid=8_764 link url="https://www.wowhead.com/spell=461261?def=141352&rank=1&spellModifier=137020"
+                                      uid=8_765 ignored
+                                        uid=8_766 generic
+                                          uid=8_767 generic
+                                            uid=8_768 generic
+                                              uid=8_769 generic
+                                                uid=8_770 link url="https://www.wowhead.com/spell=382268?def=85156&rank=1&spellModifier=137020"
+                                      uid=8_771 ignored
+                                        uid=8_772 generic
+                                          uid=8_773 generic
+                                            uid=8_774 generic
+                                              uid=8_775 generic
+                                                uid=8_776 link url="https://www.wowhead.com/spell=1244107?def=138967&rank=1&spellModifier=137020"
+                                      uid=8_777 ignored
+                                        uid=8_778 generic
+                                          uid=8_779 generic
+                                            uid=8_780 generic
+                                              uid=8_781 generic
+                                                uid=8_782 link url="https://www.wowhead.com/spell=1265517?def=85145&rank=1&spellModifier=137020"
+                                      uid=8_783 ignored
+                                        uid=8_784 generic
+                                          uid=8_785 generic
+                                            uid=8_786 generic
+                                              uid=8_787 generic
+                                                uid=8_788 link url="https://www.wowhead.com/spell=387807?def=85192&rank=1&spellModifier=137020"
+                                      uid=8_789 ignored
+                                        uid=8_790 generic
+                                          uid=8_791 generic
+                                            uid=8_792 generic
+                                              uid=8_793 generic
+                                                uid=8_794 link url="https://www.wowhead.com/spell=386828?def=85160&rank=1&spellModifier=137020"
+                                      uid=8_795 ignored
+                                        uid=8_796 generic
+                                          uid=8_797 generic
+                                            uid=8_798 generic
+                                              uid=8_799 generic
+                                                uid=8_800 link url="https://www.wowhead.com/spell=455428?def=85150&rank=1&spellModifier=137020"
+                                      uid=8_801 ignored
+                                        uid=8_802 generic
+                                          uid=8_803 generic
+                                            uid=8_804 generic
+                                              uid=8_805 generic
+                                                uid=8_806 link url="https://www.wowhead.com/spell=414659?def=85144&rank=1&spellModifier=137020"
+                                      uid=8_807 ignored
+                                        uid=8_808 generic
+                                          uid=8_809 generic
+                                            uid=8_810 generic
+                                              uid=8_811 ignored
+                                                uid=8_812 generic
+                                                  uid=8_813 link url="https://www.wowhead.com/spell=1244031?def=130892&rank=1&spellModifier=137020"
+                                          uid=8_814 image
+                                          uid=8_815 image
+                                      uid=8_816 ignored
+                                        uid=8_817 generic
+                                          uid=8_818 generic
+                                            uid=8_819 generic
+                                              uid=8_820 generic
+                                                uid=8_821 link url="https://www.wowhead.com/spell=1244069?def=138965&rank=1&spellModifier=137020"
+                                    uid=8_822 ignored
+                                      uid=8_823 ignored
+                                        uid=8_824 generic
+                                          uid=8_825 generic
+                                            uid=8_826 generic
+                                              uid=8_827 generic
+                                                uid=8_828 link url="https://www.wowhead.com/spell=1280165?def=122277&rank=1&spellModifier=137020"
+                                      uid=8_829 ignored
+                                        uid=8_830 generic
+                                          uid=8_831 generic
+                                            uid=8_832 generic
+                                              uid=8_833 generic
+                                                uid=8_834 link url="https://www.wowhead.com/spell=444719?def=122278&rank=1&spellModifier=137020"
+                                      uid=8_835 ignored
+                                        uid=8_836 generic
+                                          uid=8_837 generic
+                                            uid=8_838 generic
+                                              uid=8_839 generic
+                                                uid=8_840 link url="https://www.wowhead.com/spell=444256?def=122276&rank=1&spellModifier=137020"
+                                      uid=8_841 ignored
+                                        uid=8_842 generic
+                                          uid=8_843 generic
+                                            uid=8_844 generic
+                                              uid=8_845 ignored
+                                                uid=8_846 generic
+                                                  uid=8_847 link url="https://www.wowhead.com/spell=444675?def=140701&rank=1&spellModifier=137020"
+                                          uid=8_848 image
+                                          uid=8_849 image
+                                      uid=8_850 ignored
+                                        uid=8_851 generic
+                                          uid=8_852 generic
+                                            uid=8_853 generic
+                                              uid=8_854 ignored
+                                                uid=8_855 generic
+                                                  uid=8_856 link url="https://www.wowhead.com/spell=444752?def=122274&rank=1&spellModifier=137020"
+                                          uid=8_857 image
+                                          uid=8_858 image
+                                      uid=8_859 ignored
+                                        uid=8_860 generic
+                                          uid=8_861 generic
+                                            uid=8_862 generic
+                                              uid=8_863 generic
+                                                uid=8_864 link url="https://www.wowhead.com/spell=444483?def=122271&rank=1&spellModifier=137020"
+                                      uid=8_865 ignored
+                                        uid=8_866 generic
+                                          uid=8_867 generic
+                                            uid=8_868 generic
+                                              uid=8_869 ignored
+                                                uid=8_870 generic
+                                                  uid=8_871 link url="https://www.wowhead.com/spell=444827?def=122275&rank=1&spellModifier=137020"
+                                          uid=8_872 image
+                                          uid=8_873 image
+                                      uid=8_874 ignored
+                                        uid=8_875 generic
+                                          uid=8_876 generic
+                                            uid=8_877 generic
+                                              uid=8_878 generic
+                                                uid=8_879 link url="https://www.wowhead.com/spell=1261080?def=140674&rank=1&spellModifier=137020"
+                                      uid=8_880 ignored
+                                        uid=8_881 generic
+                                          uid=8_882 generic
+                                            uid=8_883 generic
+                                              uid=8_884 generic
+                                                uid=8_885 link url="https://www.wowhead.com/spell=444968?def=122273&rank=1&spellModifier=137020"
+                                      uid=8_886 ignored
+                                        uid=8_887 generic
+                                          uid=8_888 generic
+                                            uid=8_889 generic
+                                              uid=8_890 generic
+                                                uid=8_891 link url="https://www.wowhead.com/spell=470021?def=133074&rank=1&spellModifier=137020"
+                                      uid=8_892 ignored
+                                        uid=8_893 generic
+                                          uid=8_894 generic
+                                            uid=8_895 generic
+                                              uid=8_896 generic
+                                                uid=8_897 link url="https://www.wowhead.com/spell=444986?def=122270&rank=1&spellModifier=137020"
+                                      uid=8_898 ignored
+                                        uid=8_899 generic
+                                          uid=8_900 generic
+                                            uid=8_901 generic
+                                              uid=8_902 generic
+                                                uid=8_903 link url="https://www.wowhead.com/spell=1261082?def=140673&rank=1&spellModifier=137020"
+                                      uid=8_904 ignored
+                                        uid=8_905 generic
+                                          uid=8_906 generic
+                                            uid=8_907 generic
+                                              uid=8_908 generic
+                                                uid=8_909 link url="https://www.wowhead.com/spell=443783?def=122269&rank=1&spellModifier=137020"
+                    uid=8_910 separator orientation="horizontal"
+                    uid=8_911 ignored
+                      uid=8_912 paragraph
+                        uid=8_913 StaticText "Choose a source and Droptimizer will evaluate all Personal Loot against your currently equipped gear.  "
+                          uid=1_14 InlineTextBox "Choose a source and Droptimizer will evaluate all Personal Loot against your currently equipped gear.  "
+                        uid=8_914 link "More info on how Droptimizer works" url="https://support.raidbots.com/article/59-droptimizer-how-does-it-work"
+                          uid=8_915 StaticText "More info on how Droptimizer works"
+                            uid=1_14 InlineTextBox "More info on how Droptimizer works"
+                      uid=8_916 ignored
+                        uid=8_917 ignored
+                          uid=8_918 heading "SOURCES" level="3"
+                            uid=8_919 StaticText "SOURCES"
+                              uid=1_14 InlineTextBox "SOURCES"
+                          uid=8_920 ignored
+                            uid=8_921 LabelText
+                              uid=8_922 checkbox "Show Previous Tiers"
+                              uid=8_923 ignored
+                                uid=8_924 ignored
+                                  uid=8_925 ignored
+                              uid=8_926 StaticText "Show Previous Tiers"
+                                uid=1_14 InlineTextBox "Show Previous Tiers"
+                        uid=8_927 ignored
+                          uid=8_928 generic
+                            uid=8_929 generic
+                              uid=8_930 ignored
+                                uid=8_931 paragraph
+                                  uid=8_932 StaticText "Season 1 Raids"
+                                    uid=1_14 InlineTextBox "Season 1 Raids"
+                            uid=8_933 generic
+                              uid=8_934 ignored
+                                uid=8_935 paragraph
+                                  uid=8_936 StaticText "March on Quel'Danas"
+                                    uid=1_14 InlineTextBox "March on "
+                                    uid=1_14 InlineTextBox "Quel'Danas"
+                            uid=8_937 generic
+                              uid=8_938 ignored
+                                uid=8_939 paragraph
+                                  uid=8_940 StaticText "The Dreamrift"
+                                    uid=1_14 InlineTextBox "The Dreamrift"
+                            uid=8_941 generic
+                              uid=8_942 ignored
+                                uid=8_943 paragraph
+                                  uid=8_944 StaticText "The Voidspire"
+                                    uid=1_14 InlineTextBox "The Voidspire"
+                            uid=8_945 generic
+                              uid=8_946 ignored
+                                uid=8_947 paragraph
+                                  uid=8_948 StaticText "World Bosses"
+                                    uid=1_14 InlineTextBox "World Bosses"
+                            uid=8_949 generic
+                              uid=8_950 ignored
+                                uid=8_951 paragraph
+                                  uid=8_952 StaticText "Mythic+ Dungeons"
+                                    uid=1_14 InlineTextBox "Mythic+ "
+                                    uid=1_14 InlineTextBox "Dungeons"
+                            uid=8_953 generic
+                              uid=8_954 ignored
+                                uid=8_955 paragraph
+                                  uid=8_956 StaticText "Normal Dungeons"
+                                    uid=1_14 InlineTextBox "Normal Dungeons"
+                            uid=8_957 generic
+                              uid=8_958 ignored
+                                uid=8_959 paragraph
+                                  uid=8_960 StaticText "PVP Season 1 (Conquest)"
+                                    uid=1_14 InlineTextBox "PVP Season 1 "
+                                    uid=1_14 InlineTextBox "(Conquest)"
+                            uid=8_961 generic
+                              uid=8_962 ignored
+                                uid=8_963 paragraph
+                                  uid=8_964 StaticText "PVP Season 1 (Bloody Tokens)"
+                                    uid=1_14 InlineTextBox "PVP Season 1 "
+                                    uid=1_14 InlineTextBox "(Bloody Tokens)"
+                            uid=8_965 generic
+                              uid=8_966 ignored
+                                uid=8_967 paragraph
+                                  uid=8_968 StaticText "PVP Season 1 (Honor)"
+                                    uid=1_14 InlineTextBox "PVP Season 1 "
+                                    uid=1_14 InlineTextBox "(Honor)"
+                            uid=8_969 generic
+                              uid=8_970 ignored
+                                uid=8_971 paragraph
+                                  uid=8_972 StaticText "Catalyst Season 1"
+                                    uid=1_14 InlineTextBox "Catalyst Season 1"
+                            uid=8_973 generic
+                              uid=8_974 ignored
+                                uid=8_975 paragraph
+                                  uid=8_976 StaticText "Epic Profession Items"
+                                    uid=1_14 InlineTextBox "Epic Profession "
+                                    uid=1_14 InlineTextBox "Items"
+                            uid=8_977 generic
+                              uid=8_978 ignored
+                                uid=8_979 paragraph
+                                  uid=8_980 StaticText "Rare Profession Items"
+                                    uid=1_14 InlineTextBox "Rare Profession "
+                                    uid=1_14 InlineTextBox "Items"
+                            uid=8_981 generic
+                              uid=8_982 ignored
+                                uid=8_983 paragraph
+                                  uid=8_984 StaticText "PVP Profession Items"
+                                    uid=1_14 InlineTextBox "PVP Profession "
+                                    uid=1_14 InlineTextBox "Items"
+                        uid=8_985 heading "DUNGEONS" level="4"
+                          uid=8_986 StaticText "DUNGEONS"
+                            uid=1_14 InlineTextBox "DUNGEONS"
+                        uid=8_987 ignored
+                          uid=8_988 ignored
+                            uid=8_989 ignored
+                              uid=8_990 generic
+                                uid=8_991 ignored
+                                  uid=8_992 ignored
+                                  uid=8_993 ignored
+                                    uid=8_994 paragraph
+                                      uid=8_995 StaticText "All Dungeons"
+                                        uid=1_14 InlineTextBox "All Dungeons"
+                                    uid=8_996 paragraph
+                                      uid=8_997 StaticText "Requires Raidbots Premium"
+                                        uid=1_14 InlineTextBox "Requires Raidbots Premium"
+                              uid=8_998 generic
+                                uid=8_999 ignored
+                                  uid=8_1000 ignored
+                                  uid=8_1001 ignored
+                                    uid=8_1002 paragraph
+                                      uid=8_1003 StaticText "Algeth'ar Academy"
+                                        uid=1_14 InlineTextBox "Algeth'ar Academy"
+                              uid=8_1004 generic
+                                uid=8_1005 ignored
+                                  uid=8_1006 ignored
+                                  uid=8_1007 ignored
+                                    uid=8_1008 paragraph
+                                      uid=8_1009 StaticText "Magisters' Terrace"
+                                        uid=1_14 InlineTextBox "Magisters' Terrace"
+                              uid=8_1010 generic
+                                uid=8_1011 ignored
+                                  uid=8_1012 ignored
+                                  uid=8_1013 ignored
+                                    uid=8_1014 paragraph
+                                      uid=8_1015 StaticText "Maisara Caverns"
+                                        uid=1_14 InlineTextBox "Maisara Caverns"
+                              uid=8_1016 generic
+                                uid=8_1017 ignored
+                                  uid=8_1018 ignored
+                                  uid=8_1019 ignored
+                                    uid=8_1020 paragraph
+                                      uid=8_1021 StaticText "Nexus-Point Xenas"
+                                        uid=1_14 InlineTextBox "Nexus-Point Xenas"
+                              uid=8_1022 generic
+                                uid=8_1023 ignored
+                                  uid=8_1024 ignored
+                                  uid=8_1025 ignored
+                                    uid=8_1026 paragraph
+                                      uid=8_1027 StaticText "Pit of Saron"
+                                        uid=1_14 InlineTextBox "Pit of Saron"
+                              uid=8_1028 generic
+                                uid=8_1029 ignored
+                                  uid=8_1030 ignored
+                                  uid=8_1031 ignored
+                                    uid=8_1032 paragraph
+                                      uid=8_1033 StaticText "Seat of the Triumvirate"
+                                        uid=1_14 InlineTextBox "Seat of the Triumvirate"
+                              uid=8_1034 generic
+                                uid=8_1035 ignored
+                                  uid=8_1036 ignored
+                                  uid=8_1037 ignored
+                                    uid=8_1038 paragraph
+                                      uid=8_1039 StaticText "Skyreach"
+                                        uid=1_14 InlineTextBox "Skyreach"
+                              uid=8_1040 generic
+                                uid=8_1041 ignored
+                                  uid=8_1042 ignored
+                                  uid=8_1043 ignored
+                                    uid=8_1044 paragraph
+                                      uid=8_1045 StaticText "Windrunner Spire"
+                                        uid=1_14 InlineTextBox "Windrunner Spire"
+                        uid=8_1046 ignored
+                          uid=8_1047 heading "DUNGEON LEVEL" level="4"
+                            uid=8_1048 StaticText "DUNGEON LEVEL"
+                              uid=1_14 InlineTextBox "DUNGEON LEVEL"
+                          uid=8_1049 ignored
+                            uid=8_1050 ignored
+                              uid=8_1051 generic
+                                uid=8_1052 paragraph
+                                  uid=8_1053 StaticText "Heroic"
+                                    uid=1_14 InlineTextBox "Heroic"
+                                uid=8_1054 paragraph
+                                  uid=8_1055 StaticText "224"
+                                    uid=1_14 InlineTextBox "224"
+                              uid=8_1056 generic
+                                uid=8_1057 paragraph
+                                  uid=8_1058 StaticText "Mythic"
+                                    uid=1_14 InlineTextBox "Mythic"
+                                uid=8_1059 paragraph
+                                  uid=8_1060 StaticText "246"
+                                    uid=1_14 InlineTextBox "246"
+                              uid=8_1061 generic
+                                uid=8_1062 paragraph
+                                  uid=8_1063 StaticText "Mythic 2"
+                                    uid=1_14 InlineTextBox "Mythic 2"
+                                uid=8_1064 paragraph
+                                  uid=8_1065 StaticText "250"
+                                    uid=1_14 InlineTextBox "250"
+                              uid=8_1066 generic
+                                uid=8_1067 paragraph
+                                  uid=8_1068 StaticText "Mythic 3"
+                                    uid=1_14 InlineTextBox "Mythic 3"
+                                uid=8_1069 paragraph
+                                  uid=8_1070 StaticText "250"
+                                    uid=1_14 InlineTextBox "250"
+                              uid=8_1071 generic
+                                uid=8_1072 paragraph
+                                  uid=8_1073 StaticText "Mythic 4"
+                                    uid=1_14 InlineTextBox "Mythic 4"
+                                uid=8_1074 paragraph
+                                  uid=8_1075 StaticText "253"
+                                    uid=1_14 InlineTextBox "253"
+                              uid=8_1076 generic
+                                uid=8_1077 paragraph
+                                  uid=8_1078 StaticText "Mythic 5"
+                                    uid=1_14 InlineTextBox "Mythic 5"
+                                uid=8_1079 paragraph
+                                  uid=8_1080 StaticText "256"
+                                    uid=1_14 InlineTextBox "256"
+                              uid=8_1081 generic
+                                uid=8_1082 paragraph
+                                  uid=8_1083 StaticText "Mythic 6"
+                                    uid=1_14 InlineTextBox "Mythic 6"
+                                uid=8_1084 paragraph
+                                  uid=8_1085 StaticText "259"
+                                    uid=1_14 InlineTextBox "259"
+                              uid=8_1086 generic
+                                uid=8_1087 paragraph
+                                  uid=8_1088 StaticText "Mythic 7"
+                                    uid=1_14 InlineTextBox "Mythic 7"
+                                uid=8_1089 paragraph
+                                  uid=8_1090 StaticText "259"
+                                    uid=1_14 InlineTextBox "259"
+                              uid=8_1091 generic
+                                uid=8_1092 paragraph
+                                  uid=8_1093 StaticText "Mythic 8"
+                                    uid=1_14 InlineTextBox "Mythic 8"
+                                uid=8_1094 paragraph
+                                  uid=8_1095 StaticText "263"
+                                    uid=1_14 InlineTextBox "263"
+                              uid=8_1096 generic
+                                uid=8_1097 paragraph
+                                  uid=8_1098 StaticText "Mythic 9"
+                                    uid=1_14 InlineTextBox "Mythic 9"
+                                uid=8_1099 paragraph
+                                  uid=8_1100 StaticText "263"
+                                    uid=1_14 InlineTextBox "263"
+                              uid=8_1101 generic
+                                uid=8_1102 paragraph
+                                  uid=8_1103 StaticText "Mythic 10"
+                                    uid=1_14 InlineTextBox "Mythic 10"
+                                uid=8_1104 paragraph
+                                  uid=8_1105 StaticText "266"
+                                    uid=1_14 InlineTextBox "266"
+                              uid=8_1106 generic
+                                uid=8_1107 paragraph
+                                  uid=8_1108 StaticText "+7-9 Vault"
+                                    uid=1_14 InlineTextBox "+7-9 Vault"
+                                uid=8_1109 paragraph
+                                  uid=8_1110 StaticText "269"
+                                    uid=1_14 InlineTextBox "269"
+                              uid=8_1111 generic
+                                uid=8_1112 paragraph
+                                  uid=8_1113 StaticText "+10 Vault"
+                                    uid=1_14 InlineTextBox "+10 Vault"
+                                uid=8_1114 paragraph
+                                  uid=8_1115 StaticText "272"
+                                    uid=1_14 InlineTextBox "272"
+                      uid=8_1116 ignored
+                        uid=8_1117 generic
+                          uid=8_1118 ignored
+                            uid=8_1119 heading "ITEMS TO SIM" level="3"
+                              uid=8_1120 StaticText "ITEMS TO SIM"
+                                uid=1_14 InlineTextBox "ITEMS TO SIM"
+                          uid=8_1139 ignored
+                            uid=8_1140 button
+                              uid=8_1141 ignored
+                                uid=8_1142 image
+                            uid=8_1143 paragraph
+                              uid=8_1144 StaticText "Only two-hand weapons can be evaluated. You do not have both a main hand and off hand item in your bags."
+                                uid=1_14 InlineTextBox "Only two-hand weapons can be evaluated. You do not have both a main hand and off hand item in your bags."
+                          uid=8_1145 ignored
+                            uid=8_1146 LabelText
+                              uid=8_1147 checkbox "Include Off-Spec Items"
+                              uid=8_1148 ignored
+                                uid=8_1149 ignored
+                                  uid=8_1150 ignored
+                              uid=8_1151 StaticText "Include Off-Spec Items"
+                                uid=1_14 InlineTextBox "Include Off-Spec Items"
+                            uid=8_1152 LabelText
+                              uid=8_1153 checkbox "Include Catalyst Items" checked
+                              uid=8_1154 ignored
+                                uid=8_1155 image
+                              uid=8_1156 StaticText "Include Catalyst Items"
+                                uid=1_14 InlineTextBox "Include Catalyst Items"
+                          uid=8_1157 separator orientation="horizontal"
+                          uid=8_1158 ignored
+                            uid=8_1159 paragraph
+                              uid=8_1160 StaticText "Upgrade up to: "
+                                uid=1_14 InlineTextBox "Upgrade up to: "
+                            uid=8_1161 ignored
+                              uid=8_1162 ignored
+                                uid=8_1163 LabelText
+                                uid=8_1164 generic
+                                  uid=8_1165 generic
+                                  uid=8_1166 log live="polite" relevant="additions text"
+                                  uid=8_1167 generic
+                                    uid=8_1168 generic
+                                      uid=8_1169 generic
+                                        uid=8_1170 StaticText "Base level, no upgrades"
+                                          uid=1_14 InlineTextBox "Base level, no upgrades"
+                                      uid=8_1171 ignored
+                                        uid=8_1172 combobox autocomplete="list" expandable haspopup="menu"
+                                          uid=8_1173 generic
+                                    uid=8_1174 ignored
+                                      uid=8_1175 ignored
+                            uid=8_1176 ignored
+                              uid=8_1177 LabelText
+                                uid=8_1178 checkbox "Upgrade All Equipped Gear to the Same Level"
+                                uid=8_1179 ignored
+                                  uid=8_1180 ignored
+                                    uid=8_1181 ignored
+                                uid=8_1182 StaticText "Upgrade All Equipped Gear to the Same Level"
+                                  uid=1_14 InlineTextBox "Upgrade All Equipped Gear to the Same Level"
+                            uid=8_1183 generic
+                              uid=8_1184 generic "[object Object],[object Object],[object Object],[object Object]"
+                                uid=8_1185 button "?"
+                                  uid=8_1186 ignored
+                                    uid=8_1187 paragraph
+                                      uid=8_1188 StaticText "?"
+                                        uid=1_14 InlineTextBox "?"
+                          uid=8_1189 separator orientation="horizontal"
+                          uid=8_1190 ignored
+                            uid=8_1191 ignored
+                              uid=8_1192 paragraph
+                                uid=8_1193 StaticText "Preferred Gem: "
+                                  uid=1_14 InlineTextBox "Preferred Gem: "
+                              uid=8_1194 ignored
+                                uid=8_1195 LabelText
+                                uid=8_1196 generic
+                                  uid=8_1197 generic
+                                  uid=8_1198 log live="polite" relevant="additions text"
+                                  uid=8_1199 generic
+                                    uid=8_1200 generic
+                                      uid=8_1201 generic
+                                        uid=8_1202 StaticText "Select..."
+                                          uid=1_14 InlineTextBox "Select..."
+                                      uid=8_1203 ignored
+                                        uid=8_1204 combobox autocomplete="list" description="Select..." expandable haspopup="menu"
+                                          uid=8_1205 generic
+                                    uid=8_1206 ignored
+                                      uid=8_1207 ignored
+                            uid=8_1208 LabelText
+                              uid=8_1209 checkbox "Add Vault Socket"
+                              uid=8_1210 ignored
+                                uid=8_1211 ignored
+                                  uid=8_1212 ignored
+                              uid=8_1213 StaticText "Add Vault Socket"
+                                uid=1_14 InlineTextBox "Add Vault Socket"
+                            uid=8_1214 generic
+                              uid=8_1215 generic "[object Object]"
+                                uid=8_1216 button "?"
+                                  uid=8_1217 ignored
+                                    uid=8_1218 paragraph
+                                      uid=8_1219 StaticText "?"
+                                        uid=1_14 InlineTextBox "?"
+                          uid=8_1220 separator orientation="horizontal"
+                          uid=8_1221 ignored
+                            uid=8_1222 ignored
+                              uid=8_1223 ignored
+                                uid=8_1224 heading "MAIN HAND" level="5"
+                                  uid=8_1225 StaticText "MAIN HAND"
+                                    uid=1_14 InlineTextBox "MAIN HAND"
+                            uid=8_1226 ignored
+                              uid=8_1227 ignored
+                                uid=9_36 ignored
+                                  uid=9_37 ignored
+                                    uid=9_38 generic
+                                      uid=9_39 generic
+                                        uid=9_40 generic
+                                          uid=9_41 link url="https://www.wowhead.com/item=193710?bonus=4786:12795&ench=8039&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_42 generic
+                                      uid=9_43 paragraph
+                                        uid=9_44 StaticText "Spellboon Saber"
+                                          uid=1_14 InlineTextBox "Spellboon Saber"
+                                      uid=9_45 ignored
+                                        uid=9_46 paragraph
+                                          uid=9_47 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_48 paragraph
+                                          uid=9_49 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_50 ignored
+                                uid=9_51 ignored
+                                  uid=9_52 ignored
+                                    uid=9_53 generic
+                                      uid=9_54 generic
+                                        uid=9_55 generic
+                                          uid=9_56 link url="https://www.wowhead.com/item=193707?bonus=4786:12795&ench=8039&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_57 generic
+                                      uid=9_58 paragraph
+                                        uid=9_59 StaticText "Final Grade"
+                                          uid=1_14 InlineTextBox "Final Grade"
+                                      uid=9_60 ignored
+                                        uid=9_61 paragraph
+                                          uid=9_62 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_63 paragraph
+                                          uid=9_64 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_65 ignored
+                                  uid=9_66 paragraph
+                                    uid=9_67 StaticText "You are already wearing this item or a better version"
+                                      uid=1_14 InlineTextBox "You are already wearing this item or a better version"
+                          uid=8_1390 separator orientation="horizontal"
+                          uid=8_1391 ignored
+                            uid=8_1392 ignored
+                              uid=8_1393 ignored
+                                uid=8_1394 heading "OFF HAND" level="5"
+                                  uid=8_1395 StaticText "OFF HAND"
+                                    uid=1_14 InlineTextBox "OFF HAND"
+                            uid=8_1396 ignored
+                              uid=8_1397 ignored
+                                uid=9_68 ignored
+                                  uid=9_69 ignored
+                                    uid=9_70 generic
+                                      uid=9_71 generic
+                                        uid=9_72 generic
+                                          uid=9_73 link url="https://www.wowhead.com/item=193709?bonus=4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_74 generic
+                                      uid=9_75 paragraph
+                                        uid=9_76 StaticText "Vexamus' Expulsion Rod"
+                                          uid=1_14 InlineTextBox "Vexamus' Expulsion Rod"
+                                      uid=9_77 ignored
+                                        uid=9_78 paragraph
+                                          uid=9_79 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_80 paragraph
+                                          uid=9_81 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_82 ignored
+                          uid=8_1462 separator orientation="horizontal"
+                          uid=8_1463 ignored
+                            uid=8_1464 ignored
+                              uid=8_1465 ignored
+                                uid=8_1466 heading "HEAD" level="5"
+                                  uid=8_1467 StaticText "HEAD"
+                                    uid=1_14 InlineTextBox "HEAD"
+                            uid=8_1468 ignored
+                              uid=8_1469 ignored
+                                uid=9_83 ignored
+                                  uid=9_84 ignored
+                                    uid=9_85 generic
+                                      uid=9_86 generic
+                                        uid=9_87 generic
+                                          uid=9_88 link url="https://www.wowhead.com/item=193703?bonus=4786:12795&ench=8017&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_89 generic
+                                      uid=9_90 paragraph
+                                        uid=9_91 StaticText "Organized Pontificator's Mask"
+                                          uid=1_14 InlineTextBox "Organized Pontificator's Mask"
+                                      uid=9_92 ignored
+                                        uid=9_93 paragraph
+                                          uid=9_94 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_95 paragraph
+                                          uid=9_96 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_97 ignored
+                                uid=9_98 ignored
+                                  uid=9_99 ignored
+                                    uid=9_100 generic
+                                      uid=9_101 generic
+                                        uid=9_102 generic
+                                          uid=9_103 link url="https://www.wowhead.com/item=250060?bonus=4786:12795&ench=8017&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=9_104 generic description="Catalyst"
+                                          uid=9_105 generic
+                                            uid=9_106 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=9_107 generic
+                                      uid=9_108 paragraph
+                                        uid=9_109 StaticText "Voidbreaker's Veil"
+                                          uid=1_14 InlineTextBox "Voidbreaker's Veil"
+                                      uid=9_110 ignored
+                                        uid=9_111 paragraph
+                                          uid=9_112 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_113 paragraph
+                                          uid=9_114 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_115 ignored
+                                  uid=9_116 paragraph
+                                    uid=9_117 StaticText "You are already wearing this item or a better version"
+                                      uid=1_14 InlineTextBox "You are already wearing this item or a better version"
+                          uid=8_1539 separator orientation="horizontal"
+                          uid=8_1702 ignored
+                            uid=8_1703 ignored
+                              uid=8_1704 ignored
+                                uid=8_1705 heading "BACK" level="5"
+                                  uid=8_1706 StaticText "BACK"
+                                    uid=1_14 InlineTextBox "BACK"
+                            uid=8_1707 ignored
+                              uid=8_1708 ignored
+                                uid=9_118 ignored
+                                  uid=9_119 ignored
+                                    uid=9_120 generic
+                                      uid=9_121 generic
+                                        uid=9_122 generic
+                                          uid=9_123 link url="https://www.wowhead.com/item=193712?bonus=4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_124 generic
+                                      uid=9_125 paragraph
+                                        uid=9_126 StaticText "Potion-Stained Cloak"
+                                          uid=1_14 InlineTextBox "Potion-Stained Cloak"
+                                      uid=9_127 ignored
+                                        uid=9_128 paragraph
+                                          uid=9_129 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_130 paragraph
+                                          uid=9_131 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_132 ignored
+                                uid=9_133 ignored
+                                  uid=9_134 ignored
+                                    uid=9_135 generic
+                                      uid=9_136 generic
+                                        uid=9_137 generic
+                                          uid=9_138 link url="https://www.wowhead.com/item=250055?bonus=4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=9_139 generic description="Catalyst"
+                                          uid=9_140 generic
+                                            uid=9_141 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=9_142 generic
+                                      uid=9_143 paragraph
+                                        uid=9_144 StaticText "Voidbreaker's Encryption"
+                                          uid=1_14 InlineTextBox "Voidbreaker's Encryption"
+                                      uid=9_145 ignored
+                                        uid=9_146 paragraph
+                                          uid=9_147 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_148 paragraph
+                                          uid=9_149 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_150 ignored
+                          uid=8_1824 separator orientation="horizontal"
+                          uid=8_1825 ignored
+                            uid=8_1826 ignored
+                              uid=8_1827 ignored
+                                uid=8_1828 heading "CHEST" level="5"
+                                  uid=8_1829 StaticText "CHEST"
+                                    uid=1_14 InlineTextBox "CHEST"
+                            uid=8_1830 ignored
+                              uid=8_1831 ignored
+                                uid=9_151 ignored
+                                  uid=9_152 ignored
+                                    uid=9_153 generic
+                                      uid=9_154 generic
+                                        uid=9_155 generic
+                                          uid=9_156 link url="https://www.wowhead.com/item=193720?bonus=4786:12795&ench=7987&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_157 generic
+                                      uid=9_158 paragraph
+                                        uid=9_159 StaticText "Bronze Challenger's Robe"
+                                          uid=1_14 InlineTextBox "Bronze Challenger's Robe"
+                                      uid=9_160 ignored
+                                        uid=9_161 paragraph
+                                          uid=9_162 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_163 paragraph
+                                          uid=9_164 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_165 ignored
+                                uid=9_166 ignored
+                                  uid=9_167 ignored
+                                    uid=9_168 generic
+                                      uid=9_169 generic
+                                        uid=9_170 generic
+                                          uid=9_171 link url="https://www.wowhead.com/item=250063?bonus=4786:12795&ench=7987&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=9_172 generic description="Catalyst"
+                                          uid=9_173 generic
+                                            uid=9_174 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=9_175 generic
+                                      uid=9_176 paragraph
+                                        uid=9_177 StaticText "Voidbreaker's Robe"
+                                          uid=1_14 InlineTextBox "Voidbreaker's Robe"
+                                      uid=9_178 ignored
+                                        uid=9_179 paragraph
+                                          uid=9_180 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_181 paragraph
+                                          uid=9_182 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_183 ignored
+                                  uid=9_184 paragraph
+                                    uid=9_185 StaticText "You are already wearing this item or a better version"
+                                      uid=1_14 InlineTextBox "You are already wearing this item or a better version"
+                          uid=8_1917 separator orientation="horizontal"
+                          uid=8_2009 ignored
+                            uid=8_2010 ignored
+                              uid=8_2011 ignored
+                                uid=8_2012 heading "HANDS" level="5"
+                                  uid=8_2013 StaticText "HANDS"
+                                    uid=1_14 InlineTextBox "HANDS"
+                            uid=8_2014 ignored
+                              uid=8_2015 ignored
+                                uid=9_186 ignored
+                                  uid=9_187 ignored
+                                    uid=9_188 generic
+                                      uid=9_189 generic
+                                        uid=9_190 generic
+                                          uid=9_191 link url="https://www.wowhead.com/item=193713?bonus=4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=9_192 generic
+                                      uid=9_193 paragraph
+                                        uid=9_194 StaticText "Experimental Safety Gloves"
+                                          uid=1_14 InlineTextBox "Experimental Safety Gloves"
+                                      uid=9_195 ignored
+                                        uid=9_196 paragraph
+                                          uid=9_197 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_198 paragraph
+                                          uid=9_199 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_200 ignored
+                                uid=9_201 ignored
+                                  uid=9_202 ignored
+                                    uid=9_203 generic
+                                      uid=9_204 generic
+                                        uid=9_205 generic
+                                          uid=9_206 link url="https://www.wowhead.com/item=250061?bonus=4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=9_207 generic description="Catalyst"
+                                          uid=9_208 generic
+                                            uid=9_209 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=9_210 generic
+                                      uid=9_211 paragraph
+                                        uid=9_212 StaticText "Voidbreaker's Gloves"
+                                          uid=1_14 InlineTextBox "Voidbreaker's Gloves"
+                                      uid=9_213 ignored
+                                        uid=9_214 paragraph
+                                          uid=9_215 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_216 paragraph
+                                          uid=9_217 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_218 ignored
+                          uid=8_2099 separator orientation="horizontal"
+                          uid=8_2346 ignored
+                            uid=8_2347 ignored
+                              uid=8_2348 ignored
+                                uid=8_2349 heading "FINGER" level="5"
+                                  uid=8_2350 StaticText "FINGER"
+                                    uid=1_14 InlineTextBox "FINGER"
+                            uid=8_2351 ignored
+                              uid=8_2352 ignored
+                                uid=9_219 ignored
+                                  uid=9_220 ignored
+                                    uid=9_221 generic
+                                      uid=9_222 generic
+                                        uid=9_223 generic
+                                          uid=9_224 link url="https://www.wowhead.com/item=193708?bonus=13668:4786:12795&ench=7969&gems=240898&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=9_225 generic
+                                          uid=9_226 generic
+                                            uid=9_227 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=9_228 generic
+                                              uid=9_229 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=9_230 generic
+                                        uid=9_231 generic "[object Object]"
+                                          uid=9_232 image
+                                    uid=9_233 generic
+                                      uid=9_234 paragraph
+                                        uid=9_235 StaticText "Platinum Star Band"
+                                          uid=1_14 InlineTextBox "Platinum Star Band"
+                                      uid=9_236 ignored
+                                        uid=9_237 paragraph
+                                          uid=9_238 StaticText "266"
+                                            uid=1_14 InlineTextBox "266"
+                                        uid=9_239 paragraph
+                                          uid=9_240 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                        uid=9_241 ignored
+                          uid=8_2506 separator orientation="horizontal"
+                      uid=8_2626 heading "NOTES / LIMITATIONS" level="3"
+                        uid=8_2627 StaticText "NOTES / LIMITATIONS"
+                          uid=1_14 InlineTextBox "NOTES / LIMITATIONS"
+                      uid=8_2628 list
+                        uid=8_2629 listitem level="1"
+                          uid=8_2630 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2631 paragraph
+                            uid=8_2632 StaticText "Your equipped weapons are used. To test Two Hand vs Main/Off Hand you will need to run multiple sims."
+                              uid=1_14 InlineTextBox "Your equipped weapons are used. To test Two Hand vs Main/Off Hand you will need to run multiple sims."
+                        uid=8_2633 listitem level="1"
+                          uid=8_2634 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2635 paragraph
+                            uid=8_2636 StaticText "Enchants are copied from your current items."
+                              uid=1_14 InlineTextBox "Enchants are copied from your current items."
+                        uid=8_2637 listitem level="1"
+                          uid=8_2638 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2639 paragraph
+                            uid=8_2640 StaticText "Necklace/rings sockets and gems are copied from your current neck or first ring."
+                              uid=1_14 InlineTextBox "Necklace/rings sockets and gems are copied from your current neck or first ring."
+                        uid=8_2641 listitem level="1"
+                          uid=8_2642 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2643 paragraph
+                            uid=8_2644 StaticText "Rings and trinkets are tried in both slots (as long as a Unique-Equipped constraint is not violated)."
+                              uid=1_14 InlineTextBox "Rings and trinkets are tried in both slots (as long as a Unique-Equipped constraint is not violated)."
+                        uid=8_2645 listitem level="1"
+                          uid=8_2646 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2647 paragraph
+                            uid=8_2648 StaticText "Dual wield classes try weapons in both hands."
+                              uid=1_14 InlineTextBox "Dual wield classes try weapons in both hands."
+                        uid=8_2649 listitem level="1"
+                          uid=8_2650 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2651 paragraph
+                            uid=8_2652 StaticText "Simulation time is slower when there are more potential upgrades."
+                              uid=1_14 InlineTextBox "Simulation time is slower when there are more potential upgrades."
+                        uid=8_2653 listitem level="1"
+                          uid=8_2654 ListMarker "• "
+                            uid=1_14 ignored
+                          uid=8_2655 paragraph
+                            uid=8_2656 StaticText "Droptimizer always uses Smart Sim"
+                              uid=1_14 InlineTextBox "Droptimizer always uses Smart Sim"
+                    uid=8_2657 separator orientation="horizontal"
+                    uid=8_2658 ignored
+                      uid=8_2659 ignored
+                        uid=8_2660 LabelText
+                          uid=8_2661 ignored
+                            uid=8_2662 ignored
+                              uid=8_2663 ignored
+                                uid=8_2664 generic
+                                  uid=8_2665 image
+                                uid=8_2666 generic
+                                  uid=8_2667 StaticText "Simulation Options:"
+                                    uid=1_14 InlineTextBox "Simulation Options:"
+                            uid=8_2668 ignored
+                            uid=8_2669 generic
+                              uid=8_2670 image
+                        uid=8_2671 ignored
+                          uid=8_2672 ignored
+                            uid=8_2673 ignored
+                              uid=8_2674 ignored
+                                uid=8_2675 ignored
+                                  uid=8_2676 LabelText
+                                    uid=8_2677 StaticText "Fight Style"
+                                      uid=1_14 InlineTextBox "Fight Style"
+                                  uid=8_2678 generic
+                                    uid=8_2679 combobox expandable haspopup="menu" value="Patchwerk"
+                                      uid=8_2680 MenuListPopup
+                                        uid=8_2681 option "Patchwerk" selectable selected value="Patchwerk"
+                                        uid=8_2682 option "Dungeon Slice" selectable value="Dungeon Slice"
+                                        uid=8_2683 option "Target Dummy" selectable value="Target Dummy"
+                                        uid=8_2684 option "Execute Patchwerk" selectable value="Execute Patchwerk"
+                                        uid=8_2685 option "Hectic Add Cleave" selectable value="Hectic Add Cleave"
+                                        uid=8_2686 option "Light Movement" selectable value="Light Movement"
+                                        uid=8_2687 option "Heavy Movement" selectable value="Heavy Movement"
+                                        uid=8_2688 option "Casting Patchwerk" selectable value="Casting Patchwerk"
+                                        uid=8_2689 option "Cleave Add" selectable value="Cleave Add"
+                                    uid=8_2690 generic
+                                  uid=8_2691 paragraph
+                                    uid=8_2692 StaticText "No movement, single target"
+                                      uid=1_14 InlineTextBox "No movement, single target"
+                              uid=8_2693 ignored
+                                uid=8_2694 ignored
+                                  uid=8_2695 LabelText
+                                    uid=8_2696 StaticText "Number of Bosses"
+                                      uid=1_14 InlineTextBox "Number of Bosses"
+                                  uid=8_2697 generic
+                                    uid=8_2698 combobox expandable haspopup="menu" value="1 Boss"
+                                      uid=8_2699 MenuListPopup
+                                        uid=8_2700 option "1 Boss" selectable selected value="1 Boss"
+                                        uid=8_2701 option "2 Bosses" selectable value="2 Bosses"
+                                        uid=8_2702 option "3 Bosses" selectable value="3 Bosses"
+                                        uid=8_2703 option "4 Bosses" selectable value="4 Bosses"
+                                        uid=8_2704 option "5 Bosses" selectable value="5 Bosses"
+                                        uid=8_2705 option "6 Bosses" selectable value="6 Bosses"
+                                        uid=8_2706 option "7 Bosses" selectable value="7 Bosses"
+                                        uid=8_2707 option "8 Bosses" selectable value="8 Bosses"
+                                        uid=8_2708 option "9 Bosses" selectable value="9 Bosses"
+                                        uid=8_2709 option "10 Bosses" selectable value="10 Bosses"
+                                    uid=8_2710 generic
+                                  uid=8_2711 paragraph
+                                    uid=8_2712 StaticText "Default and best for single target sims"
+                                      uid=1_14 InlineTextBox "Default and best for single target sims"
+                              uid=8_2713 ignored
+                                uid=8_2714 ignored
+                                  uid=8_2715 LabelText
+                                    uid=8_2716 StaticText "Fight Length"
+                                      uid=1_14 InlineTextBox "Fight Length"
+                                  uid=8_2717 generic
+                                    uid=8_2718 combobox expandable haspopup="menu" value="5 minutes"
+                                      uid=8_2719 MenuListPopup
+                                        uid=8_2720 option "20 seconds" selectable value="20 seconds"
+                                        uid=8_2721 option "40 seconds" selectable value="40 seconds"
+                                        uid=8_2722 option "1 minute" selectable value="1 minute"
+                                        uid=8_2723 option "1 minute, 30 seconds" selectable value="1 minute, 30 seconds"
+                                        uid=8_2724 option "2 minutes" selectable value="2 minutes"
+                                        uid=8_2725 option "3 minutes" selectable value="3 minutes"
+                                        uid=8_2726 option "4 minutes" selectable value="4 minutes"
+                                        uid=8_2727 option "5 minutes" selectable selected value="5 minutes"
+                                        uid=8_2728 option "6 minutes" selectable value="6 minutes"
+                                        uid=8_2729 option "7 minutes" selectable value="7 minutes"
+                                        uid=8_2730 option "8 minutes" selectable value="8 minutes"
+                                        uid=8_2731 option "9 minutes" selectable value="9 minutes"
+                                        uid=8_2732 option "10 minutes" selectable value="10 minutes"
+                                    uid=8_2733 generic
+                                  uid=8_2734 paragraph
+                                    uid=8_2735 StaticText "By default, fight length will vary up to 20% for each iteration"
+                                      uid=1_14 InlineTextBox "By default, fight length will vary up to 20% for "
+                                      uid=1_14 InlineTextBox "each iteration"
+                              uid=8_2736 ignored
+                                uid=8_2737 ignored
+                                  uid=8_2738 LabelText
+                                    uid=8_2739 StaticText "SimC Version"
+                                      uid=1_14 InlineTextBox "SimC Version"
+                                  uid=8_2740 generic
+                                    uid=8_2741 combobox expandable haspopup="menu" value="Weekly"
+                                      uid=8_2742 MenuListPopup
+                                        uid=8_2743 option "Weekly" selectable selected value="Weekly"
+                                        uid=8_2744 option "Nightly" selectable value="Nightly"
+                                        uid=8_2745 option "Latest" selectable value="Latest"
+                                    uid=8_2746 generic
+                                  uid=8_2747 paragraph
+                                    uid=8_2748 StaticText "Built from source every Monday"
+                                      uid=1_14 InlineTextBox "Built from source every Monday"
+                            uid=8_2749 heading "TRINKETS" level="5"
+                              uid=8_2750 StaticText "TRINKETS"
+                                uid=1_14 InlineTextBox "TRINKETS"
+                            uid=8_2751 ignored
+                              uid=8_2752 ignored
+                                uid=8_2753 generic
+                                  uid=8_2754 link url="https://www.wowhead.com/item=264507?"
+                              uid=8_2755 heading "CRUCIBLE OF ERRATIC ENERGIES" level="6"
+                                uid=8_2756 StaticText "CRUCIBLE OF ERRATIC ENERGIES"
+                                  uid=1_14 InlineTextBox "CRUCIBLE OF ERRATIC ENERGIES"
+                            uid=8_2757 ignored
+                              uid=8_2758 ignored
+                                uid=8_2759 ignored
+                                  uid=8_2760 LabelText
+                                    uid=8_2761 checkbox "[object Object]" checked
+                                    uid=8_2762 ignored
+                                      uid=8_2763 image
+                                    uid=8_2764 ignored
+                                      uid=8_2765 generic "[object Object]"
+                                        uid=8_2766 ignored
+                                          uid=8_2767 ignored
+                                            uid=8_2768 ignored
+                                          uid=8_2769 ignored
+                                        uid=8_2770 paragraph
+                                          uid=8_2771 StaticText "Violence"
+                                            uid=1_14 InlineTextBox "Violence"
+                              uid=8_2772 ignored
+                                uid=8_2773 ignored
+                                  uid=8_2774 LabelText
+                                    uid=8_2775 checkbox "[object Object]" checked
+                                    uid=8_2776 ignored
+                                      uid=8_2777 image
+                                    uid=8_2778 ignored
+                                      uid=8_2779 generic "[object Object]"
+                                        uid=8_2780 ignored
+                                          uid=8_2781 ignored
+                                            uid=8_2782 ignored
+                                          uid=8_2783 ignored
+                                        uid=8_2784 paragraph
+                                          uid=8_2785 StaticText "Sustenance"
+                                            uid=1_14 InlineTextBox "Sustenance"
+                              uid=8_2786 ignored
+                                uid=8_2787 ignored
+                                  uid=8_2788 LabelText
+                                    uid=8_2789 checkbox "[object Object]" checked
+                                    uid=8_2790 ignored
+                                      uid=8_2791 image
+                                    uid=8_2792 ignored
+                                      uid=8_2793 generic "[object Object]"
+                                        uid=8_2794 ignored
+                                          uid=8_2795 ignored
+                                            uid=8_2796 ignored
+                                          uid=8_2797 ignored
+                                        uid=8_2798 paragraph
+                                          uid=8_2799 StaticText "Predation"
+                                            uid=1_14 InlineTextBox "Predation"
+                            uid=8_2800 paragraph
+                              uid=8_2801 StaticText "You can use nearly any"
+                                uid=1_14 InlineTextBox "You can use nearly any"
+                              uid=8_2802 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=8_2803 link "SimC expansion-specific options" url="https://github.com/simulationcraft/simc/wiki/ExpansionOptions"
+                                uid=8_2804 StaticText "SimC expansion-specific options"
+                                  uid=1_14 InlineTextBox "SimC expansion-specific options"
+                              uid=8_2805 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=8_2806 StaticText "in the Custom APL and SimC Options"
+                                uid=1_14 InlineTextBox "in the Custom APL and SimC Options"
+                            uid=8_2807 ignored
+                              uid=8_2808 heading "RAID BUFF PRESETS" level="4"
+                                uid=8_2809 StaticText "RAID BUFF PRESETS"
+                                  uid=1_14 InlineTextBox "RAID BUFF PRESETS"
+                              uid=8_2810 generic
+                                uid=8_2811 button "OPTIMAL RAID BUFFS"
+                                  uid=8_2812 StaticText "OPTIMAL RAID BUFFS"
+                                    uid=1_14 InlineTextBox "OPTIMAL RAID BUFFS"
+                                uid=8_2813 button "NO BUFFS"
+                                  uid=8_2814 StaticText "NO BUFFS"
+                                    uid=1_14 InlineTextBox "NO BUFFS"
+                              uid=8_2815 heading "CONSUMABLES" level="5"
+                                uid=8_2816 StaticText "CONSUMABLES"
+                                  uid=1_14 InlineTextBox "CONSUMABLES"
+                              uid=8_2817 paragraph
+                                uid=8_2818 StaticText ""SimC Default" uses the default consumables defined in the class APL/module. To verify, you can run a Quick Sim and check buffs to see what was used."
+                                  uid=1_14 InlineTextBox ""SimC Default" uses the default consumables defined in the class APL/module. To verify, you can run a Quick Sim and check buffs to see what was used."
+                              uid=8_2819 ignored
+                                uid=8_2820 ignored
+                                  uid=8_2821 ignored
+                                    uid=8_2822 LabelText
+                                      uid=8_2823 StaticText "Potion"
+                                        uid=1_14 InlineTextBox "Potion"
+                                    uid=8_2824 generic
+                                      uid=8_2825 generic
+                                      uid=8_2826 log live="polite" relevant="additions text"
+                                      uid=8_2827 generic
+                                        uid=8_2828 generic
+                                          uid=8_2829 ignored
+                                            uid=8_2830 ignored
+                                              uid=8_2831 paragraph
+                                                uid=8_2832 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=8_2833 ignored
+                                            uid=8_2834 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=8_2835 generic
+                                        uid=8_2836 ignored
+                                          uid=8_2837 ignored
+                                uid=8_2838 ignored
+                                  uid=8_2839 ignored
+                                    uid=8_2840 LabelText
+                                      uid=8_2841 StaticText "Food"
+                                        uid=1_14 InlineTextBox "Food"
+                                    uid=8_2842 generic
+                                      uid=8_2843 generic
+                                      uid=8_2844 log live="polite" relevant="additions text"
+                                      uid=8_2845 generic
+                                        uid=8_2846 generic
+                                          uid=8_2847 ignored
+                                            uid=8_2848 ignored
+                                              uid=8_2849 paragraph
+                                                uid=8_2850 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=8_2851 ignored
+                                            uid=8_2852 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=8_2853 generic
+                                        uid=8_2854 ignored
+                                          uid=8_2855 ignored
+                                uid=8_2856 ignored
+                                  uid=8_2857 ignored
+                                    uid=8_2858 LabelText
+                                      uid=8_2859 StaticText "Flask"
+                                        uid=1_14 InlineTextBox "Flask"
+                                    uid=8_2860 generic
+                                      uid=8_2861 generic
+                                      uid=8_2862 log live="polite" relevant="additions text"
+                                      uid=8_2863 generic
+                                        uid=8_2864 generic
+                                          uid=8_2865 ignored
+                                            uid=8_2866 ignored
+                                              uid=8_2867 paragraph
+                                                uid=8_2868 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=8_2869 ignored
+                                            uid=8_2870 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=8_2871 generic
+                                        uid=8_2872 ignored
+                                          uid=8_2873 ignored
+                                uid=8_2874 ignored
+                                  uid=8_2875 ignored
+                                    uid=8_2876 LabelText
+                                      uid=8_2877 StaticText "Augmentation"
+                                        uid=1_14 InlineTextBox "Augmentation"
+                                    uid=8_2878 generic
+                                      uid=8_2879 generic
+                                      uid=8_2880 log live="polite" relevant="additions text"
+                                      uid=8_2881 generic
+                                        uid=8_2882 generic
+                                          uid=8_2883 ignored
+                                            uid=8_2884 ignored
+                                              uid=8_2885 paragraph
+                                                uid=8_2886 StaticText "SimC Default"
+                                                  uid=1_14 InlineTextBox "SimC Default"
+                                          uid=8_2887 ignored
+                                            uid=8_2888 combobox autocomplete="list" expandable haspopup="menu"
+                                              uid=8_2889 generic
+                                        uid=8_2890 ignored
+                                          uid=8_2891 ignored
+                                uid=8_2892 ignored
+                                  uid=8_2893 ignored
+                                    uid=8_2894 ignored
+                                      uid=8_2895 ignored
+                                        uid=8_2896 ignored
+                                          uid=8_2897 ignored
+                                            uid=8_2898 generic
+                                          uid=8_2899 generic "[object Object]"
+                                            uid=8_2900 LabelText
+                                              uid=8_2901 StaticText "Weapon Rune"
+                                                uid=1_14 InlineTextBox "Weapon Rune"
+                                        uid=8_2902 ignored
+                                          uid=8_2903 LabelText
+                                          uid=8_2904 generic
+                                            uid=8_2905 combobox expandable haspopup="menu" value="SimC Default"
+                                              uid=8_2906 MenuListPopup
+                                                uid=8_2907 option "SimC Default" selectable selected value="SimC Default"
+                                                uid=8_2908 option "[Main Hand] Refulgent Whetstone (AP)" selectable value="[Main Hand] Refulgent Whetstone (AP)"
+                                                uid=8_2909 option "[Main Hand] Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Main Hand] Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=8_2910 option "[Main Hand] Oil of Dawn (Holy Damage)" selectable value="[Main Hand] Oil of Dawn (Holy Damage)"
+                                                uid=8_2911 option "[Main Hand] Smuggler's Enchanted Edge (Damage)" selectable value="[Main Hand] Smuggler's Enchanted Edge (Damage)"
+                                                uid=8_2912 option "[Dual Wield] Refulgent Whetstone (AP)" selectable value="[Dual Wield] Refulgent Whetstone (AP)"
+                                                uid=8_2913 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=8_2914 option "[Dual Wield] Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Oil of Dawn (Holy Damage)"
+                                                uid=8_2915 option "[Dual Wield] Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Smuggler's Enchanted Edge (Damage)"
+                                                uid=8_2916 option "[Dual Wield] Refulgent Whetstone (AP) / Thalassian Phoenix Oil (Crit/Haste)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Thalassian Phoenix Oil (Crit/Haste)"
+                                                uid=8_2917 option "[Dual Wield] Refulgent Whetstone (AP) / Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Oil of Dawn (Holy Damage)"
+                                                uid=8_2918 option "[Dual Wield] Refulgent Whetstone (AP) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Refulgent Whetstone (AP) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=8_2919 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Oil of Dawn (Holy Damage)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Oil of Dawn (Holy Damage)"
+                                                uid=8_2920 option "[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Thalassian Phoenix Oil (Crit/Haste) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=8_2921 option "[Dual Wield] Oil of Dawn (Holy Damage) / Smuggler's Enchanted Edge (Damage)" selectable value="[Dual Wield] Oil of Dawn (Holy Damage) / Smuggler's Enchanted Edge (Damage)"
+                                                uid=8_2922 option "[Main Hand] Laced Zoomshots (Haste - Hunter)" selectable value="[Main Hand] Laced Zoomshots (Haste - Hunter)"
+                                                uid=8_2923 option "[Main Hand] Weighted Boomshots (Damage - Hunter)" selectable value="[Main Hand] Weighted Boomshots (Damage - Hunter)"
+                                                uid=8_2924 option "TWW - [Main Hand] Ironclaw Whetstone (AP)" selectable value="TWW - [Main Hand] Ironclaw Whetstone (AP)"
+                                                uid=8_2925 option "TWW - [Main Hand] Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Main Hand] Oil of Deep Toxins (Direct Damage)"
+                                                uid=8_2926 option "TWW - [Main Hand] Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Main Hand] Algari Mana Oil (Crit/Haste)"
+                                                uid=8_2927 option "TWW - [Dual Wield] Ironclaw Whetstone (AP)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP)"
+                                                uid=8_2928 option "TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage)"
+                                                uid=8_2929 option "TWW - [Dual Wield] Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Algari Mana Oil (Crit/Haste)"
+                                                uid=8_2930 option "TWW - [Dual Wield] Ironclaw Whetstone (AP) / Oil of Deep Toxins (Direct Damage)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP) / Oil of Deep Toxins (Direct Damage)"
+                                                uid=8_2931 option "TWW - [Dual Wield] Ironclaw Whetstone (AP) / Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Ironclaw Whetstone (AP) / Algari Mana Oil (Crit/Haste)"
+                                                uid=8_2932 option "TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage) / Algari Mana Oil (Crit/Haste)" selectable value="TWW - [Dual Wield] Oil of Deep Toxins (Direct Damage) / Algari Mana Oil (Crit/Haste)"
+                                                uid=8_2933 option "Dragonflight - AP (Main Hand)" selectable value="Dragonflight - AP (Main Hand)"
+                                                uid=8_2934 option "Dragonflight - AP (Both Hands)" selectable value="Dragonflight - AP (Both Hands)"
+                                                uid=8_2935 option "Dragonflight - AP + Buzzing (Crit)" selectable value="Dragonflight - AP + Buzzing (Crit)"
+                                                uid=8_2936 option "Dragonflight - AP + Howling (Haste)" selectable value="Dragonflight - AP + Howling (Haste)"
+                                                uid=8_2937 option "Dragonflight - AP + Hissing (Mastery)" selectable value="Dragonflight - AP + Hissing (Mastery)"
+                                                uid=8_2938 option "Dragonflight - Howling (Haste) + Hissing (Mastery)" selectable value="Dragonflight - Howling (Haste) + Hissing (Mastery)"
+                                                uid=8_2939 option "Dragonflight - Buzzing (Crit) + Hissing (Mastery)" selectable value="Dragonflight - Buzzing (Crit) + Hissing (Mastery)"
+                                                uid=8_2940 option "Dragonflight - Buzzing (Crit) + Howling (Haste)" selectable value="Dragonflight - Buzzing (Crit) + Howling (Haste)"
+                                                uid=8_2941 option "Dragonflight - Hissing (Mastery) (Both Hands)" selectable value="Dragonflight - Hissing (Mastery) (Both Hands)"
+                                                uid=8_2942 option "Dragonflight - Howling (Haste) (Both Hands)" selectable value="Dragonflight - Howling (Haste) (Both Hands)"
+                                                uid=8_2943 option "Dragonflight - Buzzing (Crit) (Both Hands)" selectable value="Dragonflight - Buzzing (Crit) (Both Hands)"
+                                                uid=8_2944 option "Dragonflight - Hissing (Mastery) (Main Hand)" selectable value="Dragonflight - Hissing (Mastery) (Main Hand)"
+                                                uid=8_2945 option "Dragonflight - Buzzing (Crit) (Main Hand)" selectable value="Dragonflight - Buzzing (Crit) (Main Hand)"
+                                                uid=8_2946 option "Dragonflight - Howling (Haste) (Main Hand)" selectable value="Dragonflight - Howling (Haste) (Main Hand)"
+                                                uid=8_2947 option "Dragonflight - Completely Safe Rockets (Hunter)" selectable value="Dragonflight - Completely Safe Rockets (Hunter)"
+                                                uid=8_2948 option "Dragonflight - Endless Stack of Needles (Hunter)" selectable value="Dragonflight - Endless Stack of Needles (Hunter)"
+                                                uid=8_2949 option "Disabled" selectable value="Disabled"
+                                            uid=8_2950 generic
+                              uid=8_2951 heading "RAID BUFFS" level="5"
+                                uid=8_2952 StaticText "RAID BUFFS"
+                                  uid=1_14 InlineTextBox "RAID BUFFS"
+                              uid=8_2953 paragraph
+                                uid=8_2954 StaticText "If your character provides one of these buffs, it may be used even if disabled here"
+                                  uid=1_14 InlineTextBox "If your character provides one of these buffs, it may be used even if disabled here"
+                              uid=8_2955 ignored
+                                uid=8_2956 ignored
+                                  uid=8_2957 ignored
+                                    uid=8_2958 ignored
+                                      uid=8_2959 LabelText
+                                        uid=8_2960 checkbox "Bloodlust" checked
+                                        uid=8_2961 ignored
+                                          uid=8_2962 image
+                                        uid=8_2963 StaticText "Bloodlust"
+                                          uid=1_14 InlineTextBox "Bloodlust"
+                                uid=8_2964 ignored
+                                  uid=8_2965 ignored
+                                    uid=8_2966 ignored
+                                      uid=8_2967 LabelText
+                                        uid=8_2968 checkbox "Arcane Intellect" checked
+                                        uid=8_2969 ignored
+                                          uid=8_2970 image
+                                        uid=8_2971 StaticText "Arcane Intellect"
+                                          uid=1_14 InlineTextBox "Arcane Intellect"
+                                uid=8_2972 ignored
+                                  uid=8_2973 ignored
+                                    uid=8_2974 ignored
+                                      uid=8_2975 LabelText
+                                        uid=8_2976 checkbox "Power Word: Fortitude" checked
+                                        uid=8_2977 ignored
+                                          uid=8_2978 image
+                                        uid=8_2979 StaticText "Power Word: Fortitude"
+                                          uid=1_14 InlineTextBox "Power Word: Fortitude"
+                                uid=8_2980 ignored
+                                  uid=8_2981 ignored
+                                    uid=8_2982 ignored
+                                      uid=8_2983 LabelText
+                                        uid=8_2984 checkbox "Mark of the Wild"
+                                        uid=8_2985 ignored
+                                          uid=8_2986 ignored
+                                            uid=8_2987 ignored
+                                        uid=8_2988 StaticText "Mark of the Wild"
+                                          uid=1_14 InlineTextBox "Mark of the Wild"
+                                uid=8_2989 ignored
+                                  uid=8_2990 ignored
+                                    uid=8_2991 ignored
+                                      uid=8_2992 LabelText
+                                        uid=8_2993 checkbox "Battle Shout"
+                                        uid=8_2994 ignored
+                                          uid=8_2995 ignored
+                                            uid=8_2996 ignored
+                                        uid=8_2997 StaticText "Battle Shout"
+                                          uid=1_14 InlineTextBox "Battle Shout"
+                                uid=8_2998 ignored
+                                  uid=8_2999 ignored
+                                    uid=8_3000 ignored
+                                      uid=8_3001 LabelText
+                                        uid=8_3002 checkbox "Mystic Touch (5% Physical Damage)"
+                                        uid=8_3003 ignored
+                                          uid=8_3004 ignored
+                                            uid=8_3005 ignored
+                                        uid=8_3006 StaticText "Mystic Touch (5% Physical Damage)"
+                                          uid=1_14 InlineTextBox "Mystic Touch (5% Physical "
+                                          uid=1_14 InlineTextBox "Damage)"
+                                uid=8_3007 ignored
+                                  uid=8_3008 ignored
+                                    uid=8_3009 ignored
+                                      uid=8_3010 LabelText
+                                        uid=8_3011 checkbox "Chaos Brand (3% Magic Damage)"
+                                        uid=8_3012 ignored
+                                          uid=8_3013 ignored
+                                            uid=8_3014 ignored
+                                        uid=8_3015 StaticText "Chaos Brand (3% Magic Damage)"
+                                          uid=1_14 InlineTextBox "Chaos Brand (3% Magic Damage)"
+                                uid=8_3016 ignored
+                                  uid=8_3017 ignored
+                                    uid=8_3018 ignored
+                                      uid=8_3019 LabelText
+                                        uid=8_3020 checkbox "Skyfury"
+                                        uid=8_3021 ignored
+                                          uid=8_3022 ignored
+                                            uid=8_3023 ignored
+                                        uid=8_3024 StaticText "Skyfury"
+                                          uid=1_14 InlineTextBox "Skyfury"
+                                uid=8_3025 ignored
+                                  uid=8_3026 ignored
+                                    uid=8_3027 ignored
+                                      uid=8_3028 LabelText
+                                        uid=8_3029 checkbox "Hunter's Mark"
+                                        uid=8_3030 ignored
+                                          uid=8_3031 ignored
+                                            uid=8_3032 ignored
+                                        uid=8_3033 StaticText "Hunter's Mark"
+                                          uid=1_14 InlineTextBox "Hunter's Mark"
+                                uid=8_3034 ignored
+                                  uid=8_3035 ignored
+                                    uid=8_3036 ignored
+                                      uid=8_3037 LabelText
+                                        uid=8_3038 checkbox "Power Infusion (Beta)"
+                                        uid=8_3039 ignored
+                                          uid=8_3040 ignored
+                                            uid=8_3041 ignored
+                                        uid=8_3042 StaticText "Power Infusion (Beta)"
+                                          uid=1_14 InlineTextBox "Power Infusion (Beta)"
+                                    uid=8_3043 generic "May not work for all specs!"
+                                      uid=8_3044 button "?"
+                                        uid=8_3045 ignored
+                                          uid=8_3046 paragraph
+                                            uid=8_3047 StaticText "?"
+                                              uid=1_14 InlineTextBox "?"
+                                uid=8_3048 ignored
+                                  uid=8_3049 ignored
+                                    uid=8_3050 ignored
+                                      uid=8_3051 LabelText
+                                        uid=8_3052 checkbox "Bleeding"
+                                        uid=8_3053 ignored
+                                          uid=8_3054 ignored
+                                            uid=8_3055 ignored
+                                        uid=8_3056 StaticText "Bleeding"
+                                          uid=1_14 InlineTextBox "Bleeding"
+                                    uid=8_3057 generic "Affects Bloodseeker talent for Survival Hunters"
+                                      uid=8_3058 button "?"
+                                        uid=8_3059 ignored
+                                          uid=8_3060 paragraph
+                                            uid=8_3061 StaticText "?"
+                                              uid=1_14 InlineTextBox "?"
+                              uid=8_3062 heading "MISC OPTIONS" level="5"
+                                uid=8_3063 StaticText "MISC OPTIONS"
+                                  uid=1_14 InlineTextBox "MISC OPTIONS"
+                              uid=8_3064 ignored
+                                uid=8_3065 ignored
+                                  uid=8_3066 ignored
+                                    uid=8_3067 ignored
+                                      uid=8_3068 LabelText
+                                        uid=8_3069 checkbox "Detailed SimC Report"
+                                        uid=8_3070 ignored
+                                          uid=8_3071 ignored
+                                            uid=8_3072 ignored
+                                        uid=8_3073 StaticText "Detailed SimC Report"
+                                          uid=1_14 InlineTextBox "Detailed SimC Report"
+                              uid=8_3074 generic
+                                uid=8_3075 button "SHOW FEWER OPTIONS"
+                                  uid=8_3076 StaticText "SHOW FEWER OPTIONS"
+                                    uid=1_14 InlineTextBox "SHOW FEWER OPTIONS"
+                            uid=8_3077 ignored
+                              uid=8_3078 link "Restore Default Options"
+                                uid=8_3079 StaticText "Restore Default Options"
+                                  uid=1_14 InlineTextBox "Restore Default Options"
+                    uid=8_3080 separator orientation="horizontal"
+                    uid=8_3081 ignored
+                      uid=8_3082 generic
+                        uid=8_3083 LabelText
+                          uid=8_3084 ignored
+                            uid=8_3085 ignored
+                              uid=8_3086 ignored
+                                uid=8_3087 generic
+                                  uid=8_3088 image
+                                uid=8_3089 generic
+                                  uid=8_3090 StaticText "Custom APL and SimC Options:"
+                                    uid=1_14 InlineTextBox "Custom APL and SimC Options:"
+                                uid=8_3091 generic
+                                  uid=8_3092 StaticText "SimC Defaults"
+                                    uid=1_14 InlineTextBox "SimC Defaults"
+                            uid=8_3093 ignored
+                            uid=8_3094 generic
+                              uid=8_3095 image
+                    uid=8_3096 separator orientation="horizontal"
+                    uid=8_3097 generic
+                      uid=8_3098 LabelText
+                        uid=8_3099 ignored
+                          uid=8_3100 ignored
+                            uid=8_3101 ignored
+                              uid=8_3102 generic
+                                uid=8_3103 image
+                              uid=8_3104 generic
+                                uid=8_3105 StaticText "Report and Notification Options"
+                                  uid=1_14 InlineTextBox "Report and Notification Options"
+                          uid=8_3106 ignored
+                          uid=8_3107 generic
+                            uid=8_3108 image
+                    uid=8_3109 separator orientation="horizontal"
+                    uid=8_3110 ignored
+                      uid=8_3111 generic
+                        uid=8_3112 LabelText
+                          uid=8_3113 ignored
+                            uid=8_3114 ignored
+                              uid=8_3115 ignored
+                                uid=8_3116 generic
+                                  uid=8_3117 image
+                                uid=8_3118 generic
+                                  uid=8_3119 StaticText "Show Simc Input"
+                                    uid=1_14 InlineTextBox "Show Simc Input"
+                            uid=8_3120 ignored
+                            uid=8_3121 generic
+                              uid=8_3122 image
+                    uid=8_3123 generic
+                      uid=8_3124 ignored
+                        uid=8_3125 generic
+                          uid=8_3126 button "RUN DROPTIMIZER"
+                            uid=8_3127 ignored
+                              uid=8_3128 generic
+                                uid=8_3129 StaticText "RUN DROPTIMIZER"
+                                  uid=1_14 InlineTextBox "RUN DROPTIMIZER"
+                      uid=8_3130 LabelText
+                        uid=8_3131 checkbox "High Precision (2x more precise, 4x slower)"
+                        uid=8_3132 ignored
+                          uid=8_3133 ignored
+                            uid=8_3134 ignored
+                        uid=8_3135 StaticText "High Precision (2x more precise, 4x slower)"
+                          uid=1_14 InlineTextBox "High Precision (2x more precise, 4x slower)"
+                    uid=8_3136 generic
+                      uid=8_3137 StaticText "Results are only as good as the SimulationCraft model for your spec! Check other trusted sources to figure out if your spec is well supported and/or "
+                        uid=1_14 InlineTextBox "Results are only as good as the SimulationCraft model for your spec! Check other trusted sources to figure out if your spec is well supported "
+                        uid=1_14 InlineTextBox "and/or "
+                      uid=8_3138 link "dive into SimulationCraft" url="https://github.com/simulationcraft/simc#how-can-i-contribute"
+                        uid=8_3139 StaticText "dive into SimulationCraft"
+                          uid=1_14 InlineTextBox "dive into SimulationCraft"
+                      uid=8_3140 StaticText " "
+                        uid=1_14 InlineTextBox " "
+                      uid=8_3141 StaticText "itself and get involved!"
+                        uid=1_14 InlineTextBox "itself and get involved!"
+          uid=1_621 generic
+            uid=1_622 contentinfo
+              uid=1_623 ignored
+                uid=1_624 ignored
+                  uid=1_625 ignored
+                    uid=1_626 ignored
+                      uid=1_627 heading "ETC" level="4"
+                        uid=1_628 StaticText "ETC"
+                          uid=1_14 InlineTextBox "ETC"
+                      uid=1_629 ignored
+                        uid=1_630 paragraph
+                          uid=1_631 link "Developers" url="https://www.raidbots.com/developers"
+                            uid=1_632 StaticText "Developers"
+                              uid=1_14 InlineTextBox "Developers"
+                        uid=1_633 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_634 paragraph
+                          uid=1_635 link "Blog Archive" url="https://medium.com/raidbots"
+                            uid=1_636 StaticText "Blog Archive"
+                              uid=1_14 InlineTextBox "Blog Archive"
+                        uid=1_637 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_638 paragraph
+                          uid=1_639 link "Terms of Use" url="https://www.raidbots.com/tou"
+                            uid=1_640 StaticText "Terms of Use"
+                              uid=1_14 InlineTextBox "Terms of Use"
+                        uid=1_641 paragraph
+                          uid=1_642 link "Privacy Policy" url="https://www.raidbots.com/privacy"
+                            uid=1_643 StaticText "Privacy Policy"
+                              uid=1_14 InlineTextBox "Privacy Policy"
+                    uid=1_644 ignored
+                      uid=1_645 heading "CONTACT" level="4"
+                        uid=1_646 StaticText "CONTACT"
+                          uid=1_14 InlineTextBox "CONTACT"
+                      uid=1_647 ignored
+                        uid=1_648 paragraph
+                          uid=1_649 link "Support / Help" url="https://support.raidbots.com/"
+                            uid=1_650 StaticText "Support / Help"
+                              uid=1_14 InlineTextBox "Support / Help"
+                        uid=1_651 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_652 paragraph
+                          uid=1_653 link "Raidbots Discord" url="https://discord.gg/86EF64Q"
+                            uid=1_654 StaticText "Raidbots Discord"
+                              uid=1_14 InlineTextBox "Raidbots Discord"
+                        uid=1_655 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_656 paragraph
+                          uid=1_657 StaticText "Made by Seriallos"
+                            uid=1_14 InlineTextBox "Made by Seriallos"
+          uid=1_658 generic
+            uid=1_659 generic
+              uid=1_660 generic
+                uid=1_661 heading "REPORTS" level="3"
+                  uid=1_662 StaticText "REPORTS"
+                    uid=1_14 InlineTextBox "REPORTS"
+                uid=1_663 paragraph
+                  uid=1_664 StaticText "Create an account to save reports"
+                    uid=1_14 InlineTextBox "Create an account to save reports"
+          uid=1_665 ignored
+            uid=1_666 ignored
+          uid=1_667 ignored
+          uid=1_668 ignored
+            uid=1_669 ignored
+          uid=1_670 ignored

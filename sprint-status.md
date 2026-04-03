@@ -196,14 +196,14 @@ Last updated: 2026-04-02
 
 | #    | Story                                                                                 | Status |
 | ---- | ------------------------------------------------------------------------------------- | ------ |
-| 12.1 | `scripts/build-loot-db.ts` scrapes Wowhead → loot table DB (instance → boss → items) | ⬜     |
-| 12.2 | Loot DB: raid difficulty → ilvl mappings + boss tier positions                        | ⬜     |
-| 12.3 | Loot DB: M+ dungeon → items + keystone level → ilvl table                             | ⬜     |
-| 12.4 | Loot DB: world boss → items (fixed ilvl)                                              | ⬜     |
-| 12.5 | Loot DB: catalyst mappings (non-tier → tier conversions)                              | ⬜     |
-| 12.6 | CI regenerates loot DB each season (`pnpm build:loot-db`)                             | ⬜     |
+| 12.1 | `scripts/build-loot-db.ts` scrapes Wowhead → loot table DB (instance → boss → items) | ✅     |
+| 12.2 | Loot DB: raid difficulty → ilvl mappings + boss tier positions                        | ✅     |
+| 12.3 | Loot DB: M+ dungeon → items + keystone level → ilvl table                             | ✅     |
+| 12.4 | Loot DB: world boss → items (fixed ilvl)                                              | ✅     |
+| 12.5 | Loot DB: catalyst mappings (non-tier → tier conversions)                              | ✅     |
+| 12.6 | CI regenerates loot DB each season (`pnpm build:loot-db`)                             | ✅     |
 
-**Sub-epic status: ⬜ 0/6 stories done**
+**Sub-epic status: ✅ 6/6 stories done**
 
 ### 12B — Navigation & Source Selection
 
@@ -267,4 +267,4 @@ Last updated: 2026-04-02
 
 **Sub-epic status: ⬜ 0/11 stories done**
 
-**Epic status: ⬜ 0/40 stories done**
+**Epic status: ⬜ 6/40 stories done**

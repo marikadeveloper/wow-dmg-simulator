@@ -1,0 +1,2728 @@
+uid=1_0 RootWebArea "Droptimizer • Season 1 Raids • Heroic - Smarika - 74,496 DPS - Raidbots" url="https://www.raidbots.com/simbot/report/5oqwhJr2JBobDFNSm9Maiw"
+  uid=1_1 ignored
+    uid=1_2 ignored
+      uid=1_3 generic
+        uid=1_4 ignored
+          uid=1_5 generic
+            uid=1_6 ignored
+              uid=1_7 ignored
+                uid=5_0 link url="https://www.raidbots.com/"
+                  uid=5_1 ignored
+                    uid=5_2 image
+                uid=1_11 ignored
+                uid=1_12 link "LOGIN" url="https://www.raidbots.com/auth"
+                  uid=1_13 StaticText "LOGIN"
+                    uid=1_14 InlineTextBox "LOGIN"
+                uid=5_3 generic
+                  uid=5_4 link "ENGLISH"
+                    uid=5_5 StaticText "ENGLISH"
+                      uid=1_14 InlineTextBox "ENGLISH"
+                    uid=5_6 ignored
+                uid=1_19 link
+                  uid=1_20 button
+                    uid=1_21 ignored
+                      uid=1_22 image
+          uid=1_23 ignored
+            uid=1_24 ignored
+              uid=1_25 ignored
+                uid=1_26 generic
+                  uid=1_27 StaticText "Raidbots/SimC are up-to-date with March 31st hotfixes"
+                    uid=1_14 InlineTextBox "Raidbots/SimC are up-to-date with March 31st hotfixes"
+            uid=1_28 generic
+              uid=1_29 link "Sign up for Raidbots Premium!" url="https://www.raidbots.com/account"
+                uid=1_30 StaticText "Sign up for Raidbots Premium!"
+                  uid=1_14 InlineTextBox "Sign up for Raidbots Premium!"
+              uid=1_31 StaticText "Skip the line, run larger sims, and more!"
+                uid=1_14 InlineTextBox "Skip the line, run larger sims, and more!"
+            uid=1_32 generic
+              uid=1_33 generic
+                uid=5_7 ignored
+                  uid=5_8 generic
+                    uid=5_9 link "« Back to Droptimizer" url="https://www.raidbots.com/simbot/droptimizer"
+                      uid=5_10 StaticText "« Back to "
+                        uid=1_14 InlineTextBox "« Back to "
+                      uid=5_11 StaticText "Droptimizer"
+                        uid=1_14 InlineTextBox "Droptimizer"
+                  uid=5_12 ignored
+                    uid=5_13 ignored
+                      uid=5_14 ignored
+                        uid=5_15 ignored
+                          uid=5_16 ignored
+                            uid=5_17 image url="https://www.raidbots.com/wowapi/character/eu/nemesis/smarika/image/inset"
+                            uid=5_18 ignored
+                          uid=5_19 ignored
+                            uid=5_20 heading "SMARIKA" level="1"
+                              uid=5_21 StaticText "SMARIKA"
+                                uid=1_14 InlineTextBox "SMARIKA"
+                            uid=5_22 paragraph
+                              uid=5_23 StaticText "Blood Elf"
+                                uid=1_14 InlineTextBox "Blood Elf"
+                              uid=5_24 StaticText " "
+                                uid=1_14 InlineTextBox " "
+                              uid=5_25 StaticText "Frost Mage"
+                                uid=1_14 InlineTextBox "Frost Mage"
+                            uid=5_26 paragraph
+                              uid=5_27 StaticText "Droptimizer • Season 1 Raids • Heroic"
+                                uid=1_14 InlineTextBox "Droptimizer • Season 1 Raids • Heroic"
+                          uid=5_28 ignored
+                          uid=5_29 ignored
+                            uid=5_30 ignored
+                              uid=5_31 ignored
+                                uid=5_32 generic
+                                  uid=5_33 link "Smarika on WoW Armory" url="https://worldofwarcraft.com/en-gb/character/nemesis/smarika"
+                                uid=5_34 generic
+                                  uid=5_35 link "Smarika on Warcraft Logs" url="https://www.warcraftlogs.com/character/eu/nemesis/smarika"
+                                uid=5_36 generic
+                                  uid=5_37 link "Smarika on Raider.IO" url="https://raider.io/characters/eu/nemesis/smarika"
+                              uid=5_38 generic
+                                uid=5_39 button "RUN SIM AGAIN"
+                                  uid=5_40 StaticText "RUN SIM AGAIN"
+                                    uid=1_14 InlineTextBox "RUN SIM AGAIN"
+                        uid=5_41 separator orientation="horizontal"
+                        uid=5_42 ignored
+                          uid=5_43 ignored
+                            uid=5_44 ignored
+                              uid=5_45 ignored
+                                uid=5_46 ignored
+                                  uid=5_47 generic
+                                    uid=5_48 generic
+                                      uid=5_49 generic
+                                        uid=5_50 link url="https://www.wowhead.com/item=250060?bonus=12667:41:12801:13440:13338:13575:3157&ench=8017&ilvl=272&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_51 ignored
+                                uid=5_52 ignored
+                                  uid=5_53 generic
+                                    uid=5_54 generic
+                                      uid=5_55 generic
+                                        uid=5_56 link url="https://www.wowhead.com/item=259916?bonus=6652:13668:12790&gems=240967&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_57 ignored
+                                uid=5_58 ignored
+                                  uid=5_59 generic
+                                    uid=5_60 generic
+                                      uid=5_61 generic
+                                        uid=5_62 link url="https://www.wowhead.com/item=258578?bonus=13439:6652:13577:12699:12790&ench=7972&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_63 ignored
+                                uid=5_64 ignored
+                                  uid=5_65 generic
+                                    uid=5_66 generic
+                                      uid=5_67 generic
+                                        uid=5_68 link url="https://www.wowhead.com/item=260312?bonus=13439:40:13577:12699:12790&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_69 ignored
+                                uid=5_70 ignored
+                                  uid=5_71 generic
+                                    uid=5_72 generic
+                                      uid=5_73 generic
+                                        uid=5_74 link url="https://www.wowhead.com/item=250063?bonus=6652:13440:13336:13575:12798&ench=7987&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_75 ignored
+                                uid=5_76 ignored
+                                  uid=5_77 generic
+                                    uid=5_78 generic
+                                      uid=5_79 generic
+                                        uid=5_80 link url="https://www.wowhead.com/item=239648?bonus=12214:12497:12066:8960:12384:8791:12667&ilvl=259&spec=64&hero=40&crafted-stats=32:49&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707&crafting-quality=8"
+                                        uid=5_81 generic
+                                          uid=5_82 image "Crafting Quality 5" url="https://www.raidbots.com/images/crafting-quality-5.png"
+                              uid=5_83 ignored
+                                uid=5_84 ignored
+                                  uid=5_85 generic
+                                    uid=5_86 generic
+                                      uid=5_87 generic
+                                        uid=5_88 link url="https://www.wowhead.com/item=250061?bonus=6652:13439:12790:13337:13574:3148&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_89 ignored
+                                uid=5_90 ignored
+                                  uid=5_91 generic
+                                    uid=5_92 generic
+                                      uid=5_93 generic
+                                        uid=5_94 link url="https://www.wowhead.com/item=251102?bonus=12795:13440:6652:12667:13577:12699&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_95 ignored
+                                uid=5_96 ignored
+                                  uid=5_97 generic
+                                    uid=5_98 generic
+                                      uid=5_99 generic
+                                        uid=5_100 link url="https://www.wowhead.com/item=250059?bonus=6652:13440:13339:13575:12798&ench=7939&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_101 ignored
+                                uid=5_102 ignored
+                                  uid=5_103 generic
+                                    uid=5_104 generic
+                                      uid=5_105 generic
+                                        uid=5_106 link url="https://www.wowhead.com/item=249630?bonus=12793:6652:13577&ench=7992&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_107 ignored
+                                uid=5_108 ignored
+                                  uid=5_109 generic
+                                    uid=5_110 generic
+                                      uid=5_111 generic
+                                        uid=5_112 link url="https://www.wowhead.com/item=251217?bonus=12793:13440:42:13668:12699&ench=7969&gems=240898&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_113 ignored
+                                uid=5_114 ignored
+                                  uid=5_115 generic
+                                    uid=5_116 generic
+                                      uid=5_117 generic
+                                        uid=5_118 link url="https://www.wowhead.com/item=193708?bonus=12793:13440:6652:13668:12699&ench=7969&gems=240908&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_119 ignored
+                                uid=5_120 ignored
+                                  uid=5_121 generic
+                                    uid=5_122 generic
+                                      uid=5_123 generic
+                                        uid=5_124 link url="https://www.wowhead.com/item=264507?bonus=12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_125 ignored
+                                uid=5_126 ignored
+                                  uid=5_127 generic
+                                    uid=5_128 generic
+                                      uid=5_129 generic
+                                        uid=5_130 link url="https://www.wowhead.com/item=250144?bonus=13439:6652:12699:12786&ilvl=250&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_131 ignored
+                                uid=5_132 ignored
+                                  uid=5_133 generic
+                                    uid=5_134 generic
+                                      uid=5_135 generic
+                                        uid=5_136 link url="https://www.wowhead.com/item=193707?bonus=13440:6652:12701:12798&ench=8039&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                              uid=5_137 ignored
+                                uid=5_138 ignored
+                                  uid=5_139 generic
+                                    uid=5_140 image "Empty slot for off_hand" url="https://www.raidbots.com/images/paperdoll/UI-PaperDoll-Slot-SecondaryHand.png"
+                          uid=5_141 generic
+                            uid=5_142 StaticText "264"
+                              uid=1_14 InlineTextBox "264"
+                        uid=5_143 ignored
+                          uid=5_144 ignored
+                            uid=5_145 generic
+                              uid=5_146 image "Show Full Tree"
+                            uid=5_147 ignored
+                              uid=5_148 generic
+                                uid=5_149 generic "Spellslinger"
+                                  uid=5_150 generic
+                                    uid=5_151 image "Spellslinger" url="https://www.raidbots.com/static/images/TalentFrame/orig/elements/talents-heroclass-mage-spellslinger.png"
+                                    uid=5_152 ignored
+                              uid=5_153 ignored
+                                uid=5_154 ignored
+                                  uid=5_155 ignored
+                                    uid=5_156 generic
+                                      uid=5_157 generic
+                                        uid=5_158 generic
+                                          uid=5_159 generic
+                                            uid=5_160 link url="https://www.wowhead.com/spell=30455?def=85244&rank=1&spellModifier=137020"
+                                  uid=5_161 ignored
+                                    uid=5_162 generic
+                                      uid=5_163 generic
+                                        uid=5_164 generic
+                                          uid=5_165 ignored
+                                            uid=5_166 generic
+                                              uid=5_167 link url="https://www.wowhead.com/spell=1248829?def=139306&rank=1&spellModifier=137020"
+                                      uid=5_168 image
+                                      uid=5_169 image
+                                  uid=5_170 ignored
+                                    uid=5_171 generic
+                                      uid=5_172 generic
+                                        uid=5_173 generic
+                                          uid=5_174 generic
+                                            uid=5_175 link url="https://www.wowhead.com/spell=112965?def=85230&rank=1&spellModifier=137020"
+                                  uid=5_176 ignored
+                                    uid=5_177 generic
+                                      uid=5_178 generic
+                                        uid=5_179 generic
+                                          uid=5_180 generic
+                                            uid=5_181 link url="https://www.wowhead.com/spell=1248825?def=85223&rank=1&spellModifier=137020"
+                                  uid=5_182 ignored
+                                    uid=5_183 generic
+                                      uid=5_184 generic
+                                        uid=5_185 generic
+                                          uid=5_186 generic
+                                            uid=5_187 link url="https://www.wowhead.com/spell=1246832?def=140955&rank=1&spellModifier=137020"
+                                  uid=5_188 ignored
+                                    uid=5_189 generic
+                                      uid=5_190 generic
+                                        uid=5_191 generic
+                                          uid=5_192 generic
+                                            uid=5_193 link url="https://www.wowhead.com/spell=44614?def=85246&rank=1&spellModifier=137020"
+                                  uid=5_194 ignored
+                                    uid=5_195 generic
+                                      uid=5_196 generic
+                                        uid=5_197 generic
+                                          uid=5_198 ignored
+                                            uid=5_199 generic
+                                              uid=5_200 link url="https://www.wowhead.com/spell=1244110?def=138960&rank=1&spellModifier=137020"
+                                      uid=5_201 image
+                                      uid=5_202 image
+                                  uid=5_203 ignored
+                                    uid=5_204 generic
+                                      uid=5_205 generic
+                                        uid=5_206 generic
+                                          uid=5_207 generic
+                                            uid=5_208 link url="https://www.wowhead.com/spell=84714?def=85245&rank=1&spellModifier=137020"
+                                  uid=5_209 ignored
+                                    uid=5_210 generic
+                                      uid=5_211 generic
+                                        uid=5_212 generic
+                                          uid=5_213 generic
+                                            uid=5_214 link url="https://www.wowhead.com/spell=190447?def=85247&rank=1&spellModifier=137020"
+                                  uid=5_215 ignored
+                                    uid=5_216 generic
+                                      uid=5_217 generic
+                                        uid=5_218 generic
+                                          uid=5_219 generic
+                                            uid=5_220 link url="https://www.wowhead.com/spell=205021?def=85219&rank=1&spellModifier=137020"
+                                  uid=5_221 ignored
+                                    uid=5_222 generic
+                                      uid=5_223 generic
+                                        uid=5_224 generic
+                                          uid=5_225 generic
+                                            uid=5_226 link url="https://www.wowhead.com/spell=385167?def=107434&rank=1&spellModifier=137020"
+                                  uid=5_227 ignored
+                                    uid=5_228 generic
+                                      uid=5_229 generic
+                                        uid=5_230 generic
+                                          uid=5_231 generic
+                                            uid=5_232 link url="https://www.wowhead.com/spell=460590?def=85237&rank=1&spellModifier=137020"
+                                  uid=5_233 ignored
+                                    uid=5_234 generic
+                                      uid=5_235 generic
+                                        uid=5_236 generic
+                                          uid=5_237 generic
+                                            uid=5_238 link url="https://www.wowhead.com/spell=205030?def=85248&rank=1&spellModifier=137020"
+                                  uid=5_239 ignored
+                                    uid=5_240 generic
+                                      uid=5_241 generic
+                                        uid=5_242 generic
+                                          uid=5_243 generic
+                                            uid=5_244 link url="https://www.wowhead.com/spell=56377?def=85229&rank=1&spellModifier=137020"
+                                  uid=5_245 ignored
+                                    uid=5_246 generic
+                                      uid=5_247 generic
+                                        uid=5_248 generic
+                                          uid=5_249 generic
+                                            uid=5_250 link url="https://www.wowhead.com/spell=379993?def=139179&rank=1&spellModifier=137020"
+                                  uid=5_251 ignored
+                                    uid=5_252 generic
+                                      uid=5_253 generic
+                                        uid=5_254 generic
+                                          uid=5_255 ignored
+                                            uid=5_256 generic
+                                              uid=5_257 link url="https://www.wowhead.com/spell=418733?def=132886&rank=1&spellModifier=137020"
+                                      uid=5_258 image
+                                      uid=5_259 image
+                                  uid=5_260 ignored
+                                    uid=5_261 generic
+                                      uid=5_262 generic
+                                        uid=5_263 generic
+                                          uid=5_264 generic
+                                            uid=5_265 link url="https://www.wowhead.com/spell=417489?def=139308&rank=1&spellModifier=137020"
+                                  uid=5_266 ignored
+                                    uid=5_267 generic
+                                      uid=5_268 generic
+                                        uid=5_269 generic
+                                          uid=5_270 generic
+                                            uid=5_271 link url="https://www.wowhead.com/spell=378448?def=85217&rank=1&spellModifier=137020"
+                                  uid=5_272 ignored
+                                    uid=5_273 generic
+                                      uid=5_274 generic
+                                        uid=5_275 generic
+                                          uid=5_276 generic
+                                            uid=5_277 link url="https://www.wowhead.com/spell=1246811?def=139187&rank=1&spellModifier=137020"
+                                  uid=5_278 ignored
+                                    uid=5_279 generic
+                                      uid=5_280 generic
+                                        uid=5_281 generic
+                                          uid=5_282 generic
+                                            uid=5_283 link url="https://www.wowhead.com/spell=1247025?def=141559&rank=1&spellModifier=137020"
+                                  uid=5_284 ignored
+                                    uid=5_285 generic
+                                      uid=5_286 generic
+                                        uid=5_287 generic
+                                          uid=5_288 ignored
+                                            uid=5_289 generic
+                                              uid=5_290 link url="https://www.wowhead.com/spell=378406?def=85240&rank=1&spellModifier=137020"
+                                      uid=5_291 image
+                                      uid=5_292 image
+                                  uid=5_293 ignored
+                                    uid=5_294 generic
+                                      uid=5_295 generic
+                                        uid=5_296 generic
+                                          uid=5_297 generic
+                                            uid=5_298 link url="https://www.wowhead.com/spell=1247759?def=139186&rank=2&spellModifier=137020"
+                                      uid=5_299 generic
+                                        uid=5_300 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=5_301 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_302 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=5_303 ignored
+                                    uid=5_304 generic
+                                      uid=5_305 generic
+                                        uid=5_306 generic
+                                          uid=5_307 generic
+                                            uid=5_308 link url="https://www.wowhead.com/spell=1247799?def=140956&rank=1&spellModifier=137020"
+                                  uid=5_309 ignored
+                                    uid=5_310 generic
+                                      uid=5_311 generic
+                                        uid=5_312 generic
+                                          uid=5_313 generic
+                                            uid=5_314 link url="https://www.wowhead.com/spell=1247769?def=139183&rank=1&spellModifier=137020"
+                                  uid=5_315 ignored
+                                    uid=5_316 generic
+                                      uid=5_317 generic
+                                        uid=5_318 generic
+                                          uid=5_319 generic
+                                            uid=5_320 link url="https://www.wowhead.com/spell=378947?def=139177&rank=1&spellModifier=137020"
+                                  uid=5_321 ignored
+                                    uid=5_322 generic
+                                      uid=5_323 generic
+                                        uid=5_324 generic
+                                          uid=5_325 generic
+                                            uid=5_326 link url="https://www.wowhead.com/spell=1247544?def=141600&rank=1&spellModifier=137020"
+                                  uid=5_327 ignored
+                                    uid=5_328 generic
+                                      uid=5_329 generic
+                                        uid=5_330 generic
+                                          uid=5_331 ignored
+                                            uid=5_332 generic
+                                              uid=5_333 link url="https://www.wowhead.com/spell=205024?def=141602&rank=1&spellModifier=137020"
+                                      uid=5_334 image
+                                      uid=5_335 image
+                                  uid=5_336 ignored
+                                    uid=5_337 generic
+                                      uid=5_338 generic
+                                        uid=5_339 generic
+                                          uid=5_340 generic
+                                            uid=5_341 link url="https://www.wowhead.com/spell=1247729?def=85251&rank=1&spellModifier=137020"
+                                  uid=5_342 ignored
+                                    uid=5_343 generic
+                                      uid=5_344 generic
+                                        uid=5_345 generic
+                                          uid=5_346 generic
+                                            uid=5_347 link url="https://www.wowhead.com/spell=1247798?def=85253&rank=1&spellModifier=137020"
+                                  uid=5_348 ignored
+                                    uid=5_349 generic
+                                      uid=5_350 generic
+                                        uid=5_351 generic
+                                          uid=5_352 generic
+                                            uid=5_353 link url="https://www.wowhead.com/spell=1262935?def=141797&rank=4&spellModifier=137020"
+                                      uid=5_354 generic
+                                        uid=5_355 StaticText "4"
+                                          uid=1_14 InlineTextBox "4"
+                                        uid=5_356 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_357 StaticText "4"
+                                          uid=1_14 InlineTextBox "4"
+                                uid=5_358 ignored
+                                  uid=5_359 ignored
+                                    uid=5_360 generic
+                                      uid=5_361 generic
+                                        uid=5_362 generic
+                                          uid=5_363 generic
+                                            uid=5_364 link url="https://www.wowhead.com/spell=342245?def=85177&rank=1&spellModifier=137020"
+                                  uid=5_365 ignored
+                                    uid=5_366 generic
+                                      uid=5_367 generic
+                                        uid=5_368 generic
+                                          uid=5_369 generic
+                                            uid=5_370 link url="https://www.wowhead.com/spell=45438?def=85184&rank=1&spellModifier=137020"
+                                  uid=5_371 ignored
+                                    uid=5_372 generic
+                                      uid=5_373 generic
+                                        uid=5_374 generic
+                                          uid=5_375 ignored
+                                            uid=5_376 generic
+                                              uid=5_377 link url="https://www.wowhead.com/spell=1244090?def=138962&rank=1&spellModifier=137020"
+                                      uid=5_378 image
+                                      uid=5_379 image
+                                  uid=5_380 ignored
+                                    uid=5_381 generic
+                                      uid=5_382 generic
+                                        uid=5_383 generic
+                                          uid=5_384 generic
+                                            uid=5_385 link url="https://www.wowhead.com/spell=342249?def=85162&rank=2&spellModifier=137020"
+                                      uid=5_386 generic
+                                        uid=5_387 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=5_388 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_389 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=5_390 ignored
+                                    uid=5_391 generic
+                                      uid=5_392 generic
+                                        uid=5_393 generic
+                                          uid=5_394 generic
+                                            uid=5_395 link url="https://www.wowhead.com/spell=382424?def=85185&rank=2&spellModifier=137020"
+                                      uid=5_396 generic
+                                        uid=5_397 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=5_398 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_399 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=5_400 ignored
+                                    uid=5_401 generic
+                                      uid=5_402 generic
+                                        uid=5_403 generic
+                                          uid=5_404 generic
+                                            uid=5_405 link url="https://www.wowhead.com/spell=1250315?def=85168&rank=1&spellModifier=137020"
+                                  uid=5_406 ignored
+                                    uid=5_407 generic
+                                      uid=5_408 generic
+                                        uid=5_409 generic
+                                          uid=5_410 generic
+                                            uid=5_411 link url="https://www.wowhead.com/spell=383092?def=85176&rank=2&spellModifier=137020"
+                                      uid=5_412 generic
+                                        uid=5_413 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                        uid=5_414 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_415 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=5_416 ignored
+                                    uid=5_417 generic
+                                      uid=5_418 generic
+                                        uid=5_419 generic
+                                          uid=5_420 generic
+                                            uid=5_421 link url="https://www.wowhead.com/spell=458437?def=138970&rank=1&spellModifier=137020"
+                                  uid=5_422 ignored
+                                    uid=5_423 generic
+                                      uid=5_424 generic
+                                        uid=5_425 generic
+                                          uid=5_426 generic
+                                            uid=5_427 link url="https://www.wowhead.com/spell=55342?def=85186&rank=1&spellModifier=137020"
+                                  uid=5_428 ignored
+                                    uid=5_429 generic
+                                      uid=5_430 generic
+                                        uid=5_431 generic
+                                          uid=5_432 generic
+                                            uid=5_433 link url="https://www.wowhead.com/spell=382297?def=85164&rank=1&spellModifier=137020"
+                                  uid=5_434 ignored
+                                    uid=5_435 generic
+                                      uid=5_436 generic
+                                        uid=5_437 generic
+                                          uid=5_438 ignored
+                                            uid=5_439 generic
+                                              uid=5_440 link url="https://www.wowhead.com/spell=157980?def=130650&rank=1&spellModifier=137020"
+                                      uid=5_441 image
+                                      uid=5_442 image
+                                  uid=5_443 ignored
+                                    uid=5_444 generic
+                                      uid=5_445 generic
+                                        uid=5_446 generic
+                                          uid=5_447 generic
+                                            uid=5_448 link url="https://www.wowhead.com/spell=475?def=85178&rank=1&spellModifier=137020"
+                                  uid=5_449 ignored
+                                    uid=5_450 generic
+                                      uid=5_451 generic
+                                        uid=5_452 generic
+                                          uid=5_453 ignored
+                                            uid=5_454 generic
+                                              uid=5_455 link url="https://www.wowhead.com/spell=212653?def=85166&rank=1&spellModifier=137020"
+                                      uid=5_456 image
+                                      uid=5_457 image
+                                  uid=5_458 ignored
+                                    uid=5_459 generic
+                                      uid=5_460 generic
+                                        uid=5_461 generic
+                                          uid=5_462 generic
+                                            uid=5_463 link url="https://www.wowhead.com/spell=390218?def=138971&rank=1&spellModifier=137020"
+                                  uid=5_464 ignored
+                                    uid=5_465 generic
+                                      uid=5_466 generic
+                                        uid=5_467 generic
+                                          uid=5_468 generic
+                                            uid=5_469 link url="https://www.wowhead.com/spell=1270847?def=141349&rank=1&spellModifier=137020"
+                                  uid=5_470 ignored
+                                    uid=5_471 generic
+                                      uid=5_472 generic
+                                        uid=5_473 generic
+                                          uid=5_474 generic
+                                            uid=5_475 link url="https://www.wowhead.com/spell=110959?def=120889&rank=1&spellModifier=137020"
+                                  uid=5_476 ignored
+                                    uid=5_477 generic
+                                      uid=5_478 generic
+                                        uid=5_479 generic
+                                          uid=5_480 generic
+                                            uid=5_481 link url="https://www.wowhead.com/spell=382493?def=85190&rank=1&spellModifier=137020"
+                                  uid=5_482 ignored
+                                    uid=5_483 generic
+                                      uid=5_484 generic
+                                        uid=5_485 generic
+                                          uid=5_486 generic
+                                            uid=5_487 link url="https://www.wowhead.com/spell=382490?def=85158&rank=1&spellModifier=137020"
+                                  uid=5_488 ignored
+                                    uid=5_489 generic
+                                      uid=5_490 generic
+                                        uid=5_491 generic
+                                          uid=5_492 generic
+                                            uid=5_493 link url="https://www.wowhead.com/spell=382293?def=85173&rank=1&spellModifier=137020"
+                                      uid=5_494 generic
+                                        uid=5_495 StaticText "1"
+                                          uid=1_14 InlineTextBox "1"
+                                        uid=5_496 StaticText "/"
+                                          uid=1_14 InlineTextBox "/"
+                                        uid=5_497 StaticText "2"
+                                          uid=1_14 InlineTextBox "2"
+                                  uid=5_498 ignored
+                                    uid=5_499 generic
+                                      uid=5_500 generic
+                                        uid=5_501 generic
+                                          uid=5_502 generic
+                                            uid=5_503 link url="https://www.wowhead.com/spell=210476?def=138969&rank=1&spellModifier=137020"
+                                  uid=5_504 ignored
+                                    uid=5_505 generic
+                                      uid=5_506 generic
+                                        uid=5_507 generic
+                                          uid=5_508 generic
+                                            uid=5_509 link url="https://www.wowhead.com/spell=1244105?def=138968&rank=1&spellModifier=137020"
+                                  uid=5_510 ignored
+                                    uid=5_511 generic
+                                      uid=5_512 generic
+                                        uid=5_513 generic
+                                          uid=5_514 generic
+                                            uid=5_515 link url="https://www.wowhead.com/spell=461261?def=141352&rank=1&spellModifier=137020"
+                                  uid=5_516 ignored
+                                    uid=5_517 generic
+                                      uid=5_518 generic
+                                        uid=5_519 generic
+                                          uid=5_520 generic
+                                            uid=5_521 link url="https://www.wowhead.com/spell=382268?def=85156&rank=1&spellModifier=137020"
+                                  uid=5_522 ignored
+                                    uid=5_523 generic
+                                      uid=5_524 generic
+                                        uid=5_525 generic
+                                          uid=5_526 generic
+                                            uid=5_527 link url="https://www.wowhead.com/spell=1244107?def=138967&rank=1&spellModifier=137020"
+                                  uid=5_528 ignored
+                                    uid=5_529 generic
+                                      uid=5_530 generic
+                                        uid=5_531 generic
+                                          uid=5_532 generic
+                                            uid=5_533 link url="https://www.wowhead.com/spell=1265517?def=85145&rank=1&spellModifier=137020"
+                                  uid=5_534 ignored
+                                    uid=5_535 generic
+                                      uid=5_536 generic
+                                        uid=5_537 generic
+                                          uid=5_538 generic
+                                            uid=5_539 link url="https://www.wowhead.com/spell=387807?def=85192&rank=1&spellModifier=137020"
+                                  uid=5_540 ignored
+                                    uid=5_541 generic
+                                      uid=5_542 generic
+                                        uid=5_543 generic
+                                          uid=5_544 generic
+                                            uid=5_545 link url="https://www.wowhead.com/spell=386828?def=85160&rank=1&spellModifier=137020"
+                                  uid=5_546 ignored
+                                    uid=5_547 generic
+                                      uid=5_548 generic
+                                        uid=5_549 generic
+                                          uid=5_550 generic
+                                            uid=5_551 link url="https://www.wowhead.com/spell=455428?def=85150&rank=1&spellModifier=137020"
+                                  uid=5_552 ignored
+                                    uid=5_553 generic
+                                      uid=5_554 generic
+                                        uid=5_555 generic
+                                          uid=5_556 generic
+                                            uid=5_557 link url="https://www.wowhead.com/spell=414659?def=85144&rank=1&spellModifier=137020"
+                                  uid=5_558 ignored
+                                    uid=5_559 generic
+                                      uid=5_560 generic
+                                        uid=5_561 generic
+                                          uid=5_562 ignored
+                                            uid=5_563 generic
+                                              uid=5_564 link url="https://www.wowhead.com/spell=1244031?def=130892&rank=1&spellModifier=137020"
+                                      uid=5_565 image
+                                      uid=5_566 image
+                                  uid=5_567 ignored
+                                    uid=5_568 generic
+                                      uid=5_569 generic
+                                        uid=5_570 generic
+                                          uid=5_571 generic
+                                            uid=5_572 link url="https://www.wowhead.com/spell=1244069?def=138965&rank=1&spellModifier=137020"
+                                uid=5_573 ignored
+                                  uid=5_574 ignored
+                                    uid=5_575 generic
+                                      uid=5_576 generic
+                                        uid=5_577 generic
+                                          uid=5_578 generic
+                                            uid=5_579 link url="https://www.wowhead.com/spell=1280165?def=122277&rank=1&spellModifier=137020"
+                                  uid=5_580 ignored
+                                    uid=5_581 generic
+                                      uid=5_582 generic
+                                        uid=5_583 generic
+                                          uid=5_584 generic
+                                            uid=5_585 link url="https://www.wowhead.com/spell=444719?def=122278&rank=1&spellModifier=137020"
+                                  uid=5_586 ignored
+                                    uid=5_587 generic
+                                      uid=5_588 generic
+                                        uid=5_589 generic
+                                          uid=5_590 generic
+                                            uid=5_591 link url="https://www.wowhead.com/spell=444256?def=122276&rank=1&spellModifier=137020"
+                                  uid=5_592 ignored
+                                    uid=5_593 generic
+                                      uid=5_594 generic
+                                        uid=5_595 generic
+                                          uid=5_596 ignored
+                                            uid=5_597 generic
+                                              uid=5_598 link url="https://www.wowhead.com/spell=444675?def=140701&rank=1&spellModifier=137020"
+                                      uid=5_599 image
+                                      uid=5_600 image
+                                  uid=5_601 ignored
+                                    uid=5_602 generic
+                                      uid=5_603 generic
+                                        uid=5_604 generic
+                                          uid=5_605 ignored
+                                            uid=5_606 generic
+                                              uid=5_607 link url="https://www.wowhead.com/spell=444752?def=122274&rank=1&spellModifier=137020"
+                                      uid=5_608 image
+                                      uid=5_609 image
+                                  uid=5_610 ignored
+                                    uid=5_611 generic
+                                      uid=5_612 generic
+                                        uid=5_613 generic
+                                          uid=5_614 generic
+                                            uid=5_615 link url="https://www.wowhead.com/spell=444483?def=122271&rank=1&spellModifier=137020"
+                                  uid=5_616 ignored
+                                    uid=5_617 generic
+                                      uid=5_618 generic
+                                        uid=5_619 generic
+                                          uid=5_620 ignored
+                                            uid=5_621 generic
+                                              uid=5_622 link url="https://www.wowhead.com/spell=444827?def=122275&rank=1&spellModifier=137020"
+                                      uid=5_623 image
+                                      uid=5_624 image
+                                  uid=5_625 ignored
+                                    uid=5_626 generic
+                                      uid=5_627 generic
+                                        uid=5_628 generic
+                                          uid=5_629 generic
+                                            uid=5_630 link url="https://www.wowhead.com/spell=1261080?def=140674&rank=1&spellModifier=137020"
+                                  uid=5_631 ignored
+                                    uid=5_632 generic
+                                      uid=5_633 generic
+                                        uid=5_634 generic
+                                          uid=5_635 generic
+                                            uid=5_636 link url="https://www.wowhead.com/spell=444968?def=122273&rank=1&spellModifier=137020"
+                                  uid=5_637 ignored
+                                    uid=5_638 generic
+                                      uid=5_639 generic
+                                        uid=5_640 generic
+                                          uid=5_641 generic
+                                            uid=5_642 link url="https://www.wowhead.com/spell=470021?def=133074&rank=1&spellModifier=137020"
+                                  uid=5_643 ignored
+                                    uid=5_644 generic
+                                      uid=5_645 generic
+                                        uid=5_646 generic
+                                          uid=5_647 generic
+                                            uid=5_648 link url="https://www.wowhead.com/spell=444986?def=122270&rank=1&spellModifier=137020"
+                                  uid=5_649 ignored
+                                    uid=5_650 generic
+                                      uid=5_651 generic
+                                        uid=5_652 generic
+                                          uid=5_653 generic
+                                            uid=5_654 link url="https://www.wowhead.com/spell=1261082?def=140673&rank=1&spellModifier=137020"
+                                  uid=5_655 ignored
+                                    uid=5_656 generic
+                                      uid=5_657 generic
+                                        uid=5_658 generic
+                                          uid=5_659 generic
+                                            uid=5_660 link url="https://www.wowhead.com/spell=443783?def=122269&rank=1&spellModifier=137020"
+                      uid=5_661 generic
+                        uid=5_662 StaticText "The sim generated some warning/error messages. Check the "SimC Notifications" section for more details."
+                          uid=1_14 InlineTextBox "The sim generated some warning/error messages. Check the "SimC Notifications" section for more details."
+                      uid=5_663 ignored
+                        uid=5_664 ignored
+                          uid=5_665 ignored
+                            uid=5_666 ignored
+                              uid=5_667 heading "BOSS SUMMARY" level="3"
+                                uid=5_668 StaticText "BOSS"
+                                  uid=1_14 InlineTextBox "BOSS"
+                                uid=5_669 StaticText " SUMMARY"
+                                  uid=1_14 InlineTextBox " SUMMARY"
+                            uid=5_670 ignored
+                              uid=5_671 generic
+                                uid=5_672 StaticText "Sort"
+                                  uid=1_14 InlineTextBox "Sort"
+                              uid=5_673 generic
+                                uid=5_674 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                              uid=5_675 generic
+                                uid=5_676 StaticText "Boss Order"
+                                  uid=1_14 InlineTextBox "Boss Order"
+                              uid=5_677 generic
+                                uid=5_678 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                              uid=5_679 generic
+                                uid=5_680 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                            uid=5_681 LabelText
+                              uid=5_682 checkbox "Relative DPS"
+                              uid=5_683 ignored
+                                uid=5_684 ignored
+                                  uid=5_685 ignored
+                              uid=5_686 StaticText "Relative DPS"
+                                uid=1_14 InlineTextBox "Relative DPS"
+                        uid=5_687 ignored
+                          uid=5_688 ignored
+                          uid=5_689 ignored
+                            uid=5_690 paragraph
+                              uid=5_691 StaticText "Chimaerus the Undreamt God"
+                                uid=1_14 InlineTextBox "Chimaerus the Undreamt "
+                                uid=1_14 InlineTextBox "God"
+                          uid=5_692 ignored
+                            uid=5_693 ignored
+                              uid=5_694 ignored
+                                uid=5_695 ignored
+                                  uid=5_696 ignored
+                                    uid=5_697 generic
+                                      uid=5_698 generic
+                                        uid=5_699 generic
+                                          uid=5_700 link url="https://www.wowhead.com/item=249343?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=5_701 paragraph
+                                      uid=5_702 generic description="2,243 DPS"
+                                        uid=5_703 StaticText "3.1"
+                                          uid=1_14 InlineTextBox "3.1"
+                                        uid=5_704 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_705 ignored
+                                  uid=5_706 ignored
+                                    uid=5_707 generic
+                                      uid=5_708 generic
+                                        uid=5_709 generic
+                                          uid=5_710 link url="https://www.wowhead.com/item=249373?bonus=4799:4786:12794&ench=7992&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:251217:193708:264507:250144:193707"
+                                    uid=5_711 paragraph
+                                      uid=5_712 generic description="191 DPS"
+                                        uid=5_713 StaticText "0.3"
+                                          uid=1_14 InlineTextBox "0.3"
+                                        uid=5_714 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_715 ignored
+                                  uid=5_716 ignored
+                                    uid=5_717 generic
+                                      uid=5_718 generic
+                                        uid=5_719 generic
+                                          uid=5_720 link url="https://www.wowhead.com/item=250062?bonus=4799:4786:12794&ench=7992&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:251217:193708:264507:250144:193707"
+                                        uid=5_721 generic description="Catalyst"
+                                          uid=5_722 generic
+                                            uid=5_723 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_724 paragraph
+                                      uid=5_725 generic description="-122 DPS"
+                                        uid=5_726 StaticText "-0.2"
+                                          uid=1_14 InlineTextBox "-0.2"
+                                        uid=5_727 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_728 ignored
+                                  uid=5_729 ignored
+                                    uid=5_730 generic
+                                      uid=5_731 generic
+                                        uid=5_732 generic
+                                          uid=5_733 link url="https://www.wowhead.com/item=250063?bonus=4799:4786:12794&ench=7987&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_734 paragraph
+                                      uid=5_735 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_736 ignored
+                                  uid=5_737 ignored
+                                    uid=5_738 generic
+                                      uid=5_739 generic
+                                        uid=5_740 generic
+                                          uid=5_741 link url="https://www.wowhead.com/item=249922?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_742 paragraph
+                                      uid=5_743 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_744 ignored
+                            uid=5_745 ignored
+                              uid=5_746 ignored
+                                uid=5_747 paragraph
+                                  uid=5_748 StaticText "+487"
+                                    uid=1_14 InlineTextBox "+487"
+                                uid=5_749 paragraph
+                                  uid=5_750 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_751 paragraph
+                                uid=5_752 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_753 ignored
+                            uid=5_754 ignored
+                              uid=5_755 ignored
+                                uid=5_756 paragraph
+                                  uid=5_757 StaticText "+2,243"
+                                    uid=1_14 InlineTextBox "+2,243"
+                                uid=5_758 paragraph
+                                  uid=5_759 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_760 paragraph
+                                uid=5_761 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_762 ignored
+                            uid=5_763 ignored
+                              uid=5_764 ignored
+                                uid=5_765 paragraph
+                                  uid=5_766 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=5_767 paragraph
+                                uid=5_768 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_769 separator orientation="horizontal"
+                        uid=5_770 ignored
+                          uid=5_771 ignored
+                          uid=5_772 ignored
+                            uid=5_773 paragraph
+                              uid=5_774 StaticText "Crown of the Cosmos"
+                                uid=1_14 InlineTextBox "Crown of the Cosmos"
+                          uid=5_775 ignored
+                            uid=5_776 ignored
+                              uid=5_777 ignored
+                                uid=5_778 ignored
+                                  uid=5_779 ignored
+                                    uid=5_780 generic
+                                      uid=5_781 generic
+                                        uid=5_782 generic
+                                          uid=5_783 link url="https://www.wowhead.com/item=249809?bonus=4799:4786:12796&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=5_784 paragraph
+                                      uid=5_785 generic description="1,977 DPS"
+                                        uid=5_786 StaticText "2.7"
+                                          uid=1_14 InlineTextBox "2.7"
+                                        uid=5_787 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_788 ignored
+                                  uid=5_789 ignored
+                                    uid=5_790 generic
+                                      uid=5_791 generic
+                                        uid=5_792 generic
+                                          uid=5_793 link url="https://www.wowhead.com/item=249368?bonus=13668:4799:4786:12798&gems=240967&ilvl=276&spec=64&hero=40&pcs=250060:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_794 generic
+                                          uid=5_795 generic
+                                            uid=5_796 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                            uid=5_797 generic
+                                              uid=5_798 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_799 paragraph
+                                      uid=5_800 generic description="-380 DPS"
+                                        uid=5_801 StaticText "-0.5"
+                                          uid=1_14 InlineTextBox "-0.5"
+                                        uid=5_802 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_803 ignored
+                                  uid=5_804 ignored
+                                    uid=5_805 generic
+                                      uid=5_806 generic
+                                        uid=5_807 generic
+                                          uid=5_808 link url="https://www.wowhead.com/item=249329?bonus=4799:4786:12796&ench=8017&ilvl=269&spec=64&hero=40&pcs=259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_809 paragraph
+                                      uid=5_810 generic description="-1,789 DPS"
+                                        uid=5_811 StaticText "-2.5"
+                                          uid=1_14 InlineTextBox "-2.5"
+                                        uid=5_812 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_813 ignored
+                                  uid=5_814 ignored
+                                    uid=5_815 generic
+                                      uid=5_816 generic
+                                        uid=5_817 generic
+                                          uid=5_818 link url="https://www.wowhead.com/item=250060?bonus=4799:4786:12796&ench=8017&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_819 generic description="Catalyst"
+                                          uid=5_820 generic
+                                            uid=5_821 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_822 paragraph
+                                      uid=5_823 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_824 ignored
+                            uid=5_825 ignored
+                              uid=5_826 ignored
+                                uid=5_827 paragraph
+                                  uid=5_828 StaticText "+494"
+                                    uid=1_14 InlineTextBox "+494"
+                                uid=5_829 paragraph
+                                  uid=5_830 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_831 paragraph
+                                uid=5_832 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_833 ignored
+                            uid=5_834 ignored
+                              uid=5_835 ignored
+                                uid=5_836 paragraph
+                                  uid=5_837 StaticText "+1,977"
+                                    uid=1_14 InlineTextBox "+1,977"
+                                uid=5_838 paragraph
+                                  uid=5_839 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_840 paragraph
+                                uid=5_841 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_842 ignored
+                            uid=5_843 ignored
+                              uid=5_844 ignored
+                                uid=5_845 paragraph
+                                  uid=5_846 StaticText "1"
+                                    uid=1_14 InlineTextBox "1"
+                              uid=5_847 paragraph
+                                uid=5_848 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_849 separator orientation="horizontal"
+                        uid=5_850 ignored
+                          uid=5_851 ignored
+                          uid=5_852 ignored
+                            uid=5_853 paragraph
+                              uid=5_854 StaticText "Vaelgor & Ezzorak"
+                                uid=1_14 InlineTextBox "Vaelgor & Ezzorak"
+                          uid=5_855 ignored
+                            uid=5_856 ignored
+                              uid=5_857 ignored
+                                uid=5_858 ignored
+                                  uid=5_859 ignored
+                                    uid=5_860 generic
+                                      uid=5_861 generic
+                                        uid=5_862 generic
+                                          uid=5_863 link url="https://www.wowhead.com/item=249346?bonus=4799:4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=5_864 paragraph
+                                      uid=5_865 generic description="2,224 DPS"
+                                        uid=5_866 StaticText "3.1"
+                                          uid=1_14 InlineTextBox "3.1"
+                                        uid=5_867 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_868 ignored
+                                  uid=5_869 ignored
+                                    uid=5_870 generic
+                                      uid=5_871 generic
+                                        uid=5_872 generic
+                                          uid=5_873 link url="https://www.wowhead.com/item=250055?bonus=4799:4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_874 generic description="Catalyst"
+                                          uid=5_875 generic
+                                            uid=5_876 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_877 paragraph
+                                      uid=5_878 generic description="168 DPS"
+                                        uid=5_879 StaticText "0.2"
+                                          uid=1_14 InlineTextBox "0.2"
+                                        uid=5_880 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_881 ignored
+                                  uid=5_882 ignored
+                                    uid=5_883 generic
+                                      uid=5_884 generic
+                                        uid=5_885 generic
+                                          uid=5_886 link url="https://www.wowhead.com/item=249370?bonus=4799:4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_887 paragraph
+                                      uid=5_888 generic description="56 DPS"
+                                        uid=5_889 StaticText "0.1"
+                                          uid=1_14 InlineTextBox "0.1"
+                                        uid=5_890 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_891 ignored
+                                  uid=5_892 ignored
+                                    uid=5_893 generic
+                                      uid=5_894 generic
+                                        uid=5_895 generic
+                                          uid=5_896 link url="https://www.wowhead.com/item=249305?bonus=4799:4786:12795&ench=7992&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:251217:193708:264507:250144:193707"
+                                    uid=5_897 paragraph
+                                      uid=5_898 generic description="44 DPS"
+                                        uid=5_899 StaticText "0.1"
+                                          uid=1_14 InlineTextBox "0.1"
+                                        uid=5_900 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_901 ignored
+                                  uid=5_902 ignored
+                                    uid=5_903 generic
+                                      uid=5_904 generic
+                                        uid=5_905 generic
+                                          uid=5_906 link url="https://www.wowhead.com/item=250062?bonus=4799:4786:12795&ench=7992&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:251217:193708:264507:250144:193707"
+                                        uid=5_907 generic description="Catalyst"
+                                          uid=5_908 generic
+                                            uid=5_909 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_910 paragraph
+                                      uid=5_911 generic description="-74 DPS"
+                                        uid=5_912 StaticText "-0.1"
+                                          uid=1_14 InlineTextBox "-0.1"
+                                        uid=5_913 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_914 ignored
+                                  uid=5_915 ignored
+                                    uid=5_916 generic
+                                      uid=5_917 generic
+                                        uid=5_918 generic
+                                          uid=5_919 link url="https://www.wowhead.com/item=250059?bonus=4799:4786:12795&ench=7939&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_920 paragraph
+                                      uid=5_921 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_922 ignored
+                            uid=5_923 ignored
+                              uid=5_924 ignored
+                                uid=5_925 paragraph
+                                  uid=5_926 StaticText "+415"
+                                    uid=1_14 InlineTextBox "+415"
+                                uid=5_927 paragraph
+                                  uid=5_928 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_929 paragraph
+                                uid=5_930 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_931 ignored
+                            uid=5_932 ignored
+                              uid=5_933 ignored
+                                uid=5_934 paragraph
+                                  uid=5_935 StaticText "+2,224"
+                                    uid=1_14 InlineTextBox "+2,224"
+                                uid=5_936 paragraph
+                                  uid=5_937 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_938 paragraph
+                                uid=5_939 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_940 ignored
+                            uid=5_941 ignored
+                              uid=5_942 ignored
+                                uid=5_943 paragraph
+                                  uid=5_944 StaticText "2"
+                                    uid=1_14 InlineTextBox "2"
+                              uid=5_945 paragraph
+                                uid=5_946 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_947 separator orientation="horizontal"
+                        uid=5_948 ignored
+                          uid=5_949 ignored
+                          uid=5_950 ignored
+                            uid=5_951 paragraph
+                              uid=5_952 StaticText "Belo'ren, Child of Al'ar"
+                                uid=1_14 InlineTextBox "Belo'ren, Child of Al'ar"
+                          uid=5_953 ignored
+                            uid=5_954 ignored
+                              uid=5_955 ignored
+                                uid=5_956 ignored
+                                  uid=5_957 ignored
+                                    uid=5_958 generic
+                                      uid=5_959 generic
+                                        uid=5_960 generic
+                                          uid=5_961 link url="https://www.wowhead.com/item=249919?bonus=13668:4799:4786:12796&ench=7969&gems=240898&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:193708:264507:250144:193707"
+                                        uid=5_962 generic
+                                          uid=5_963 generic
+                                            uid=5_964 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=5_965 generic
+                                              uid=5_966 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_967 paragraph
+                                      uid=5_968 generic description="599 DPS"
+                                        uid=5_969 StaticText "0.8"
+                                          uid=1_14 InlineTextBox "0.8"
+                                        uid=5_970 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_971 ignored
+                                  uid=5_972 ignored
+                                    uid=5_973 generic
+                                      uid=5_974 generic
+                                        uid=5_975 generic
+                                          uid=5_976 link url="https://www.wowhead.com/item=249376?bonus=4799:4786:12796&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_977 paragraph
+                                      uid=5_978 generic description="362 DPS"
+                                        uid=5_979 StaticText "0.5"
+                                          uid=1_14 InlineTextBox "0.5"
+                                        uid=5_980 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_981 ignored
+                                  uid=5_982 ignored
+                                    uid=5_983 generic
+                                      uid=5_984 generic
+                                        uid=5_985 generic
+                                          uid=5_986 link url="https://www.wowhead.com/item=250057?bonus=4799:4786:12796&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_987 generic description="Catalyst"
+                                          uid=5_988 generic
+                                            uid=5_989 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_990 paragraph
+                                      uid=5_991 generic description="296 DPS"
+                                        uid=5_992 StaticText "0.4"
+                                          uid=1_14 InlineTextBox "0.4"
+                                        uid=5_993 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_994 ignored
+                                  uid=5_995 ignored
+                                    uid=5_996 generic
+                                      uid=5_997 generic
+                                        uid=5_998 generic
+                                          uid=5_999 link url="https://www.wowhead.com/item=249328?bonus=4799:4786:12796&ench=7972&ilvl=269&spec=64&hero=40&pcs=250060:259916:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1000 paragraph
+                                      uid=5_1001 generic description="158 DPS"
+                                        uid=5_1002 StaticText "0.2"
+                                          uid=1_14 InlineTextBox "0.2"
+                                        uid=5_1003 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1004 ignored
+                                  uid=5_1005 ignored
+                                    uid=5_1006 generic
+                                      uid=5_1007 generic
+                                        uid=5_1008 generic
+                                          uid=5_1009 link url="https://www.wowhead.com/item=250058?bonus=4799:4786:12796&ench=7972&ilvl=269&spec=64&hero=40&pcs=250060:259916:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1010 generic description="Catalyst"
+                                          uid=5_1011 generic
+                                            uid=5_1012 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1013 paragraph
+                                      uid=5_1014 generic description="-27 DPS"
+                                        uid=5_1015 StaticText "-0.0"
+                                          uid=1_14 InlineTextBox "-0.0"
+                                        uid=5_1016 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1017 ignored
+                                  uid=5_1018 ignored
+                                    uid=5_1019 generic
+                                      uid=5_1020 generic
+                                        uid=5_1021 generic
+                                          uid=5_1022 link url="https://www.wowhead.com/item=249283?bonus=4799:4786:12796&ench=8039&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1023 paragraph
+                                      uid=5_1024 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1025 ignored
+                            uid=5_1026 ignored
+                              uid=5_1027 ignored
+                                uid=5_1028 paragraph
+                                  uid=5_1029 StaticText "+236"
+                                    uid=1_14 InlineTextBox "+236"
+                                uid=5_1030 paragraph
+                                  uid=5_1031 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1032 paragraph
+                                uid=5_1033 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1034 ignored
+                            uid=5_1035 ignored
+                              uid=5_1036 ignored
+                                uid=5_1037 paragraph
+                                  uid=5_1038 StaticText "+599"
+                                    uid=1_14 InlineTextBox "+599"
+                                uid=5_1039 paragraph
+                                  uid=5_1040 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1041 paragraph
+                                uid=5_1042 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1043 ignored
+                            uid=5_1044 ignored
+                              uid=5_1045 ignored
+                                uid=5_1046 paragraph
+                                  uid=5_1047 StaticText "3"
+                                    uid=1_14 InlineTextBox "3"
+                              uid=5_1048 paragraph
+                                uid=5_1049 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1050 separator orientation="horizontal"
+                        uid=5_1051 ignored
+                          uid=5_1052 ignored
+                          uid=5_1053 ignored
+                            uid=5_1054 paragraph
+                              uid=5_1055 StaticText "Lightblinded Vanguard"
+                                uid=1_14 InlineTextBox "Lightblinded Vanguard"
+                          uid=5_1056 ignored
+                            uid=5_1057 ignored
+                              uid=5_1058 ignored
+                                uid=5_1059 ignored
+                                  uid=5_1060 ignored
+                                    uid=5_1061 generic
+                                      uid=5_1062 generic
+                                        uid=5_1063 generic
+                                          uid=5_1064 link url="https://www.wowhead.com/item=249369?bonus=13668:4799:4786:12795&ench=7969&gems=240898&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:193708:264507:250144:193707"
+                                        uid=5_1065 generic
+                                          uid=5_1066 generic
+                                            uid=5_1067 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=5_1068 generic
+                                              uid=5_1069 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_1070 paragraph
+                                      uid=5_1071 generic description="482 DPS"
+                                        uid=5_1072 StaticText "0.7"
+                                          uid=1_14 InlineTextBox "0.7"
+                                        uid=5_1073 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1074 ignored
+                                  uid=5_1075 ignored
+                                    uid=5_1076 generic
+                                      uid=5_1077 generic
+                                        uid=5_1078 generic
+                                          uid=5_1079 link url="https://www.wowhead.com/item=250061?bonus=4799:4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1080 generic description="Catalyst"
+                                          uid=5_1081 generic
+                                            uid=5_1082 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1083 paragraph
+                                      uid=5_1084 generic description="96 DPS"
+                                        uid=5_1085 StaticText "0.1"
+                                          uid=1_14 InlineTextBox "0.1"
+                                        uid=5_1086 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1087 ignored
+                                  uid=5_1088 ignored
+                                    uid=5_1089 generic
+                                      uid=5_1090 generic
+                                        uid=5_1091 generic
+                                          uid=5_1092 link url="https://www.wowhead.com/item=249330?bonus=4799:4786:12795&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1093 paragraph
+                                      uid=5_1094 generic description="-2,253 DPS"
+                                        uid=5_1095 StaticText "-3.1"
+                                          uid=1_14 InlineTextBox "-3.1"
+                                        uid=5_1096 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1097 ignored
+                                  uid=5_1098 ignored
+                                    uid=5_1099 generic
+                                      uid=5_1100 generic
+                                        uid=5_1101 generic
+                                          uid=5_1102 link url="https://www.wowhead.com/item=250060?bonus=4799:4786:12795&ench=8017&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1103 paragraph
+                                      uid=5_1104 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1105 ignored
+                                  uid=5_1106 ignored
+                                    uid=5_1107 generic
+                                      uid=5_1108 generic
+                                        uid=5_1109 generic
+                                          uid=5_1110 link url="https://www.wowhead.com/item=249294?bonus=4799:4786:12795&ench=8039&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1111 paragraph
+                                      uid=5_1112 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1113 ignored
+                            uid=5_1114 ignored
+                              uid=5_1115 ignored
+                                uid=5_1116 paragraph
+                                  uid=5_1117 StaticText "+116"
+                                    uid=1_14 InlineTextBox "+116"
+                                uid=5_1118 paragraph
+                                  uid=5_1119 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1120 paragraph
+                                uid=5_1121 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1122 ignored
+                            uid=5_1123 ignored
+                              uid=5_1124 ignored
+                                uid=5_1125 paragraph
+                                  uid=5_1126 StaticText "+482"
+                                    uid=1_14 InlineTextBox "+482"
+                                uid=5_1127 paragraph
+                                  uid=5_1128 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1129 paragraph
+                                uid=5_1130 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1131 ignored
+                            uid=5_1132 ignored
+                              uid=5_1133 ignored
+                                uid=5_1134 paragraph
+                                  uid=5_1135 StaticText "4"
+                                    uid=1_14 InlineTextBox "4"
+                              uid=5_1136 paragraph
+                                uid=5_1137 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1138 separator orientation="horizontal"
+                        uid=5_1139 ignored
+                          uid=5_1140 ignored
+                          uid=5_1141 ignored
+                            uid=5_1142 paragraph
+                              uid=5_1143 StaticText "Midnight Falls"
+                                uid=1_14 InlineTextBox "Midnight Falls"
+                          uid=5_1144 ignored
+                            uid=5_1145 ignored
+                              uid=5_1146 ignored
+                                uid=5_1147 ignored
+                                  uid=5_1148 ignored
+                                    uid=5_1149 generic
+                                      uid=5_1150 generic
+                                        uid=5_1151 generic
+                                          uid=5_1152 link url="https://www.wowhead.com/item=249810?bonus=4799:4786:12796&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=5_1153 paragraph
+                                      uid=5_1154 generic description="1,282 DPS"
+                                        uid=5_1155 StaticText "1.8"
+                                          uid=1_14 InlineTextBox "1.8"
+                                        uid=5_1156 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1157 ignored
+                                  uid=5_1158 ignored
+                                    uid=5_1159 generic
+                                      uid=5_1160 generic
+                                        uid=5_1161 generic
+                                          uid=5_1162 link url="https://www.wowhead.com/item=250247?bonus=13668:4799:4786:12796&gems=240967&ilvl=269&spec=64&hero=40&pcs=250060:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1163 generic
+                                          uid=5_1164 generic
+                                            uid=5_1165 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                            uid=5_1166 generic
+                                              uid=5_1167 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_1168 paragraph
+                                      uid=5_1169 generic description="352 DPS"
+                                        uid=5_1170 StaticText "0.5"
+                                          uid=1_14 InlineTextBox "0.5"
+                                        uid=5_1171 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1172 ignored
+                                  uid=5_1173 ignored
+                                    uid=5_1174 generic
+                                      uid=5_1175 generic
+                                        uid=5_1176 generic
+                                          uid=5_1177 link url="https://www.wowhead.com/item=250058?bonus=4799:4786:12794&ench=7972&ilvl=263&spec=64&hero=40&pcs=250060:259916:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1178 paragraph
+                                      uid=5_1179 generic description="-149 DPS"
+                                        uid=5_1180 StaticText "-0.2"
+                                          uid=1_14 InlineTextBox "-0.2"
+                                        uid=5_1181 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1182 ignored
+                                  uid=5_1183 ignored
+                                    uid=5_1184 generic
+                                      uid=5_1185 generic
+                                        uid=5_1186 generic
+                                          uid=5_1187 link url="https://www.wowhead.com/item=249920?bonus=13668:4799:4786:12798&ench=7969&gems=240898&ilvl=276&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:193708:264507:250144:193707"
+                                        uid=5_1188 generic
+                                          uid=5_1189 generic
+                                            uid=5_1190 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=5_1191 generic
+                                              uid=5_1192 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_1193 paragraph
+                                      uid=5_1194 generic description="-217 DPS"
+                                        uid=5_1195 StaticText "-0.3"
+                                          uid=1_14 InlineTextBox "-0.3"
+                                        uid=5_1196 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1197 ignored
+                                  uid=5_1198 ignored
+                                    uid=5_1199 generic
+                                      uid=5_1200 generic
+                                        uid=5_1201 generic
+                                          uid=5_1202 link url="https://www.wowhead.com/item=249286?bonus=4799:4786:12796&ench=8039&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1203 paragraph
+                                      uid=5_1204 generic description="-877 DPS"
+                                        uid=5_1205 StaticText "-1.2"
+                                          uid=1_14 InlineTextBox "-1.2"
+                                        uid=5_1206 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1207 ignored
+                                  uid=5_1208 ignored
+                                    uid=5_1209 generic
+                                      uid=5_1210 generic
+                                        uid=5_1211 generic
+                                          uid=5_1212 link url="https://www.wowhead.com/item=249912?bonus=4799:4786:12796&ench=7987&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1213 paragraph
+                                      uid=5_1214 generic description="-2,552 DPS"
+                                        uid=5_1215 StaticText "-3.5"
+                                          uid=1_14 InlineTextBox "-3.5"
+                                        uid=5_1216 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1217 ignored
+                                  uid=5_1218 ignored
+                                    uid=5_1219 generic
+                                      uid=5_1220 generic
+                                        uid=5_1221 generic
+                                          uid=5_1222 link url="https://www.wowhead.com/item=250061?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1223 paragraph
+                                      uid=5_1224 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1225 ignored
+                                  uid=5_1226 ignored
+                                    uid=5_1227 generic
+                                      uid=5_1228 generic
+                                        uid=5_1229 generic
+                                          uid=5_1230 link url="https://www.wowhead.com/item=250060?bonus=4799:4786:12795&ench=8017&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1231 paragraph
+                                      uid=5_1232 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1233 ignored
+                                  uid=5_1234 ignored
+                                    uid=5_1235 generic
+                                      uid=5_1236 generic
+                                        uid=5_1237 generic
+                                          uid=5_1238 link url="https://www.wowhead.com/item=250059?bonus=4799:4786:12795&ench=7939&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1239 paragraph
+                                      uid=5_1240 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1241 ignored
+                                  uid=5_1242 ignored
+                                    uid=5_1243 generic
+                                      uid=5_1244 generic
+                                        uid=5_1245 generic
+                                          uid=5_1246 link url="https://www.wowhead.com/item=250063?bonus=4799:4786:12795&ench=7987&ilvl=266&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1247 paragraph
+                                      uid=5_1248 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1249 ignored
+                                  uid=5_1250 ignored
+                                    uid=5_1251 generic
+                                      uid=5_1252 generic
+                                        uid=5_1253 generic
+                                          uid=5_1254 link url="https://www.wowhead.com/item=250063?bonus=4799:4786:12796&ench=7987&ilvl=269&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1255 generic description="Catalyst"
+                                          uid=5_1256 generic
+                                            uid=5_1257 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1258 paragraph
+                                      uid=5_1259 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1260 ignored
+                            uid=5_1261 ignored
+                              uid=5_1262 ignored
+                                uid=5_1263 paragraph
+                                  uid=5_1264 StaticText "+149"
+                                    uid=1_14 InlineTextBox "+149"
+                                uid=5_1265 paragraph
+                                  uid=5_1266 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1267 paragraph
+                                uid=5_1268 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1269 ignored
+                            uid=5_1270 ignored
+                              uid=5_1271 ignored
+                                uid=5_1272 paragraph
+                                  uid=5_1273 StaticText "+1,282"
+                                    uid=1_14 InlineTextBox "+1,282"
+                                uid=5_1274 paragraph
+                                  uid=5_1275 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1276 paragraph
+                                uid=5_1277 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1278 ignored
+                            uid=5_1279 ignored
+                              uid=5_1280 ignored
+                                uid=5_1281 paragraph
+                                  uid=5_1282 StaticText "4"
+                                    uid=1_14 InlineTextBox "4"
+                              uid=5_1283 paragraph
+                                uid=5_1284 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1285 separator orientation="horizontal"
+                        uid=5_1286 ignored
+                          uid=5_1287 ignored
+                          uid=5_1288 ignored
+                            uid=5_1289 paragraph
+                              uid=5_1290 StaticText "Vorasius"
+                                uid=1_14 InlineTextBox "Vorasius"
+                          uid=5_1291 ignored
+                            uid=5_1292 ignored
+                              uid=5_1293 ignored
+                                uid=5_1294 ignored
+                                  uid=5_1295 ignored
+                                    uid=5_1296 generic
+                                      uid=5_1297 generic
+                                        uid=5_1298 generic
+                                          uid=5_1299 link url="https://www.wowhead.com/item=249336?bonus=13668:4799:4786:12794&ench=7969&gems=240898&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:193708:264507:250144:193707"
+                                        uid=5_1300 generic
+                                          uid=5_1301 generic
+                                            uid=5_1302 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                            uid=5_1303 generic
+                                              uid=5_1304 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_1305 paragraph
+                                      uid=5_1306 generic description="181 DPS"
+                                        uid=5_1307 StaticText "0.3"
+                                          uid=1_14 InlineTextBox "0.3"
+                                        uid=5_1308 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1309 ignored
+                                  uid=5_1310 ignored
+                                    uid=5_1311 generic
+                                      uid=5_1312 generic
+                                        uid=5_1313 generic
+                                          uid=5_1314 link url="https://www.wowhead.com/item=250056?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1315 generic description="Catalyst"
+                                          uid=5_1316 generic
+                                            uid=5_1317 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1318 paragraph
+                                      uid=5_1319 generic description="-661 DPS"
+                                        uid=5_1320 StaticText "-0.9"
+                                          uid=1_14 InlineTextBox "-0.9"
+                                        uid=5_1321 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1322 ignored
+                                  uid=5_1323 ignored
+                                    uid=5_1324 generic
+                                      uid=5_1325 generic
+                                        uid=5_1326 generic
+                                          uid=5_1327 link url="https://www.wowhead.com/item=249315?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1328 paragraph
+                                      uid=5_1329 generic description="-687 DPS"
+                                        uid=5_1330 StaticText "-1.0"
+                                          uid=1_14 InlineTextBox "-1.0"
+                                        uid=5_1331 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1332 ignored
+                                  uid=5_1333 ignored
+                                    uid=5_1334 generic
+                                      uid=5_1335 generic
+                                        uid=5_1336 generic
+                                          uid=5_1337 link url="https://www.wowhead.com/item=250061?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1338 paragraph
+                                      uid=5_1339 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                                uid=5_1340 ignored
+                                  uid=5_1341 ignored
+                                    uid=5_1342 generic
+                                      uid=5_1343 generic
+                                        uid=5_1344 generic
+                                          uid=5_1345 link url="https://www.wowhead.com/item=249276?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1346 paragraph
+                                      uid=5_1347 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1348 ignored
+                            uid=5_1349 ignored
+                              uid=5_1350 ignored
+                                uid=5_1351 paragraph
+                                  uid=5_1352 StaticText "+36"
+                                    uid=1_14 InlineTextBox "+36"
+                                uid=5_1353 paragraph
+                                  uid=5_1354 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1355 paragraph
+                                uid=5_1356 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1357 ignored
+                            uid=5_1358 ignored
+                              uid=5_1359 ignored
+                                uid=5_1360 paragraph
+                                  uid=5_1361 StaticText "+181"
+                                    uid=1_14 InlineTextBox "+181"
+                                uid=5_1362 paragraph
+                                  uid=5_1363 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1364 paragraph
+                                uid=5_1365 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1366 ignored
+                            uid=5_1367 ignored
+                              uid=5_1368 ignored
+                                uid=5_1369 paragraph
+                                  uid=5_1370 StaticText "5"
+                                    uid=1_14 InlineTextBox "5"
+                              uid=5_1371 paragraph
+                                uid=5_1372 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1373 separator orientation="horizontal"
+                        uid=5_1374 ignored
+                          uid=5_1375 ignored
+                          uid=5_1376 ignored
+                            uid=5_1377 paragraph
+                              uid=5_1378 StaticText "Imperator Averzian"
+                                uid=1_14 InlineTextBox "Imperator Averzian"
+                          uid=5_1379 ignored
+                            uid=5_1380 ignored
+                              uid=5_1381 ignored
+                                uid=5_1382 ignored
+                                  uid=5_1383 ignored
+                                    uid=5_1384 generic
+                                      uid=5_1385 generic
+                                        uid=5_1386 generic
+                                          uid=5_1387 link url="https://www.wowhead.com/item=250057?bonus=4799:4786:12793&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1388 generic description="Catalyst"
+                                          uid=5_1389 generic
+                                            uid=5_1390 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1391 paragraph
+                                      uid=5_1392 generic description="44 DPS"
+                                        uid=5_1393 StaticText "0.1"
+                                          uid=1_14 InlineTextBox "0.1"
+                                        uid=5_1394 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1395 ignored
+                                  uid=5_1396 ignored
+                                    uid=5_1397 generic
+                                      uid=5_1398 generic
+                                        uid=5_1399 generic
+                                          uid=5_1400 link url="https://www.wowhead.com/item=250055?bonus=4799:4786:12793&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1401 generic description="Catalyst"
+                                          uid=5_1402 generic
+                                            uid=5_1403 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1404 paragraph
+                                      uid=5_1405 generic description="30 DPS"
+                                        uid=5_1406 StaticText "0.0"
+                                          uid=1_14 InlineTextBox "0.0"
+                                        uid=5_1407 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1408 ignored
+                                  uid=5_1409 ignored
+                                    uid=5_1410 generic
+                                      uid=5_1411 generic
+                                        uid=5_1412 generic
+                                          uid=5_1413 link url="https://www.wowhead.com/item=249335?bonus=4799:4786:12793&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1414 paragraph
+                                      uid=5_1415 generic description="-47 DPS"
+                                        uid=5_1416 StaticText "-0.1"
+                                          uid=1_14 InlineTextBox "-0.1"
+                                        uid=5_1417 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1418 ignored
+                                  uid=5_1419 ignored
+                                    uid=5_1420 generic
+                                      uid=5_1421 generic
+                                        uid=5_1422 generic
+                                          uid=5_1423 link url="https://www.wowhead.com/item=249319?bonus=4799:4786:12793&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1424 paragraph
+                                      uid=5_1425 generic description="-140 DPS"
+                                        uid=5_1426 StaticText "-0.2"
+                                          uid=1_14 InlineTextBox "-0.2"
+                                        uid=5_1427 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1428 ignored
+                                  uid=5_1429 ignored
+                                    uid=5_1430 generic
+                                      uid=5_1431 generic
+                                        uid=5_1432 generic
+                                          uid=5_1433 link url="https://www.wowhead.com/item=249323?bonus=4799:4786:12793&ench=7939&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1434 paragraph
+                                      uid=5_1435 generic description="-2,508 DPS"
+                                        uid=5_1436 StaticText "-3.5"
+                                          uid=1_14 InlineTextBox "-3.5"
+                                        uid=5_1437 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1438 ignored
+                                  uid=5_1439 ignored
+                                    uid=5_1440 generic
+                                      uid=5_1441 generic
+                                        uid=5_1442 generic
+                                          uid=5_1443 link url="https://www.wowhead.com/item=250059?bonus=4799:4786:12793&ench=7939&ilvl=259&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1444 generic description="Catalyst"
+                                          uid=5_1445 generic
+                                            uid=5_1446 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1447 paragraph
+                                      uid=5_1448 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1449 ignored
+                            uid=5_1450 ignored
+                              uid=5_1451 ignored
+                                uid=5_1452 paragraph
+                                  uid=5_1453 StaticText "+12"
+                                    uid=1_14 InlineTextBox "+12"
+                                uid=5_1454 paragraph
+                                  uid=5_1455 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1456 paragraph
+                                uid=5_1457 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1458 ignored
+                            uid=5_1459 ignored
+                              uid=5_1460 ignored
+                                uid=5_1461 paragraph
+                                  uid=5_1462 StaticText "+44"
+                                    uid=1_14 InlineTextBox "+44"
+                                uid=5_1463 paragraph
+                                  uid=5_1464 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1465 paragraph
+                                uid=5_1466 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1467 ignored
+                            uid=5_1468 ignored
+                              uid=5_1469 ignored
+                                uid=5_1470 paragraph
+                                  uid=5_1471 StaticText "5"
+                                    uid=1_14 InlineTextBox "5"
+                              uid=5_1472 paragraph
+                                uid=5_1473 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1474 separator orientation="horizontal"
+                        uid=5_1475 ignored
+                          uid=5_1476 ignored
+                          uid=5_1477 ignored
+                            uid=5_1478 paragraph
+                              uid=5_1479 StaticText "Fallen-King Salhadaar"
+                                uid=1_14 InlineTextBox "Fallen-King Salhadaar"
+                          uid=5_1480 ignored
+                            uid=5_1481 ignored
+                              uid=5_1482 ignored
+                                uid=5_1483 ignored
+                                  uid=5_1484 ignored
+                                    uid=5_1485 generic
+                                      uid=5_1486 generic
+                                        uid=5_1487 generic
+                                          uid=5_1488 link url="https://www.wowhead.com/item=250058?bonus=4799:4786:12794&ench=7972&ilvl=263&spec=64&hero=40&pcs=250060:259916:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1489 paragraph
+                                      uid=5_1490 generic description="-149 DPS"
+                                        uid=5_1491 StaticText "-0.2"
+                                          uid=1_14 InlineTextBox "-0.2"
+                                        uid=5_1492 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1493 ignored
+                                  uid=5_1494 ignored
+                                    uid=5_1495 generic
+                                      uid=5_1496 generic
+                                        uid=5_1497 generic
+                                          uid=5_1498 link url="https://www.wowhead.com/item=249340?bonus=4799:4786:12794&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:193707"
+                                    uid=5_1499 paragraph
+                                      uid=5_1500 generic description="-190 DPS"
+                                        uid=5_1501 StaticText "-0.3"
+                                          uid=1_14 InlineTextBox "-0.3"
+                                        uid=5_1502 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1503 ignored
+                                  uid=5_1504 ignored
+                                    uid=5_1505 generic
+                                      uid=5_1506 generic
+                                        uid=5_1507 generic
+                                          uid=5_1508 link url="https://www.wowhead.com/item=249337?bonus=13668:4799:4786:12794&gems=240967&ilvl=263&spec=64&hero=40&pcs=250060:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1509 generic
+                                          uid=5_1510 generic
+                                            uid=5_1511 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                            uid=5_1512 generic
+                                              uid=5_1513 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                    uid=5_1514 paragraph
+                                      uid=5_1515 generic description="-229 DPS"
+                                        uid=5_1516 StaticText "-0.3"
+                                          uid=1_14 InlineTextBox "-0.3"
+                                        uid=5_1517 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1518 ignored
+                                  uid=5_1519 ignored
+                                    uid=5_1520 generic
+                                      uid=5_1521 generic
+                                        uid=5_1522 generic
+                                          uid=5_1523 link url="https://www.wowhead.com/item=249308?bonus=4799:4786:12794&ench=7987&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                    uid=5_1524 paragraph
+                                      uid=5_1525 generic description="-2,108 DPS"
+                                        uid=5_1526 StaticText "-2.9"
+                                          uid=1_14 InlineTextBox "-2.9"
+                                        uid=5_1527 StaticText "%"
+                                          uid=1_14 InlineTextBox "%"
+                                uid=5_1528 ignored
+                                  uid=5_1529 ignored
+                                    uid=5_1530 generic
+                                      uid=5_1531 generic
+                                        uid=5_1532 generic
+                                          uid=5_1533 link url="https://www.wowhead.com/item=250063?bonus=4799:4786:12794&ench=7987&ilvl=263&spec=64&hero=40&pcs=250060:259916:258578:260312:250063:239648:250061:251102:250059:249630:251217:193708:264507:250144:193707"
+                                        uid=5_1534 generic description="Catalyst"
+                                          uid=5_1535 generic
+                                            uid=5_1536 StaticText "CAT"
+                                              uid=1_14 InlineTextBox "CAT"
+                                    uid=5_1537 paragraph
+                                      uid=5_1538 StaticText "-"
+                                        uid=1_14 InlineTextBox "-"
+                          uid=5_1539 ignored
+                            uid=5_1540 ignored
+                              uid=5_1541 ignored
+                                uid=5_1542 paragraph
+                                  uid=5_1543 StaticText "0"
+                                    uid=1_14 InlineTextBox "0"
+                                uid=5_1544 paragraph
+                                  uid=5_1545 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1546 paragraph
+                                uid=5_1547 StaticText "Expected Value"
+                                  uid=1_14 InlineTextBox "Expected Value"
+                          uid=5_1548 ignored
+                            uid=5_1549 ignored
+                              uid=5_1550 ignored
+                                uid=5_1551 paragraph
+                                  uid=5_1552 StaticText "0"
+                                    uid=1_14 InlineTextBox "0"
+                                uid=5_1553 paragraph
+                                  uid=5_1554 StaticText "DPS"
+                                    uid=1_14 InlineTextBox "DPS"
+                              uid=5_1555 paragraph
+                                uid=5_1556 StaticText "Best"
+                                  uid=1_14 InlineTextBox "Best"
+                          uid=5_1557 ignored
+                            uid=5_1558 ignored
+                              uid=5_1559 ignored
+                                uid=5_1560 paragraph
+                                  uid=5_1561 StaticText "-"
+                                    uid=1_14 InlineTextBox "-"
+                              uid=5_1562 paragraph
+                                uid=5_1563 StaticText "Priority"
+                                  uid=1_14 InlineTextBox "Priority"
+                        uid=5_1564 separator orientation="horizontal"
+                        uid=5_1565 paragraph
+                          uid=5_1566 StaticText "DPS compared to your current gear. Highlighted icons indicate "
+                            uid=1_14 InlineTextBox "DPS compared to your current gear. Highlighted icons indicate "
+                          uid=5_1567 StaticText "0.05"
+                            uid=1_14 InlineTextBox "0.05"
+                          uid=5_1568 StaticText "% or better DPS increase.  "
+                            uid=1_14 InlineTextBox "% or better DPS increase.  "
+                          uid=5_1569 link "More Info" url="https://support.raidbots.com/article/59-droptimizer-how-does-it-work"
+                            uid=5_1570 StaticText "More Info"
+                              uid=1_14 InlineTextBox "More Info"
+                      uid=5_1571 ignored
+                        uid=5_1572 generic
+                          uid=5_1573 ignored
+                            uid=5_1574 ignored
+                              uid=5_1575 generic
+                                uid=5_1576 StaticText "Droptimizer"
+                                  uid=1_14 InlineTextBox "Droptimizer"
+                                uid=5_1577 StaticText " ("
+                                  uid=1_14 InlineTextBox " ("
+                                uid=5_1578 StaticText "DPS"
+                                  uid=1_14 InlineTextBox "DPS"
+                                uid=5_1579 StaticText ")"
+                                  uid=1_14 InlineTextBox ")"
+                              uid=5_1580 ignored
+                              uid=5_1581 paragraph
+                                uid=5_1582 button "GO TO EQUIPPED"
+                                  uid=5_1583 StaticText "GO TO EQUIPPED"
+                                    uid=1_14 InlineTextBox "GO TO EQUIPPED"
+                              uid=5_1584 LabelText
+                                uid=5_1585 checkbox "Show All Variations"
+                                uid=5_1586 ignored
+                                  uid=5_1587 ignored
+                                    uid=5_1588 ignored
+                                uid=5_1589 StaticText "Show All Variations"
+                                  uid=1_14 InlineTextBox "Show All Variations"
+                              uid=5_1590 LabelText
+                                uid=5_1591 checkbox "Relative DPS"
+                                uid=5_1592 ignored
+                                  uid=5_1593 ignored
+                                    uid=5_1594 ignored
+                                uid=5_1595 StaticText "Relative DPS"
+                                  uid=1_14 InlineTextBox "Relative DPS"
+                          uid=5_1596 ignored
+                            uid=5_1597 ignored
+                          uid=5_1598 list
+                            uid=5_1599 listitem level="1"
+                              uid=5_1600 generic
+                                uid=5_1601 ignored
+                                  uid=5_1602 generic
+                                  uid=5_1603 ignored
+                                    uid=5_1604 ignored
+                                      uid=5_1605 generic
+                                        uid=5_1606 generic
+                                          uid=5_1607 generic
+                                            uid=5_1608 link url="https://www.wowhead.com/item=249343?bonus=4799:4786:12794&ilvl=263&spec=64"
+                                      uid=5_1609 generic
+                                        uid=5_1610 paragraph
+                                          uid=5_1611 StaticText "Gaze of the Alnseer"
+                                            uid=1_14 InlineTextBox "Gaze of the Alnseer"
+                                        uid=5_1612 ignored
+                                          uid=5_1613 paragraph
+                                            uid=5_1614 StaticText "263"
+                                              uid=1_14 InlineTextBox "263"
+                                          uid=5_1615 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1616 paragraph
+                                            uid=5_1617 StaticText "Trinket 2"
+                                              uid=1_14 InlineTextBox "Trinket 2"
+                                          uid=5_1618 paragraph
+                                            uid=5_1619 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1620 paragraph
+                                            uid=5_1621 StaticText "Chimaerus the Undreamt God"
+                                              uid=1_14 InlineTextBox "Chimaerus the Undreamt God"
+                                            uid=5_1622 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1623 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1624 ignored
+                                    uid=5_1625 paragraph
+                                      uid=5_1626 StaticText "74,496"
+                                        uid=1_14 InlineTextBox "74,496"
+                                  uid=5_1627 ignored
+                                    uid=5_1628 paragraph
+                                      uid=5_1629 StaticText "+2,243"
+                                        uid=1_14 InlineTextBox "+2,243"
+                                  uid=5_1630 paragraph
+                                    uid=5_1631 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_1632 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1633 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1634 ignored
+                                uid=5_1635 image "DPS Distribution Min: 67,081.8 Mean: 74,496.4 Max: 83,676.7 Std Dev: 2,142.4 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1636 listitem level="1"
+                              uid=5_1637 generic
+                                uid=5_1638 ignored
+                                  uid=5_1639 generic
+                                  uid=5_1640 ignored
+                                    uid=5_1641 ignored
+                                      uid=5_1642 generic
+                                        uid=5_1643 generic
+                                          uid=5_1644 generic
+                                            uid=5_1645 link url="https://www.wowhead.com/item=249346?bonus=4799:4786:12795&ilvl=266&spec=64"
+                                      uid=5_1646 generic
+                                        uid=5_1647 paragraph
+                                          uid=5_1648 StaticText "Vaelgor's Final Stare"
+                                            uid=1_14 InlineTextBox "Vaelgor's Final Stare"
+                                        uid=5_1649 ignored
+                                          uid=5_1650 paragraph
+                                            uid=5_1651 StaticText "266"
+                                              uid=1_14 InlineTextBox "266"
+                                          uid=5_1652 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1653 paragraph
+                                            uid=5_1654 StaticText "Trinket 2"
+                                              uid=1_14 InlineTextBox "Trinket 2"
+                                          uid=5_1655 paragraph
+                                            uid=5_1656 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1657 paragraph
+                                            uid=5_1658 StaticText "Vaelgor & Ezzorak"
+                                              uid=1_14 InlineTextBox "Vaelgor & Ezzorak"
+                                            uid=5_1659 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1660 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1661 ignored
+                                    uid=5_1662 paragraph
+                                      uid=5_1663 StaticText "74,477"
+                                        uid=1_14 InlineTextBox "74,477"
+                                  uid=5_1664 ignored
+                                    uid=5_1665 paragraph
+                                      uid=5_1666 StaticText "+2,224"
+                                        uid=1_14 InlineTextBox "+2,224"
+                                  uid=5_1667 paragraph
+                                    uid=5_1668 StaticText "2"
+                                      uid=1_14 InlineTextBox "2"
+                                    uid=5_1669 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1670 StaticText "s"
+                                      uid=1_14 InlineTextBox "s"
+                                    uid=5_1671 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1672 ignored
+                                uid=5_1673 image "DPS Distribution Min: 67,740.4 Mean: 74,477 Max: 83,783.7 Std Dev: 1,906.2 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1674 listitem level="1"
+                              uid=5_1675 generic
+                                uid=5_1676 ignored
+                                  uid=5_1677 generic
+                                  uid=5_1678 ignored
+                                    uid=5_1679 ignored
+                                      uid=5_1680 generic
+                                        uid=5_1681 generic
+                                          uid=5_1682 generic
+                                            uid=5_1683 link url="https://www.wowhead.com/item=249809?bonus=4799:4786:12796&ilvl=269&spec=64"
+                                      uid=5_1684 generic
+                                        uid=5_1685 paragraph
+                                          uid=5_1686 StaticText "Locus-Walker's Ribbon"
+                                            uid=1_14 InlineTextBox "Locus-Walker's Ribbon"
+                                        uid=5_1687 ignored
+                                          uid=5_1688 paragraph
+                                            uid=5_1689 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1690 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1691 paragraph
+                                            uid=5_1692 StaticText "Trinket 2"
+                                              uid=1_14 InlineTextBox "Trinket 2"
+                                          uid=5_1693 paragraph
+                                            uid=5_1694 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1695 paragraph
+                                            uid=5_1696 StaticText "Crown of the Cosmos"
+                                              uid=1_14 InlineTextBox "Crown of the Cosmos"
+                                            uid=5_1697 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1698 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1699 ignored
+                                    uid=5_1700 paragraph
+                                      uid=5_1701 StaticText "74,231"
+                                        uid=1_14 InlineTextBox "74,231"
+                                  uid=5_1702 ignored
+                                    uid=5_1703 paragraph
+                                      uid=5_1704 StaticText "+1,977"
+                                        uid=1_14 InlineTextBox "+1,977"
+                                  uid=5_1705 paragraph
+                                    uid=5_1706 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_1707 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1708 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1709 ignored
+                                uid=5_1710 image "DPS Distribution Min: 67,382.8 Mean: 74,230.7 Max: 82,269.8 Std Dev: 2,080.5 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1711 listitem level="1"
+                              uid=5_1712 generic
+                                uid=5_1713 ignored
+                                  uid=5_1714 generic
+                                  uid=5_1715 ignored
+                                    uid=5_1716 ignored
+                                      uid=5_1717 generic
+                                        uid=5_1718 generic
+                                          uid=5_1719 generic
+                                            uid=5_1720 link url="https://www.wowhead.com/item=249810?bonus=4799:4786:12796&ilvl=269&spec=64"
+                                      uid=5_1721 generic
+                                        uid=5_1722 paragraph
+                                          uid=5_1723 StaticText "Shadow of the Empyrean Requiem"
+                                            uid=1_14 InlineTextBox "Shadow of the Empyrean Requiem"
+                                        uid=5_1724 ignored
+                                          uid=5_1725 paragraph
+                                            uid=5_1726 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1727 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1728 paragraph
+                                            uid=5_1729 StaticText "Trinket 2"
+                                              uid=1_14 InlineTextBox "Trinket 2"
+                                          uid=5_1730 paragraph
+                                            uid=5_1731 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1732 paragraph
+                                            uid=5_1733 StaticText "Midnight Falls"
+                                              uid=1_14 InlineTextBox "Midnight Falls"
+                                            uid=5_1734 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1735 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1736 ignored
+                                    uid=5_1737 paragraph
+                                      uid=5_1738 StaticText "73,536"
+                                        uid=1_14 InlineTextBox "73,536"
+                                  uid=5_1739 ignored
+                                    uid=5_1740 paragraph
+                                      uid=5_1741 StaticText "+1,282"
+                                        uid=1_14 InlineTextBox "+1,282"
+                                  uid=5_1742 paragraph
+                                    uid=5_1743 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_1744 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1745 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1746 ignored
+                                uid=5_1747 image "DPS Distribution Min: 66,415.2 Mean: 73,535.7 Max: 82,939.8 Std Dev: 1,888.8 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1748 listitem level="1"
+                              uid=5_1749 generic
+                                uid=5_1750 ignored
+                                  uid=5_1751 generic
+                                  uid=5_1752 ignored
+                                    uid=5_1753 ignored
+                                      uid=5_1754 generic
+                                        uid=5_1755 generic
+                                          uid=5_1756 generic
+                                            uid=5_1757 link url="https://www.wowhead.com/item=249919?bonus=13668:4799:4786:12796&ench=7969&gems=240898&ilvl=269&spec=64"
+                                          uid=5_1758 generic
+                                            uid=5_1759 generic
+                                              uid=5_1760 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                              uid=5_1761 generic
+                                                uid=5_1762 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=5_1763 generic
+                                        uid=5_1764 paragraph
+                                          uid=5_1765 StaticText "Sin'dorei Band of Hope"
+                                            uid=1_14 InlineTextBox "Sin'dorei Band of Hope"
+                                        uid=5_1766 ignored
+                                          uid=5_1767 paragraph
+                                            uid=5_1768 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1769 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1770 paragraph
+                                            uid=5_1771 StaticText "Finger 1"
+                                              uid=1_14 InlineTextBox "Finger 1"
+                                          uid=5_1772 paragraph
+                                            uid=5_1773 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1774 paragraph
+                                            uid=5_1775 StaticText "Belo'ren, Child of Al'ar"
+                                              uid=1_14 InlineTextBox "Belo'ren, Child of Al'ar"
+                                            uid=5_1776 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1777 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1778 ignored
+                                    uid=5_1779 paragraph
+                                      uid=5_1780 StaticText "72,852"
+                                        uid=1_14 InlineTextBox "72,852"
+                                  uid=5_1781 ignored
+                                    uid=5_1782 paragraph
+                                      uid=5_1783 StaticText "+599"
+                                        uid=1_14 InlineTextBox "+599"
+                                  uid=5_1784 paragraph
+                                    uid=5_1785 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_1786 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1787 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1788 ignored
+                                uid=5_1789 image "DPS Distribution Min: 66,479.9 Mean: 72,852.5 Max: 80,405.1 Std Dev: 1,893.5 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1790 listitem level="1"
+                              uid=5_1791 generic
+                                uid=5_1792 ignored
+                                  uid=5_1793 generic
+                                  uid=5_1794 ignored
+                                    uid=5_1795 ignored
+                                      uid=5_1796 generic
+                                        uid=5_1797 generic
+                                          uid=5_1798 generic
+                                            uid=5_1799 link url="https://www.wowhead.com/item=249369?bonus=13668:4799:4786:12795&ench=7969&gems=240898&ilvl=266&spec=64"
+                                          uid=5_1800 generic
+                                            uid=5_1801 generic
+                                              uid=5_1802 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                              uid=5_1803 generic
+                                                uid=5_1804 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=5_1805 generic
+                                        uid=5_1806 paragraph
+                                          uid=5_1807 StaticText "Bond of Light"
+                                            uid=1_14 InlineTextBox "Bond of Light"
+                                        uid=5_1808 ignored
+                                          uid=5_1809 paragraph
+                                            uid=5_1810 StaticText "266"
+                                              uid=1_14 InlineTextBox "266"
+                                          uid=5_1811 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1812 paragraph
+                                            uid=5_1813 StaticText "Finger 1"
+                                              uid=1_14 InlineTextBox "Finger 1"
+                                          uid=5_1814 paragraph
+                                            uid=5_1815 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1816 paragraph
+                                            uid=5_1817 StaticText "Lightblinded Vanguard"
+                                              uid=1_14 InlineTextBox "Lightblinded Vanguard"
+                                            uid=5_1818 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1819 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1820 ignored
+                                    uid=5_1821 paragraph
+                                      uid=5_1822 StaticText "72,736"
+                                        uid=1_14 InlineTextBox "72,736"
+                                  uid=5_1823 ignored
+                                    uid=5_1824 paragraph
+                                      uid=5_1825 StaticText "+482"
+                                        uid=1_14 InlineTextBox "+482"
+                                  uid=5_1826 paragraph
+                                    uid=5_1827 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_1828 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_1829 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_1830 ignored
+                                uid=5_1831 image "DPS Distribution Min: 65,858.4 Mean: 72,735.8 Max: 81,055 Std Dev: 1,867.6 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1832 listitem level="1"
+                              uid=5_1833 generic
+                                uid=5_1834 ignored
+                                  uid=5_1835 generic
+                                  uid=5_1836 ignored
+                                    uid=5_1837 ignored
+                                      uid=5_1838 generic
+                                        uid=5_1839 generic
+                                          uid=5_1840 generic
+                                            uid=5_1841 link url="https://www.wowhead.com/item=249376?bonus=4799:4786:12796&ilvl=269&spec=64"
+                                      uid=5_1842 generic
+                                        uid=5_1843 paragraph
+                                          uid=5_1844 StaticText "Whisper-Inscribed Sash"
+                                            uid=1_14 InlineTextBox "Whisper-Inscribed Sash"
+                                        uid=5_1845 ignored
+                                          uid=5_1846 paragraph
+                                            uid=5_1847 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1848 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1849 paragraph
+                                            uid=5_1850 StaticText "Waist"
+                                              uid=1_14 InlineTextBox "Waist"
+                                          uid=5_1851 paragraph
+                                            uid=5_1852 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1853 paragraph
+                                            uid=5_1854 StaticText "Belo'ren, Child of Al'ar"
+                                              uid=1_14 InlineTextBox "Belo'ren, Child of Al'ar"
+                                            uid=5_1855 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1856 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1857 ignored
+                                    uid=5_1858 paragraph
+                                      uid=5_1859 StaticText "72,616"
+                                        uid=1_14 InlineTextBox "72,616"
+                                  uid=5_1860 ignored
+                                    uid=5_1861 paragraph
+                                      uid=5_1862 StaticText "+362"
+                                        uid=1_14 InlineTextBox "+362"
+                                  uid=5_1863 ignored
+                                uid=5_1864 image "DPS Distribution Min: 66,125.4 Mean: 72,615.9 Max: 79,369.7 Std Dev: 1,858.9 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1865 listitem level="1"
+                              uid=5_1866 generic
+                                uid=5_1867 ignored
+                                  uid=5_1868 generic
+                                  uid=5_1869 ignored
+                                    uid=5_1870 ignored
+                                      uid=5_1871 generic
+                                        uid=5_1872 generic
+                                          uid=5_1873 generic
+                                            uid=5_1874 link url="https://www.wowhead.com/item=250247?bonus=13668:4799:4786:12796&ench=240967&gems=240967&ilvl=269&spec=64"
+                                          uid=5_1875 generic
+                                            uid=5_1876 generic
+                                              uid=5_1877 link url="https://www.wowhead.com/item=240967?crafting-quality=5"
+                                              uid=5_1878 generic
+                                                uid=5_1879 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=5_1880 generic
+                                        uid=5_1881 paragraph
+                                          uid=5_1882 StaticText "Amulet of the Abyssal Hymn"
+                                            uid=1_14 InlineTextBox "Amulet of the Abyssal Hymn"
+                                        uid=5_1883 ignored
+                                          uid=5_1884 paragraph
+                                            uid=5_1885 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1886 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1887 paragraph
+                                            uid=5_1888 StaticText "Neck"
+                                              uid=1_14 InlineTextBox "Neck"
+                                          uid=5_1889 paragraph
+                                            uid=5_1890 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1891 paragraph
+                                            uid=5_1892 StaticText "Midnight Falls"
+                                              uid=1_14 InlineTextBox "Midnight Falls"
+                                            uid=5_1893 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1894 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1895 ignored
+                                    uid=5_1896 paragraph
+                                      uid=5_1897 StaticText "72,605"
+                                        uid=1_14 InlineTextBox "72,605"
+                                  uid=5_1898 ignored
+                                    uid=5_1899 paragraph
+                                      uid=5_1900 StaticText "+352"
+                                        uid=1_14 InlineTextBox "+352"
+                                  uid=5_1901 ignored
+                                uid=5_1902 image "DPS Distribution Min: 66,290.5 Mean: 72,605.3 Max: 79,896.3 Std Dev: 1,863.8 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1903 listitem level="1"
+                              uid=5_1904 generic
+                                uid=5_1905 ignored
+                                  uid=5_1906 generic
+                                  uid=5_1907 ignored
+                                    uid=5_1908 ignored
+                                      uid=5_1909 generic
+                                        uid=5_1910 generic
+                                          uid=5_1911 generic
+                                            uid=5_1912 link url="https://www.wowhead.com/item=250057?bonus=4799:4786:12796&ilvl=269&spec=64"
+                                          uid=5_1913 generic description="Catalyst"
+                                            uid=5_1914 generic
+                                              uid=5_1915 StaticText "CAT"
+                                                uid=1_14 InlineTextBox "CAT"
+                                      uid=5_1916 generic
+                                        uid=5_1917 paragraph
+                                          uid=5_1918 StaticText "Voidbreaker's Sage Cord"
+                                            uid=1_14 InlineTextBox "Voidbreaker's Sage Cord"
+                                        uid=5_1919 ignored
+                                          uid=5_1920 paragraph
+                                            uid=5_1921 StaticText "269"
+                                              uid=1_14 InlineTextBox "269"
+                                          uid=5_1922 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1923 paragraph
+                                            uid=5_1924 StaticText "Waist"
+                                              uid=1_14 InlineTextBox "Waist"
+                                          uid=5_1925 paragraph
+                                            uid=5_1926 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1927 paragraph
+                                            uid=5_1928 StaticText "Belo'ren, Child of Al'ar"
+                                              uid=1_14 InlineTextBox "Belo'ren, Child of Al'ar"
+                                            uid=5_1929 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1930 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1931 ignored
+                                    uid=5_1932 paragraph
+                                      uid=5_1933 StaticText "72,550"
+                                        uid=1_14 InlineTextBox "72,550"
+                                  uid=5_1934 ignored
+                                    uid=5_1935 paragraph
+                                      uid=5_1936 StaticText "+296"
+                                        uid=1_14 InlineTextBox "+296"
+                                  uid=5_1937 ignored
+                                uid=5_1938 image "DPS Distribution Min: 65,734.4 Mean: 72,549.8 Max: 80,272.7 Std Dev: 1,874 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1939 listitem level="1"
+                              uid=5_1940 generic
+                                uid=5_1941 ignored
+                                  uid=5_1942 generic
+                                  uid=5_1943 ignored
+                                    uid=5_1944 ignored
+                                      uid=5_1945 generic
+                                        uid=5_1946 generic
+                                          uid=5_1947 generic
+                                            uid=5_1948 link url="https://www.wowhead.com/item=249373?bonus=4799:4786:12794&ench=7992&ilvl=263&spec=64"
+                                      uid=5_1949 generic
+                                        uid=5_1950 paragraph
+                                          uid=5_1951 StaticText "Dream-Scorched Striders"
+                                            uid=1_14 InlineTextBox "Dream-Scorched Striders"
+                                        uid=5_1952 ignored
+                                          uid=5_1953 paragraph
+                                            uid=5_1954 StaticText "263"
+                                              uid=1_14 InlineTextBox "263"
+                                          uid=5_1955 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1956 paragraph
+                                            uid=5_1957 StaticText "Feet"
+                                              uid=1_14 InlineTextBox "Feet"
+                                          uid=5_1958 paragraph
+                                            uid=5_1959 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1960 paragraph
+                                            uid=5_1961 StaticText "Chimaerus the Undreamt God"
+                                              uid=1_14 InlineTextBox "Chimaerus the Undreamt God"
+                                            uid=5_1962 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_1963 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_1964 ignored
+                                    uid=5_1965 paragraph
+                                      uid=5_1966 StaticText "72,444"
+                                        uid=1_14 InlineTextBox "72,444"
+                                  uid=5_1967 ignored
+                                    uid=5_1968 paragraph
+                                      uid=5_1969 StaticText "+191"
+                                        uid=1_14 InlineTextBox "+191"
+                                  uid=5_1970 ignored
+                                uid=5_1971 image "DPS Distribution Min: 65,798.3 Mean: 72,444.1 Max: 79,310.9 Std Dev: 1,847.9 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                            uid=5_1972 listitem level="1"
+                              uid=5_1973 generic
+                                uid=5_1974 ignored
+                                  uid=5_1975 generic
+                                  uid=5_1976 ignored
+                                    uid=5_1977 ignored
+                                      uid=5_1978 generic
+                                        uid=5_1979 generic
+                                          uid=5_1980 generic
+                                            uid=5_1981 link url="https://www.wowhead.com/item=249336?bonus=13668:4799:4786:12794&ench=7969&gems=240898&ilvl=263&spec=64"
+                                          uid=5_1982 generic
+                                            uid=5_1983 generic
+                                              uid=5_1984 link url="https://www.wowhead.com/item=240898?crafting-quality=5"
+                                              uid=5_1985 generic
+                                                uid=5_1986 image "Crafting Quality 2" url="https://www.raidbots.com/images/crafting-quality-2.png"
+                                      uid=5_1987 generic
+                                        uid=5_1988 paragraph
+                                          uid=5_1989 StaticText "Signet of the Starved Beast"
+                                            uid=1_14 InlineTextBox "Signet of the Starved Beast"
+                                        uid=5_1990 ignored
+                                          uid=5_1991 paragraph
+                                            uid=5_1992 StaticText "263"
+                                              uid=1_14 InlineTextBox "263"
+                                          uid=5_1993 StaticText " "
+                                            uid=1_14 InlineTextBox " "
+                                          uid=5_1994 paragraph
+                                            uid=5_1995 StaticText "Finger 1"
+                                              uid=1_14 InlineTextBox "Finger 1"
+                                          uid=5_1996 paragraph
+                                            uid=5_1997 StaticText " "
+                                              uid=1_14 InlineTextBox " "
+                                          uid=5_1998 paragraph
+                                            uid=5_1999 StaticText "Vorasius"
+                                              uid=1_14 InlineTextBox "Vorasius"
+                                            uid=5_2000 StaticText " - "
+                                              uid=1_14 InlineTextBox " - "
+                                            uid=5_2001 StaticText "Heroic"
+                                              uid=1_14 InlineTextBox "Heroic"
+                                  uid=5_2002 ignored
+                                    uid=5_2003 paragraph
+                                      uid=5_2004 StaticText "72,435"
+                                        uid=1_14 InlineTextBox "72,435"
+                                  uid=5_2005 ignored
+                                    uid=5_2006 paragraph
+                                      uid=5_2007 StaticText "+181"
+                                        uid=1_14 InlineTextBox "+181"
+                                  uid=5_2008 paragraph
+                                    uid=5_2009 StaticText "1"
+                                      uid=1_14 InlineTextBox "1"
+                                    uid=5_2010 StaticText " variation"
+                                      uid=1_14 InlineTextBox " variation"
+                                    uid=5_2011 StaticText " hidden"
+                                      uid=1_14 InlineTextBox " hidden"
+                                  uid=5_2012 ignored
+                                uid=5_2013 image "DPS Distribution Min: 65,505.8 Mean: 72,434.7 Max: 79,459 Std Dev: 1,861.5 Dot chart is displaying 1 and 2 standard deviations from the mean of the results"
+                          uid=5_2014 ignored
+                            uid=5_2015 LabelText
+                              uid=5_2016 checkbox "Show Smart Sim Stage"
+                              uid=5_2017 ignored
+                                uid=5_2018 ignored
+                                  uid=5_2019 ignored
+                              uid=5_2020 StaticText "Show Smart Sim Stage"
+                                uid=1_14 InlineTextBox "Show Smart Sim Stage"
+                      uid=5_2021 separator orientation="horizontal"
+                      uid=5_2022 ignored
+                        uid=5_2023 ignored
+                          uid=5_2024 generic
+                            uid=5_2025 LabelText
+                              uid=5_2026 ignored
+                                uid=5_2027 generic
+                                  uid=5_2028 StaticText "SimC Notifications"
+                                    uid=1_14 InlineTextBox "SimC Notifications"
+                                uid=5_2029 ignored
+                                uid=5_2030 generic
+                                  uid=5_2031 image
+                      uid=5_2032 separator orientation="horizontal"
+                      uid=5_2033 ignored
+                        uid=5_2034 generic
+                          uid=5_2035 LabelText
+                            uid=5_2036 ignored
+                              uid=5_2037 generic
+                                uid=5_2038 StaticText "Raw Input"
+                                  uid=1_14 InlineTextBox "Raw Input"
+                              uid=5_2039 ignored
+                              uid=5_2040 generic
+                                uid=5_2041 image
+                        uid=5_2042 separator orientation="horizontal"
+                        uid=5_2043 ignored
+                          uid=5_2044 generic
+                            uid=5_2045 LabelText
+                              uid=5_2046 ignored
+                                uid=5_2047 generic
+                                  uid=5_2048 StaticText "Original Addon Input"
+                                    uid=1_14 InlineTextBox "Original Addon Input"
+                                uid=5_2049 ignored
+                                uid=5_2050 generic
+                                  uid=5_2051 image
+                      uid=5_2052 separator orientation="horizontal"
+                    uid=5_2053 ignored
+                      uid=5_2054 generic
+                        uid=5_2055 ignored
+                          uid=5_2056 StaticText "Simulation Details"
+                            uid=1_14 InlineTextBox "Simulation Details"
+                        uid=5_2057 ignored
+                          uid=5_2058 heading "PATCHWERK" level="5"
+                            uid=5_2059 StaticText "PATCHWERK"
+                              uid=1_14 InlineTextBox "PATCHWERK"
+                        uid=5_2060 ignored
+                          uid=5_2061 ignored
+                            uid=5_2062 paragraph
+                              uid=5_2063 StaticText "5 minutes"
+                                uid=1_14 InlineTextBox "5 minutes"
+                            uid=5_2064 ignored
+                              uid=5_2065 generic "By default, SimC varies fight length for each iteration to avoid overly specific results. ,[object Object],In this sim, fight length varies from ,240, to ,360, seconds."
+                                uid=5_2066 button "?"
+                                  uid=5_2067 ignored
+                                    uid=5_2068 paragraph
+                                      uid=5_2069 StaticText "?"
+                                        uid=1_14 InlineTextBox "?"
+                          uid=5_2070 paragraph
+                            uid=5_2071 StaticText "1"
+                              uid=1_14 InlineTextBox "1"
+                            uid=5_2072 StaticText " boss target"
+                              uid=1_14 InlineTextBox " boss target"
+                        uid=5_2073 ignored
+                          uid=5_2074 ignored
+                            uid=5_2075 generic
+                              uid=5_2076 link url="https://www.wowhead.com/item=241308?"
+                          uid=5_2077 ignored
+                            uid=5_2078 generic
+                              uid=5_2079 link url="https://www.wowhead.com/item=241326?"
+                          uid=5_2080 ignored
+                            uid=5_2081 generic
+                              uid=5_2082 link url="https://www.wowhead.com/item=255845?"
+                          uid=5_2083 ignored
+                            uid=5_2084 generic
+                              uid=5_2085 link url="https://www.wowhead.com/item=259085?"
+                          uid=5_2086 ignored
+                            uid=5_2087 generic
+                              uid=5_2088 link url="https://www.wowhead.com/spell=2825?"
+                          uid=5_2089 ignored
+                            uid=5_2090 generic
+                              uid=5_2091 link url="https://www.wowhead.com/spell=1459?"
+                          uid=5_2092 ignored
+                            uid=5_2093 generic
+                              uid=5_2094 link url="https://www.wowhead.com/spell=21562?"
+                          uid=5_2095 ignored
+                            uid=5_2096 generic
+                              uid=5_2097 link url="https://www.wowhead.com/spell=1126?"
+                          uid=5_2098 ignored
+                            uid=5_2099 generic
+                              uid=5_2100 link url="https://www.wowhead.com/spell=6673?"
+                          uid=5_2101 ignored
+                            uid=5_2102 generic
+                              uid=5_2103 link url="https://www.wowhead.com/spell=8647?"
+                          uid=5_2104 ignored
+                            uid=5_2105 generic
+                              uid=5_2106 link url="https://www.wowhead.com/spell=1490?"
+                          uid=5_2107 ignored
+                            uid=5_2108 generic
+                              uid=5_2109 link url="https://www.wowhead.com/spell=257284?"
+                          uid=5_2110 ignored
+                            uid=5_2111 generic
+                              uid=5_2112 link url="https://www.wowhead.com/spell=462854?"
+                          uid=5_2113 ignored
+                            uid=5_2114 generic
+                              uid=5_2115 link url="https://www.wowhead.com/spell=10060?"
+                        uid=5_2116 separator orientation="horizontal"
+                        uid=5_2117 ignored
+                          uid=5_2118 ignored
+                            uid=5_2119 ignored
+                              uid=5_2120 paragraph
+                                uid=5_2121 StaticText "Sim Run"
+                                  uid=1_14 InlineTextBox "Sim Run"
+                            uid=5_2122 ignored
+                            uid=5_2123 ignored
+                              uid=5_2124 paragraph description="Wed Apr 01 2026 14:26:11 GMT+0200 (Central European Summer Time)"
+                                uid=5_2125 StaticText "just now"
+                                  uid=1_14 InlineTextBox "just now"
+                          uid=5_2126 separator orientation="horizontal"
+                        uid=5_2127 ignored
+                          uid=5_2128 ignored
+                            uid=5_2129 ignored
+                              uid=5_2130 paragraph
+                                uid=5_2131 StaticText "Margin of Error"
+                                  uid=1_14 InlineTextBox "Margin of Error"
+                            uid=5_2132 ignored
+                            uid=5_2133 paragraph
+                              uid=5_2134 StaticText "~37 DPS (0.05%)"
+                                uid=1_14 InlineTextBox "~37 DPS (0.05%)"
+                          uid=5_2135 separator orientation="horizontal"
+                        uid=5_2136 ignored
+                          uid=5_2137 ignored
+                            uid=5_2138 generic "Number of simulated fights run"
+                              uid=5_2139 paragraph
+                                uid=5_2140 StaticText "Iterations"
+                                  uid=1_14 InlineTextBox "Iterations"
+                            uid=5_2141 ignored
+                            uid=5_2142 paragraph
+                              uid=5_2143 StaticText "10,437 (Smart Sim)"
+                                uid=1_14 InlineTextBox "10,437 (Smart Sim)"
+                          uid=5_2144 separator orientation="horizontal"
+                        uid=5_2145 ignored
+                          uid=5_2146 ignored
+                            uid=5_2147 ignored
+                              uid=5_2148 paragraph
+                                uid=5_2149 StaticText "Actors"
+                                  uid=1_14 InlineTextBox "Actors"
+                            uid=5_2150 ignored
+                            uid=5_2151 paragraph
+                              uid=5_2152 StaticText "49"
+                                uid=1_14 InlineTextBox "49"
+                          uid=5_2153 separator orientation="horizontal"
+                        uid=5_2154 ignored
+                          uid=5_2155 ignored
+                            uid=5_2156 ignored
+                              uid=5_2157 paragraph
+                                uid=5_2158 StaticText "Processing Time"
+                                  uid=1_14 InlineTextBox "Processing Time"
+                            uid=5_2159 ignored
+                            uid=5_2160 paragraph
+                              uid=5_2161 StaticText "0:55"
+                                uid=1_14 InlineTextBox "0:55"
+                          uid=5_2162 separator orientation="horizontal"
+                        uid=5_2163 ignored
+                          uid=5_2164 ignored
+                            uid=5_2165 ignored
+                              uid=5_2166 paragraph
+                                uid=5_2167 StaticText "SimC Version"
+                                  uid=1_14 InlineTextBox "SimC Version"
+                            uid=5_2168 ignored
+                            uid=5_2169 ignored
+                              uid=5_2170 ignored
+                                uid=5_2171 paragraph
+                                  uid=5_2172 StaticText "Weekly"
+                                    uid=1_14 InlineTextBox "Weekly"
+                          uid=5_2173 separator orientation="horizontal"
+                        uid=5_2174 ignored
+                          uid=5_2175 ignored
+                            uid=5_2176 ignored
+                              uid=5_2177 paragraph
+                                uid=5_2178 StaticText "SimC Build Date"
+                                  uid=1_14 InlineTextBox "SimC Build Date"
+                            uid=5_2179 ignored
+                            uid=5_2180 paragraph
+                              uid=5_2181 StaticText "Mar 31, 6:27 pm"
+                                uid=1_14 InlineTextBox "Mar 31, 6:27 pm"
+                          uid=5_2182 separator orientation="horizontal"
+                        uid=5_2183 ignored
+                          uid=5_2184 ignored
+                            uid=5_2185 ignored
+                              uid=5_2186 paragraph
+                                uid=5_2187 StaticText "SimC Git Hash"
+                                  uid=1_14 InlineTextBox "SimC Git Hash"
+                            uid=5_2188 ignored
+                            uid=5_2189 ignored
+                              uid=5_2190 paragraph
+                                uid=5_2191 link "be0e4ec93c" url="https://github.com/simulationcraft/simc/commits/be0e4ec93c"
+                                  uid=5_2192 StaticText "be0e4ec93c"
+                                    uid=1_14 InlineTextBox "be0e4ec93c"
+                          uid=5_2193 separator orientation="horizontal"
+                        uid=5_2194 ignored
+                          uid=5_2195 ignored
+                            uid=5_2196 ignored
+                              uid=5_2197 paragraph
+                                uid=5_2198 StaticText "Bleeding"
+                                  uid=1_14 InlineTextBox "Bleeding"
+                            uid=5_2199 ignored
+                            uid=5_2200 paragraph
+                              uid=5_2201 StaticText "Disabled"
+                                uid=1_14 InlineTextBox "Disabled"
+                          uid=5_2202 separator orientation="horizontal"
+                        uid=5_2203 ignored
+                          uid=5_2204 ignored
+                            uid=5_2205 paragraph
+                              uid=5_2206 StaticText "Raw Files"
+                                uid=1_14 InlineTextBox "Raw Files"
+                            uid=5_2207 ignored
+                            uid=5_2208 generic
+                              uid=5_2209 link "⋯" description="More Options"
+                                uid=5_2210 paragraph
+                                  uid=5_2211 StaticText "⋯"
+                                    uid=1_14 InlineTextBox "⋯"
+                          uid=5_2212 separator orientation="horizontal"
+                        uid=5_2213 ignored
+                          uid=5_2214 paragraph
+                            uid=5_2215 StaticText "Report disabled for large simulation"
+                              uid=1_14 InlineTextBox "Report disabled for large simulation"
+                      uid=5_2216 ignored
+                        uid=5_2217 ignored
+                          uid=5_2218 LabelText
+                            uid=5_2219 StaticText "Share Report URL"
+                              uid=1_14 InlineTextBox "Share Report URL"
+                          uid=5_2220 textbox disableable disabled value="https://www.raidbots.com/simbot/report/5oqwhJr2JBobDFNSm9Maiw"
+                            uid=5_2221 generic
+                              uid=5_2222 StaticText "https://www.raidbots.com/simbot/report/5oqwhJr2JBobDFNSm9Maiw"
+                                uid=1_14 InlineTextBox "https://www.raidbots.com/simbot/report/5oqwhJr2JBobDFNSm9Maiw"
+                        uid=5_2223 button "COPY TO CLIPBOARD"
+                          uid=5_2224 StaticText "COPY TO CLIPBOARD"
+                            uid=1_14 InlineTextBox "COPY TO CLIPBOARD"
+          uid=1_621 generic
+            uid=1_622 contentinfo
+              uid=1_623 ignored
+                uid=1_624 ignored
+                  uid=1_625 ignored
+                    uid=1_626 ignored
+                      uid=1_627 heading "ETC" level="4"
+                        uid=1_628 StaticText "ETC"
+                          uid=1_14 InlineTextBox "ETC"
+                      uid=1_629 ignored
+                        uid=1_630 paragraph
+                          uid=1_631 link "Developers" url="https://www.raidbots.com/developers"
+                            uid=1_632 StaticText "Developers"
+                              uid=1_14 InlineTextBox "Developers"
+                        uid=1_633 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_634 paragraph
+                          uid=1_635 link "Blog Archive" url="https://medium.com/raidbots"
+                            uid=1_636 StaticText "Blog Archive"
+                              uid=1_14 InlineTextBox "Blog Archive"
+                        uid=1_637 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_638 paragraph
+                          uid=1_639 link "Terms of Use" url="https://www.raidbots.com/tou"
+                            uid=1_640 StaticText "Terms of Use"
+                              uid=1_14 InlineTextBox "Terms of Use"
+                        uid=1_641 paragraph
+                          uid=1_642 link "Privacy Policy" url="https://www.raidbots.com/privacy"
+                            uid=1_643 StaticText "Privacy Policy"
+                              uid=1_14 InlineTextBox "Privacy Policy"
+                    uid=1_644 ignored
+                      uid=1_645 heading "CONTACT" level="4"
+                        uid=1_646 StaticText "CONTACT"
+                          uid=1_14 InlineTextBox "CONTACT"
+                      uid=1_647 ignored
+                        uid=1_648 paragraph
+                          uid=1_649 link "Support / Help" url="https://support.raidbots.com/"
+                            uid=1_650 StaticText "Support / Help"
+                              uid=1_14 InlineTextBox "Support / Help"
+                        uid=1_651 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_652 paragraph
+                          uid=1_653 link "Raidbots Discord" url="https://discord.gg/86EF64Q"
+                            uid=1_654 StaticText "Raidbots Discord"
+                              uid=1_14 InlineTextBox "Raidbots Discord"
+                        uid=1_655 LineBreak "
+"
+                          uid=1_14 InlineTextBox "
+"
+                        uid=1_656 paragraph
+                          uid=1_657 StaticText "Made by Seriallos"
+                            uid=1_14 InlineTextBox "Made by Seriallos"
+          uid=1_658 generic
+            uid=1_659 generic
+              uid=1_660 generic
+                uid=1_661 heading "REPORTS" level="3"
+                  uid=1_662 StaticText "REPORTS"
+                    uid=1_14 InlineTextBox "REPORTS"
+                uid=1_663 paragraph
+                  uid=1_664 StaticText "Create an account to save reports"
+                    uid=1_14 InlineTextBox "Create an account to save reports"
+          uid=1_665 ignored
+            uid=1_666 ignored
+          uid=1_667 ignored
+          uid=1_668 ignored
+            uid=1_669 ignored
+          uid=1_670 ignored
