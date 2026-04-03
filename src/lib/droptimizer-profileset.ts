@@ -61,6 +61,10 @@ export function generateDroptimizerCombinations(
   const spec = profile.spec?.toLowerCase() ?? '';
   const isDualWield = DUAL_WIELD_SPECS.has(spec);
 
+  // Check if equipped main_hand is a two-hand weapon
+  const equippedMainHand = profile.gear.main_hand?.find((i) => i.isEquipped);
+  const hasTwoHand = equippedMainHand?.isTwoHand === true;
+
   // Baseline (combo_0000) — currently equipped, no changes
   combinations.push({
     name: 'combo_0000',
@@ -71,6 +75,10 @@ export function generateDroptimizerCombinations(
   let comboIndex = 1;
 
   for (const item of items) {
+    // If character has a two-hand weapon, skip off_hand drops entirely —
+    // they can't be equipped without also changing to a one-hand main_hand.
+    if (hasTwoHand && item.slot === 'off_hand') continue;
+
     // Determine which profile slots to try this item in
     const targetSlots = getTargetSlots(item.slot, isDualWield);
 
@@ -85,9 +93,10 @@ export function generateDroptimizerCombinations(
       const simcLine = buildDropItemLine(profile, item, targetSlot, options);
       const overrideLines = [simcLine];
 
-      // When swapping main_hand, clear off_hand if the character has one
-      // (matches Raidbots behavior: off_hand=,)
-      if (targetSlot === 'main_hand' && profile.gear.off_hand?.length) {
+      // When swapping main_hand, always clear off_hand to ensure SimC
+      // doesn't carry over artifacts from a two-hand base profile.
+      // Matches Raidbots behavior: off_hand=,
+      if (targetSlot === 'main_hand') {
         overrideLines.push('off_hand=,');
       }
 

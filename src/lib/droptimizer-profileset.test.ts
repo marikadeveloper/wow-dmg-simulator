@@ -230,6 +230,48 @@ describe('generateDroptimizerCombinations', () => {
     expect(combinations).toHaveLength(2); // baseline + main_hand only
   });
 
+  // ── Two-hand weapon handling ────────────────────────────────────────
+
+  it('skips off_hand drops when main_hand is two-hand', () => {
+    const profile = makeProfile({
+      spec: 'fire',
+      className: 'mage',
+      gear: {
+        ...makeProfile().gear,
+        main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639, isTwoHand: true }],
+      },
+    });
+    const items = [
+      makeItem({ slot: 'off_hand', itemId: 501 }),
+      makeItem({ key: 'head_item', slot: 'head', itemId: 502 }),
+    ];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    // Should skip off_hand (can't equip with two-hand), only generate head
+    expect(combinations).toHaveLength(2); // baseline + head only
+    expect(combinations[1].overrideLines[0]).toMatch(/^head=/);
+  });
+
+  it('always adds off_hand=, when swapping main_hand', () => {
+    const profile = makeProfile({
+      spec: 'fire',
+      className: 'mage',
+      gear: {
+        ...makeProfile().gear,
+        main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639, isTwoHand: true }],
+      },
+    });
+    // Remove off_hand from gear to simulate two-hand user with no off_hand
+    delete profile.gear.off_hand;
+
+    const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    // Should still add off_hand=, even though no off_hand is equipped
+    expect(combinations[1].overrideLines).toHaveLength(2);
+    expect(combinations[1].overrideLines[1]).toBe('off_hand=,');
+  });
+
   // ── Vault socket ──────────────────────────────────────────────────────
 
   it('adds vault socket bonus_id when enabled', () => {
