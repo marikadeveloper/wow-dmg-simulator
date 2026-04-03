@@ -222,18 +222,18 @@ Last updated: 2026-04-02
 
 | #     | Story                                                                     | Status |
 | ----- | ------------------------------------------------------------------------- | ------ |
-| 12.13 | Show all droppable items filtered by class/spec/armor type                | ⬜     |
-| 12.14 | Item row: name, ilvl, slot, source label (boss/dungeon name)              | ⬜     |
-| 12.15 | Group by: Item Slot (default) or Boss/Dungeon                             | ⬜     |
-| 12.16 | "Already wearing this item or better" indicator                           | ⬜     |
-| 12.17 | "Include Catalyst Items" checkbox (default checked)                       | ⬜     |
-| 12.18 | "Include Off-Spec Items" checkbox                                         | ⬜     |
-| 12.19 | "Preferred Gem" dropdown for socketed items                               | ⬜     |
-| 12.20 | "Add Vault Socket" checkbox                                               | ⬜     |
-| 12.21 | "Upgrade up to" selector                                                  | ⬜     |
-| 12.22 | "Upgrade All Equipped Gear to Same Level" checkbox                        | ⬜     |
+| 12.13 | Show all droppable items filtered by class/spec/armor type                | ✅     |
+| 12.14 | Item row: name, ilvl, slot, source label (boss/dungeon name)              | ✅     |
+| 12.15 | Group by: Item Slot (default) or Boss/Dungeon                             | ✅     |
+| 12.16 | "Already wearing this item or better" indicator                           | ✅     |
+| 12.17 | "Include Catalyst Items" checkbox (default checked)                       | ✅     |
+| 12.18 | "Include Off-Spec Items" checkbox                                         | ✅     |
+| 12.19 | "Preferred Gem" dropdown for socketed items                               | ✅     |
+| 12.20 | "Add Vault Socket" checkbox                                               | ✅     |
+| 12.21 | "Upgrade up to" selector                                                  | ✅     |
+| 12.22 | "Upgrade All Equipped Gear to Same Level" checkbox                        | ✅     |
 
-**Sub-epic status: ⬜ 0/10 stories done**
+**Sub-epic status: ✅ 10/10 stories done**
 
 ### 12D — Droptimizer Simulation
 
@@ -267,4 +267,4 @@ Last updated: 2026-04-02
 
 **Sub-epic status: ⬜ 0/11 stories done**
 
-**Epic status: ⬜ 12/40 stories done**
+**Epic status: ⬜ 22/40 stories done**

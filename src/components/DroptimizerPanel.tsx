@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import type { SimcProfile, DroptimizerSourceType, DroptimizerSourceConfig } from '../lib/types';
 import {
   RAID_INSTANCES,
@@ -9,7 +9,6 @@ import {
   RAID_ILVL_MAP,
   KEYSTONE_ILVL_TABLE,
   WORLD_BOSS_ILVL,
-  getItemsForClass,
   type RaidDifficulty,
 } from '../lib/presets/loot-tables';
 import {
@@ -17,6 +16,7 @@ import {
   CLASS_TO_TIER_SET_ID,
   TIER_SLOT_ORDER,
 } from '../lib/presets/season-config';
+import DroptimizerItemList from './DroptimizerItemList';
 
 interface DroptimizerPanelProps {
   profile: SimcProfile;
@@ -106,38 +106,6 @@ export default function DroptimizerPanel({ profile }: DroptimizerPanelProps) {
     }
   }
 
-  // ── Item count for the selected source ─────────────────────────────────────
-
-  const itemCount = useMemo(() => {
-    switch (sourceConfig.type) {
-      case 'raid': {
-        const raids = sourceConfig.raidIds
-          ? RAID_INSTANCES.filter((r) => sourceConfig.raidIds!.includes(r.id))
-          : RAID_INSTANCES;
-        const allItems = raids.flatMap((r) => r.encounters.flatMap((e) => e.items));
-        return getItemsForClass(allItems, className).length;
-      }
-      case 'mythicplus': {
-        const dungeons = sourceConfig.dungeonIds
-          ? MYTHIC_PLUS_DUNGEONS.filter((d) => sourceConfig.dungeonIds!.includes(d.id))
-          : MYTHIC_PLUS_DUNGEONS;
-        const allItems = dungeons.flatMap((d) => d.items);
-        return getItemsForClass(allItems, className).length;
-      }
-      case 'worldboss': {
-        const allItems = WORLD_BOSSES.flatMap((wb) => wb.items);
-        return getItemsForClass(allItems, className).length;
-      }
-      case 'catalyst': {
-        const setId = CLASS_TO_TIER_SET_ID[className];
-        if (!setId) return 0;
-        const tierSet = TIER_SETS.find((s) => s.id === setId);
-        if (!tierSet) return 0;
-        return TIER_SLOT_ORDER.length;
-      }
-    }
-  }, [sourceConfig, className]);
-
   return (
     <div className="space-y-6">
       {/* Source type selector cards */}
@@ -207,11 +175,12 @@ export default function DroptimizerPanel({ profile }: DroptimizerPanelProps) {
         )}
       </div>
 
-      {/* Item count summary */}
-      <div className="flex items-center gap-2 text-xs text-text-muted">
-        <span className="tabular-nums font-medium text-text-secondary">{itemCount}</span>
-        <span>items to simulate for your {className || 'class'}</span>
-      </div>
+      {/* Item list with configuration options */}
+      <DroptimizerItemList
+        profile={profile}
+        sourceConfig={sourceConfig}
+        className={className}
+      />
     </div>
   );
 }
