@@ -1,4 +1,4 @@
-import type { OptimizationAxis, CombinationSpec } from './types';
+import type { OptimizationAxis, OptimizationOption, CombinationSpec } from './types';
 
 const DEFAULT_CAP = 1000;
 

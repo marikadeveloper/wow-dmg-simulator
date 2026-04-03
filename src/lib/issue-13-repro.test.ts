@@ -8,7 +8,7 @@
 import { describe, it, expect } from 'vitest';
 import { parseSimcString } from './parser';
 import { assembleAxes } from './optimization-assembler';
-import { countCombinations, getCombinationBreakdown, generateCombinations } from './combinator';
+import { countCombinations, getCombinationBreakdown } from './combinator';
 import { generateCatalystItems } from './catalyst-generator';
 import type { SimcProfile, GearItem } from './types';
 
@@ -197,8 +197,6 @@ describe('Issue #13 reproduction: combination count mismatch', () => {
 
     // Debug: check which gem axes were created
     const gemAxes = axes.filter((a) => a.id.startsWith('gem:'));
-    const gemAxisIds = gemAxes.map((a) => a.id);
-
     const count = countCombinations(axes);
 
     // Additive model: each gem axis contributes (options - 1) alternative combos.
