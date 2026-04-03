@@ -3,6 +3,7 @@ import type { SimcProfile, GearItem } from '../lib/types';
 import GearSlotCard, { SLOT_ORDER } from './GearSlotCard';
 import GemOptimization from './GemOptimization';
 import EnchantOptimization from './EnchantOptimization';
+import TalentComparison from './TalentComparison';
 import TierSetFilter from './TierSetFilter';
 import UpgradeBudget from './UpgradeBudget';
 import CatalystCharges from './CatalystCharges';
@@ -71,6 +72,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   );
   const [selectedGemIds, setSelectedGemIds] = useState<Set<number>>(new Set());
   const [selectedEnchantIds, setSelectedEnchantIds] = useState<Set<number>>(new Set());
+  const [selectedLoadoutNames, setSelectedLoadoutNames] = useState<Set<string>>(new Set());
   const [tierSetMinimums, setTierSetMinimums] = useState<TierSetMinimums>(new Map());
   const [upgradeItems, setUpgradeItems] = useState<Map<string, GearItem[]>>(new Map());
   const [catalystCharges, setCatalystCharges] = useState<number | null>(null);
@@ -87,6 +89,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     setSelection(buildInitialSelection(profile));
     setSelectedGemIds(new Set());
     setSelectedEnchantIds(new Set());
+    setSelectedLoadoutNames(new Set());
     setTierSetMinimums(new Map());
     setUpgradeItems(new Map());
     setCatalystCharges(null);
@@ -469,6 +472,15 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
     });
   }, []);
 
+  const toggleLoadout = useCallback((name: string) => {
+    setSelectedLoadoutNames((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+  }, []);
+
   // Build per-slot selected indices for fast lookup in children
   const selectionBySlot = useMemo(() => {
     const map: Record<string, Set<number>> = {};
@@ -572,8 +584,9 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   const allAxes = useMemo(() => {
     const gemIds = FEATURES.GEM_OPTIMIZATION ? Array.from(selectedGemIds) : [];
     const enchantIds = FEATURES.ENCHANT_OPTIMIZATION ? Array.from(selectedEnchantIds) : [];
-    return assembleAxes(augmentedProfile, selection, gemIds, enchantIds);
-  }, [augmentedProfile, selection, selectedGemIds, selectedEnchantIds]);
+    const loadoutNames = FEATURES.TALENT_COMPARISON ? selectedLoadoutNames : undefined;
+    return assembleAxes(augmentedProfile, selection, gemIds, enchantIds, loadoutNames);
+  }, [augmentedProfile, selection, selectedGemIds, selectedEnchantIds, selectedLoadoutNames]);
 
   // Weapon validation: warn when a dual-wield spec has a selected 1H main-hand
   // but no off-hand items to pair with. Only applies to specs in DUAL_WIELD_SPECS —
@@ -771,7 +784,18 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
         </div>
       )}
 
-      {/* Tier set filter — inline between enchant optimization and combination counter */}
+      {/* Talent comparison — inline between enchant optimization and tier set filter */}
+      {FEATURES.TALENT_COMPARISON && (profile.savedLoadouts?.length ?? 0) > 0 && (
+        <div className="mt-4">
+          <TalentComparison
+            profile={augmentedProfile}
+            selectedLoadoutNames={selectedLoadoutNames}
+            onToggleLoadout={toggleLoadout}
+          />
+        </div>
+      )}
+
+      {/* Tier set filter — inline between talent comparison and combination counter */}
       {FEATURES.TIER_SET_FILTERING && (
         <div className="mt-4">
           <TierSetFilter

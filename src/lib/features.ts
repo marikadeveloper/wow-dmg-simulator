@@ -6,5 +6,5 @@ export const FEATURES = {
   CATALYST_CHARGES: true,
   UNOWNED_ITEM_SEARCH: true,
   EMBELLISHMENT_COMPARISON: false,
-  TALENT_COMPARISON: false,
+  TALENT_COMPARISON: true,
 } as const;

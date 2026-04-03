@@ -58,6 +58,14 @@ export interface GearItem {
   isCopyModified?: boolean;
 }
 
+/** A saved talent loadout from the SimC addon export. */
+export interface SavedLoadout {
+  /** User-defined name (e.g. "franik", "Ranger Default M+") */
+  name: string;
+  /** Base64-encoded WoW talent string */
+  talentString: string;
+}
+
 /** The fully parsed SimC addon export string. */
 export interface SimcProfile {
   /** Character name */
@@ -74,6 +82,8 @@ export interface SimcProfile {
   level: number;
   /** Base64-encoded talent string */
   talentString: string;
+  /** Saved talent loadouts from the SimC addon export (# Saved Loadout: ...) */
+  savedLoadouts?: SavedLoadout[];
   /** Slot name → items in that slot (first = equipped) */
   gear: Record<string, GearItem[]>;
   /** ALL original lines verbatim, for profile reconstruction */

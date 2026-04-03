@@ -40,6 +40,7 @@ export function parseSimcString(input: string): SimcProfile {
     spec: '',
     level: 80,
     talentString: '',
+    savedLoadouts: [],
     gear: {},
     rawLines: [],
   };
@@ -47,6 +48,8 @@ export function parseSimcString(input: string): SimcProfile {
   let inVaultSection = false;
   // Tracks the most recent "# Item Name (ilvl)" comment for attaching to the next gear line
   let pendingItemMeta: { name: string; ilvl: number } | null = null;
+  // Tracks the most recent "# Saved Loadout: name" for pairing with the next "# talents=" line
+  let pendingSavedLoadoutName: string | null = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
@@ -79,6 +82,28 @@ export function parseSimcString(input: string): SimcProfile {
       if (ucMatch) {
         profile.upgradeCurrencies = parseUpgradeCurrencies(ucMatch[1]);
         continue;
+      }
+
+      // Parse saved loadout headers: "# Saved Loadout: name"
+      const loadoutMatch = trimmed.match(/^#\s*Saved Loadout:\s*(.+)$/);
+      if (loadoutMatch) {
+        pendingSavedLoadoutName = loadoutMatch[1].trim();
+        continue;
+      }
+
+      // Parse saved loadout talent strings: "# talents=..."
+      if (pendingSavedLoadoutName !== null) {
+        const talentMatch = trimmed.match(/^#\s*talents=(.+)$/);
+        if (talentMatch) {
+          profile.savedLoadouts!.push({
+            name: pendingSavedLoadoutName,
+            talentString: talentMatch[1].trim(),
+          });
+          pendingSavedLoadoutName = null;
+          continue;
+        }
+        // If the next comment isn't a talent line, discard the pending name
+        pendingSavedLoadoutName = null;
       }
 
       // Try to parse as a bag/vault item line: "# slot=,id=..."

@@ -143,12 +143,16 @@ export function buildProfileSetFile(
       // SimC profilesets inherit all unspecified slots from the base profile,
       // so we only need to write the overrides.
       const changedSlots = new Map<string, string>();
+      // Non-gear overrides (e.g. talents=...) that don't map to gear slots
+      const genericOverrides: string[] = [];
 
-      // Apply gear overrides (item swaps)
+      // Apply gear overrides (item swaps) and collect non-gear overrides
       for (const line of combo.overrideLines) {
         const slotMatch = line.match(/^(\w+)=/);
-        if (slotMatch) {
+        if (slotMatch && gearSlotSet.has(slotMatch[1])) {
           changedSlots.set(slotMatch[1], line);
+        } else {
+          genericOverrides.push(line);
         }
       }
 
@@ -165,14 +169,17 @@ export function buildProfileSetFile(
         }
       }
 
-      // Assemble only the changed lines (ordered by slot)
-      const overrideLines = gearSlotOrder
-        .filter((s) => changedSlots.has(s))
-        .map((s) => changedSlots.get(s)!);
+      // Assemble only the changed lines (ordered by slot), then non-gear overrides
+      const allOverrideLines = [
+        ...gearSlotOrder
+          .filter((s) => changedSlots.has(s))
+          .map((s) => changedSlots.get(s)!),
+        ...genericOverrides,
+      ];
 
-      for (let i = 0; i < overrideLines.length; i++) {
+      for (let i = 0; i < allOverrideLines.length; i++) {
         const op = i === 0 ? '=' : '+=';
-        sections.push(`profileset."${name}"${op}${overrideLines[i]}`);
+        sections.push(`profileset."${name}"${op}${allOverrideLines[i]}`);
       }
     }
   }
