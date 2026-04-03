@@ -252,7 +252,7 @@ describe('generateDroptimizerCombinations', () => {
     expect(combinations[1].overrideLines[0]).toMatch(/^head=/);
   });
 
-  it('always adds off_hand=, when swapping main_hand', () => {
+  it('clears off_hand when two-hand user swaps main_hand', () => {
     const profile = makeProfile({
       spec: 'fire',
       className: 'mage',
@@ -261,15 +261,75 @@ describe('generateDroptimizerCombinations', () => {
         main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639, isTwoHand: true }],
       },
     });
-    // Remove off_hand from gear to simulate two-hand user with no off_hand
     delete profile.gear.off_hand;
 
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
     const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
 
-    // Should still add off_hand=, even though no off_hand is equipped
     expect(combinations[1].overrideLines).toHaveLength(2);
     expect(combinations[1].overrideLines[1]).toBe('off_hand=,');
+  });
+
+  it('keeps off_hand when one-hand + off-hand user swaps main_hand', () => {
+    // Mage with one-hand + off-hand frill
+    const profile = makeProfile({
+      spec: 'fire',
+      className: 'mage',
+      gear: {
+        ...makeProfile().gear,
+        main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+        off_hand: [{ slot: 'off_hand', id: 401, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+      },
+    });
+
+    const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    // Should NOT add off_hand=, — keep the existing off-hand
+    expect(combinations[1].overrideLines).toHaveLength(1);
+    expect(combinations[1].overrideLines[0]).toMatch(/^main_hand=/);
+  });
+
+  it('allows off_hand drops when character has one-hand weapon', () => {
+    const profile = makeProfile({
+      spec: 'fire',
+      className: 'mage',
+      gear: {
+        ...makeProfile().gear,
+        main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+        off_hand: [{ slot: 'off_hand', id: 401, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+      },
+    });
+
+    const items = [makeItem({ slot: 'off_hand', itemId: 501 })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    expect(combinations).toHaveLength(2); // baseline + off_hand
+    expect(combinations[1].overrideLines[0]).toMatch(/^off_hand=/);
+  });
+
+  it('dual wield: keeps off_hand weapon when swapping main_hand', () => {
+    const profile = makeProfile({
+      spec: 'enhancement',
+      className: 'shaman',
+      gear: {
+        ...makeProfile().gear,
+        main_hand: [{ slot: 'main_hand', id: 400, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+        off_hand: [{ slot: 'off_hand', id: 401, bonusIds: [], gemIds: [], isEquipped: true, ilvl: 639 }],
+      },
+    });
+
+    const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
+    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+
+    // DW spec: main_hand + off_hand variations, neither should clear the other slot
+    const mhCombo = combinations[1]; // main_hand slot
+    expect(mhCombo.overrideLines).toHaveLength(1);
+    expect(mhCombo.overrideLines[0]).toMatch(/^main_hand=/);
+
+    const ohCombo = combinations[2]; // off_hand slot
+    expect(ohCombo.overrideLines).toHaveLength(1);
+    expect(ohCombo.overrideLines[0]).toMatch(/^off_hand=/);
   });
 
   // ── Vault socket ──────────────────────────────────────────────────────

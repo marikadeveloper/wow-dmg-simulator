@@ -93,10 +93,11 @@ export function generateDroptimizerCombinations(
       const simcLine = buildDropItemLine(profile, item, targetSlot, options);
       const overrideLines = [simcLine];
 
-      // When swapping main_hand, always clear off_hand to ensure SimC
-      // doesn't carry over artifacts from a two-hand base profile.
-      // Matches Raidbots behavior: off_hand=,
-      if (targetSlot === 'main_hand') {
+      // Off-hand handling when swapping main_hand:
+      // - Two-hand user: clear off_hand (there is none to keep)
+      // - One-hand + off-hand user: keep off_hand (don't touch it)
+      // - Dual wield user targeting main_hand: keep off_hand weapon
+      if (targetSlot === 'main_hand' && hasTwoHand) {
         overrideLines.push('off_hand=,');
       }
 
