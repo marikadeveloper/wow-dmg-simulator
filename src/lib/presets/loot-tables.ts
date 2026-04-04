@@ -497,9 +497,9 @@ export const RAID_INSTANCES: RaidInstance[] = [
         items: [
           { itemId: 249278, name: 'Alnscorned Spire', slot: 'main_hand' },
           { itemId: 249922, name: 'Tome of Alnscorned Regret', slot: 'off_hand' },
-          { itemId: 249371, name: 'Scornbane Waistguard', slot: 'waist', armorType: 'plate' },
+          { itemId: 249371, name: 'Scornbane Waistguard', slot: 'waist', armorType: 'mail' },
           { itemId: 249373, name: 'Dream-Scorched Striders', slot: 'feet', armorType: 'cloth' },
-          { itemId: 249374, name: "Scorn-Scarred Shul'ka's Belt", slot: 'waist', armorType: 'mail' },
+          { itemId: 249374, name: "Scorn-Scarred Shul'ka's Belt", slot: 'waist', armorType: 'leather' },
           { itemId: 249381, name: 'Greaves of the Unformed', slot: 'feet', armorType: 'plate' },
           { itemId: 249343, name: 'Gaze of the Alnseer', slot: 'trinket' },
           { itemId: 249805, name: "Undreamt God's Oozing Vestige", slot: 'trinket' },
