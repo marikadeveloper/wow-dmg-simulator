@@ -9,7 +9,7 @@
 // After editing, run: pnpm season:validate
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { TIER_SETS, CLASS_TO_TIER_SET_ID, TIER_SLOT_ORDER } from './season-config';
+import { TIER_SETS, CLASS_TO_TIER_SET_ID, TIER_SLOT_ORDER, TRACK_BONUS_RANGES } from './season-config';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -143,6 +143,12 @@ export const RAID_DIFFICULTY_LABELS: Record<RaidDifficulty, { label: string; tra
 export const RAID_DROP_BONUS_IDS = [4799, 4786];
 
 /**
+ * M+ / dungeon drop base bonus ID. Raidbots uses [4786, rankBonusId] for M+ items
+ * (without the 4799 that raid items have).
+ */
+export const MPLUS_DROP_BASE_BONUS_ID = 4786;
+
+/**
  * Map raid difficulty to the gear track name.
  * Boss tier maps to rank within the track (tier 1 → rank 1, tier 2 → rank 2, etc.)
  */
@@ -155,6 +161,34 @@ export const RAID_DIFFICULTY_TRACK: Record<RaidDifficulty, string> = {
 
 /** Slots that should receive a socket bonus_id (13668) in Droptimizer. */
 export const SOCKETABLE_DROPTIMIZER_SLOTS = new Set(['neck', 'finger']);
+
+/**
+ * Compute M+ bonus_ids for a dungeon drop at a given keystone level.
+ * Returns [4786, rankBonusId] matching Raidbots format.
+ *
+ * Maps keystone ilvl → matching raid difficulty rank → track bonus_id.
+ */
+export function getMplusDropBonusIds(keystoneLevel: number): number[] {
+  const ilvl = getKeystoneIlvl(keystoneLevel);
+  if (ilvl === 0) return [];
+
+  // Find which raid difficulty row + rank matches this ilvl
+  for (const [difficulty, rankMap] of Object.entries(RAID_ILVL_MAP) as [RaidDifficulty, Record<number, number>][]) {
+    for (const [rankStr, rankIlvl] of Object.entries(rankMap)) {
+      if (rankIlvl === ilvl) {
+        const rank = Number(rankStr);
+        const trackName = RAID_DIFFICULTY_TRACK[difficulty];
+        const track = TRACK_BONUS_RANGES.find((t) => t.name === trackName);
+        if (track) {
+          const rankBonusId = track.startBonusId + (rank - 1);
+          return [MPLUS_DROP_BASE_BONUS_ID, rankBonusId];
+        }
+      }
+    }
+  }
+
+  return []; // fallback: use ilevel=
+}
 
 // ── Keystone Level → ilvl Table ─────────────────────────────────────────────
 

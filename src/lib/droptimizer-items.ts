@@ -16,6 +16,7 @@ import {
   RAID_DIFFICULTY_TRACK,
   getItemsForClass,
   getKeystoneIlvl,
+  getMplusDropBonusIds,
   type RaidDifficulty,
 } from './presets/loot-tables';
 import {
@@ -164,6 +165,7 @@ function resolveMplusItems(
   filterByClass: boolean,
 ): DroptimizerItem[] {
   const ilvl = getKeystoneIlvl(keystoneLevel);
+  const bonusIds = getMplusDropBonusIds(keystoneLevel);
   const dungeons = dungeonIds
     ? MYTHIC_PLUS_DUNGEONS.filter((d) => dungeonIds.includes(d.id))
     : MYTHIC_PLUS_DUNGEONS;
@@ -178,7 +180,7 @@ function resolveMplusItems(
         name: item.name,
         slot: item.slot,
         ilvl,
-        bonusIds: [], // M+ items use ilevel= fallback
+        bonusIds: [...bonusIds],
         sourceLabel: dg.name,
         sourceGroupId: dg.id,
         sourceGroupName: dg.name,
