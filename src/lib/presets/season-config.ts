@@ -495,6 +495,58 @@ export function getTierPieceNameForSlot(className: string, slot: string): string
   return set.itemNames[idx];
 }
 
+// ── Catalyst: class armor item IDs for ALL armor slots ─────────────────────
+//
+// Class set items follow a predictable ID pattern: base + slot_offset.
+// base = tier_head_id - 5. Offsets:
+//   back=0, wrist=1, waist=2, shoulder=3, legs=4, head=5, hands=6, feet=7, chest=8
+//
+// This covers all catalyzable armor slots — both tier (head/shoulder/chest/hands/legs)
+// which grant set bonuses, and non-tier (back/wrist/waist/feet) which give class-themed gear.
+
+const CATALYST_SLOT_OFFSETS: Record<string, number> = {
+  back: 0, wrist: 1, waist: 2, shoulder: 3, legs: 4,
+  head: 5, hands: 6, feet: 7, chest: 8,
+};
+
+/** All slots that the Catalyst can convert armor pieces into. */
+export const CATALYST_ARMOR_SLOTS = Object.keys(CATALYST_SLOT_OFFSETS);
+
+/**
+ * Get the class armor item ID for any catalyzable slot.
+ * Works for both tier slots (head/shoulder/chest/hands/legs) and
+ * non-tier slots (back/wrist/waist/feet).
+ * Returns undefined if class or slot is not catalyzable.
+ */
+export function getClassArmorItemId(className: string, slot: string): number | undefined {
+  const offset = CATALYST_SLOT_OFFSETS[slot];
+  if (offset === undefined) return undefined;
+  const setId = CLASS_TO_TIER_SET_ID[className];
+  if (!setId) return undefined;
+  const set = TIER_SETS.find((s) => s.id === setId);
+  if (!set) return undefined;
+  // base = head item ID - 5 (head offset)
+  const base = set.itemIds[0] - 5;
+  return base + offset;
+}
+
+/**
+ * Get the class armor item name for any catalyzable slot.
+ * For tier slots, returns the tier piece name. For non-tier slots,
+ * returns the set name + slot suffix.
+ */
+export function getClassArmorItemName(className: string, slot: string): string | undefined {
+  // For tier slots, use the specific piece name from TIER_SETS
+  const tierName = getTierPieceNameForSlot(className, slot);
+  if (tierName) return tierName;
+  // For non-tier slots, we don't have specific names — use set name + slot
+  const setId = CLASS_TO_TIER_SET_ID[className];
+  if (!setId) return undefined;
+  const set = TIER_SETS.find((s) => s.id === setId);
+  if (!set) return undefined;
+  return `${set.name} (${slot})`;
+}
+
 /** Build a quick lookup: itemId → tierSetId. Computed once at import time. */
 const _tierSetLookup = new Map<number, string>();
 for (const set of TIER_SETS) {

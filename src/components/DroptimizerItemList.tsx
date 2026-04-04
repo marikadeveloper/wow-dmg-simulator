@@ -9,8 +9,8 @@ import {
   type GroupByMode,
 } from '../lib/droptimizer-items';
 import type { DroptimizerProfileSetOptions } from '../lib/droptimizer-profileset';
-import { GEM_PRESETS, GEAR_TRACKS } from '../lib/presets/season-config';
-import { CATALYST_MAPPINGS } from '../lib/presets/loot-tables';
+import { GEM_PRESETS, GEAR_TRACKS, getClassArmorItemId, getClassArmorItemName, CATALYST_ARMOR_SLOTS } from '../lib/presets/season-config';
+import { CLASS_ARMOR_TYPE } from '../lib/presets/loot-tables';
 
 /** Emitted whenever the resolved item list or configuration options change. */
 export interface DroptimizerItemListState {
@@ -84,35 +84,55 @@ export default function DroptimizerItemList({
     [sourceConfig, className],
   );
 
-  // Add catalyst items if enabled (for non-catalyst sources)
+  // Add catalyst items if enabled (for non-catalyst sources).
+  // For each armor drop in a catalyzable slot, create a variant using the
+  // actual class set item ID (tier set for tier slots, class armor for others).
+  // This matches Raidbots' behavior: catalyst items are simulated as the
+  // class set piece, not the original item.
   const catalystItems = useMemo(() => {
-    if (!includeCatalyst || sourceConfig.type === 'catalyst') return [];
-    const baseItemIds = new Set(baseItems.map((i) => i.itemId));
+    if (!includeCatalyst || sourceConfig.type === 'catalyst' || !className) return [];
+    const catalyzableSet = new Set(CATALYST_ARMOR_SLOTS);
+    const playerArmorType = CLASS_ARMOR_TYPE[className];
+    const seen = new Set<string>(); // avoid duplicates from same slot
     const results: DroptimizerItem[] = [];
 
-    for (const mapping of CATALYST_MAPPINGS) {
-      for (const sourceItemId of mapping.sourceItemIds) {
-        if (!baseItemIds.has(sourceItemId)) continue;
-        const baseItem = baseItems.find((i) => i.itemId === sourceItemId);
-        if (!baseItem) continue;
+    for (const baseItem of baseItems) {
+      // Only armor pieces in catalyzable slots can be catalyzed
+      if (!catalyzableSet.has(baseItem.slot)) continue;
+      // Must match the player's armor type (or be type-agnostic like back/neck)
+      if (baseItem.armorType && baseItem.armorType !== playerArmorType) continue;
 
-        results.push({
-          key: `cat_${sourceItemId}_${mapping.slot}`,
-          itemId: sourceItemId,
-          name: `${baseItem.name} (Catalyst)`,
-          slot: mapping.slot,
-          ilvl: baseItem.ilvl,
-          bonusIds: [...baseItem.bonusIds],
-          sourceLabel: `${baseItem.sourceLabel} (Catalyst)`,
-          sourceGroupId: baseItem.sourceGroupId,
-          sourceGroupName: baseItem.sourceGroupName,
-          isCatalyst: true,
-          armorType: baseItem.armorType,
-        });
-      }
+      // Look up the class set item for this slot
+      const classItemId = getClassArmorItemId(className, baseItem.slot);
+      if (!classItemId) continue;
+
+      // Deduplicate: only one catalyst variant per slot per source
+      const dedupeKey = `${classItemId}_${baseItem.sourceGroupId}`;
+      if (seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+
+      // Skip if the class set item is already the base item (already a class piece)
+      if (classItemId === baseItem.itemId) continue;
+
+      const classItemName = getClassArmorItemName(className, baseItem.slot)
+        ?? `${baseItem.name} (Catalyst)`;
+
+      results.push({
+        key: `cat_${classItemId}_${baseItem.sourceGroupId}_${baseItem.slot}`,
+        itemId: classItemId,
+        name: classItemName,
+        slot: baseItem.slot,
+        ilvl: baseItem.ilvl,
+        bonusIds: [...baseItem.bonusIds],
+        sourceLabel: `${baseItem.sourceLabel} (Catalyst)`,
+        sourceGroupId: baseItem.sourceGroupId,
+        sourceGroupName: baseItem.sourceGroupName,
+        isCatalyst: true,
+        armorType: playerArmorType,
+      });
     }
     return results;
-  }, [baseItems, includeCatalyst, sourceConfig.type]);
+  }, [baseItems, includeCatalyst, sourceConfig.type, className]);
 
   // Off-spec items: resolve without class filtering, then pick only new ones
   const offSpecItems = useMemo(() => {
