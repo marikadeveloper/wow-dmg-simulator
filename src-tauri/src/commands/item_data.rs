@@ -125,7 +125,7 @@ fn inv_type_to_slot(inv_type: u32) -> Option<&'static str> {
         10 => Some("hands"),
         11 => Some("finger"),
         12 => Some("trinket"),
-        13 | 17 | 21 => Some("main_hand"),
+        13 | 15 | 17 | 21 | 25 | 26 => Some("main_hand"), // 15=Ranged, 25=Thrown, 26=RangedRight
         14 | 22 | 23 => Some("off_hand"),
         16 => Some("back"),
         20 => Some("chest"), // robe

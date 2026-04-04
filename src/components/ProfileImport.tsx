@@ -17,23 +17,47 @@ type ParseResult =
 /**
  * Enrich weapon items in a parsed profile with isTwoHand from the item database.
  * Mutates the profile's gear items in-place.
+ *
+ * Detects exclusive weapons (no off-hand allowed) via:
+ * 1. DB lookup: invType 17 (Two-Hand), 15 (Ranged), 26 (Ranged Right)
+ * 2. Fallback: if the profile has no off_hand slot at all, the equipped
+ *    main_hand is assumed to be exclusive (covers crafted items not in DB)
  */
 async function enrichWeaponTypes(profile: SimcProfile): Promise<void> {
   const weaponItems = profile.gear.main_hand ?? [];
   if (weaponItems.length === 0) return;
 
+  // Exclusive weapon invTypes: 17 = Two-Hand, 15 = Ranged, 26 = Ranged Right
+  const EXCLUSIVE_INV_TYPES = new Set([17, 15, 26]);
+
   const ids = weaponItems.map((i) => i.id);
+  let dbHit = false;
   try {
     const typeMap = await invoke<Record<string, number>>('lookup_item_types', {
       itemIds: ids,
     });
     for (const item of weaponItems) {
-      if (typeMap[String(item.id)] === 17) {
+      const invType = typeMap[String(item.id)];
+      if (invType !== undefined) dbHit = true;
+      if (invType !== undefined && EXCLUSIVE_INV_TYPES.has(invType)) {
         item.isTwoHand = true;
       }
     }
   } catch {
-    // DB lookup failed — items default to 1H behavior (safe fallback)
+    // DB lookup failed entirely — fall through to heuristic
+  }
+
+  // Fallback heuristic: if DB lookup missed the equipped weapon AND
+  // the profile has no off_hand slot, mark the equipped weapon as exclusive.
+  // This covers crafted weapons not in items.db.
+  if (!dbHit) {
+    const hasOffHand = (profile.gear.off_hand ?? []).length > 0;
+    if (!hasOffHand) {
+      const equipped = weaponItems.find((i) => i.isEquipped);
+      if (equipped && equipped.isTwoHand === undefined) {
+        equipped.isTwoHand = true;
+      }
+    }
   }
 }
 
