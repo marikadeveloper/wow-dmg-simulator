@@ -323,7 +323,6 @@ export const RAID_INSTANCES: RaidInstance[] = [
           { itemId: 249314, name: 'Twisted Twilight Sash', slot: 'waist', armorType: 'leather' },
           { itemId: 249311, name: 'Lightblood Greaves', slot: 'legs', armorType: 'plate' },
           { itemId: 249312, name: 'Nightblade\'s Pantaloons', slot: 'legs', armorType: 'leather' },
-          { itemId: 249324, name: 'Eternal Flame Scaleguards', slot: 'legs', armorType: 'mail' },
           // Class set backs (all classes share back slot, no armor type)
           { itemId: 250055, name: 'Voidbreaker\'s Encryption', slot: 'back' },
         ],
@@ -430,6 +429,7 @@ export const RAID_INSTANCES: RaidInstance[] = [
     id: 'march_on_queldanas',
     name: "March on Quel'Danas",
     encounters: [
+      // Source: https://warcraft.wiki.gg/wiki/Belo%27ren,_Child_of_Al%27ar#Loot
       {
         id: 'beloren_child_of_alar',
         name: "Belo'ren, Child of Al'ar",
@@ -437,31 +437,42 @@ export const RAID_INSTANCES: RaidInstance[] = [
         items: [
           { itemId: 249283, name: "Belo'melorn, the Shattered Talon", slot: 'main_hand' },
           { itemId: 249284, name: "Belo'ren's Swift Talon", slot: 'main_hand' },
+          { itemId: 249307, name: 'Emberborn Grasps', slot: 'hands', armorType: 'plate' },
+          { itemId: 249322, name: "Radiant Clutchtender's Jerkin", slot: 'chest', armorType: 'leather' },
+          { itemId: 249324, name: 'Eternal Flame Scaleguards', slot: 'legs', armorType: 'mail' },
           { itemId: 249328, name: 'Echoing Void Mantle', slot: 'shoulder', armorType: 'cloth' },
           { itemId: 249376, name: 'Whisper-Inscribed Sash', slot: 'waist', armorType: 'cloth' },
+          { itemId: 249377, name: 'Darkstrider Treads', slot: 'feet', armorType: 'mail' },
           { itemId: 249806, name: 'Radiant Plume', slot: 'trinket' },
+          { itemId: 249807, name: 'The Eternal Egg', slot: 'trinket' },
           { itemId: 249919, name: "Sin'dorei Band of Hope", slot: 'finger' },
+          { itemId: 249921, name: 'Thalassian Dawnguard', slot: 'off_hand' },
+          { itemId: 260235, name: 'Umbral Plume', slot: 'trinket' },
           // Class set shoulders + waist
-          { itemId: 250057, name: 'Voidbreaker\'s Sage Cord', slot: 'waist', armorType: 'cloth' },
-          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
+          { itemId: 250057, name: "Voidbreaker's Sage Cord", slot: 'waist', armorType: 'cloth' },
+          { itemId: 250058, name: "Voidbreaker's Leyline Nexi", slot: 'shoulder', armorType: 'cloth' },
         ],
       },
+      // Source: https://warcraft.wiki.gg/wiki/Midnight_Falls
       {
         id: 'midnight_falls',
         name: 'Midnight Falls',
         bossTier: 4,
         items: [
           { itemId: 249286, name: 'Brazier of the Dissonant Dirge', slot: 'main_hand' },
-          { itemId: 249377, name: 'Darkstrider Treads', slot: 'feet', armorType: 'mail' },
+          { itemId: 249296, name: "Alah'endal, the Dawnsong", slot: 'main_hand' },
+          { itemId: 249367, name: 'Chiming Void Curio', slot: 'trinket' },
           { itemId: 249810, name: 'Shadow of the Empyrean Requiem', slot: 'trinket' },
+          { itemId: 249811, name: 'Light of the Cosmic Crescendo', slot: 'trinket' },
           { itemId: 249912, name: 'Robes of Endless Oblivion', slot: 'chest', armorType: 'cloth' },
+          { itemId: 249913, name: 'Mask of Darkest Intent', slot: 'head', armorType: 'leather' },
+          { itemId: 249914, name: 'Oblivion Guise', slot: 'head', armorType: 'mail' },
+          { itemId: 249915, name: 'Extinction Guards', slot: 'legs', armorType: 'plate' },
           { itemId: 249920, name: 'Eye of Midnight', slot: 'finger', bonusRankOffset: 2 },
-          { itemId: 249921, name: 'Thalassian Dawnguard', slot: 'off_hand' },
-          { itemId: 249807, name: 'The Eternal Egg', slot: 'trinket' },
           { itemId: 250247, name: 'Amulet of the Abyssal Hymn', slot: 'neck' },
-          { itemId: 260235, name: 'Umbral Plume', slot: 'trinket' },
+          { itemId: 260408, name: 'Lightless Lament', slot: 'main_hand' },
           // Class set shoulders
-          { itemId: 250058, name: 'Voidbreaker\'s Leyline Nexi', slot: 'shoulder', armorType: 'cloth' },
+          { itemId: 250058, name: "Voidbreaker's Leyline Nexi", slot: 'shoulder', armorType: 'cloth' },
         ],
       },
     ],
@@ -761,7 +772,7 @@ export const CATALYST_MAPPINGS: CatalystMapping[] = [
     slot: 'head',
     sourceItemIds: [
       50202, 50206, 152000, 152001, 193703, 249306, 249316, 249317,
-      249329, 250458, 250459, 251109, 251119, 251126, 251177, 251199, 251220,
+      249329, 249913, 249914, 250458, 250459, 251109, 251119, 251126, 251177, 251199, 251220,
     ],
   },
   {
@@ -788,7 +799,7 @@ export const CATALYST_MAPPINGS: CatalystMapping[] = [
   {
     slot: 'legs',
     sourceItemIds: [
-      50229, 152002, 152003, 193706, 249311, 249312, 249323, 249324,
+      50229, 152002, 152003, 193706, 249311, 249312, 249323, 249324, 249915,
       250457, 251104, 251118, 251130, 251182, 251205, 251208,
     ],
   },
