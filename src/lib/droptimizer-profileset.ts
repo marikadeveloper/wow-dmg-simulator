@@ -58,8 +58,9 @@ export function generateDroptimizerCombinations(
   const combinations: CombinationSpec[] = [];
   const meta = new Map<string, DroptimizerComboMeta>();
 
+  const className = profile.className?.toLowerCase() ?? '';
   const spec = profile.spec?.toLowerCase() ?? '';
-  const isDualWield = DUAL_WIELD_SPECS.has(spec);
+  const isDualWield = DUAL_WIELD_SPECS.has(`${className}:${spec}`);
 
   // Check if equipped main_hand is a two-hand weapon
   const equippedMainHand = profile.gear.main_hand?.find((i) => i.isEquipped);

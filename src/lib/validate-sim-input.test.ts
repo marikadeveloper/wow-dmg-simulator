@@ -8,6 +8,7 @@ const validProfile: SimcProfile = {
   realm: 'draenor',
   region: 'eu',
   race: 'orc',
+  className: 'shaman',
   spec: 'enhancement',
   level: 80,
   talentString: 'AAAA',
@@ -104,6 +105,7 @@ describe('validateSimInput', () => {
     it('errors when dual-wield spec has 1H main-hand and no off-hand', () => {
       const profile: SimcProfile = {
         ...validProfile,
+        className: 'warrior',
         spec: 'fury',
         gear: {
           ...validProfile.gear,
@@ -121,6 +123,7 @@ describe('validateSimInput', () => {
     it('does not error when dual-wield spec has 2H main-hand and no off-hand', () => {
       const profile: SimcProfile = {
         ...validProfile,
+        className: 'warrior',
         spec: 'fury',
         gear: {
           ...validProfile.gear,
@@ -136,6 +139,7 @@ describe('validateSimInput', () => {
     it('does not error when dual-wield spec has an off-hand', () => {
       const profile: SimcProfile = {
         ...validProfile,
+        className: 'warrior',
         spec: 'fury',
       };
       const issues = validateSimInput(profile, validSettings);

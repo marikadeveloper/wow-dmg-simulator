@@ -597,7 +597,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
   // but no off-hand items to pair with. Only applies to specs in DUAL_WIELD_SPECS —
   // ranged specs (e.g. BM/MM hunter) use bows/guns and never need an off-hand.
   const weaponWarning = useMemo((): string | null => {
-    if (!profile.spec || !DUAL_WIELD_SPECS.has(profile.spec)) return null;
+    if (!profile.spec || !profile.className || !DUAL_WIELD_SPECS.has(`${profile.className}:${profile.spec}`)) return null;
 
     const mhIndices = Array.from(selection)
       .filter((k) => k.startsWith('main_hand:'))
@@ -740,6 +740,7 @@ export default function GearPanel({ profile, onBlockedChange, onAxesChange, onTi
                 onAddUnownedItem={handleAddUnownedItem}
                 onCopyModifyItem={handleCopyModifyItem}
                 spec={profile.spec}
+                className={profile.className}
               />
             );
           }

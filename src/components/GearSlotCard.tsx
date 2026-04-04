@@ -103,6 +103,8 @@ interface GearSlotCardProps {
   onCopyModifyItem?: (slot: string, item: GearItem) => void;
   /** Character spec (e.g. "fury", "protection") — passed to UnownedItemSearch for off-hand filtering */
   spec?: string;
+  /** Character class (e.g. "warrior", "deathknight") — passed to UnownedItemSearch for dual-wield detection */
+  className?: string;
 }
 
 export default function GearSlotCard({
@@ -118,6 +120,7 @@ export default function GearSlotCard({
   onAddUnownedItem,
   onCopyModifyItem,
   spec,
+  className,
 }: GearSlotCardProps) {
   const [itemNames, setItemNames] = useState<Record<number, CachedItem | null>>({});
 
@@ -353,6 +356,7 @@ export default function GearSlotCard({
             realSlots={realSlots ?? [slot]}
             onAddItem={onAddUnownedItem}
             spec={spec}
+            className={className}
           />
         )}
 

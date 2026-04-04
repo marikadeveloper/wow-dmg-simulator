@@ -66,6 +66,7 @@ export function buildProfileSetFile(
   // ProfileSet parallel execution and accuracy
   sections.push('profileset_work_threads=2');
   sections.push('single_actor_batch=1');
+  sections.push('optimize_expressions=1');
 
   // Raid buff overrides (user-configurable)
   for (const [key, enabled] of Object.entries(settings.raidBuffs)) {
@@ -93,11 +94,9 @@ export function buildProfileSetFile(
   if (settings.food) sections.push(`food=${settings.food}`);
   if (settings.flask) sections.push(`flask=${settings.flask}`);
   if (settings.augmentation) sections.push(`augmentation=${settings.augmentation}`);
-  // Crucible of Erratic Energies modes
+  // Crucible of Erratic Energies modes — always write explicitly (=0 or =1)
   for (const [key, enabled] of Object.entries(settings.crucibleModes)) {
-    if (enabled) {
-      sections.push(`midnight.crucible_of_erratic_energies_${key}=1`);
-    }
+    sections.push(`midnight.crucible_of_erratic_energies_${key}=${enabled ? 1 : 0}`);
   }
   sections.push('');
 

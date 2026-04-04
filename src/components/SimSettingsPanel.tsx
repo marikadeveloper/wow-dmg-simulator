@@ -55,7 +55,7 @@ const DEFAULT_RAID_BUFFS: Record<string, boolean> = Object.fromEntries(
 );
 
 const DEFAULT_CRUCIBLE_MODES: Record<string, boolean> = Object.fromEntries(
-  CRUCIBLE_MODES.map((m) => [m.key, true]),
+  CRUCIBLE_MODES.map((m) => [m.key, false]),
 );
 
 export interface SimSettingsValues {

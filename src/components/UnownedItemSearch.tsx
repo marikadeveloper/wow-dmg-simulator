@@ -44,9 +44,11 @@ interface UnownedItemSearchProps {
   onAddItem: (slot: string, item: GearItem) => void;
   /** Character spec (e.g. "fury", "protection") — used to filter off-hand item types */
   spec?: string;
+  /** Character class (e.g. "warrior", "deathknight") — used with spec for dual-wield detection */
+  className?: string;
 }
 
-export default function UnownedItemSearch({ realSlots, onAddItem, spec }: UnownedItemSearchProps) {
+export default function UnownedItemSearch({ realSlots, onAddItem, spec, className }: UnownedItemSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ItemSearchResult[]>([]);
@@ -77,13 +79,13 @@ export default function UnownedItemSearch({ realSlots, onAddItem, spec }: Unowne
       // one-hand items stored as main_hand in the DB), while other specs use
       // shields/held items.
       const isOffHand = realSlots.includes('off_hand');
-      const isDualWield = spec ? DUAL_WIELD_SPECS.has(spec) : false;
+      const isDualWield = spec && className ? DUAL_WIELD_SPECS.has(`${className}:${spec}`) : false;
       const filtered = items.filter((item) => {
         if (isOffHand && isDualWield) {
           // Dual-wield off-hand: match by inv_type, not slot — because inv_type 13
           // (one-hand) items are stored as slot=main_hand but are valid in off-hand.
           // Fury Warriors can also use 2H weapons (inv_type 17) via Titan's Grip.
-          const validTypes = spec === 'fury' ? OFFHAND_FURY_INV_TYPES : OFFHAND_DUAL_WIELD_INV_TYPES;
+          const validTypes = (className === 'warrior' && spec === 'fury') ? OFFHAND_FURY_INV_TYPES : OFFHAND_DUAL_WIELD_INV_TYPES;
           return validTypes.has(item.invType);
         }
         if (isOffHand && !isDualWield) {

@@ -52,7 +52,7 @@ export function validateSimInput(
 
   // Off-hand validation: only required when main-hand weapons include 1H options.
   // If ALL main-hand weapons are 2H (e.g. a staff on a mage), no off-hand is needed.
-  if (profile.spec && DUAL_WIELD_SPECS.has(profile.spec)) {
+  if (profile.spec && profile.className && DUAL_WIELD_SPECS.has(`${profile.className}:${profile.spec}`)) {
     const mhItems = profile.gear.main_hand ?? [];
     const allMainHandsAreTwoHand = mhItems.length > 0 && mhItems.every((i) => i.isTwoHand);
     const offHandItems = profile.gear.off_hand ?? [];

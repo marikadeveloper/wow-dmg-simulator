@@ -635,21 +635,22 @@ export const CRUCIBLE_MODES: CrucibleMode[] = [
 ];
 
 /**
- * Specs that dual-wield weapons in the off-hand slot.
+ * Class+spec pairs that dual-wield weapons in the off-hand slot.
+ * Uses "class:spec" keys to avoid ambiguity (e.g., "frost" is both DK and Mage).
  * These specs MUST have an off-hand weapon equipped to simulate correctly.
  */
 export const DUAL_WIELD_SPECS = new Set([
-  'fury',           // Warrior — Titan's Grip / Single-Minded Fury
-  'assassination',  // Rogue
-  'outlaw',         // Rogue
-  'subtlety',       // Rogue
-  'frost',          // Death Knight (dual-wield variant)
-  'windwalker',     // Monk
-  'brewmaster',     // Monk (can dual-wield)
-  'havoc',          // Demon Hunter
-  'vengeance',      // Demon Hunter
-  'enhancement',    // Shaman
-  'survival',       // Hunter (can use off-hand weapons)
+  'warrior:fury',           // Titan's Grip / Single-Minded Fury
+  'rogue:assassination',
+  'rogue:outlaw',
+  'rogue:subtlety',
+  'deathknight:frost',      // Death Knight Frost (dual-wield variant)
+  'monk:windwalker',
+  'monk:brewmaster',        // Can dual-wield
+  'demonhunter:havoc',
+  'demonhunter:vengeance',
+  'shaman:enhancement',
+  'hunter:survival',        // Can use off-hand weapons
 ]);
 
 /** Slots that can be enchanted in Midnight S1. Off-hand cannot have weapon enchants. */
