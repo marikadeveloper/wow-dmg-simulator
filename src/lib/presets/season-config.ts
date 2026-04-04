@@ -705,6 +705,17 @@ export const DUAL_WIELD_SPECS = new Set([
   'hunter:survival',        // Can use off-hand weapons
 ]);
 
+/**
+ * Specs that use ranged weapons (bows/guns/crossbows) as their primary weapon.
+ * These specs cannot effectively use melee weapons — dungeon/raid loot table
+ * main_hand and off_hand items should be excluded for these specs since
+ * M+ dungeons and raids don't drop ranged weapons in the general loot pool.
+ */
+export const RANGED_WEAPON_SPECS = new Set([
+  'hunter:beast_mastery',
+  'hunter:marksmanship',
+]);
+
 /** Slots that can be enchanted in Midnight S1. Off-hand cannot have weapon enchants. */
 export const ENCHANTABLE_SLOTS = [
   'head',

@@ -78,10 +78,12 @@ export default function DroptimizerItemList({
   const [upgradeTrack, setUpgradeTrack] = useState<string | null>(null);
   const [upgradeAllEquipped, setUpgradeAllEquipped] = useState(false);
 
+  const spec = profile.spec?.toLowerCase();
+
   // Resolve base items from source config (class-filtered)
   const baseItems = useMemo(
-    () => resolveDroptimizerItems(sourceConfig, className, true),
-    [sourceConfig, className],
+    () => resolveDroptimizerItems(sourceConfig, className, true, spec),
+    [sourceConfig, className, spec],
   );
 
   // Add catalyst items if enabled (for non-catalyst sources).
@@ -137,7 +139,7 @@ export default function DroptimizerItemList({
   // Off-spec items: resolve without class filtering, then pick only new ones
   const offSpecItems = useMemo(() => {
     if (!includeOffSpec || sourceConfig.type === 'catalyst') return [];
-    const allUnfiltered = resolveDroptimizerItems(sourceConfig, className, false);
+    const allUnfiltered = resolveDroptimizerItems(sourceConfig, className, false, spec);
     const existingKeys = new Set(baseItems.map((i) => i.key));
     return allUnfiltered.filter((i) => !existingKeys.has(i.key));
   }, [includeOffSpec, sourceConfig, className, baseItems]);

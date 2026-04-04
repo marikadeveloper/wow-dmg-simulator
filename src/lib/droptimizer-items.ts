@@ -24,6 +24,7 @@ import {
   CLASS_TO_TIER_SET_ID,
   TIER_SLOT_ORDER,
   TRACK_BONUS_RANGES,
+  RANGED_WEAPON_SPECS,
 } from './presets/season-config';
 
 /** A resolved droptimizer item ready for display. */
@@ -82,25 +83,45 @@ const SLOT_SORT_ORDER = [
   'main_hand', 'off_hand',
 ];
 
+/** Weapon slots that ranged-weapon specs should never see from loot tables. */
+const WEAPON_SLOTS = new Set(['main_hand', 'off_hand']);
+
 /**
  * Resolve all droppable items for a given source config and class.
  * When filterByClass is false, returns ALL items regardless of armor type (off-spec mode).
+ *
+ * @param spec - Character spec (e.g. 'marksmanship'). Used to filter incompatible weapons.
  */
 export function resolveDroptimizerItems(
   config: DroptimizerSourceConfig,
   className: string,
   filterByClass = true,
+  spec?: string,
 ): DroptimizerItem[] {
+  let items: DroptimizerItem[];
   switch (config.type) {
     case 'raid':
-      return resolveRaidItems(config.difficulty, config.raidIds, className, filterByClass);
+      items = resolveRaidItems(config.difficulty, config.raidIds, className, filterByClass);
+      break;
     case 'mythicplus':
-      return resolveMplusItems(config.keystoneLevel, config.dungeonIds, className, filterByClass);
+      items = resolveMplusItems(config.keystoneLevel, config.dungeonIds, className, filterByClass);
+      break;
     case 'worldboss':
-      return resolveWorldBossItems(className, filterByClass);
+      items = resolveWorldBossItems(className, filterByClass);
+      break;
     case 'catalyst':
-      return resolveCatalystItems(className);
+      items = resolveCatalystItems(className);
+      break;
   }
+
+  // Ranged-weapon specs (MM/BM Hunter) can't use melee weapons from loot tables.
+  // M+ and raid loot pools don't include ranged weapons (bows/guns), so all
+  // main_hand/off_hand drops would be melee — filter them out.
+  if (spec && RANGED_WEAPON_SPECS.has(`${className}:${spec}`)) {
+    items = items.filter((i) => !WEAPON_SLOTS.has(i.slot));
+  }
+
+  return items;
 }
 
 /**
