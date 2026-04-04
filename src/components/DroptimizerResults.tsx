@@ -267,51 +267,52 @@ export default function DroptimizerResults({
           BOSS SUMMARY
           ═══════════════════════════════════════════════════════════════════ */}
       <section>
-        {/* Section header */}
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-heading">
+        {/* Section header — matches Raidbots "BOSS SUMMARY" bar */}
+        <div className="flex items-center gap-4 mb-0 px-5 py-3 rounded-t-lg border border-b-0 border-border-primary bg-surface-primary">
+          <h3 className="text-base font-extrabold uppercase tracking-wider text-text-heading">
             Boss Summary
           </h3>
-          <div className="flex items-center gap-3">
-            {/* Sort pills */}
-            <div className="flex items-center gap-1.5 text-[10px]">
-              <span className="text-text-faint mr-0.5">Sort</span>
-              {([
-                ['priority', 'Priority'],
-                ['boss_order', 'Boss Order'],
-                ['ev', 'Expected Value'],
-                ['best', 'Best'],
-              ] as const).map(([value, label]) => (
-                <button
-                  key={value}
-                  onClick={() => setSortMode(value)}
-                  className={[
-                    'px-2 py-0.5 rounded transition-colors',
-                    sortMode === value
-                      ? 'bg-amber-500/15 text-accent-amber font-semibold'
-                      : 'text-text-muted hover:text-text-secondary',
-                  ].join(' ')}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
 
-            {/* Relative DPS toggle */}
-            <label className="flex items-center gap-1.5 text-[10px] text-text-muted cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={dpsDisplay === 'percent'}
-                onChange={(e) => setDpsDisplay(e.target.checked ? 'percent' : 'absolute')}
-                className="w-3 h-3 rounded border border-border-input bg-surface-secondary accent-amber-500"
-              />
-              Relative DPS
-            </label>
+          {/* Sort tabs */}
+          <div className="flex items-center gap-1 text-[11px] ml-2">
+            <span className="text-text-faint mr-1">Sort</span>
+            {([
+              ['priority', 'Priority'],
+              ['boss_order', 'Boss Order'],
+              ['ev', 'Expected Value'],
+              ['best', 'Best'],
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                onClick={() => setSortMode(value)}
+                className={[
+                  'px-3 py-1 rounded border transition-colors',
+                  sortMode === value
+                    ? 'bg-amber-500/15 text-accent-amber font-bold border-amber-500/30'
+                    : 'text-text-muted hover:text-text-secondary border-border-primary hover:border-text-faint',
+                ].join(' ')}
+              >
+                {label}
+              </button>
+            ))}
           </div>
+
+          <div className="flex-1" />
+
+          {/* Relative DPS toggle */}
+          <label className="flex items-center gap-2 text-[11px] text-text-muted cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={dpsDisplay === 'percent'}
+              onChange={(e) => setDpsDisplay(e.target.checked ? 'percent' : 'absolute')}
+              className="w-3.5 h-3.5 rounded border border-border-input bg-surface-secondary accent-amber-500"
+            />
+            Relative DPS
+          </label>
         </div>
 
-        {/* Boss rows */}
-        <div className="rounded-lg border border-border-primary bg-surface-primary overflow-hidden divide-y divide-border-primary/50">
+        {/* Boss rows — connects to the header above */}
+        <div className="rounded-b-lg border border-border-primary bg-surface-primary overflow-hidden divide-y divide-border-primary/50">
           {sortedGroups.map((group) => (
             <BossSummaryRow
               key={group.id}
@@ -325,7 +326,7 @@ export default function DroptimizerResults({
 
         {/* Footer note */}
         <p className="mt-2 text-[10px] text-text-faint">
-          DPS compared to your current gear. Highlighted icons indicate 0.05% or better DPS increase.
+          DPS compared to your current gear. Highlighted icons indicate 0.10% or better DPS increase.
         </p>
       </section>
 
@@ -460,24 +461,29 @@ function BossSummaryRow({
   const hasUpgrade = group.bestDelta > 0;
 
   return (
-    <div className="flex items-center gap-4 px-4 py-3 hover:bg-surface-hover/30 transition-colors">
-      {/* Boss name — fixed width */}
-      <div className="w-48 shrink-0">
-        <span className="text-sm font-semibold text-text-heading leading-tight block truncate">
+    <div className="flex items-start gap-4 px-5 py-4 hover:bg-surface-hover/30 transition-colors">
+      {/* Boss name — fixed width left column */}
+      <div className="w-44 shrink-0 pt-1">
+        <span className="text-[15px] font-bold text-text-heading leading-snug block">
           {group.name}
         </span>
       </div>
 
-      {/* Item icons grid */}
-      <div className="flex items-center gap-1.5 flex-1 flex-wrap min-w-0">
+      {/* Item icons — wrapping grid, center area */}
+      <div className="flex flex-wrap gap-x-2 gap-y-1 flex-1 min-w-0">
         {sortedItems.map((er) => {
           const m = er.meta;
           if (!m) return null;
           const cached = itemCache.get(m.item.itemId);
           const pct = baseline.dps > 0 ? (er.delta / baseline.dps) * 100 : 0;
-          const isUpgrade = pct >= 0.05;
+          const isHighlight = pct >= 0.10;
           const isDowngrade = er.delta < 0;
           const quality = cached?.quality ?? 3;
+
+          // Show "-" for neutral items (same as equipped or negligible change)
+          const pctLabel = Math.abs(pct) < 0.05
+            ? '-'
+            : `${pct >= 0 ? '' : ''}${pct.toFixed(1)}%`;
 
           return (
             <a
@@ -487,85 +493,88 @@ function BossSummaryRow({
                 ilvl: m.item.ilvl,
               })}
               onClick={(e) => e.preventDefault()}
-              className="group/icon relative flex flex-col items-center"
+              className="flex flex-col items-center w-11"
               data-wh-icon-size="small"
             >
-              {/* Icon with quality border */}
+              {/* Icon */}
               <div className={[
-                'relative w-10 h-10 rounded border-2 overflow-hidden transition-all',
-                isUpgrade
-                  ? 'border-emerald-400/70 shadow-[0_0_8px_rgba(52,211,153,0.3)]'
+                'relative w-11 h-11 rounded border-2 overflow-hidden',
+                isHighlight
+                  ? 'border-emerald-400/70 shadow-[0_0_10px_rgba(52,211,153,0.35)]'
                   : isDowngrade
-                    ? `${QUALITY_BORDER[quality] ?? QUALITY_BORDER[3]} opacity-60`
+                    ? `${QUALITY_BORDER[quality] ?? QUALITY_BORDER[3]} opacity-50`
                     : QUALITY_BORDER[quality] ?? QUALITY_BORDER[3],
               ].join(' ')}>
                 <img
                   src={iconUrl(cached?.icon)}
                   alt=""
-                  width={40}
-                  height={40}
+                  width={44}
+                  height={44}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                {/* CAT badge */}
                 {m.item.isCatalyst && (
-                  <span className="absolute top-0 right-0 bg-green-600 text-[7px] font-black text-white px-0.5 leading-none py-px">
+                  <span className="absolute top-0 left-0 bg-amber-600 text-[6px] font-black text-white px-0.5 leading-tight py-px rounded-br-sm">
                     CAT
                   </span>
                 )}
               </div>
-              {/* % DPS beneath icon */}
+              {/* % label */}
               <span className={[
-                'text-[9px] font-bold tabular-nums mt-0.5 leading-none',
-                isUpgrade ? 'text-accent-emerald' : isDowngrade ? 'text-accent-red' : 'text-text-faint',
+                'text-[10px] font-bold tabular-nums mt-0.5 leading-none',
+                isHighlight ? 'text-accent-emerald' : isDowngrade ? 'text-accent-red' : 'text-text-disabled',
               ].join(' ')}>
-                {pct >= 0 ? '+' : ''}{pct.toFixed(1)}%
+                {pctLabel}
               </span>
             </a>
           );
         })}
       </div>
 
-      {/* Metrics */}
-      <div className="flex items-center gap-5 shrink-0 tabular-nums">
+      {/* Metrics — right column */}
+      <div className="flex items-start gap-4 shrink-0 tabular-nums pt-1">
         {/* Expected Value */}
-        <div className="text-right w-24">
-          <span className={[
-            'text-sm font-bold',
-            group.expectedValue > 0 ? 'text-accent-emerald' : 'text-text-faint',
-          ].join(' ')}>
-            {formatDelta(group.expectedValue, dpsDisplay, baseline.dps)}
-          </span>
-          <span className={[
-            'ml-1 text-[10px]',
-            group.expectedValue > 0 ? 'text-emerald-400/60' : 'text-text-faint',
-          ].join(' ')}>
-            DPS
-          </span>
-          <div className="text-[9px] text-text-faint uppercase tracking-wider">Expected Value</div>
+        <div className="text-right">
+          <div>
+            <span className={[
+              'text-base font-bold',
+              group.expectedValue > 0 ? 'text-accent-emerald' : 'text-text-faint',
+            ].join(' ')}>
+              {formatDelta(group.expectedValue, dpsDisplay, baseline.dps)}
+            </span>
+            <span className={[
+              'ml-1 text-xs',
+              group.expectedValue > 0 ? 'text-emerald-400/50' : 'text-text-disabled',
+            ].join(' ')}>
+              DPS
+            </span>
+          </div>
+          <div className="text-[10px] text-text-faint">Expected Value</div>
         </div>
 
         {/* Best */}
-        <div className="text-right w-24">
-          <span className={[
-            'text-sm font-bold',
-            hasUpgrade ? 'text-accent-emerald' : 'text-text-faint',
-          ].join(' ')}>
-            {formatDelta(group.bestDelta, dpsDisplay, baseline.dps)}
-          </span>
-          <span className={[
-            'ml-1 text-[10px]',
-            hasUpgrade ? 'text-emerald-400/60' : 'text-text-faint',
-          ].join(' ')}>
-            DPS
-          </span>
-          <div className="text-[9px] text-text-faint uppercase tracking-wider">Best</div>
+        <div className="text-right">
+          <div>
+            <span className={[
+              'text-base font-bold',
+              hasUpgrade ? 'text-accent-emerald' : 'text-text-faint',
+            ].join(' ')}>
+              {formatDelta(group.bestDelta, dpsDisplay, baseline.dps)}
+            </span>
+            <span className={[
+              'ml-1 text-xs',
+              hasUpgrade ? 'text-emerald-400/50' : 'text-text-disabled',
+            ].join(' ')}>
+              DPS
+            </span>
+          </div>
+          <div className="text-[10px] text-text-faint">Best</div>
         </div>
 
-        {/* Priority */}
-        <div className="text-right w-8">
-          <span className="text-lg font-bold text-text-heading">{group.priority}</span>
-          <div className="text-[9px] text-text-faint uppercase tracking-wider">Priority</div>
+        {/* Priority — large number */}
+        <div className="text-right w-10">
+          <span className="text-2xl font-extrabold text-text-heading leading-none">{group.priority}</span>
+          <div className="text-[10px] text-text-faint">Priority</div>
         </div>
       </div>
     </div>
