@@ -1,10 +1,10 @@
 {
   "version": "1201.01",
-  "commit": "e9346d8",
-  "date": "2026-04-03",
+  "commit": "d92193d",
+  "date": "2026-04-06",
   "files": {
-    "macos": "simc-1201-01-macos-e9346d8.dmg",
-    "win64": "simc-1201.01.e9346d8-win64.7z"
+    "macos": "simc-1201-01-macos-d92193d.dmg",
+    "win64": "simc-1201.01.d92193d-win64.7z"
   },
   "nightlyUrl": "http://downloads.simulationcraft.org/nightly/"
 }
