@@ -46,6 +46,9 @@ function makeItem(overrides?: Partial<DroptimizerItem>): DroptimizerItem {
     sourceLabel: 'Boss Name',
     sourceGroupId: 'raid_1',
     sourceGroupName: 'Test Raid',
+    sourceBossId: 'boss_1',
+    sourceBossName: 'Boss Name',
+    bossOrder: 0,
     isCatalyst: false,
     ...overrides,
   };

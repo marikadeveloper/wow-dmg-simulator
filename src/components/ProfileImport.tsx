@@ -276,7 +276,7 @@ export default function ProfileImport({ onProfileParsed }: ProfileImportProps) {
             </div>
             <div>
               <div className='flex items-baseline gap-2'>
-                <h2 className='text-base font-semibold text-amber-50 tracking-tight'>
+                <h2 className='text-base font-semibold text-amber-900 dark:text-amber-50 tracking-tight'>
                   {profile.characterName}
                 </h2>
                 <span className='text-xs text-text-muted'>

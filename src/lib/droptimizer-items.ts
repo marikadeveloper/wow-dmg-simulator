@@ -51,10 +51,23 @@ export interface DroptimizerItem {
   sourceGroupId: string;
   /** Source group display name. */
   sourceGroupName: string;
+  /** Boss-level group key (encounter id for raids, dungeon id for M+, etc.). */
+  sourceBossId: string;
+  /** Boss-level display name (encounter name for raids, dungeon name for M+, etc.). */
+  sourceBossName: string;
+  /** Boss order index for "Boss Order" sort (encounter position within the source). */
+  bossOrder: number;
+  /** Encounter journal image slug for boss portrait (ui-ej-boss-{slug}.png). */
+  portraitSlug?: string;
   /** true if this is a catalyst-converted tier piece. */
   isCatalyst: boolean;
   /** Armor type, if applicable. */
   armorType?: string;
+}
+
+/** Build the encounter journal boss portrait URL from a slug. */
+export function bossPortraitUrl(slug: string): string {
+  return `https://wow.zamimg.com/images/wow/journal/ui-ej-boss-${slug}.png`;
 }
 
 /** Slot display labels. */
@@ -151,6 +164,7 @@ function resolveRaidItems(
     : RAID_INSTANCES;
 
   const items: DroptimizerItem[] = [];
+  let bossIdx = 0;
   for (const raid of raids) {
     for (const enc of raid.encounters) {
       const classItems = filterByClass ? getItemsForClass(enc.items, className) : enc.items;
@@ -170,10 +184,15 @@ function resolveRaidItems(
           sourceLabel: enc.name,
           sourceGroupId: raid.id,
           sourceGroupName: raid.name,
+          sourceBossId: enc.id,
+          sourceBossName: enc.name,
+          bossOrder: bossIdx,
+          portraitSlug: enc.portraitSlug,
           isCatalyst: false,
           armorType: item.armorType,
         });
       }
+      bossIdx++;
     }
   }
   return items;
@@ -192,6 +211,7 @@ function resolveMplusItems(
     : MYTHIC_PLUS_DUNGEONS;
 
   const items: DroptimizerItem[] = [];
+  let bossIdx = 0;
   for (const dg of dungeons) {
     const classItems = filterByClass ? getItemsForClass(dg.items, className) : dg.items;
     for (const item of classItems) {
@@ -205,16 +225,21 @@ function resolveMplusItems(
         sourceLabel: dg.name,
         sourceGroupId: dg.id,
         sourceGroupName: dg.name,
+        sourceBossId: dg.id,
+        sourceBossName: dg.name,
+        bossOrder: bossIdx,
         isCatalyst: false,
         armorType: item.armorType,
       });
     }
+    bossIdx++;
   }
   return items;
 }
 
 function resolveWorldBossItems(className: string, filterByClass: boolean): DroptimizerItem[] {
   const items: DroptimizerItem[] = [];
+  let bossIdx = 0;
   for (const wb of WORLD_BOSSES) {
     const classItems = filterByClass ? getItemsForClass(wb.items, className) : wb.items;
     for (const item of classItems) {
@@ -228,10 +253,14 @@ function resolveWorldBossItems(className: string, filterByClass: boolean): Dropt
         sourceLabel: wb.name,
         sourceGroupId: wb.id,
         sourceGroupName: wb.name,
+        sourceBossId: wb.id,
+        sourceBossName: wb.name,
+        bossOrder: bossIdx,
         isCatalyst: false,
         armorType: item.armorType,
       });
     }
+    bossIdx++;
   }
   return items;
 }
@@ -256,6 +285,9 @@ function resolveCatalystItems(className: string): DroptimizerItem[] {
       sourceLabel: 'Catalyst',
       sourceGroupId: 'catalyst',
       sourceGroupName: 'Catalyst',
+      sourceBossId: 'catalyst',
+      sourceBossName: 'Catalyst',
+      bossOrder: 0,
       isCatalyst: true,
     });
   }

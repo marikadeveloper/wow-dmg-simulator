@@ -129,6 +129,10 @@ export default function DroptimizerItemList({
         sourceLabel: `${baseItem.sourceLabel} (Catalyst)`,
         sourceGroupId: baseItem.sourceGroupId,
         sourceGroupName: baseItem.sourceGroupName,
+        sourceBossId: baseItem.sourceBossId,
+        sourceBossName: baseItem.sourceBossName,
+        bossOrder: baseItem.bossOrder,
+        portraitSlug: baseItem.portraitSlug,
         isCatalyst: true,
         armorType: playerArmorType,
       });

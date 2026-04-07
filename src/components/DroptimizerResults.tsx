@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import type { SimResult } from '../lib/types';
 import type { DroptimizerComboMeta } from '../lib/droptimizer-profileset';
-import { SLOT_LABELS } from '../lib/droptimizer-items';
+import { SLOT_LABELS, bossPortraitUrl } from '../lib/droptimizer-items';
 import { getItemData, type CachedItem } from '../lib/item-cache';
 import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
@@ -58,6 +58,8 @@ interface EnrichedResult {
 interface SourceGroup {
   id: string;
   name: string;
+  portraitSlug?: string;
+  bossOrder: number;
   items: EnrichedResult[];
   expectedValue: number;
   bestDelta: number;
@@ -172,22 +174,24 @@ export default function DroptimizerResults({
     });
   }, [results, meta, baseline]);
 
-  // Source groups for boss summary
+  // Source groups for boss summary — grouped by individual boss/encounter
   const sourceGroups = useMemo<SourceGroup[]>(() => {
-    const groupMap = new Map<string, { name: string; items: EnrichedResult[] }>();
+    const groupMap = new Map<string, { name: string; portraitSlug?: string; bossOrder: number; items: EnrichedResult[] }>();
 
     for (const er of enriched) {
       if (er.isBaseline) continue;
-      const groupId = er.meta?.item.sourceGroupId ?? 'unknown';
-      const groupName = er.meta?.item.sourceGroupName ?? 'Unknown';
+      const groupId = er.meta?.item.sourceBossId ?? er.meta?.item.sourceGroupId ?? 'unknown';
+      const groupName = er.meta?.item.sourceBossName ?? er.meta?.item.sourceGroupName ?? 'Unknown';
+      const portraitSlug = er.meta?.item.portraitSlug;
+      const bossOrder = er.meta?.item.bossOrder ?? 0;
       if (!groupMap.has(groupId)) {
-        groupMap.set(groupId, { name: groupName, items: [] });
+        groupMap.set(groupId, { name: groupName, portraitSlug, bossOrder, items: [] });
       }
       groupMap.get(groupId)!.items.push(er);
     }
 
     const groups: SourceGroup[] = [];
-    for (const [id, { name, items }] of groupMap) {
+    for (const [id, { name, portraitSlug, bossOrder, items }] of groupMap) {
       // Deduplicate: for slot variations, only count the best one per item
       const bestPerItem = new Map<number, EnrichedResult>();
       for (const item of items) {
@@ -204,7 +208,7 @@ export default function DroptimizerResults({
         ? positiveDeltas.reduce((a, b) => a + b, 0) / dedupedItems.length
         : 0;
       const bestDelta = dedupedItems.length > 0 ? Math.max(...dedupedItems.map((i) => i.delta)) : 0;
-      groups.push({ id, name, items: dedupedItems, expectedValue, bestDelta, priority: 0 });
+      groups.push({ id, name, portraitSlug, bossOrder, items: dedupedItems, expectedValue, bestDelta, priority: 0 });
     }
 
     groups.sort((a, b) => b.expectedValue - a.expectedValue || b.bestDelta - a.bestDelta || a.name.localeCompare(b.name));
@@ -220,7 +224,7 @@ export default function DroptimizerResults({
       case 'priority': return copy.sort((a, b) => a.priority - b.priority);
       case 'ev': return copy.sort((a, b) => b.expectedValue - a.expectedValue);
       case 'best': return copy.sort((a, b) => b.bestDelta - a.bestDelta);
-      case 'boss_order': return copy;
+      case 'boss_order': return copy.sort((a, b) => a.bossOrder - b.bossOrder);
     }
   }, [sourceGroups, sortMode]);
 
@@ -462,15 +466,30 @@ function BossSummaryRow({
 
   return (
     <div className="flex items-start gap-4 px-5 py-4 hover:bg-surface-hover/30 transition-colors">
-      {/* Boss name — fixed width left column */}
-      <div className="w-44 shrink-0 pt-1">
-        <span className="text-[15px] font-bold text-text-heading leading-snug block">
+      {/* Boss portrait + name — left column */}
+      <div className="flex items-center gap-3 w-56 shrink-0">
+        {/* Portrait */}
+        {group.portraitSlug ? (
+          <img
+            src={bossPortraitUrl(group.portraitSlug)}
+            alt={group.name}
+            width={56}
+            height={56}
+            className="w-14 h-14 rounded-lg object-cover object-top border border-border-primary/50 bg-surface-secondary shrink-0"
+            loading="lazy"
+          />
+        ) : (
+          <div className="w-14 h-14 rounded-lg border border-border-primary/50 bg-surface-secondary shrink-0 flex items-center justify-center">
+            <span className="text-lg font-bold text-text-faint">{group.name.charAt(0)}</span>
+          </div>
+        )}
+        <span className="text-[15px] font-bold text-text-heading leading-snug">
           {group.name}
         </span>
       </div>
 
       {/* Item icons — wrapping grid, center area */}
-      <div className="flex flex-wrap gap-x-2 gap-y-1 flex-1 min-w-0">
+      <div className="flex flex-wrap gap-x-2 gap-y-1 flex-1 min-w-0 pt-0.5">
         {sortedItems.map((er) => {
           const m = er.meta;
           if (!m) return null;
