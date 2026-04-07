@@ -1,5 +1,5 @@
 /**
- * build-loot-db.ts — Generates loot table data for Droptimizer.
+ * build-loot-db.ts — Generates loot table data for Drop Finder.
  *
  * Usage:
  *   pnpm build:loot-db                     # Validate existing loot-tables.ts item IDs against items.db

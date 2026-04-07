@@ -58,7 +58,7 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
 
         {/* Right: App info */}
         <div className="text-[11px] text-text-disabled">
-          WoW Top Gear v0.1.0
+          WoW Gear Sim v0.1.0
         </div>
       </div>
     </footer>

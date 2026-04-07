@@ -20,16 +20,16 @@ distribution channel for now.
 ### 1. Generate the updater signing keypair
 
 ```bash
-pnpm tauri signer generate -- -w ~/.tauri/wow-topgear.key
+pnpm tauri signer generate -- -w ~/.tauri/wow-gear-sim.key
 ```
 
 This creates two files:
-- `~/.tauri/wow-topgear.key` — private key (never commit this)
-- `~/.tauri/wow-topgear.key.pub` — public key
+- `~/.tauri/wow-gear-sim.key` — private key (never commit this)
+- `~/.tauri/wow-gear-sim.key.pub` — public key
 
 ### 2. Add the public key to the app config
 
-Copy the **contents** of `wow-topgear.key.pub` and paste it into
+Copy the **contents** of `wow-gear-sim.key.pub` and paste it into
 `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`:
 
 ```json
@@ -47,7 +47,7 @@ Go to **Settings → Secrets and variables → Actions** in the GitHub repo and 
 
 | Secret | Value |
 |--------|-------|
-| `TAURI_SIGNING_PRIVATE_KEY` | Contents of `~/.tauri/wow-topgear.key` |
+| `TAURI_SIGNING_PRIVATE_KEY` | Contents of `~/.tauri/wow-gear-sim.key` |
 | `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | The password you chose (or empty string) |
 | `SIMC_MACOS_ARM64_URL` | Direct download URL for SimC macOS arm64 binary |
 | `SIMC_MACOS_X64_URL` | Direct download URL for SimC macOS x64 binary |
@@ -147,13 +147,13 @@ install instructions since users download directly from this page:
 ## Install
 
 **macOS** — Download the `.dmg` for your chip:
-- Apple Silicon (M1/M2/M3/M4): `WoW Top Gear_X.Y.Z_aarch64.dmg`
-- Intel: `WoW Top Gear_X.Y.Z_x64.dmg`
+- Apple Silicon (M1/M2/M3/M4): `WoW Gear Sim_X.Y.Z_aarch64.dmg`
+- Intel: `WoW Gear Sim_X.Y.Z_x64.dmg`
 
 Open the `.dmg`, drag the app to Applications.
 First launch: right-click the app → **Open** (macOS Gatekeeper prompt).
 
-**Windows** — Download `WoW Top Gear_X.Y.Z_x64-setup.exe` and run it.
+**Windows** — Download `WoW Gear Sim_X.Y.Z_x64-setup.exe` and run it.
 If SmartScreen warns you, click "More info" → "Run anyway".
 
 **Already installed?** The app checks for updates on launch automatically.
@@ -202,5 +202,5 @@ Share this link with users. It always points to the most recent published releas
 | Auto-update doesn't trigger | `pubkey` is empty in config | Paste your public key into `tauri.conf.json` → `plugins.updater.pubkey` |
 | macOS: "app is damaged" | Gatekeeper quarantine | Right-click → Open, or the app's built-in quarantine removal handles it |
 | Windows: SmartScreen warning | App not EV code-signed | Expected for unsigned apps — user clicks "More info" → "Run anyway" |
-| macOS: SimC "operation not permitted" | Sidecar quarantined | The app removes this automatically on launch; if it persists, run `xattr -d com.apple.quarantine /Applications/WoW\ Top\ Gear.app` |
+| macOS: SimC "operation not permitted" | Sidecar quarantined | The app removes this automatically on launch; if it persists, run `xattr -d com.apple.quarantine /Applications/WoW\ Gear\ Sim.app` |
 | Item search returns no results | `items.db` empty or missing | Run `pnpm build:item-db` locally; CI runs this automatically |

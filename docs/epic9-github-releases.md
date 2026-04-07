@@ -10,9 +10,9 @@ artifacts to the same release.
 
 | Platform          | Installer files                                          |
 | ----------------- | -------------------------------------------------------- |
-| macOS arm64       | `WoW Top Gear_X.Y.Z_aarch64.dmg`                        |
-| macOS Intel       | `WoW Top Gear_X.Y.Z_x64.dmg`                            |
-| Windows           | `WoW Top Gear_X.Y.Z_x64-setup.exe`, `...x64_en-US.msi` |
+| macOS arm64       | `WoW Gear Sim_X.Y.Z_aarch64.dmg`                        |
+| macOS Intel       | `WoW Gear Sim_X.Y.Z_x64.dmg`                            |
+| Windows           | `WoW Gear Sim_X.Y.Z_x64-setup.exe`, `...x64_en-US.msi` |
 
 Exact filenames are determined by `productName` and `version` in `src-tauri/tauri.conf.json`.
 

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// loot-tables.ts — Droptimizer loot table data for the current season.
+// loot-tables.ts — Drop Finder loot table data for the current season.
 //
 // Contains: raid instances, M+ dungeons, world bosses, ilvl mappings,
 // catalyst mappings, and class/armor-type filtering helpers.
@@ -142,7 +142,7 @@ export const RAID_DIFFICULTY_LABELS: Record<RaidDifficulty, { label: string; tra
 /**
  * Raid drop base bonus IDs. These are added to every raid loot item's bonus_id
  * list alongside the gear track rank bonus_id. SimC needs these to properly
- * resolve raid drop items. Values confirmed from Raidbots Droptimizer output.
+ * resolve raid drop items. Values confirmed from Raidbots Drop Finder output.
  */
 export const RAID_DROP_BONUS_IDS = [4799, 4786];
 
@@ -163,8 +163,8 @@ export const RAID_DIFFICULTY_TRACK: Record<RaidDifficulty, string> = {
   mythic: 'Myth',
 };
 
-/** Slots that should receive a socket bonus_id (13668) in Droptimizer. */
-export const SOCKETABLE_DROPTIMIZER_SLOTS = new Set(['neck', 'finger']);
+/** Slots that should receive a socket bonus_id (13668) in Drop Finder. */
+export const SOCKETABLE_DROPFINDER_SLOTS = new Set(['neck', 'finger']);
 
 /**
  * Compute M+ bonus_ids for a dungeon drop at a given keystone level.

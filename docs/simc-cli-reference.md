@@ -18,7 +18,7 @@ On Windows, `/dev/null` does not exist — use `output=nul` instead.
 | `threads=N`     | `threads=7`                  | CPU threads to use. Default: all cores. We set this to `cpu_count - 1`.             |
 | `output=`       | `output=/dev/null`           | Suppresses the human-readable text report (we don't need it).                       |
 | `json2=`        | `json2=/tmp/result_abc.json` | Writes machine-readable JSON output to this path. **Always use this.**              |
-| `fight_style=`  | `fight_style=Patchwerk`      | Boss fight style. Patchwerk = single target stand-still (default for Top Gear).     |
+| `fight_style=`  | `fight_style=Patchwerk`      | Boss fight style. Patchwerk = single target stand-still (default for Sim Gear).     |
 | `target_error=` | `target_error=0.1`           | Alternative to `iterations` — stops when DPS error < N%. Don't mix with iterations. |
 
 ---

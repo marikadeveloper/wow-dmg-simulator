@@ -111,7 +111,7 @@ _The app runs SimC and reports progress._
 
 | #   | Story                                                              | Priority |
 | --- | ------------------------------------------------------------------ | -------- |
-| 6.1 | "Run Top Gear" button starts the simulation run                    | 🚀       |
+| 6.1 | "Run Sim Gear" button starts the simulation run                    | 🚀       |
 | 6.2 | Progress bar shows X / N combinations completed                    | 🚀       |
 | 6.3 | Results appear incrementally as each sim finishes (not all at end) | 🚀       |
 | 6.4 | User can cancel an in-progress run                                 | 🚀       |
@@ -209,7 +209,7 @@ for the technical design.
 | 11.2  | Implement `selectSurvivors` culling function — top-N% with statistical tie-breaking using `mean_std_dev`                                                 | 🚀       |
 | 11.3  | Add `buildProfileSetFileForSubset` to `profileset-builder.ts` — builds a .simc file for a subset of combos with a stage-specific `target_error` override | 🚀       |
 | 11.4  | Auto-select stage count based on combination count: 1 stage (< 50), 2 stages (50-199), 3 stages (200+)                                                  | 🚀       |
-| 11.5  | Wire smart-sim-runner into the simulation hook — call `run_top_gear` once per stage, feed survivors into the next stage                                  | 🚀       |
+| 11.5  | Wire smart-sim-runner into the simulation hook — call `run_sim_gear` once per stage, feed survivors into the next stage                                  | 🚀       |
 | 11.6  | UI: staged progress display — show Stage 1/2/3 labels, per-stage progress bar, combo count per stage                                                    | 🚀       |
 | 11.7  | UI: "Smart Sim" toggle in advanced sim settings (enabled by default for 50+ combos, hidden for small sims)                                               | 🚀       |
 | 11.8  | Handle cancellation mid-stage — kill SimC process, return partial results from completed stages                                                          | 🚀       |
@@ -218,17 +218,17 @@ for the technical design.
 | 11.11 | Show "Smart Sim" label in results metadata (like Raidbots shows "10,250 (Smart Sim)")                                                                    | 🔮       |
 | 11.12 | User-configurable stage target errors in advanced settings (power users)                                                                                 | 🔮       |
 
-**Key constraint:** No Rust backend changes needed. The existing `run_top_gear`
+**Key constraint:** No Rust backend changes needed. The existing `run_sim_gear`
 command is called once per stage. The orchestration is entirely in TypeScript.
 
 ---
 
-## EPIC 12 — Droptimizer
+## EPIC 12 — Drop Finder
 
 _The user finds out which boss drops are worth farming by simulating every
 potential drop from a content source against their current gear._
 
-Unlike Top Gear (which compares items the user already owns), Droptimizer
+Unlike Sim Gear (which compares items the user already owns), Drop Finder
 answers **"what should I farm next?"**. The user selects a content source
 (raid, dungeon, world bosses, catalyst), and the app sims every possible
 drop as a single-swap replacement for their current gear.
@@ -250,7 +250,7 @@ See `docs/droptimizer-research/notes.md` for full Raidbots analysis.
 
 | #     | Story                                                                                                                   | Priority |
 | ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
-| 12.7  | App navigation: Top Gear / Droptimizer tabs visible after character is loaded                                           | 🚀       |
+| 12.7  | App navigation: Sim Gear / Drop Finder tabs visible after character is loaded                                           | 🚀       |
 | 12.8  | Source selector UI: clickable cards for each source type (Season Raids, individual raids, World Bosses, M+ Dungeons, individual dungeons, Catalyst) | 🚀       |
 | 12.9  | Raid source: difficulty selector (Raid Finder / Normal / Heroic / Mythic) with gear track label (Veteran / Champion / Hero / Myth) | 🚀       |
 | 12.10 | M+ source: dungeon selector (All Dungeons or individual dungeon) + keystone level selector (Heroic → +10, plus Vault tiers +7/+10) | 🚀       |
@@ -272,7 +272,7 @@ See `docs/droptimizer-research/notes.md` for full Raidbots analysis.
 | 12.21 | "Upgrade up to" selector — sim items at an upgraded ilvl rank instead of base drop level                                | 🚀       |
 | 12.22 | "Upgrade All Equipped Gear to Same Level" checkbox — also upgrades baseline gear to the selected upgrade level          | 🔮       |
 
-### 12D — Droptimizer Simulation
+### 12D — Drop Finder Simulation
 
 | #     | Story                                                                                                                   | Priority |
 | ----- | ----------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -281,7 +281,7 @@ See `docs/droptimizer-research/notes.md` for full Raidbots analysis.
 | 12.25 | Gems/sockets inherited from current neck or first ring (matching Raidbots behavior)                                     | 🚀       |
 | 12.26 | Rings automatically tried in both finger1 and finger2 slots; trinkets tried in both trinket1 and trinket2              | 🚀       |
 | 12.27 | Unique-Equipped constraint respected: don't sim a trinket/ring in slot 2 if the same item is already in slot 1         | 🚀       |
-| 12.28 | Reuse Smart Sim (Epic 11) for Droptimizer runs — multi-stage adaptive precision                                        | 🚀       |
+| 12.28 | Reuse Smart Sim (Epic 11) for Drop Finder runs — multi-stage adaptive precision                                        | 🚀       |
 | 12.29 | Dual wield classes try weapons in both main hand and off hand                                                           | 🔮       |
 
 ### 12E — Results Display
@@ -298,12 +298,12 @@ See `docs/droptimizer-research/notes.md` for full Raidbots analysis.
 | 12.37 | Ring/trinket variations: show which slot an item was simmed in, with "N variations hidden" toggle                       | 🚀       |
 | 12.38 | Relative DPS toggle (show % instead of absolute DPS delta)                                                              | 🔮       |
 | 12.39 | DPS distribution chart per item (min/mean/max/stddev)                                                                   | 🔮       |
-| 12.40 | Results header: "Droptimizer • Source Name • Difficulty - Character Name - DPS"                                          | 🚀       |
+| 12.40 | Results header: "Drop Finder • Source Name • Difficulty - Character Name - DPS"                                          | 🚀       |
 
-**Key constraint:** Droptimizer is single-swap only — each item is simmed independently
+**Key constraint:** Drop Finder is single-swap only — each item is simmed independently
 against the baseline. No combinatorial explosion. Typical run = 20–80 profilesets.
 
-**SimC syntax:** Same ProfileSet architecture as Top Gear. One `.simc` file with one
+**SimC syntax:** Same ProfileSet architecture as Sim Gear. One `.simc` file with one
 profileset per potential drop item. Each profileset overrides a single gear slot.
 
 **Enchant/gem inheritance:** Enchants are copied from the currently equipped item in the
@@ -318,7 +318,7 @@ These features exist on Raidbots but are not part of this app's initial scope:
 
 | Feature                             | Why deferred                                                        |
 | ----------------------------------- | ------------------------------------------------------------------- |
-| ~~**Droptimizer** (what to farm)~~  | ~~Moved to Epic 12~~                                               |
+| ~~**Drop Finder** (what to farm)~~  | ~~Moved to Epic 12~~                                               |
 | **Quick Sim** (single DPS snapshot) | Useful but not the core use case                                    |
 | **Talent comparison**               | Combinations explode extremely fast with talents added              |
 | **Stat weights / scale factors**    | Different SimC mode (`calculate_scale_factors=1`), separate feature |

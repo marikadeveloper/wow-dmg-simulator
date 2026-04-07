@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "WoW Top Gear",
+  "productName": "WoW Gear Sim",
   "version": "0.2.0-1",
-  "identifier": "com.marikamella.wow-topgear",
+  "identifier": "com.marikamella.wow-gear-sim",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "WoW Top Gear",
+        "title": "WoW Gear Sim",
         "width": 1200,
         "height": 800
       }

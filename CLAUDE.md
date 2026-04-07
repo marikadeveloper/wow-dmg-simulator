@@ -1,4 +1,4 @@
-# WoW Top Gear — Local SimulationCraft Desktop App
+# WoW Gear Sim — Local SimulationCraft Desktop App
 
 ## Current Status (last updated: 2026-03-24)
 
@@ -18,7 +18,7 @@
 
 ## Project Goal
 
-A **desktop app** (Tauri) that replicates Raidbots' Top Gear feature, running 100% locally.
+A **desktop app** (Tauri) inspired by Raidbots' Top Gear feature, running 100% locally.
 The user pastes a SimulationCraft addon export string, selects which gear items to compare
 per slot, and the app runs the local SimC binary to rank combinations by DPS.
 
@@ -60,7 +60,7 @@ installer on both **macOS** and **Windows**.
 ## Repo Structure
 
 ```
-wow-topgear/
+wow-gear-sim/
 ├── CLAUDE.md                  ← you are here
 ├── src/                       ← React frontend
 │   ├── components/

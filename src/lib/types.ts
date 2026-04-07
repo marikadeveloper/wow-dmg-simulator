@@ -110,10 +110,10 @@ export interface SimResult {
   axes: Record<string, string>;
 }
 
-// ── Droptimizer types ───────────────────────────────────────────────────────
+// ── Drop Finder types ───────────────────────────────────────────────────────
 
-/** Droptimizer loot source category. */
-export type DroptimizerSourceType = 'raid' | 'mythicplus' | 'worldboss' | 'catalyst';
+/** Drop Finder loot source category. */
+export type DropFinderSourceType = 'raid' | 'mythicplus' | 'worldboss' | 'catalyst';
 
 /** Raid source configuration. */
 export interface RaidSourceConfig {
@@ -143,8 +143,8 @@ export interface CatalystSourceConfig {
   type: 'catalyst';
 }
 
-/** Union of all Droptimizer source configurations. */
-export type DroptimizerSourceConfig =
+/** Union of all Drop Finder source configurations. */
+export type DropFinderSourceConfig =
   | RaidSourceConfig
   | MythicPlusSourceConfig
   | WorldBossSourceConfig

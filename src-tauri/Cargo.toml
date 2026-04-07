@@ -1,12 +1,12 @@
 [package]
-name = "wow-topgear"
+name = "wow-gear-sim"
 version = "0.1.0"
-description = "WoW Top Gear — Local SimulationCraft Desktop App"
+description = "WoW Gear Sim — Local SimulationCraft Desktop App"
 authors = ["you"]
 edition = "2021"
 
 [lib]
-name = "wow_topgear_lib"
+name = "wow_gear_sim_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

@@ -46,7 +46,7 @@ The main screen is a single scrollable page divided into three vertical zones:
 │  [ Iterations: 10000 ]                                  │
 │  ─────────────────────────────────────────────────────  │
 │  Combinations: 48  ⚠ This will take ~4 minutes         │
-│  [ ▶ Run Top Gear ]  [ ✕ Cancel ]                       │
+│  [ ▶ Run Sim Gear ]  [ ✕ Cancel ]                       │
 │  ─────────────────────────────────────────────────────  │
 │  RESULTS TABLE (appears here after run)                 │
 └─────────────────────────────────────────────────────────┘

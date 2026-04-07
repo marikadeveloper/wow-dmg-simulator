@@ -243,7 +243,7 @@ unless implementing custom boss encounters (out of scope for MVP).
 
 ## Fixed Time vs Variable Time
 
-For Top Gear comparisons, all profilesets must run under identical conditions.
+For Sim Gear comparisons, all profilesets must run under identical conditions.
 The default `vary_combat_length=0.2` introduces ±20% variance, which SimC handles
 correctly by distributing evenly across iterations. This is fine to keep.
 

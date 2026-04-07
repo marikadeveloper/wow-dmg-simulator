@@ -60,7 +60,7 @@ Tauri automatically appends the target triple suffix when bundling.
 use tauri_plugin_shell::ShellExt;
 
 #[tauri::command]
-pub async fn run_top_gear(
+pub async fn run_sim_gear(
     app: tauri::AppHandle,
     simc_file_path: String,
     json_output_path: String,
@@ -224,7 +224,7 @@ jobs:
           # APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: 'WoW Top Gear v${{ github.ref_name }}'
+          releaseName: 'WoW Gear Sim v${{ github.ref_name }}'
           releaseBody: 'See the assets below for installers.'
           releaseDraft: true
           prerelease: false
@@ -271,7 +271,7 @@ pnpm tauri dev    # hot reload — frontend changes apply instantly
 
 | Platform      | File                             | Where it appears |
 | ------------- | -------------------------------- | ---------------- |
-| macOS arm64   | `WoWTopGear_1.0.0_aarch64.dmg`   | GitHub Release   |
-| macOS x86_64  | `WoWTopGear_1.0.0_x64.dmg`       | GitHub Release   |
-| Windows       | `WoWTopGear_1.0.0_x64-setup.exe` | GitHub Release   |
-| Windows (MSI) | `WoWTopGear_1.0.0_x64_en-US.msi` | GitHub Release   |
+| macOS arm64   | `WoWGearSim_1.0.0_aarch64.dmg`   | GitHub Release   |
+| macOS x86_64  | `WoWGearSim_1.0.0_x64.dmg`       | GitHub Release   |
+| Windows       | `WoWGearSim_1.0.0_x64-setup.exe` | GitHub Release   |
+| Windows (MSI) | `WoWGearSim_1.0.0_x64_en-US.msi` | GitHub Release   |

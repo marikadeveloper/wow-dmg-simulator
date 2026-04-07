@@ -1,12 +1,12 @@
 import { useState, useMemo, useCallback } from 'react';
 import type { SimResult, OptimizationAxis } from '../lib/types';
 
-interface SimResultsTopGearProps {
+interface SimResultsSimGearProps {
   results: SimResult[];
   axes: OptimizationAxis[];
 }
 
-type DiffBase = 'equipped' | 'topgear';
+type DiffBase = 'equipped' | 'simgear';
 type SortDir = 'desc' | 'asc';
 
 const COLLAPSED_LIMIT = 10;
@@ -67,10 +67,10 @@ function escapeCsvField(value: string): string {
   return value;
 }
 
-export default function SimResultsTopGear({
+export default function SimResultsSimGear({
   results,
   axes,
-}: SimResultsTopGearProps) {
+}: SimResultsSimGearProps) {
   const [showAll, setShowAll] = useState(false);
   const [diffBase, setDiffBase] = useState<DiffBase>('equipped');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
@@ -81,11 +81,11 @@ export default function SimResultsTopGear({
 
   const baseline = results.find((r) => r.isBaseline);
   const baselineDps = baseline?.dps ?? 0;
-  const topGear = results.length > 0 ? results[0] : undefined;
-  const topGearDps = topGear?.dps ?? 0;
+  const simGear = results.length > 0 ? results[0] : undefined;
+  const simGearDps = simGear?.dps ?? 0;
 
-  const referenceDps = diffBase === 'equipped' ? baselineDps : topGearDps;
-  const referenceResult = diffBase === 'equipped' ? baseline : topGear;
+  const referenceDps = diffBase === 'equipped' ? baselineDps : simGearDps;
+  const referenceResult = diffBase === 'equipped' ? baseline : simGear;
 
   // Axis columns with >1 option (for expanded detail)
   const axisColumns = useMemo(
@@ -157,13 +157,13 @@ export default function SimResultsTopGear({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'topgear-results.csv';
+    a.download = 'simgear-results.csv';
     a.click();
     URL.revokeObjectURL(url);
   }, [results, axes, baselineDps, optionLabels]);
 
   const scrollToEquipped = useCallback(() => {
-    const el = document.getElementById('topgear-equipped-row');
+    const el = document.getElementById('simgear-equipped-row');
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, []);
 
@@ -196,11 +196,11 @@ export default function SimResultsTopGear({
     // Hide delta for the reference row itself
     const showDelta = !(
       (diffBase === 'equipped' && result.isBaseline) ||
-      (diffBase === 'topgear' && result === topGear)
+      (diffBase === 'simgear' && result === simGear)
     );
 
     return (
-      <div key={result.name} id={isBaselineRow ? 'topgear-equipped-row' : undefined}>
+      <div key={result.name} id={isBaselineRow ? 'simgear-equipped-row' : undefined}>
         {/* Main row */}
         <div
           className={[
@@ -292,7 +292,7 @@ export default function SimResultsTopGear({
                 </>
               ) : (
                 <span className="text-[9px] text-text-disabled italic">
-                  same as {diffBase === 'equipped' ? 'equipped' : 'top gear'}
+                  same as {diffBase === 'equipped' ? 'equipped' : 'sim gear'}
                 </span>
               )}
             </div>
@@ -447,7 +447,7 @@ export default function SimResultsTopGear({
       {/* Header */}
       <div className="px-4 py-2.5 border-b border-border-secondary flex items-center justify-between gap-3">
         <h3 className="text-xs font-semibold text-text-tertiary tracking-wide">
-          Top Gear (DPS)
+          Sim Gear (DPS)
         </h3>
 
         <div className="flex items-center gap-2">
@@ -530,15 +530,15 @@ export default function SimResultsTopGear({
             Equipped
           </button>
           <button
-            onClick={() => setDiffBase('topgear')}
+            onClick={() => setDiffBase('simgear')}
             className={[
               'px-2.5 py-1 text-[10px] font-medium transition-all border-l border-border-input',
-              diffBase === 'topgear'
+              diffBase === 'simgear'
                 ? 'bg-border-input text-text-primary'
                 : 'text-text-muted hover:text-text-tertiary hover:bg-surface-tertiary',
             ].join(' ')}
           >
-            Top Gear
+            Sim Gear
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import type { SimcProfile, DroptimizerSourceType, DroptimizerSourceConfig } from '../lib/types';
+import type { SimcProfile, DropFinderSourceType, DropFinderSourceConfig } from '../lib/types';
 import {
   RAID_INSTANCES,
   MYTHIC_PLUS_DUNGEONS,
@@ -16,14 +16,14 @@ import {
   CLASS_TO_TIER_SET_ID,
   TIER_SLOT_ORDER,
 } from '../lib/presets/season-config';
-import DroptimizerItemList, { type DroptimizerItemListState } from './DroptimizerItemList';
-import type { DroptimizerItem } from '../lib/droptimizer-items';
-import type { DroptimizerProfileSetOptions } from '../lib/droptimizer-profileset';
+import DropFinderItemList, { type DropFinderItemListState } from './DropFinderItemList';
+import type { DropFinderItem } from '../lib/dropfinder-items';
+import type { DropFinderProfileSetOptions } from '../lib/dropfinder-profileset';
 
-interface DroptimizerPanelProps {
+interface DropFinderPanelProps {
   profile: SimcProfile;
-  /** Called when "Run Droptimizer" is clicked with the items and options. */
-  onRunDroptimizer?: (items: DroptimizerItem[], options: DroptimizerProfileSetOptions) => void;
+  /** Called when "Run Drop Finder" is clicked with the items and options. */
+  onRunDropFinder?: (items: DropFinderItem[], options: DropFinderProfileSetOptions) => void;
   /** Whether a simulation is currently running. */
   isRunning?: boolean;
 }
@@ -36,7 +36,7 @@ const KEYSTONE_OPTIONS = KEYSTONE_ILVL_TABLE.filter((e) => !e.isVault);
 // ── Source type card definitions ────────────────────────────────────────────
 
 interface SourceCardDef {
-  type: DroptimizerSourceType;
+  type: DropFinderSourceType;
   label: string;
   description: string;
   icon: React.ReactNode;
@@ -84,8 +84,8 @@ const SOURCE_CARDS: SourceCardDef[] = [
 
 // ── Main component ─────────────────────────────────────────────────────────
 
-export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning }: DroptimizerPanelProps) {
-  const [sourceConfig, setSourceConfig] = useState<DroptimizerSourceConfig>({
+export default function DropFinderPanel({ profile, onRunDropFinder, isRunning }: DropFinderPanelProps) {
+  const [sourceConfig, setSourceConfig] = useState<DropFinderSourceConfig>({
     type: 'raid',
     difficulty: 'heroic',
     raidIds: null,
@@ -94,21 +94,21 @@ export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning 
   const className = profile.className ?? profile.spec?.split(' ')[0]?.toLowerCase() ?? '';
 
   // Track current item list state from the child component
-  const itemListStateRef = useRef<DroptimizerItemListState | null>(null);
+  const itemListStateRef = useRef<DropFinderItemListState | null>(null);
 
-  const handleItemListStateChange = useCallback((state: DroptimizerItemListState) => {
+  const handleItemListStateChange = useCallback((state: DropFinderItemListState) => {
     itemListStateRef.current = state;
   }, []);
 
   const handleRun = useCallback(() => {
     const state = itemListStateRef.current;
     if (!state || state.items.length === 0) return;
-    onRunDroptimizer?.(state.items, state.options);
-  }, [onRunDroptimizer]);
+    onRunDropFinder?.(state.items, state.options);
+  }, [onRunDropFinder]);
 
   // ── Source card click handler ──────────────────────────────────────────────
 
-  function handleSourceSelect(type: DroptimizerSourceType) {
+  function handleSourceSelect(type: DropFinderSourceType) {
     switch (type) {
       case 'raid':
         setSourceConfig({ type: 'raid', difficulty: 'heroic', raidIds: null });
@@ -195,7 +195,7 @@ export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning 
       </div>
 
       {/* Item list with configuration options */}
-      <DroptimizerItemList
+      <DropFinderItemList
         profile={profile}
         sourceConfig={sourceConfig}
         className={className}
@@ -203,7 +203,7 @@ export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning 
       />
 
       {/* Run button */}
-      {onRunDroptimizer && (
+      {onRunDropFinder && (
         <div className="mt-4">
           <button
             onClick={handleRun}
@@ -215,7 +215,7 @@ export default function DroptimizerPanel({ profile, onRunDroptimizer, isRunning 
                 : 'bg-amber-500/15 border border-amber-500/30 text-amber-500 hover:bg-amber-500/20 active:bg-amber-500/25',
             ].join(' ')}
           >
-            {isRunning ? 'Running...' : 'Run Droptimizer'}
+            {isRunning ? 'Running...' : 'Run Drop Finder'}
           </button>
         </div>
       )}
@@ -229,8 +229,8 @@ function RaidSourceConfig({
   config,
   onChange,
 }: {
-  config: Extract<DroptimizerSourceConfig, { type: 'raid' }>;
-  onChange: (config: DroptimizerSourceConfig) => void;
+  config: Extract<DropFinderSourceConfig, { type: 'raid' }>;
+  onChange: (config: DropFinderSourceConfig) => void;
 }) {
   return (
     <div className="space-y-4">
@@ -332,8 +332,8 @@ function MythicPlusSourceConfig({
   config,
   onChange,
 }: {
-  config: Extract<DroptimizerSourceConfig, { type: 'mythicplus' }>;
-  onChange: (config: DroptimizerSourceConfig) => void;
+  config: Extract<DropFinderSourceConfig, { type: 'mythicplus' }>;
+  onChange: (config: DropFinderSourceConfig) => void;
 }) {
   return (
     <div className="space-y-4">

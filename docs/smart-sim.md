@@ -118,7 +118,7 @@ We could implement the same approach:
 
 ### Potential DPS savings example
 
-For a 1,000-combination Top Gear sim:
+For a 1,000-combination Sim Gear sim:
 - **Brute-force:** 1,000 × ~10,000 iterations = ~10M iterations
 - **Smart Sim:**
   - Stage 1: 1,000 × ~150 iterations = ~150K iterations → keep ~50

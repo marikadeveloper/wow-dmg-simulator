@@ -1,11 +1,11 @@
 /**
- * droptimizer-items.ts — Resolves droppable items from a Droptimizer source config.
+ * dropfinder-items.ts — Resolves droppable items from a DropFinder source config.
  *
  * Given a source configuration (raid/M+/world boss/catalyst) and a character class,
  * returns a flat list of items with computed ilvls, source labels, and slot info.
  */
 
-import type { DroptimizerSourceConfig, SimcProfile } from './types';
+import type { DropFinderSourceConfig, SimcProfile } from './types';
 import {
   RAID_INSTANCES,
   MYTHIC_PLUS_DUNGEONS,
@@ -27,8 +27,8 @@ import {
   RANGED_WEAPON_SPECS,
 } from './presets/season-config';
 
-/** A resolved droptimizer item ready for display. */
-export interface DroptimizerItem {
+/** A resolved dropfinder item ready for display. */
+export interface DropFinderItem {
   /** Unique key for React lists (itemId + source context). */
   key: string;
   /** WoW item ID. */
@@ -105,13 +105,13 @@ const WEAPON_SLOTS = new Set(['main_hand', 'off_hand']);
  *
  * @param spec - Character spec (e.g. 'marksmanship'). Used to filter incompatible weapons.
  */
-export function resolveDroptimizerItems(
-  config: DroptimizerSourceConfig,
+export function resolveDropFinderItems(
+  config: DropFinderSourceConfig,
   className: string,
   filterByClass = true,
   spec?: string,
-): DroptimizerItem[] {
-  let items: DroptimizerItem[];
+): DropFinderItem[] {
+  let items: DropFinderItem[];
   switch (config.type) {
     case 'raid':
       items = resolveRaidItems(config.difficulty, config.raidIds, className, filterByClass);
@@ -158,12 +158,12 @@ function resolveRaidItems(
   raidIds: string[] | null,
   className: string,
   filterByClass: boolean,
-): DroptimizerItem[] {
+): DropFinderItem[] {
   const raids = raidIds
     ? RAID_INSTANCES.filter((r) => raidIds.includes(r.id))
     : RAID_INSTANCES;
 
-  const items: DroptimizerItem[] = [];
+  const items: DropFinderItem[] = [];
   let bossIdx = 0;
   for (const raid of raids) {
     for (const enc of raid.encounters) {
@@ -203,14 +203,14 @@ function resolveMplusItems(
   dungeonIds: string[] | null,
   className: string,
   filterByClass: boolean,
-): DroptimizerItem[] {
+): DropFinderItem[] {
   const ilvl = getKeystoneIlvl(keystoneLevel);
   const bonusIds = getMplusDropBonusIds(keystoneLevel);
   const dungeons = dungeonIds
     ? MYTHIC_PLUS_DUNGEONS.filter((d) => dungeonIds.includes(d.id))
     : MYTHIC_PLUS_DUNGEONS;
 
-  const items: DroptimizerItem[] = [];
+  const items: DropFinderItem[] = [];
   let bossIdx = 0;
   for (const dg of dungeons) {
     const classItems = filterByClass ? getItemsForClass(dg.items, className) : dg.items;
@@ -237,8 +237,8 @@ function resolveMplusItems(
   return items;
 }
 
-function resolveWorldBossItems(className: string, filterByClass: boolean): DroptimizerItem[] {
-  const items: DroptimizerItem[] = [];
+function resolveWorldBossItems(className: string, filterByClass: boolean): DropFinderItem[] {
+  const items: DropFinderItem[] = [];
   let bossIdx = 0;
   for (const wb of WORLD_BOSSES) {
     const classItems = filterByClass ? getItemsForClass(wb.items, className) : wb.items;
@@ -265,13 +265,13 @@ function resolveWorldBossItems(className: string, filterByClass: boolean): Dropt
   return items;
 }
 
-function resolveCatalystItems(className: string): DroptimizerItem[] {
+function resolveCatalystItems(className: string): DropFinderItem[] {
   const setId = CLASS_TO_TIER_SET_ID[className];
   if (!setId) return [];
   const tierSet = TIER_SETS.find((s) => s.id === setId);
   if (!tierSet) return [];
 
-  const items: DroptimizerItem[] = [];
+  const items: DropFinderItem[] = [];
   for (let i = 0; i < TIER_SLOT_ORDER.length; i++) {
     const slot = TIER_SLOT_ORDER[i];
     const tierItemId = tierSet.itemIds[i];
@@ -301,17 +301,17 @@ export type GroupByMode = 'slot' | 'source';
 export interface ItemGroup {
   id: string;
   label: string;
-  items: DroptimizerItem[];
+  items: DropFinderItem[];
 }
 
 /**
  * Group items by slot or source.
  */
-export function groupDroptimizerItems(
-  items: DroptimizerItem[],
+export function groupDropFinderItems(
+  items: DropFinderItem[],
   mode: GroupByMode,
 ): ItemGroup[] {
-  const groupMap = new Map<string, { label: string; items: DroptimizerItem[] }>();
+  const groupMap = new Map<string, { label: string; items: DropFinderItem[] }>();
 
   for (const item of items) {
     const groupId = mode === 'slot' ? item.slot : item.sourceGroupId;

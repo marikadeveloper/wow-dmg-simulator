@@ -118,7 +118,7 @@ if (ENCHANT_PRESETS.length === 0) {
 
 // Raid instances
 if (RAID_INSTANCES.length === 0) {
-  warn('RAID_INSTANCES is empty — Droptimizer raid source will have no data');
+  warn('RAID_INSTANCES is empty — Drop Finder raid source will have no data');
 } else {
   const allRaidItems = new Set<number>();
   for (const raid of RAID_INSTANCES) {
@@ -163,7 +163,7 @@ if (missingArmorType === 0) {
 
 // M+ dungeons
 if (MYTHIC_PLUS_DUNGEONS.length === 0) {
-  warn('MYTHIC_PLUS_DUNGEONS is empty — Droptimizer M+ source will have no data');
+  warn('MYTHIC_PLUS_DUNGEONS is empty — Drop Finder M+ source will have no data');
 } else {
   let totalDungeonItems = 0;
   for (const dg of MYTHIC_PLUS_DUNGEONS) {
@@ -177,7 +177,7 @@ if (MYTHIC_PLUS_DUNGEONS.length === 0) {
 
 // World bosses
 if (WORLD_BOSSES.length === 0) {
-  warn('WORLD_BOSSES is empty — Droptimizer world boss source will have no data');
+  warn('WORLD_BOSSES is empty — Drop Finder world boss source will have no data');
 } else {
   for (const wb of WORLD_BOSSES) {
     if (wb.items.length === 0) {

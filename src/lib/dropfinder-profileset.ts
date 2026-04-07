@@ -1,7 +1,7 @@
 /**
- * droptimizer-profileset.ts — Generates ProfileSet combinations for Droptimizer.
+ * dropfinder-profileset.ts — Generates ProfileSet combinations for DropFinder.
  *
- * Unlike Top Gear (combinatorial), Droptimizer does **single-swap** comparisons:
+ * Unlike Sim Gear (combinatorial), DropFinder does **single-swap** comparisons:
  * each loot item is tried in place of the currently equipped item, one at a time.
  *
  * Key behaviors:
@@ -14,12 +14,12 @@
  */
 
 import type { SimcProfile, CombinationSpec } from './types';
-import type { DroptimizerItem } from './droptimizer-items';
+import type { DropFinderItem } from './dropfinder-items';
 import { DUAL_WIELD_SPECS, SOCKET_BONUS_ID } from './presets/season-config';
-import { SOCKETABLE_DROPTIMIZER_SLOTS } from './presets/loot-tables';
+import { SOCKETABLE_DROPFINDER_SLOTS } from './presets/loot-tables';
 
 /** Options controlling profileset generation. */
-export interface DroptimizerProfileSetOptions {
+export interface DropFinderProfileSetOptions {
   /** Gem ID to socket into items. null = no gem. */
   preferredGemId: number | null;
   /** If true, add a vault socket (SOCKET_BONUS_ID) to all items. */
@@ -30,10 +30,10 @@ export interface DroptimizerProfileSetOptions {
   upgradeAllEquipped: boolean;
 }
 
-/** Metadata for a droptimizer profileset — links back to the source item. */
-export interface DroptimizerComboMeta {
-  /** The source DroptimizerItem. */
-  item: DroptimizerItem;
+/** Metadata for a dropfinder profileset — links back to the source item. */
+export interface DropFinderComboMeta {
+  /** The source DropFinderItem. */
+  item: DropFinderItem;
   /** The target slot this item was placed in (e.g. 'finger1' or 'finger2'). */
   targetSlot: string;
   /** True if this is a slot-variation (e.g. ring in finger2 instead of finger1). */
@@ -41,22 +41,22 @@ export interface DroptimizerComboMeta {
 }
 
 /**
- * Generate Droptimizer profileset combinations from a list of resolved items.
+ * Generate DropFinder profileset combinations from a list of resolved items.
  *
  * Returns:
  * - combinations: CombinationSpec[] ready for buildProfileSetFile / Smart Sim
- * - manifest: Map linking combo names to DroptimizerComboMeta
+ * - manifest: Map linking combo names to DropFinderComboMeta
  */
-export function generateDroptimizerCombinations(
+export function generateDropFinderCombinations(
   profile: SimcProfile,
-  items: DroptimizerItem[],
-  options: DroptimizerProfileSetOptions,
+  items: DropFinderItem[],
+  options: DropFinderProfileSetOptions,
 ): {
   combinations: CombinationSpec[];
-  meta: Map<string, DroptimizerComboMeta>;
+  meta: Map<string, DropFinderComboMeta>;
 } {
   const combinations: CombinationSpec[] = [];
-  const meta = new Map<string, DroptimizerComboMeta>();
+  const meta = new Map<string, DropFinderComboMeta>();
 
   const className = profile.className?.toLowerCase() ?? '';
   const spec = profile.spec?.toLowerCase() ?? '';
@@ -148,7 +148,7 @@ function getTargetSlots(lootSlot: string, isDualWield: boolean): string[] {
  */
 function shouldSkipUniqueEquipped(
   profile: SimcProfile,
-  item: DroptimizerItem,
+  item: DropFinderItem,
   targetSlot: string,
 ): boolean {
   // Only applies to paired slots (rings, trinkets)
@@ -172,7 +172,7 @@ function shouldSkipUniqueEquipped(
 /**
  * Build the SimC gear line for a drop item being placed in a target slot.
  *
- * Matches the Raidbots Droptimizer format:
+ * Matches the Raidbots DropFinder format:
  * - Uses bonus_id= (raid drop IDs + rank) instead of ilevel= for raids
  * - Falls back to ilevel= for M+/world boss items without bonus_ids
  * - Adds socket bonus_id (13668) for socketable slots (neck, ring)
@@ -181,9 +181,9 @@ function shouldSkipUniqueEquipped(
  */
 function buildDropItemLine(
   profile: SimcProfile,
-  item: DroptimizerItem,
+  item: DropFinderItem,
   targetSlot: string,
-  options: DroptimizerProfileSetOptions,
+  options: DropFinderProfileSetOptions,
 ): string {
   const parts: string[] = [`${targetSlot}=,id=${item.itemId}`];
 
@@ -198,7 +198,7 @@ function buildDropItemLine(
 
   // Add socket bonus for socketable slots (neck, ring) — Raidbots uses 13668
   const genericSlot = targetSlot.replace(/\d+$/, ''); // finger1 → finger
-  const needsSocket = SOCKETABLE_DROPTIMIZER_SLOTS.has(genericSlot) || SOCKETABLE_DROPTIMIZER_SLOTS.has(item.slot);
+  const needsSocket = SOCKETABLE_DROPFINDER_SLOTS.has(genericSlot) || SOCKETABLE_DROPFINDER_SLOTS.has(item.slot);
   if (needsSocket) {
     bonusIds.push(13668);
   }

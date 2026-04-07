@@ -91,7 +91,7 @@ Last updated: 2026-04-07
 
 | #   | Story                                                             | Status |
 | --- | ----------------------------------------------------------------- | ------ |
-| 6.1 | "Run Top Gear" button starts the simulation run                   | ✅     |
+| 6.1 | "Run Sim Gear" button starts the simulation run                   | ✅     |
 | 6.2 | Progress bar shows X / N combinations completed                   | ✅     |
 | 6.3 | Simulationcraft logs show on the page                             | ✅     |
 | 6.4 | Results appear incrementally as each sim finishes                 | ✅     |
@@ -190,7 +190,7 @@ Last updated: 2026-04-07
 
 ---
 
-## EPIC 12 — Droptimizer
+## EPIC 12 — Drop Finder
 
 ### 12A — Loot Table Database
 
@@ -209,7 +209,7 @@ Last updated: 2026-04-07
 
 | #     | Story                                                                          | Status |
 | ----- | ------------------------------------------------------------------------------ | ------ |
-| 12.7  | App navigation: Top Gear / Droptimizer tabs after character loaded             | ✅     |
+| 12.7  | App navigation: Sim Gear / Drop Finder tabs after character loaded             | ✅     |
 | 12.8  | Source selector UI: clickable cards for each source type                       | ✅     |
 | 12.9  | Raid source: difficulty selector (RF/Normal/Heroic/Mythic + gear track label)  | ✅     |
 | 12.10 | M+ source: dungeon selector (All/individual) + keystone level selector         | ✅     |
@@ -235,7 +235,7 @@ Last updated: 2026-04-07
 
 **Sub-epic status: ✅ 10/10 stories done**
 
-### 12D — Droptimizer Simulation
+### 12D — Drop Finder Simulation
 
 | #     | Story                                                                     | Status |
 | ----- | ------------------------------------------------------------------------- | ------ |
@@ -263,7 +263,7 @@ Last updated: 2026-04-07
 | 12.37 | Ring/trinket slot variations with "N variations hidden" toggle            | ✅     |
 | 12.38 | Relative DPS toggle (% vs absolute)                                       | ✅     |
 | 12.39 | DPS distribution chart per item                                           | ✅     |
-| 12.40 | Results header: "Droptimizer • Source • Difficulty - Name - DPS"          | ✅     |
+| 12.40 | Results header: "Drop Finder • Source • Difficulty - Name - DPS"          | ✅     |
 
 **Sub-epic status: ✅ 11/11 stories done**
 

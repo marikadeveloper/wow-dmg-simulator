@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import type { SimResult } from '../lib/types';
-import type { DroptimizerComboMeta } from '../lib/droptimizer-profileset';
-import { SLOT_LABELS, bossPortraitUrl } from '../lib/droptimizer-items';
+import type { DropFinderComboMeta } from '../lib/dropfinder-profileset';
+import { SLOT_LABELS, bossPortraitUrl } from '../lib/dropfinder-items';
 import { getItemData, type CachedItem } from '../lib/item-cache';
 import { buildWowheadItemUrl, useWowheadTooltips } from '../lib/wowhead-tooltips';
 
@@ -38,9 +38,9 @@ const QUALITY_TEXT: Record<number, string> = {
 type SortMode = 'priority' | 'boss_order' | 'ev' | 'best';
 type DpsDisplay = 'absolute' | 'percent';
 
-interface DroptimizerResultsProps {
+interface DropFinderResultsProps {
   results: SimResult[];
-  meta: Map<string, DroptimizerComboMeta>;
+  meta: Map<string, DropFinderComboMeta>;
   elapsedMs: number;
   sourceLabel?: string;
   characterName?: string;
@@ -48,7 +48,7 @@ interface DroptimizerResultsProps {
 
 interface EnrichedResult {
   result: SimResult;
-  meta: DroptimizerComboMeta | null;
+  meta: DropFinderComboMeta | null;
   delta: number;
   deltaPct: number;
   isBaseline: boolean;
@@ -126,13 +126,13 @@ function useItemIcons(itemIds: number[]): Map<number, CachedItem | null> {
 
 // ── Main Component ─────────────────────────────────────────────────────────
 
-export default function DroptimizerResults({
+export default function DropFinderResults({
   results,
   meta,
   elapsedMs,
   sourceLabel,
   characterName,
-}: DroptimizerResultsProps) {
+}: DropFinderResultsProps) {
   const [sortMode, setSortMode] = useState<SortMode>('priority');
   const [dpsDisplay, setDpsDisplay] = useState<DpsDisplay>('absolute');
   const [showAllVariations, setShowAllVariations] = useState(false);
@@ -228,7 +228,7 @@ export default function DroptimizerResults({
     }
   }, [sourceGroups, sortMode]);
 
-  // Flat ranked items for Droptimizer DPS section
+  // Flat ranked items for Drop Finder DPS section
   const rankedItems = useMemo(() => {
     const nonBaseline = enriched.filter((e) => !e.isBaseline);
     const sorted = [...nonBaseline].sort((a, b) => b.delta - a.delta);
@@ -335,13 +335,13 @@ export default function DroptimizerResults({
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          DROPTIMIZER (DPS)
+          DROP FINDER (DPS)
           ═══════════════════════════════════════════════════════════════════ */}
       <section>
         {/* Section header */}
         <div className="flex items-center gap-3 mb-3 flex-wrap">
           <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-text-heading">
-            Droptimizer
+            Drop Finder
             <span className="text-text-faint font-normal"> (</span>
             <span className="text-accent-amber">DPS</span>
             <span className="text-text-faint font-normal">)</span>
@@ -431,7 +431,7 @@ export default function DroptimizerResults({
                   </div>
                 )}
 
-                <DroptimizerItemRow
+                <DropFinderItemRow
                   er={er}
                   baseline={baseline}
                   dpsDisplay={dpsDisplay}
@@ -600,9 +600,9 @@ function BossSummaryRow({
   );
 }
 
-// ── Droptimizer Item Row ───────────────────────────────────────────────────
+// ── Drop Finder Item Row ───────────────────────────────────────────────────
 
-function DroptimizerItemRow({
+function DropFinderItemRow({
   er,
   baseline,
   dpsDisplay,

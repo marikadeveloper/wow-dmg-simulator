@@ -170,9 +170,9 @@ jobs:
           # APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: 'WoW Top Gear ${{ github.ref_name }}'
+          releaseName: 'WoW Gear Sim ${{ github.ref_name }}'
           releaseBody: |
-            ## WoW Top Gear ${{ github.ref_name }}
+            ## WoW Gear Sim ${{ github.ref_name }}
 
             **SimC version:** ${{ steps.simc.outputs.version }}
 

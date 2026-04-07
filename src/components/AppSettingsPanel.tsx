@@ -342,7 +342,7 @@ export default function AppSettingsPanel({ onConfigChange, onCheckForUpdates }: 
                     App Updates
                   </label>
                   <p className="text-[11px] text-text-faint leading-snug mt-0.5">
-                    Check if a newer version of WoW Top Gear is available.
+                    Check if a newer version of WoW Gear Sim is available.
                   </p>
                 </div>
 

@@ -39,7 +39,7 @@ In `src-tauri/tauri.conf.json`:
 
 1. **Generate signing keypair**:
    ```bash
-   pnpm tauri signer generate -- -w ~/.tauri/wow-topgear.key
+   pnpm tauri signer generate -- -w ~/.tauri/wow-gear-sim.key
    ```
 2. **Put the public key** in `tauri.conf.json` → `plugins.updater.pubkey`
 3. **Add GitHub Secrets**:

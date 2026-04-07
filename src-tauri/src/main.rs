@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    wow_topgear_lib::run()
+    wow_gear_sim_lib::run()
 }

@@ -1,20 +1,20 @@
 /**
- * droptimizer-runner.ts — Orchestrates a Droptimizer simulation run.
+ * dropfinder-runner.ts — Orchestrates a DropFinder simulation run.
  *
  * Takes resolved items + profile + settings, generates profileset combinations,
  * and runs them through the Smart Sim multi-stage pipeline (or single stage for
  * small item counts).
  *
- * Reuses the same Smart Sim infrastructure as Top Gear (Epic 11).
+ * Reuses the same Smart Sim infrastructure as Sim Gear (Epic 11).
  */
 
 import type { SimcProfile, SimSettings, SimResult, CombinationSpec } from './types';
-import type { DroptimizerItem } from './droptimizer-items';
+import type { DropFinderItem } from './dropfinder-items';
 import {
-  generateDroptimizerCombinations,
-  type DroptimizerProfileSetOptions,
-  type DroptimizerComboMeta,
-} from './droptimizer-profileset';
+  generateDropFinderCombinations,
+  type DropFinderProfileSetOptions,
+  type DropFinderComboMeta,
+} from './dropfinder-profileset';
 import { buildProfileSetFile, parseSimCResults } from './profileset-builder';
 import {
   runSmartSim,
@@ -24,28 +24,28 @@ import {
   type StageResult,
 } from './smart-sim-runner';
 
-/** Input for a Droptimizer simulation run. */
-export interface DroptimizerRunConfig {
+/** Input for a DropFinder simulation run. */
+export interface DropFinderRunConfig {
   profile: SimcProfile;
-  items: DroptimizerItem[];
+  items: DropFinderItem[];
   settings: SimSettings;
-  options: DroptimizerProfileSetOptions;
+  options: DropFinderProfileSetOptions;
   /** Smart sim stage target errors override. null = use defaults. */
   smartSimTargetErrors: [number, number, number] | null;
 }
 
-/** Result of a Droptimizer simulation run. */
-export interface DroptimizerRunResult {
+/** Result of a DropFinder simulation run. */
+export interface DropFinderRunResult {
   /** All sim results sorted by DPS descending. */
   results: SimResult[];
   /** Metadata linking combo names to source items. */
-  meta: Map<string, DroptimizerComboMeta>;
+  meta: Map<string, DropFinderComboMeta>;
   /** Number of Smart Sim stages used (1 = single stage). */
   stageCount: number;
 }
 
 /** Callbacks for progress/UI updates during the run. */
-export interface DroptimizerRunCallbacks {
+export interface DropFinderRunCallbacks {
   onStageStart: (stage: number, totalStages: number, comboCount: number, label: string) => void;
   onStageComplete: (result: StageResult) => void;
   /** Calls the Tauri IPC to run SimC. */
@@ -53,20 +53,20 @@ export interface DroptimizerRunCallbacks {
 }
 
 /**
- * Run a Droptimizer simulation.
+ * Run a DropFinder simulation.
  *
  * Generates single-swap profileset combinations from the item list,
  * then runs them through Smart Sim (multi-stage) or single stage
  * depending on the combination count.
  */
-export async function runDroptimizerSim(
-  config: DroptimizerRunConfig,
-  callbacks: DroptimizerRunCallbacks,
-): Promise<DroptimizerRunResult> {
+export async function runDropFinderSim(
+  config: DropFinderRunConfig,
+  callbacks: DropFinderRunCallbacks,
+): Promise<DropFinderRunResult> {
   const { profile, items, settings, options, smartSimTargetErrors } = config;
 
   // 1. Generate profileset combinations
-  const { combinations, meta } = generateDroptimizerCombinations(
+  const { combinations, meta } = generateDropFinderCombinations(
     profile,
     items,
     options,

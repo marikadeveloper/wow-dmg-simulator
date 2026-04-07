@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { generateDroptimizerCombinations, type DroptimizerProfileSetOptions } from './droptimizer-profileset';
+import { generateDropFinderCombinations, type DropFinderProfileSetOptions } from './dropfinder-profileset';
 import type { SimcProfile } from './types';
-import type { DroptimizerItem } from './droptimizer-items';
+import type { DropFinderItem } from './dropfinder-items';
 
-const DEFAULT_OPTIONS: DroptimizerProfileSetOptions = {
+const DEFAULT_OPTIONS: DropFinderProfileSetOptions = {
   preferredGemId: null,
   addVaultSocket: false,
   upgradeTrack: null,
@@ -35,7 +35,7 @@ function makeProfile(overrides?: Partial<SimcProfile>): SimcProfile {
   };
 }
 
-function makeItem(overrides?: Partial<DroptimizerItem>): DroptimizerItem {
+function makeItem(overrides?: Partial<DropFinderItem>): DropFinderItem {
   return {
     key: 'test_item',
     itemId: 999,
@@ -54,11 +54,11 @@ function makeItem(overrides?: Partial<DroptimizerItem>): DroptimizerItem {
   };
 }
 
-describe('generateDroptimizerCombinations', () => {
+describe('generateDropFinderCombinations', () => {
   it('generates baseline + one combo per item', () => {
     const profile = makeProfile();
     const items = [makeItem({ key: 'a', itemId: 501 }), makeItem({ key: 'b', itemId: 502 })];
-    const { combinations, meta } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations, meta } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations).toHaveLength(3); // baseline + 2 items
     expect(combinations[0].name).toBe('combo_0000');
@@ -71,7 +71,7 @@ describe('generateDroptimizerCombinations', () => {
   it('uses bonus_id for raid items instead of ilevel', () => {
     const profile = makeProfile();
     const items = [makeItem({ itemId: 501, ilvl: 272, bonusIds: [4799, 4786, 12796] })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('bonus_id=4799/4786/12796');
@@ -81,7 +81,7 @@ describe('generateDroptimizerCombinations', () => {
   it('falls back to ilevel for items without bonus_ids', () => {
     const profile = makeProfile();
     const items = [makeItem({ itemId: 501, ilvl: 266, bonusIds: [] })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('ilevel=266');
@@ -92,7 +92,7 @@ describe('generateDroptimizerCombinations', () => {
   it('inherits enchant from equipped item in the same slot', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'head', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('enchant_id=7001');
@@ -101,7 +101,7 @@ describe('generateDroptimizerCombinations', () => {
   it('does not add enchant if equipped item has none', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'trinket', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // trinket1 has no enchant
     const line = combinations[1].overrideLines[0];
@@ -114,7 +114,7 @@ describe('generateDroptimizerCombinations', () => {
     const profile = makeProfile();
     // neck has gem 240888
     const items = [makeItem({ slot: 'neck', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('gem_id=240888');
@@ -123,9 +123,9 @@ describe('generateDroptimizerCombinations', () => {
   it('does not add gems to non-socketable slots', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'head', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
-    // head is not a socketable droptimizer slot — no gems
+    // head is not a socketable dropfinder slot — no gems
     const line = combinations[1].overrideLines[0];
     expect(line).not.toContain('gem_id');
   });
@@ -133,7 +133,7 @@ describe('generateDroptimizerCombinations', () => {
   it('adds socket bonus_id and inherits gems for ring drops', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'finger', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // finger1 version should get finger1's gem, finger2 version should get finger2's gem (if any)
     const line1 = combinations[1].overrideLines[0]; // finger1
@@ -144,7 +144,7 @@ describe('generateDroptimizerCombinations', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'neck', itemId: 501 })];
     const opts = { ...DEFAULT_OPTIONS, preferredGemId: 240904 };
-    const { combinations } = generateDroptimizerCombinations(profile, items, opts);
+    const { combinations } = generateDropFinderCombinations(profile, items, opts);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('gem_id=240904');
@@ -156,7 +156,7 @@ describe('generateDroptimizerCombinations', () => {
   it('tries rings in both finger slots', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'finger', itemId: 501 })];
-    const { combinations, meta } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations, meta } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // baseline + finger1 + finger2
     expect(combinations).toHaveLength(3);
@@ -172,7 +172,7 @@ describe('generateDroptimizerCombinations', () => {
   it('tries trinkets in both trinket slots', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'trinket', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations).toHaveLength(3); // baseline + trinket1 + trinket2
     expect(combinations[1].overrideLines[0]).toMatch(/^trinket1=/);
@@ -182,7 +182,7 @@ describe('generateDroptimizerCombinations', () => {
   it('inherits enchant from the correct finger slot', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'finger', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // finger1 has enchant 7002, finger2 has enchant 7003
     expect(combinations[1].overrideLines[0]).toContain('enchant_id=7002');
@@ -195,7 +195,7 @@ describe('generateDroptimizerCombinations', () => {
     const profile = makeProfile();
     // Item 200 is already equipped in finger1 — skip finger2 with same ID
     const items = [makeItem({ slot: 'finger', itemId: 200 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // Should only generate finger1 (replacing self), skip finger2 (duplicate)
     expect(combinations).toHaveLength(2); // baseline + finger1 only
@@ -205,7 +205,7 @@ describe('generateDroptimizerCombinations', () => {
   it('skips duplicate trinket in the other slot', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'trinket', itemId: 300 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // trinket1 has ID 300 — skip trinket2 with same ID
     expect(combinations).toHaveLength(2); // baseline + trinket1 only
@@ -217,7 +217,7 @@ describe('generateDroptimizerCombinations', () => {
     // Enhancement shaman is a dual wield spec
     const profile = makeProfile({ spec: 'enhancement', className: 'shaman' });
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
-    const { combinations, meta } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations, meta } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations).toHaveLength(3); // baseline + main_hand + off_hand
     expect(meta.get('combo_0001')!.targetSlot).toBe('main_hand');
@@ -228,7 +228,7 @@ describe('generateDroptimizerCombinations', () => {
     // Fire mage is NOT a dual wield spec
     const profile = makeProfile({ spec: 'fire', className: 'mage' });
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations).toHaveLength(2); // baseline + main_hand only
   });
@@ -248,7 +248,7 @@ describe('generateDroptimizerCombinations', () => {
       makeItem({ slot: 'off_hand', itemId: 501 }),
       makeItem({ key: 'head_item', slot: 'head', itemId: 502 }),
     ];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // Should skip off_hand (can't equip with two-hand), only generate head
     expect(combinations).toHaveLength(2); // baseline + head only
@@ -267,7 +267,7 @@ describe('generateDroptimizerCombinations', () => {
     delete profile.gear.off_hand;
 
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations[1].overrideLines).toHaveLength(2);
     expect(combinations[1].overrideLines[1]).toBe('off_hand=,');
@@ -286,7 +286,7 @@ describe('generateDroptimizerCombinations', () => {
     });
 
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // Should NOT add off_hand=, — keep the existing off-hand
     expect(combinations[1].overrideLines).toHaveLength(1);
@@ -305,7 +305,7 @@ describe('generateDroptimizerCombinations', () => {
     });
 
     const items = [makeItem({ slot: 'off_hand', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     expect(combinations).toHaveLength(2); // baseline + off_hand
     expect(combinations[1].overrideLines[0]).toMatch(/^off_hand=/);
@@ -323,7 +323,7 @@ describe('generateDroptimizerCombinations', () => {
     });
 
     const items = [makeItem({ slot: 'main_hand', itemId: 501 })];
-    const { combinations } = generateDroptimizerCombinations(profile, items, DEFAULT_OPTIONS);
+    const { combinations } = generateDropFinderCombinations(profile, items, DEFAULT_OPTIONS);
 
     // DW spec: main_hand + off_hand variations, neither should clear the other slot
     const mhCombo = combinations[1]; // main_hand slot
@@ -341,7 +341,7 @@ describe('generateDroptimizerCombinations', () => {
     const profile = makeProfile();
     const items = [makeItem({ slot: 'head', itemId: 501 })];
     const opts = { ...DEFAULT_OPTIONS, addVaultSocket: true };
-    const { combinations } = generateDroptimizerCombinations(profile, items, opts);
+    const { combinations } = generateDropFinderCombinations(profile, items, opts);
 
     const line = combinations[1].overrideLines[0];
     expect(line).toContain('bonus_id=');

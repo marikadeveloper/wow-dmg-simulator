@@ -10,7 +10,7 @@ import SimProgressBar from './components/SimProgressBar';
 import SimLogPanel from './components/SimLogPanel';
 import SimResultsSummary from './components/SimResultsSummary';
 import SimResultsPaperDoll from './components/SimResultsPaperDoll';
-import SimResultsTopGear from './components/SimResultsTopGear';
+import SimResultsSimGear from './components/SimResultsSimGear';
 import AppSettingsPanel from './components/AppSettingsPanel';
 import AppFooter from './components/AppFooter';
 import UpdateChecker from './components/UpdateChecker';
@@ -24,13 +24,13 @@ import { parseSimcProgress } from './lib/parse-simc-progress';
 import type { SimcProfile, OptimizationAxis, SimSettings, SimResult, CombinationSpec } from './lib/types';
 import { filterCombinationsByTierSets, type TierSetMinimums } from './lib/tier-set-filter';
 import { filterCombinationsByCatalystCharges } from './lib/catalyst-generator';
-import DroptimizerPanel from './components/DroptimizerPanel';
-import DroptimizerResults from './components/DroptimizerResults';
-import { runDroptimizerSim, SmartSimCancelledError as DroptimizerCancelledError } from './lib/droptimizer-runner';
-import type { DroptimizerItem } from './lib/droptimizer-items';
-import type { DroptimizerProfileSetOptions } from './lib/droptimizer-profileset';
+import DropFinderPanel from './components/DropFinderPanel';
+import DropFinderResults from './components/DropFinderResults';
+import { runDropFinderSim, SmartSimCancelledError as DropFinderCancelledError } from './lib/dropfinder-runner';
+import type { DropFinderItem } from './lib/dropfinder-items';
+import type { DropFinderProfileSetOptions } from './lib/dropfinder-profileset';
 
-export type AppTab = 'topgear' | 'droptimizer';
+export type AppTab = 'simgear' | 'dropfinder';
 
 function App() {
   const [profile, setProfile] = useState<SimcProfile | null>(null);
@@ -53,10 +53,10 @@ function App() {
   const [smartSimStageResults, setSmartSimStageResults] = useState<StageResult[]>([]);
 
   // Navigation tab
-  const [activeTab, setActiveTab] = useState<AppTab>('topgear');
+  const [activeTab, setActiveTab] = useState<AppTab>('simgear');
 
-  // Droptimizer results metadata
-  const [droptimizerMeta, setDroptimizerMeta] = useState<Map<string, import('./lib/droptimizer-profileset').DroptimizerComboMeta>>(new Map());
+  // Drop Finder results metadata
+  const [dropFinderMeta, setDropFinderMeta] = useState<Map<string, import('./lib/dropfinder-profileset').DropFinderComboMeta>>(new Map());
 
   const updateCheckerRef = useRef<UpdateCheckerHandle>(null);
 
@@ -295,11 +295,11 @@ function App() {
     }
   }, [profile, axes, simSettings, isBlocked, validationIssues, isRunning, tierSetMinimums, catalystCharges, bypassLimit]);
 
-  // ── Droptimizer run handler ───────────────────────────────────────────────
+  // ── Drop Finder run handler ───────────────────────────────────────────────
 
-  const handleRunDroptimizer = useCallback(async (
-    items: DroptimizerItem[],
-    options: DroptimizerProfileSetOptions,
+  const handleRunDropFinder = useCallback(async (
+    items: DropFinderItem[],
+    options: DropFinderProfileSetOptions,
   ) => {
     if (!profile || isRunning || items.length === 0) return;
 
@@ -313,7 +313,7 @@ function App() {
 
     try {
       const settings = toSimSettings(simSettings);
-      const result = await runDroptimizerSim(
+      const result = await runDropFinderSim(
         {
           profile,
           items,
@@ -339,10 +339,10 @@ function App() {
 
       if (runId !== runIdRef.current) return;
       setSimResults(result.results);
-      setDroptimizerMeta(result.meta);
+      setDropFinderMeta(result.meta);
     } catch (err) {
       if (runId !== runIdRef.current) return;
-      if (err instanceof DroptimizerCancelledError) {
+      if (err instanceof DropFinderCancelledError) {
         if (err.partialResults.length > 0) {
           setSimResults(err.partialResults);
         }
@@ -435,30 +435,30 @@ function App() {
           <nav className="mb-8">
             <div className="flex gap-1 border-b border-border-primary">
               <button
-                onClick={() => setActiveTab('topgear')}
+                onClick={() => setActiveTab('simgear')}
                 className={[
                   'relative px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-colors',
-                  activeTab === 'topgear'
+                  activeTab === 'simgear'
                     ? 'text-amber-500'
                     : 'text-text-muted hover:text-text-secondary',
                 ].join(' ')}
               >
-                Top Gear
-                {activeTab === 'topgear' && (
+                Sim Gear
+                {activeTab === 'simgear' && (
                   <span className="absolute inset-x-0 -bottom-px h-0.5 bg-amber-500 rounded-full" />
                 )}
               </button>
               <button
-                onClick={() => setActiveTab('droptimizer')}
+                onClick={() => setActiveTab('dropfinder')}
                 className={[
                   'relative px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-colors',
-                  activeTab === 'droptimizer'
+                  activeTab === 'dropfinder'
                     ? 'text-amber-500'
                     : 'text-text-muted hover:text-text-secondary',
                 ].join(' ')}
               >
-                Droptimizer
-                {activeTab === 'droptimizer' && (
+                Drop Finder
+                {activeTab === 'dropfinder' && (
                   <span className="absolute inset-x-0 -bottom-px h-0.5 bg-amber-500 rounded-full" />
                 )}
               </button>
@@ -466,8 +466,8 @@ function App() {
           </nav>
         )}
 
-        {/* Zone 2 — Gear & Optimization Panel (Top Gear mode) */}
-        {profile && activeTab === 'topgear' && (
+        {/* Zone 2 — Gear & Optimization Panel (Sim Gear mode) */}
+        {profile && activeTab === 'simgear' && (
           <section className="mb-8">
             <GearPanel
               profile={profile}
@@ -481,8 +481,8 @@ function App() {
           </section>
         )}
 
-        {/* Zone 3 — Simulation Settings + Run Controls (Top Gear mode) */}
-        {profile && activeTab === 'topgear' && (
+        {/* Zone 3 — Simulation Settings + Run Controls (Sim Gear mode) */}
+        {profile && activeTab === 'simgear' && (
           <section className="mb-8">
 
             <SimSettingsPanel
@@ -566,7 +566,7 @@ function App() {
               <div className="mt-3 space-y-3">
                 <SimResultsSummary results={simResults} elapsedMs={elapsedMs} smartSimStages={smartSimStageResults.length > 0 ? smartSimStageResults.length : undefined} />
                 <SimResultsPaperDoll profile={augmentedProfile ?? profile} results={simResults} axes={axes} />
-                <SimResultsTopGear results={simResults} axes={axes} />
+                <SimResultsSimGear results={simResults} axes={axes} />
               </div>
             )}
 
@@ -590,16 +590,16 @@ function App() {
           </section>
         )}
 
-        {/* Droptimizer mode */}
-        {profile && activeTab === 'droptimizer' && (
+        {/* Drop Finder mode */}
+        {profile && activeTab === 'dropfinder' && (
           <section className="mb-8">
-            <DroptimizerPanel
+            <DropFinderPanel
               profile={profile}
-              onRunDroptimizer={handleRunDroptimizer}
+              onRunDropFinder={handleRunDropFinder}
               isRunning={isRunning}
             />
 
-            {/* Sim settings (shared with Top Gear) */}
+            {/* Sim settings (shared with Sim Gear) */}
             <div className="mt-6">
               <SimSettingsPanel
                 settings={simSettings}
@@ -638,12 +638,12 @@ function App() {
               </div>
             )}
 
-            {/* Droptimizer results */}
+            {/* Drop Finder results */}
             {simResults && simResults.length > 0 && (
               <div className="mt-3">
-                <DroptimizerResults
+                <DropFinderResults
                   results={simResults}
-                  meta={droptimizerMeta}
+                  meta={dropFinderMeta}
                   elapsedMs={elapsedMs}
                   characterName={profile.characterName}
                 />

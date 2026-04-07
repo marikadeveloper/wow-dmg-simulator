@@ -1,29 +1,29 @@
 import { useState, useMemo, useEffect } from 'react';
-import type { SimcProfile, DroptimizerSourceConfig } from '../lib/types';
+import type { SimcProfile, DropFinderSourceConfig } from '../lib/types';
 import {
-  resolveDroptimizerItems,
-  groupDroptimizerItems,
+  resolveDropFinderItems,
+  groupDropFinderItems,
   hasEquippedOrBetter,
   SLOT_LABELS,
-  type DroptimizerItem,
+  type DropFinderItem,
   type GroupByMode,
-} from '../lib/droptimizer-items';
-import type { DroptimizerProfileSetOptions } from '../lib/droptimizer-profileset';
+} from '../lib/dropfinder-items';
+import type { DropFinderProfileSetOptions } from '../lib/dropfinder-profileset';
 import { GEM_PRESETS, GEAR_TRACKS, getClassArmorItemId, getClassArmorItemName, CATALYST_ARMOR_SLOTS } from '../lib/presets/season-config';
 import { CLASS_ARMOR_TYPE } from '../lib/presets/loot-tables';
 
 /** Emitted whenever the resolved item list or configuration options change. */
-export interface DroptimizerItemListState {
-  items: DroptimizerItem[];
-  options: DroptimizerProfileSetOptions;
+export interface DropFinderItemListState {
+  items: DropFinderItem[];
+  options: DropFinderProfileSetOptions;
 }
 
-interface DroptimizerItemListProps {
+interface DropFinderItemListProps {
   profile: SimcProfile;
-  sourceConfig: DroptimizerSourceConfig;
+  sourceConfig: DropFinderSourceConfig;
   className: string;
   /** Called whenever the resolved items or options change. */
-  onStateChange?: (state: DroptimizerItemListState) => void;
+  onStateChange?: (state: DropFinderItemListState) => void;
 }
 
 // ── Reusable checkbox ───────────────────────────────────────────────────────
@@ -64,12 +64,12 @@ function Checkbox({
 
 // ── Main component ─────────────────────────────────────────────────────────
 
-export default function DroptimizerItemList({
+export default function DropFinderItemList({
   profile,
   sourceConfig,
   className,
   onStateChange,
-}: DroptimizerItemListProps) {
+}: DropFinderItemListProps) {
   const [groupBy, setGroupBy] = useState<GroupByMode>('slot');
   const [includeCatalyst, setIncludeCatalyst] = useState(true);
   const [includeOffSpec, setIncludeOffSpec] = useState(false);
@@ -82,7 +82,7 @@ export default function DroptimizerItemList({
 
   // Resolve base items from source config (class-filtered)
   const baseItems = useMemo(
-    () => resolveDroptimizerItems(sourceConfig, className, true, spec),
+    () => resolveDropFinderItems(sourceConfig, className, true, spec),
     [sourceConfig, className, spec],
   );
 
@@ -96,7 +96,7 @@ export default function DroptimizerItemList({
     const catalyzableSet = new Set(CATALYST_ARMOR_SLOTS);
     const playerArmorType = CLASS_ARMOR_TYPE[className];
     const seen = new Set<string>(); // avoid duplicates from same slot
-    const results: DroptimizerItem[] = [];
+    const results: DropFinderItem[] = [];
 
     for (const baseItem of baseItems) {
       // Only armor pieces in catalyzable slots can be catalyzed
@@ -143,7 +143,7 @@ export default function DroptimizerItemList({
   // Off-spec items: resolve without class filtering, then pick only new ones
   const offSpecItems = useMemo(() => {
     if (!includeOffSpec || sourceConfig.type === 'catalyst') return [];
-    const allUnfiltered = resolveDroptimizerItems(sourceConfig, className, false, spec);
+    const allUnfiltered = resolveDropFinderItems(sourceConfig, className, false, spec);
     const existingKeys = new Set(baseItems.map((i) => i.key));
     return allUnfiltered.filter((i) => !existingKeys.has(i.key));
   }, [includeOffSpec, sourceConfig, className, baseItems]);
@@ -169,7 +169,7 @@ export default function DroptimizerItemList({
 
   // Group items
   const groups = useMemo(
-    () => groupDroptimizerItems(allItems, groupBy),
+    () => groupDropFinderItems(allItems, groupBy),
     [allItems, groupBy],
   );
 
@@ -321,7 +321,7 @@ function ItemRow({
   profile,
   groupBy,
 }: {
-  item: DroptimizerItem;
+  item: DropFinderItem;
   profile: SimcProfile;
   groupBy: GroupByMode;
 }) {
