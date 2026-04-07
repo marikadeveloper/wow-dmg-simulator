@@ -80,6 +80,13 @@ pub async fn validate_simc_binary(app: tauri::AppHandle) -> Result<BinaryStatus,
                     version: stdout.lines().next().map(|l| l.trim().to_string()),
                     error: None,
                 })
+            } else if stderr.contains("Nothing to sim!") {
+                // SimC ran but had nothing to simulate (expected with no args)
+                Ok(BinaryStatus {
+                    ok: true,
+                    version: None,
+                    error: None,
+                })
             } else {
                 Ok(BinaryStatus {
                     ok: false,

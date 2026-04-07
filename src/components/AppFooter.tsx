@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { getVersion } from '@tauri-apps/api/app';
 
 interface BinaryStatus {
   ok: boolean;
@@ -15,6 +16,11 @@ interface AppFooterProps {
 export default function AppFooter({ refreshKey }: AppFooterProps) {
   const [status, setStatus] = useState<BinaryStatus | null>(null);
   const [loading, setLoading] = useState(true);
+  const [appVersion, setAppVersion] = useState<string>('');
+
+  useEffect(() => {
+    getVersion().then(setAppVersion).catch(() => {});
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -58,7 +64,7 @@ export default function AppFooter({ refreshKey }: AppFooterProps) {
 
         {/* Right: App info */}
         <div className="text-[11px] text-text-disabled">
-          WoW Gear Sim v0.1.0
+          WoW Gear Sim {appVersion ? `v${appVersion}` : ''}
         </div>
       </div>
     </footer>
